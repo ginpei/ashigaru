@@ -13,7 +13,7 @@ export function StraightLayout({ children, className, title }: StraightLayoutPro
   return (
     <div className={`${className} StraightLayout`}>
       <Head>
-        <title>{title} | Ashigaru</title>
+        <title>{`${title} | Ashigaru`}</title>
       </Head>
       <BasicHeader />
       <Container>
