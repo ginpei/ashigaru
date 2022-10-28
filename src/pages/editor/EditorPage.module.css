@@ -1,0 +1,30 @@
+.root {
+  display: grid;
+  grid-template:
+    "navbar navbar" 30px
+    "list   editor" auto
+    / 300px auto;
+  height: 100vh;
+  width: 100vw;
+}
+  .root > * {
+    overflow: auto;
+  }
+
+.navbar {
+  grid-area: navbar;
+}
+
+.list {
+  grid-area: list;
+}
+
+.editor {
+  grid-area: editor;
+}
+
+.spacer {
+  border: thin solid tomato;
+  height: 100vh;
+  width: 100vw;
+}

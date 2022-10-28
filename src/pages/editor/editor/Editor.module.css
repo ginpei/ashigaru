@@ -1,0 +1,17 @@
+.root {
+  display: grid;
+  grid-template-rows: 40px auto;
+  height: 100%;
+}
+
+.title {
+  border-style: none;
+  box-sizing: border-box;
+  font-size: 32px;
+  width: 100%;
+}
+
+.body {
+  border-style: none;
+  resize: none;
+}
