@@ -9,7 +9,7 @@ export interface EditorPageProps {
 
 const rootStyle: CSSProperties = {
   gridTemplate: `
-    "navbar navbar" 30px
+    "navbar navbar" 2rem
     "list   editor" auto
     / 300px auto
   `,
