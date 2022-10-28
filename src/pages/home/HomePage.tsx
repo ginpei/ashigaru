@@ -7,7 +7,7 @@ export interface HomePageProps {
 
 export function HomePage(): JSX.Element {
   return (
-    <StraightLayout className="HomePage">
+    <StraightLayout className="HomePage" title="Home">
       <h1>HomePage</h1>
       <ul>
         <li>
