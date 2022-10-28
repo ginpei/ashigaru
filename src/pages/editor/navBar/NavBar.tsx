@@ -7,7 +7,7 @@ export interface NavBarProps {
 
 export function NavBar(): JSX.Element {
   return (
-    <div className="NavBar bg-blue-900">
+    <div className="NavBar bg-ginpei">
       <NavBarLink href={homePagePath()}>Home</NavBarLink>
     </div>
   );

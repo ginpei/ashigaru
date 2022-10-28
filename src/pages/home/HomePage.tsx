@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { NiceLink } from "../../domains/atom/NiceLink";
 import { StraightLayout } from "../../layouts/straight/StraightLayout";
 import { aboutPagePath } from "../about/aboutPageMeta";
 import { editorPagePath } from "../editor/editorPageMeta";
@@ -12,10 +12,10 @@ export function HomePage(): JSX.Element {
       <h1>HomePage</h1>
       <ul>
         <li>
-          <Link href={editorPagePath()}>Editor</Link>
+          <NiceLink href={editorPagePath()}>Editor</NiceLink>
         </li>
         <li>
-          <Link href={aboutPagePath()}>About</Link>
+          <NiceLink href={aboutPagePath()}>About</NiceLink>
         </li>
       </ul>
     </StraightLayout>

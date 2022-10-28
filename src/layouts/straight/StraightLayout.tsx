@@ -2,7 +2,6 @@ import Head from "next/head";
 import { Container } from "../../domains/layout/Container";
 import { BasicFooter } from "../shared/BasicFooter";
 import { BasicHeader } from "../shared/BasicHeader";
-import styles from "./StraightLayout.module.css";
 
 export interface StraightLayoutProps {
   children: React.ReactNode;
@@ -18,7 +17,7 @@ export function StraightLayout({ children, className, title }: StraightLayoutPro
       </Head>
       <BasicHeader />
       <Container>
-        <main className={styles.main}>
+        <main className="min-h-[50vh]">
           {children}
         </main>
       </Container>

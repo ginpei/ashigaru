@@ -1,25 +1,33 @@
 import Head from "next/head";
+import { CSSProperties } from "react";
 import { Editor } from "./editor/Editor";
-import styles from "./EditorPage.module.css";
 import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
 
 export interface EditorPageProps {
 }
 
+const rootStyle: CSSProperties = {
+  gridTemplate: `
+    "navbar navbar" 30px
+    "list   editor" auto
+    / 300px auto
+  `,
+};
+
 export function EditorPage(): JSX.Element {
   return (
-    <div className={styles.root}>
+    <div className="EditorPage grid h-[100vh] [&>*]:overflow-auto" style={rootStyle}>
       <Head>
         <title>Editor</title>
       </Head>
-      <header className={styles.navbar}>
+      <header style={{ gridArea: "navbar" }}>
         <NavBar />
       </header>
-      <div className={styles.list}>
+      <div style={{ gridArea: "list" }}>
         <ListPane />
       </div>
-      <div className={styles.editor}>
+      <div style={{ gridArea: "editor" }}>
         <Editor />
       </div>
     </div>

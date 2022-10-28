@@ -5,7 +5,11 @@ module.exports = {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        ginpei: '#003366',
+      },
+    },
   },
   plugins: [],
 }

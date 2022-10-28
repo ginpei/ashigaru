@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { NiceLink } from "../../domains/atom/NiceLink";
 import { Container } from "../../domains/layout/Container";
 import { homePagePath } from "../../pages/home/homePageMeta";
 
@@ -10,7 +10,7 @@ export function BasicHeader(): JSX.Element {
     <div className="BasicHeader">
       <Container>
         <div className="inner">
-          <Link href={homePagePath()}>Home</Link>
+          <NiceLink href={homePagePath()}>Home</NiceLink>
         </div>
       </Container>
     </div>
