@@ -2,7 +2,7 @@ import { CommandDefinition } from "../../domains/command/CommandDefinition";
 
 const modifierKeys = ["Alt", "Control", "Meta", "Shift"];
 
-export function startCommandPalette(commands: CommandDefinition[]): () => void {
+export function startCommandPallet(commands: CommandDefinition[]): () => void {
   const f = (event: KeyboardEvent) => onKeyDown(event, commands);
   document.addEventListener('keydown', f);
   return () => document.removeEventListener('keydown', f);
@@ -15,13 +15,13 @@ function onKeyDown(event: KeyboardEvent, commands: CommandDefinition[]) {
     console.log('# ', event.type, { altKey, ctrlKey, key, metaKey, shiftKey });
   }
 
-  event.preventDefault();
   if (key.toLowerCase() === "p" && ctrlKey && shiftKey) {
-    runCommandPalette(commands);
+    event.preventDefault();
+    runCommandPallet(commands);
   }
 }
 
-function runCommandPalette(commands: CommandDefinition[]) {
+function runCommandPallet(commands: CommandDefinition[]) {
   const id = window.prompt("[WIP] Command?");
   const command = commands.find((v) => v.id === id);
   if (!command) {

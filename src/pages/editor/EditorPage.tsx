@@ -4,7 +4,7 @@ import { editorCommands } from "./actions/editorCommands";
 import { Editor } from "./editor/Editor";
 import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
-import { startCommandPalette as startCommandPalette } from "./tempCommandPalette";
+import { startCommandPallet } from "./tempCommandPallet";
 
 export interface EditorPageProps {
 }
@@ -19,7 +19,7 @@ const rootStyle: CSSProperties = {
 
 export function EditorPage(): JSX.Element {
   useEffect(() => {
-    return startCommandPalette(editorCommands);
+    return startCommandPallet(editorCommands);
   }, []);
 
   return (
