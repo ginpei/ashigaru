@@ -13,10 +13,10 @@ export function NoteItem({ note, selected, onClick }: NoteItemProps): JSX.Elemen
 
   return (
     <div
-      className={`NoteItem px-4 ${selected ? "bg-cyan-800 text-white" : ""}`}
+      className={`NoteItem ${selected ? "bg-cyan-800 text-white" : ""}`}
       onClick={onRootClick}
     >
-      <div className="cursor-pointer hover:underline">{note.title}</div>
+      <div className="px-4 py-2 cursor-pointer hover:underline">{note.title}</div>
     </div>
   );
 }
