@@ -21,13 +21,27 @@ function onKeyDown(event: KeyboardEvent, commands: CommandDefinition[]) {
   }
 }
 
-function runCommandPallet(commands: CommandDefinition[]) {
-  const id = window.prompt("[WIP] Command?");
-  const command = commands.find((v) => v.id === id);
+function runCommandPallet(allCommands: CommandDefinition[]) {
+  const id = receiveCommand();
+  if (!id) {
+    return;
+  }
+
+  const command = findCommand(id, allCommands)
   if (!command) {
     console.log('# Unknown command ID', id);
     return;
   }
 
   command.action();
+}
+
+function receiveCommand() {
+  const id = window.prompt("[WIP] Command?");
+  return id;
+}
+
+function findCommand(id: string, commands: CommandDefinition[]) {
+  const command = commands.find((v) => v.id === id);
+  return command;
 }
