@@ -12,8 +12,7 @@ import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
 import { startCommandPallet } from "./tempCommandPallet";
 
-export interface EditorPageProps {
-}
+export interface EditorPageProps {}
 
 const dummyNotes: Note[] = Array.from({ length: 30 }).map((_v, i) => ({
   body: `Hello, this is a note #${i}`,
@@ -30,7 +29,9 @@ const rootStyle: CSSProperties = {
 };
 
 export function EditorPage(): JSX.Element {
-  const [state, setState] = useState(createEditorPageState({ notes: dummyNotes }));
+  const [state, setState] = useState(
+    createEditorPageState({ notes: dummyNotes })
+  );
 
   useKeyboardShortcuts(editorShortcuts, (commandId) => {
     const def = pickCommandDefinition(editorCommands, commandId);
@@ -43,7 +44,10 @@ export function EditorPage(): JSX.Element {
 
   return (
     <EditorPageStateProvider value={[state, setState]}>
-      <div className="EditorPage grid h-[100vh] [&>*]:overflow-auto" style={rootStyle}>
+      <div
+        className="EditorPage grid h-[100vh] [&>*]:overflow-auto"
+        style={rootStyle}
+      >
         <Head>
           <title>Editor</title>
         </Head>

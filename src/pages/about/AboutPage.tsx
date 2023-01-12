@@ -1,7 +1,6 @@
 import { StraightLayout } from "../../layouts/straight/StraightLayout";
 
-export interface AboutPageProps {
-}
+export interface AboutPageProps {}
 
 export function AboutPage(): JSX.Element {
   return (

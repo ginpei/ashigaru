@@ -12,4 +12,4 @@ export function NiceLink(props: ComponentProps<typeof Link>): JSX.Element {
       {...otherProps}
     />
   );
-};
+}

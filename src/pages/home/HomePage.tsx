@@ -3,8 +3,7 @@ import { StraightLayout } from "../../layouts/straight/StraightLayout";
 import { aboutPagePath } from "../about/aboutPageMeta";
 import { editorPagePath } from "../editor/editorPageMeta";
 
-export interface HomePageProps {
-}
+export interface HomePageProps {}
 
 export function HomePage(): JSX.Element {
   return (

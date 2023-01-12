@@ -1,10 +1,8 @@
-import type { NextPage } from 'next'
-import { EditorPage } from '../../../src/pages/editor/EditorPage'
+import type { NextPage } from "next";
+import { EditorPage } from "../../../src/pages/editor/EditorPage";
 
 const Page: NextPage = () => {
-  return (
-    <EditorPage />
-  )
-}
+  return <EditorPage />;
+};
 
-export default Page
+export default Page;

@@ -6,7 +6,11 @@ export interface NoteItemProps {
   onClick: (note: Note) => void;
 }
 
-export function NoteItem({ note, selected, onClick }: NoteItemProps): JSX.Element {
+export function NoteItem({
+  note,
+  selected,
+  onClick,
+}: NoteItemProps): JSX.Element {
   const onRootClick = () => {
     onClick(note);
   };
@@ -16,7 +20,9 @@ export function NoteItem({ note, selected, onClick }: NoteItemProps): JSX.Elemen
       className={`NoteItem ${selected ? "bg-cyan-800 text-white" : ""}`}
       onClick={onRootClick}
     >
-      <div className="px-4 py-2 cursor-pointer hover:underline">{note.title}</div>
+      <div className="px-4 py-2 cursor-pointer hover:underline">
+        {note.title}
+      </div>
     </div>
   );
 }

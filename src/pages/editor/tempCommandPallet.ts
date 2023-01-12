@@ -4,15 +4,15 @@ const modifierKeys = ["Alt", "Control", "Meta", "Shift"];
 
 export function startCommandPallet(commands: CommandDefinition[]): () => void {
   const f = (event: KeyboardEvent) => onKeyDown(event, commands);
-  document.addEventListener('keydown', f);
-  return () => document.removeEventListener('keydown', f);
+  document.addEventListener("keydown", f);
+  return () => document.removeEventListener("keydown", f);
 }
 
 function onKeyDown(event: KeyboardEvent, commands: CommandDefinition[]) {
   const { altKey, ctrlKey, key, metaKey, shiftKey } = event;
 
   if (!modifierKeys.includes(key)) {
-    console.log('# ', event.type, { altKey, ctrlKey, key, metaKey, shiftKey });
+    console.log("# ", event.type, { altKey, ctrlKey, key, metaKey, shiftKey });
   }
 
   if (key.toLowerCase() === "p" && ctrlKey && shiftKey) {
@@ -27,9 +27,9 @@ function runCommandPallet(allCommands: CommandDefinition[]) {
     return;
   }
 
-  const command = findCommand(id, allCommands)
+  const command = findCommand(id, allCommands);
   if (!command) {
-    console.log('# Unknown command ID', id);
+    console.log("# Unknown command ID", id);
     return;
   }
 

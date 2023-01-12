@@ -1,15 +1,19 @@
 import { ChangeEventHandler } from "react";
 import { createNote } from "../../../domains/note/Note";
-import { useEditingNote, useUpdateEditingNote } from "../actions/editorPageContext";
+import {
+  useEditingNote,
+  useUpdateEditingNote,
+} from "../actions/editorPageContext";
 
-export interface EditorProps {
-}
+export interface EditorProps {}
 
 export function Editor(): JSX.Element {
   const note = useEditingNote() ?? createNote();
   const updateEditingNote = useUpdateEditingNote();
 
-  const onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (event) => {
+  const onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
+    event
+  ) => {
     if (!note.id) {
       return;
     }

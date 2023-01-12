@@ -9,7 +9,11 @@ export interface StraightLayoutProps {
   title: string;
 }
 
-export function StraightLayout({ children, className, title }: StraightLayoutProps): JSX.Element {
+export function StraightLayout({
+  children,
+  className,
+  title,
+}: StraightLayoutProps): JSX.Element {
   return (
     <div className={`${className} StraightLayout`}>
       <Head>
@@ -17,9 +21,7 @@ export function StraightLayout({ children, className, title }: StraightLayoutPro
       </Head>
       <BasicHeader />
       <Container>
-        <main className="min-h-[50vh]">
-          {children}
-        </main>
+        <main className="min-h-[50vh]">{children}</main>
       </Container>
       <BasicFooter />
     </div>

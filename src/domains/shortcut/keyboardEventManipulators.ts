@@ -9,6 +9,8 @@ export function keyboardEventToInputCommand(event: KeyboardEvent): string {
     altKey ? "Alt" : "",
     shiftKey ? "Shift" : "",
     key.length === 1 ? key.toUpperCase() : key,
-  ].filter((v) => v).join("+");
+  ]
+    .filter((v) => v)
+    .join("+");
   return input;
 }

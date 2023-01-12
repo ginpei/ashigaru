@@ -3,9 +3,5 @@ export interface ContainerProps {
 }
 
 export function Container({ children }: ContainerProps): JSX.Element {
-  return (
-    <div className="Container mx-auto max-w-4xl px-4">
-      {children}
-    </div>
-  );
+  return <div className="Container mx-auto max-w-4xl px-4">{children}</div>;
 }

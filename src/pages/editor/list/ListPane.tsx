@@ -1,9 +1,11 @@
 import { Note } from "../../../domains/note/Note";
-import { useEditorPageState, useStartEditingNote } from "../actions/editorPageContext";
+import {
+  useEditorPageState,
+  useStartEditingNote,
+} from "../actions/editorPageContext";
 import { NoteItem } from "./NoteItem";
 
-export interface ListPaneProps {
-}
+export interface ListPaneProps {}
 
 export function ListPane(): JSX.Element {
   const { editingNoteId, notes } = useEditorPageState();

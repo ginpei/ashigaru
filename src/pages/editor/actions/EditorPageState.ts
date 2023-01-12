@@ -5,7 +5,9 @@ export interface EditorPageState {
   notes: Note[];
 }
 
-export function createEditorPageState(initial?: Partial<EditorPageState>): EditorPageState {
+export function createEditorPageState(
+  initial?: Partial<EditorPageState>
+): EditorPageState {
   return {
     editingNoteId: initial?.editingNoteId ?? "",
     notes: initial?.notes ?? [],
@@ -16,7 +18,10 @@ export function getEditingNote(state: EditorPageState): Note | null {
   return state.notes.find((v) => v.id === state.editingNoteId) ?? null;
 }
 
-export function updateEditingNote(state: EditorPageState, note: Partial<Note>): EditorPageState {
+export function updateEditingNote(
+  state: EditorPageState,
+  note: Partial<Note>
+): EditorPageState {
   if (!note.id) {
     throw new Error("Note ID required");
   }
@@ -28,6 +33,10 @@ export function updateEditingNote(state: EditorPageState, note: Partial<Note>): 
   }
 
   const newNote = { ...notes, ...note } as Note;
-  const newNotes = [...notes.slice(0, index), newNote, ...notes.slice(index + 1)];
+  const newNotes = [
+    ...notes.slice(0, index),
+    newNote,
+    ...notes.slice(index + 1),
+  ];
   return { ...state, notes: newNotes };
 }
