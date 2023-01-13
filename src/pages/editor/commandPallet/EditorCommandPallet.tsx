@@ -1,7 +1,12 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
-import { CommandDefinition } from "../../../domains/command/CommandDefinition";
+import { Dialog } from "@headlessui/react";
+import { ChangeEventHandler, FormEventHandler, useState } from "react";
+import {
+  CommandDefinition,
+  findCommandDefinition,
+} from "../../../domains/command/CommandDefinition";
 import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
+import { editorCommands } from "../actions/editorCommands";
+import { CommandListItem } from "./CommandListItem";
 
 export interface EditorCommandPalletProps {
   commands: CommandDefinition[];
@@ -16,12 +21,39 @@ export function EditorCommandPallet({
   onClose,
   shortcuts,
 }: EditorCommandPalletProps): JSX.Element {
+  const [input, setInput] = useState("");
+
+  const onSubmit: FormEventHandler = (event) => {
+    event.preventDefault();
+
+    const command = findCommandDefinition(editorCommands, input);
+    if (!command) {
+      return;
+    }
+
+    command.action();
+  };
+
+  const onInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    const el = event.currentTarget;
+    const { value } = el;
+    setInput(value);
+  };
+
   return (
     <Dialog className="EditorCommandPallet" onClose={onClose} open={open}>
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <Dialog.Panel className="w-full max-w-sm rounded bg-white">
           <Dialog.Title>Command pallet</Dialog.Title>
+          <form onSubmit={onSubmit}>
+            <input
+              className="border-2 border-ginpei"
+              value={input}
+              onChange={onInputChange}
+            />
+            <button className="bg-ginpei text-white">Exec</button>
+          </form>
           <p>Commands:</p>
           <ul className="list-disc pl-8">
             {commands.map((command) => (
@@ -35,27 +67,5 @@ export function EditorCommandPallet({
         </Dialog.Panel>
       </div>
     </Dialog>
-  );
-}
-
-interface CommandListItemProps {
-  command: CommandDefinition;
-  shortcut?: KeyboardShortcut;
-}
-
-function CommandListItem({
-  command,
-  shortcut,
-}: CommandListItemProps): JSX.Element {
-  return (
-    <li>
-      {command.title}
-      {shortcut && (
-        <>
-          {" "}
-          <code>(${shortcut.key})</code>
-        </>
-      )}
-    </li>
   );
 }
