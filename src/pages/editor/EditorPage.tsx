@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { CSSProperties, useEffect, useMemo, useState } from "react";
+import { CSSProperties, useMemo, useState } from "react";
 import {
   CommandDefinition,
   pickCommandDefinition,
@@ -54,6 +54,11 @@ export function EditorPage(): JSX.Element {
     def.action();
   });
 
+  const onCommandSelect = (command: CommandDefinition | null) => {
+    command?.action();
+    setState((v) => ({ ...v, commandPalletVisible: false }));
+  };
+
   return (
     <EditorPageStateProvider value={[state, setState]}>
       <div
@@ -76,7 +81,7 @@ export function EditorPage(): JSX.Element {
       <EditorCommandPallet
         commands={commands}
         open={state.commandPalletVisible}
-        onClose={() => setState((v) => ({ ...v, commandPalletVisible: false }))}
+        onSelect={onCommandSelect}
         shortcuts={editorShortcuts}
       />
     </EditorPageStateProvider>
