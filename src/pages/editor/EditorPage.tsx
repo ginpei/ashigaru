@@ -1,6 +1,9 @@
 import Head from "next/head";
-import { CSSProperties, useEffect, useState } from "react";
-import { pickCommandDefinition } from "../../domains/command/CommandDefinition";
+import { CSSProperties, useEffect, useMemo, useState } from "react";
+import {
+  CommandDefinition,
+  pickCommandDefinition,
+} from "../../domains/command/CommandDefinition";
 import { Note } from "../../domains/note/Note";
 import { useKeyboardShortcuts } from "../../domains/shortcut/keyboardShortcutHooks";
 import { editorCommands } from "./actions/editorCommands";
@@ -10,7 +13,6 @@ import { editorShortcuts } from "./actions/editorShortcuts";
 import { Editor } from "./editor/Editor";
 import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
-import { startCommandPallet } from "./tempCommandPallet";
 
 export interface EditorPageProps {}
 
@@ -33,14 +35,35 @@ export function EditorPage(): JSX.Element {
     createEditorPageState({ notes: dummyNotes })
   );
 
+  const commands = useMemo<CommandDefinition[]>(() => {
+    return [
+      ...editorCommands,
+      {
+        action() {
+          setState((v) => ({ ...v, commandPalletVisible: true }));
+        },
+        id: "showCommandPallet",
+        title: "Show command pallet",
+      },
+    ];
+  }, []);
+
   useKeyboardShortcuts(editorShortcuts, (commandId) => {
-    const def = pickCommandDefinition(editorCommands, commandId);
+    const def = pickCommandDefinition(commands, commandId);
     def.action();
   });
 
+  // WIP
   useEffect(() => {
-    return startCommandPallet(editorCommands);
-  }, []);
+    if (state.commandPalletVisible) {
+      const commandId = window.prompt("Command", "hello");
+      if (commandId) {
+        const def = pickCommandDefinition(commands, commandId);
+        def.action();
+      }
+      setState({ ...state, commandPalletVisible: false });
+    }
+  }, [commands, state]);
 
   return (
     <EditorPageStateProvider value={[state, setState]}>

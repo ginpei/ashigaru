@@ -1,14 +1,19 @@
 import { Note } from "../../../domains/note/Note";
 
-export interface EditorPageState {
+export interface EditorPageState extends CommandPalletState {
   editingNoteId: string;
   notes: Note[];
+}
+
+interface CommandPalletState {
+  commandPalletVisible: boolean;
 }
 
 export function createEditorPageState(
   initial?: Partial<EditorPageState>
 ): EditorPageState {
   return {
+    commandPalletVisible: initial?.commandPalletVisible ?? false,
     editingNoteId: initial?.editingNoteId ?? "",
     notes: initial?.notes ?? [],
   };
