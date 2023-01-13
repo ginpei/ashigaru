@@ -2,7 +2,7 @@ import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
 
 export const editorShortcuts: KeyboardShortcut[] = [
   {
-    commandId: "showCommandPallet",
+    commandId: "showCommandPalette",
     key: "Ctrl+Shift+P",
   },
   {

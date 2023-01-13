@@ -10,7 +10,7 @@ import { editorCommands } from "./actions/editorCommands";
 import { EditorPageStateProvider } from "./actions/editorPageContext";
 import { createEditorPageState } from "./actions/EditorPageState";
 import { editorShortcuts } from "./actions/editorShortcuts";
-import { EditorCommandPallet } from "./commandPallet/EditorCommandPallet";
+import { EditorCommandPalette } from "./commandPalette/EditorCommandPalette";
 import { Editor } from "./editor/Editor";
 import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
@@ -41,10 +41,10 @@ export function EditorPage(): JSX.Element {
       ...editorCommands,
       {
         action() {
-          setState((v) => ({ ...v, commandPalletVisible: true }));
+          setState((v) => ({ ...v, commandPaletteVisible: true }));
         },
-        id: "showCommandPallet",
-        title: "Show command pallet",
+        id: "showCommandPalette",
+        title: "Show command palette",
       },
     ];
   }, []);
@@ -56,7 +56,7 @@ export function EditorPage(): JSX.Element {
 
   const onCommandSelect = (command: CommandDefinition | null) => {
     command?.action();
-    setState((v) => ({ ...v, commandPalletVisible: false }));
+    setState((v) => ({ ...v, commandPaletteVisible: false }));
   };
 
   return (
@@ -78,9 +78,9 @@ export function EditorPage(): JSX.Element {
           <Editor />
         </div>
       </div>
-      <EditorCommandPallet
+      <EditorCommandPalette
         commands={commands}
-        open={state.commandPalletVisible}
+        open={state.commandPaletteVisible}
         onSelect={onCommandSelect}
         shortcuts={editorShortcuts}
       />

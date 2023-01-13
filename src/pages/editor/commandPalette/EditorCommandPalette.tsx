@@ -11,19 +11,19 @@ import { NiceInput } from "../../../domains/control/NiceInput";
 import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
 import { CommandListItem } from "./CommandListItem";
 
-export interface EditorCommandPalletProps {
+export interface EditorCommandPaletteProps {
   commands: CommandDefinition[];
   open: boolean;
   onSelect: (command: CommandDefinition | null) => void;
   shortcuts: KeyboardShortcut[];
 }
 
-export function EditorCommandPallet({
+export function EditorCommandPalette({
   commands,
   open,
   onSelect,
   shortcuts,
-}: EditorCommandPalletProps): JSX.Element {
+}: EditorCommandPaletteProps): JSX.Element {
   const [input, setInput] = useState("");
 
   useEffect(() => {
