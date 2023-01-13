@@ -62,6 +62,11 @@ export function EditorCommandPalette({
                 onClick={onSelect}
               />
             ))}
+            {filteredCommands.length < 1 && (
+              <li>
+                <small>No matching results</small>
+              </li>
+            )}
           </ul>
         </Dialog.Panel>
       </div>
