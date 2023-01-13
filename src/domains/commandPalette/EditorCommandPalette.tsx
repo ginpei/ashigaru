@@ -6,9 +6,9 @@ import {
   useMemo,
   useState,
 } from "react";
-import { CommandDefinition } from "../../../domains/command/CommandDefinition";
-import { NiceInput } from "../../../domains/control/NiceInput";
-import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
+import { CommandDefinition } from "../command/CommandDefinition";
+import { NiceInput } from "../control/NiceInput";
+import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
 import { CommandListItem } from "./CommandListItem";
 
 export interface EditorCommandPaletteProps {

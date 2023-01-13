@@ -10,7 +10,7 @@ import { editorCommands } from "./actions/editorCommands";
 import { EditorPageStateProvider } from "./actions/editorPageContext";
 import { createEditorPageState } from "./actions/EditorPageState";
 import { editorShortcuts } from "./actions/editorShortcuts";
-import { EditorCommandPalette } from "./commandPalette/EditorCommandPalette";
+import { EditorCommandPalette } from "../../domains/commandPalette/EditorCommandPalette";
 import { Editor } from "./editor/Editor";
 import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
