@@ -4,13 +4,13 @@ import {
   CommandDefinition,
   pickCommandDefinition,
 } from "../../domains/command/CommandDefinition";
+import { EditorCommandPalette } from "../../domains/commandPalette/EditorCommandPalette";
 import { Note } from "../../domains/note/Note";
 import { useKeyboardShortcuts } from "../../domains/shortcut/keyboardShortcutHooks";
 import { editorCommands } from "./actions/editorCommands";
 import { EditorPageStateProvider } from "./actions/editorPageContext";
 import { createEditorPageState } from "./actions/EditorPageState";
 import { editorShortcuts } from "./actions/editorShortcuts";
-import { EditorCommandPalette } from "../../domains/commandPalette/EditorCommandPalette";
 import { Editor } from "./editor/Editor";
 import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
