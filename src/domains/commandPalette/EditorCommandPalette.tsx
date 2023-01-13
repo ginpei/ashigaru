@@ -9,6 +9,7 @@ import {
 import { CommandDefinition } from "../command/CommandDefinition";
 import { NiceInput } from "../control/NiceInput";
 import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
+import { useFilteredCommand } from "./commandFilterHooks";
 import { CommandListItem } from "./CommandListItem";
 
 export interface EditorCommandPaletteProps {
@@ -25,14 +26,11 @@ export function EditorCommandPalette({
   shortcuts,
 }: EditorCommandPaletteProps): JSX.Element {
   const [input, setInput] = useState("");
+  const filteredCommands = useFilteredCommand(commands, { keyword: input });
 
   useEffect(() => {
     setInput("");
   }, [open]);
-
-  const filteredCommands = useMemo(() => {
-    return commands.filter((v) => v.id.includes(input));
-  }, [commands, input]);
 
   const onDialogClose = () => onSelect(null);
 
