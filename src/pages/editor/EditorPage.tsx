@@ -10,6 +10,7 @@ import { editorCommands } from "./actions/editorCommands";
 import { EditorPageStateProvider } from "./actions/editorPageContext";
 import { createEditorPageState } from "./actions/EditorPageState";
 import { editorShortcuts } from "./actions/editorShortcuts";
+import { EditorCommandPallet } from "./commandPallet/EditorCommandPallet";
 import { Editor } from "./editor/Editor";
 import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
@@ -53,18 +54,6 @@ export function EditorPage(): JSX.Element {
     def.action();
   });
 
-  // WIP
-  useEffect(() => {
-    if (state.commandPalletVisible) {
-      const commandId = window.prompt("Command", "hello");
-      if (commandId) {
-        const def = pickCommandDefinition(commands, commandId);
-        def.action();
-      }
-      setState({ ...state, commandPalletVisible: false });
-    }
-  }, [commands, state]);
-
   return (
     <EditorPageStateProvider value={[state, setState]}>
       <div
@@ -84,6 +73,12 @@ export function EditorPage(): JSX.Element {
           <Editor />
         </div>
       </div>
+      <EditorCommandPallet
+        commands={commands}
+        open={state.commandPalletVisible}
+        onClose={() => setState((v) => ({ ...v, commandPalletVisible: false }))}
+        shortcuts={editorShortcuts}
+      />
     </EditorPageStateProvider>
   );
 }
