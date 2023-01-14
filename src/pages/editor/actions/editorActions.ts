@@ -15,6 +15,13 @@ export const editorCommands: CommandDefinition<EditorPageState>[] = [
   },
   {
     action: () => {
+      giveFocusOn("noteTitleFocus");
+    },
+    id: "focusOnNoteTitle",
+    title: "Focus on the note title input",
+  },
+  {
+    action: () => {
       giveFocusOn("noteBodyFocus");
     },
     id: "focusOnEditor",
@@ -31,6 +38,10 @@ export const editorShortcuts: KeyboardShortcut[] = [
   {
     commandId: "focusOnNoteList",
     key: "Ctrl+Shift+E",
+  },
+  {
+    commandId: "focusOnNoteTitle",
+    key: "Ctrl+0",
   },
   {
     commandId: "focusOnEditor",

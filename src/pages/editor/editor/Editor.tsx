@@ -31,15 +31,17 @@ export function Editor(): JSX.Element {
 
   return (
     <div className="Editor grid grid-rows-[2.25rem_auto] h-full">
-      <input
-        className="h-9 px-4 text-3xl"
-        disabled={!note.id}
-        name="title"
-        onChange={onChange}
-        placeholder="Title"
-        type="text"
-        value={note.title}
-      />
+      <FocusTarget id="noteTitleFocus">
+        <input
+          className="h-9 px-4 text-3xl"
+          disabled={!note.id}
+          name="title"
+          onChange={onChange}
+          placeholder="Title"
+          type="text"
+          value={note.title}
+        />
+      </FocusTarget>
       <FocusTarget id="noteBodyFocus">
         <textarea
           className="p-4 resize-none"
