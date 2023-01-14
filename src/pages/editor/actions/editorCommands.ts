@@ -1,7 +1,8 @@
 import { CommandDefinition } from "../../../domains/command/CommandDefinition";
+import { EditorPageState } from "./EditorPageState";
 import { noteListCommands } from "./noteListActions";
 
-export const editorCommands: CommandDefinition[] = [
+export const editorCommands: CommandDefinition<EditorPageState>[] = [
   ...noteListCommands,
   {
     action: () => {

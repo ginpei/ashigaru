@@ -1,5 +1,7 @@
-export interface CommandDefinition {
-  action: () => void;
+import { Dispatch, SetStateAction } from "react";
+
+export interface CommandDefinition<State> {
+  action: (state: State, setState: Dispatch<SetStateAction<State>>) => void;
   id: string;
   title: string;
 }
@@ -7,10 +9,10 @@ export interface CommandDefinition {
 /**
  * @see pickCommandDefinition
  */
-export function findCommandDefinition(
-  commands: CommandDefinition[],
+export function findCommandDefinition<State>(
+  commands: CommandDefinition<State>[],
   commandId: string
-): CommandDefinition | null {
+): CommandDefinition<State> | null {
   const def = commands.find((v) => v.id === commandId);
   return def ?? null;
 }
@@ -20,10 +22,10 @@ export function findCommandDefinition(
  * Throws an error if not found.
  * @see findCommandDefinition
  */
-export function pickCommandDefinition(
-  commands: CommandDefinition[],
+export function pickCommandDefinition<State>(
+  commands: CommandDefinition<State>[],
   commandId: string
-): CommandDefinition {
+): CommandDefinition<State> {
   const def = findCommandDefinition(commands, commandId);
   if (!def) {
     throw new Error(`Command ID ${commandId} is not defined`);

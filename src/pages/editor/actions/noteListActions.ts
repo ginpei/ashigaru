@@ -1,5 +1,6 @@
 import { CommandDefinition } from "../../../domains/command/CommandDefinition";
 import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
+import { EditorPageState } from "./EditorPageState";
 
 export const noteListShortcuts: KeyboardShortcut[] = [
   {
@@ -19,24 +20,41 @@ export const noteListShortcuts: KeyboardShortcut[] = [
   },
 ];
 
-export const noteListCommands: CommandDefinition[] = [
+export const noteListCommands: CommandDefinition<EditorPageState>[] = [
   {
-    action: () => {
-      console.log("select");
+    action: (state) => {
+      console.log("select", state.notes);
     },
     id: "selectAllNotes",
     title: "Select all notes",
   },
   {
-    action: () => {
-      console.log("prev note");
+    action: (state, setState) => {
+      const { editingNoteId, notes } = state;
+      const index = notes.findIndex((v) => v.id === editingNoteId);
+      const prevNote = index < 1 ? notes[0] : notes[index - 1];
+      if (!prevNote) {
+        return;
+      }
+      setState({ ...state, editingNoteId: prevNote.id });
     },
     id: "focusPreviousNote",
     title: "Focus on the previous note",
   },
   {
-    action: () => {
-      console.log("next note");
+    action: (state, setState) => {
+      const { editingNoteId, notes } = state;
+      const index = notes.findIndex((v) => v.id === editingNoteId);
+      const nextNote =
+        index < 0
+          ? notes[0]
+          : index >= notes.length
+          ? notes.at(-1)
+          : notes[index + 1];
+      if (!nextNote) {
+        return;
+      }
+      setState({ ...state, editingNoteId: nextNote.id });
     },
     id: "focusNextNote",
     title: "Focus on the next note",

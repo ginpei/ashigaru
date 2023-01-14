@@ -10,7 +10,10 @@ import { useFocusTarget } from "../../domains/shortcut/focusHooks";
 import { useKeyboardShortcuts } from "../../domains/shortcut/keyboardShortcutHooks";
 import { editorCommands } from "./actions/editorCommands";
 import { EditorPageStateProvider } from "./actions/editorPageContext";
-import { createEditorPageState } from "./actions/EditorPageState";
+import {
+  createEditorPageState,
+  EditorPageState,
+} from "./actions/EditorPageState";
 import { editorShortcuts } from "./actions/editorShortcuts";
 import { Editor } from "./editor/Editor";
 import { ListPane } from "./list/ListPane";
@@ -39,7 +42,7 @@ export function EditorPage(): JSX.Element {
     createEditorPageState({ notes: dummyNotes })
   );
 
-  const commands = useMemo<CommandDefinition[]>(() => {
+  const commands = useMemo<CommandDefinition<EditorPageState>[]>(() => {
     return [
       ...editorCommands,
       {
@@ -54,11 +57,13 @@ export function EditorPage(): JSX.Element {
 
   useKeyboardShortcuts(editorShortcuts, focusId, (commandId) => {
     const def = pickCommandDefinition(commands, commandId);
-    def.action();
+    def.action(state, setState);
   });
 
-  const onCommandSelect = (command: CommandDefinition | null) => {
-    command?.action();
+  const onCommandSelect = (
+    command: CommandDefinition<EditorPageState> | null
+  ) => {
+    command?.action(state, setState);
     setState((v) => ({ ...v, commandPaletteVisible: false }));
   };
 
