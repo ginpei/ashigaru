@@ -6,7 +6,10 @@ import {
 } from "../../domains/command/CommandDefinition";
 import { EditorCommandPalette } from "../../domains/commandPalette/EditorCommandPalette";
 import { Note } from "../../domains/note/Note";
-import { useFocusTarget } from "../../domains/shortcut/focusHooks";
+import {
+  useFocusMarkEffect,
+  useFocusTarget,
+} from "../../domains/shortcut/focusHooks";
 import { useKeyboardShortcuts } from "../../domains/shortcut/keyboardShortcutHooks";
 import { editorCommands, editorShortcuts } from "./actions/editorActions";
 import { EditorPageStateProvider } from "./actions/editorPageContext";
@@ -36,6 +39,7 @@ const rootStyle: CSSProperties = {
 
 export function EditorPage(): JSX.Element {
   const focusId = useFocusTarget();
+  useFocusMarkEffect();
 
   const [state, setState] = useState(
     createEditorPageState({ notes: dummyNotes })

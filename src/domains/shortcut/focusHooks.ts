@@ -8,6 +8,26 @@ export function useFocusTarget(d?: Document): string {
   return id;
 }
 
+export function useFocusMarkEffect(d?: Document): void {
+  const attrName = "data-focus";
+  const valueOn = "yes";
+
+  const [elFocusTarget, setElFocusTarget] = useState<Element | null>(null);
+
+  const el = useFocusElement(d);
+  useEffect(() => {
+    if (elFocusTarget) {
+      elFocusTarget.removeAttribute(attrName);
+    }
+
+    const elNew = el?.closest("[data-focus-target]");
+    if (elNew) {
+      elNew.setAttribute(attrName, valueOn);
+    }
+    setElFocusTarget(elNew ?? null);
+  }, [el, elFocusTarget]);
+}
+
 function useFocusElement(d?: Document): Element | null {
   const [elFocus, setElFocus] = useState<Element | null>(null);
 
