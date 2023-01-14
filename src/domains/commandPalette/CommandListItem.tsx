@@ -15,12 +15,15 @@ export function CommandListItem<State>({
   const onItemClick = () => onClick?.(command);
 
   return (
-    <li onClick={onItemClick}>
+    <li
+      className="mb-1 px-2 flex place-content-between leading-4"
+      onClick={onItemClick}
+    >
       {command.title}
       {shortcut && (
         <>
           {" "}
-          <code>(${shortcut.key})</code>
+          <code className="bg-gray-100 text-xs">{shortcut.key}</code>
         </>
       )}
     </li>
