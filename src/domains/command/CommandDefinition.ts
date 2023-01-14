@@ -6,6 +6,16 @@ export interface CommandDefinition<State> {
   title: string;
 }
 
+export function createCommandDefinition<State>(
+  initial?: Partial<CommandDefinition<State>>
+): CommandDefinition<State> {
+  return {
+    action: initial?.action ?? (() => {}),
+    id: initial?.id ?? "",
+    title: initial?.title ?? "",
+  };
+}
+
 /**
  * @see pickCommandDefinition
  */
