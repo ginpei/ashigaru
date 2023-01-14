@@ -8,13 +8,12 @@ import { EditorCommandPalette } from "../../domains/commandPalette/EditorCommand
 import { Note } from "../../domains/note/Note";
 import { useFocusTarget } from "../../domains/shortcut/focusHooks";
 import { useKeyboardShortcuts } from "../../domains/shortcut/keyboardShortcutHooks";
-import { editorCommands } from "./actions/editorCommands";
+import { editorCommands, editorShortcuts } from "./actions/editorActions";
 import { EditorPageStateProvider } from "./actions/editorPageContext";
 import {
   createEditorPageState,
   EditorPageState,
 } from "./actions/EditorPageState";
-import { editorShortcuts } from "./actions/editorShortcuts";
 import { Editor } from "./editor/Editor";
 import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
