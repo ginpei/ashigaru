@@ -1,17 +1,17 @@
 import { CommandDefinition } from "../command/CommandDefinition";
 import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
 
-export interface CommandListItemProps {
-  command: CommandDefinition;
+export interface CommandListItemProps<State> {
+  command: CommandDefinition<State>;
   shortcut?: KeyboardShortcut;
-  onClick?: (command: CommandDefinition) => void;
+  onClick?: (command: CommandDefinition<State>) => void;
 }
 
-export function CommandListItem({
+export function CommandListItem<State>({
   command,
   shortcut,
   onClick,
-}: CommandListItemProps): JSX.Element {
+}: CommandListItemProps<State>): JSX.Element {
   const onItemClick = () => onClick?.(command);
 
   return (
