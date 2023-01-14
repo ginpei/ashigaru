@@ -1,6 +1,23 @@
 import { useEffect, useState } from "react";
 
-export function useFocusElement(
+export function useFocusTarget(d?: Document): string {
+  const [id, setId] = useState("");
+
+  useFocusElement((el) => {
+    const attrName = "data-focus-target";
+    const elTarget = el?.closest(`[${attrName}]`);
+    const newId = elTarget?.getAttribute(attrName) ?? "";
+    if (newId === id) {
+      return;
+    }
+
+    setId(newId);
+  }, d);
+
+  return id;
+}
+
+function useFocusElement(
   callback: (el: Element | null) => void,
   d?: Document
 ): void {
@@ -28,21 +45,4 @@ export function useFocusElement(
   useEffect(() => {
     callback(elFocus);
   }, [callback, elFocus]);
-}
-
-export function useFocusTarget(d?: Document): string {
-  const [id, setId] = useState("");
-
-  useFocusElement((el) => {
-    const attrName = "data-focus-target";
-    const elTarget = el?.closest(`[${attrName}]`);
-    const newId = elTarget?.getAttribute(attrName) ?? "";
-    if (newId === id) {
-      return;
-    }
-
-    setId(newId);
-  }, d);
-
-  return id;
 }
