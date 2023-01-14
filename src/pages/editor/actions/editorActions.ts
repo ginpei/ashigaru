@@ -20,13 +20,6 @@ export const editorCommands: CommandDefinition<EditorPageState>[] = [
     id: "focusOnEditor",
     title: "Focus on the editor",
   },
-  {
-    action: () => {
-      console.log("Hello World!");
-    },
-    id: "hello",
-    title: "Say hello",
-  },
 ];
 
 export const editorShortcuts: KeyboardShortcut[] = [
@@ -42,9 +35,5 @@ export const editorShortcuts: KeyboardShortcut[] = [
   {
     commandId: "focusOnEditor",
     key: "Ctrl+1",
-  },
-  {
-    commandId: "hello",
-    key: "Ctrl+Shift+X",
   },
 ];
