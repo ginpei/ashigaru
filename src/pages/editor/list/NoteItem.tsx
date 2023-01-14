@@ -17,7 +17,9 @@ export function NoteItem({
 
   return (
     <div
-      className={`NoteItem ${selected ? "bg-cyan-800 text-white" : ""}`}
+      className={`NoteItem ${
+        selected ? "bg-gray-400 [[data-focus]_&]:bg-cyan-800 text-white" : ""
+      }`}
       onClick={onRootClick}
     >
       <div className="px-4 py-2 cursor-pointer hover:underline">
