@@ -1,17 +1,12 @@
 import { useMemo } from "react";
 import { CommandDefinition } from "../command/CommandDefinition";
+import { CommandFilter, filterCommands } from "./commandFilter";
 
-export interface CommandFilter {
-  keyword: string;
-}
-
-export function useFilteredCommand(
-  commands: CommandDefinition[],
-  conditions: CommandFilter
-): CommandDefinition[] {
-  const input = conditions.keyword;
-  const filteredCommands = useMemo(() => {
-    return commands.filter((v) => v.id.includes(input));
-  }, [commands, input]);
-  return filteredCommands;
+export function useFilteredCommand<State>(
+  commands: CommandDefinition<State>[],
+  filter: CommandFilter
+): CommandDefinition<State>[] {
+  return useMemo(() => {
+    return filterCommands(commands, filter);
+  }, [commands, filter]);
 }
