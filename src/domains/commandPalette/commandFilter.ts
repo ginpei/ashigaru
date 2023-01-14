@@ -9,6 +9,8 @@ export function filterCommands<State>(
   filter: CommandFilter
 ): CommandDefinition<State>[] {
   const input = filter.keyword;
-  const filteredCommands = commands.filter((v) => v.id.includes(input));
+  const filteredCommands = commands.filter((v) =>
+    v.title.toLowerCase().includes(input.toLowerCase())
+  );
   return filteredCommands;
 }
