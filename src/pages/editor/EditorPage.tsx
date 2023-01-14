@@ -34,7 +34,6 @@ const rootStyle: CSSProperties = {
 
 export function EditorPage(): JSX.Element {
   const focusId = useFocusTarget();
-  console.log("# focusId", focusId); // TODO pass to shortcut runner
 
   const [state, setState] = useState(
     createEditorPageState({ notes: dummyNotes })
@@ -53,7 +52,7 @@ export function EditorPage(): JSX.Element {
     ];
   }, []);
 
-  useKeyboardShortcuts(editorShortcuts, (commandId) => {
+  useKeyboardShortcuts(editorShortcuts, focusId, (commandId) => {
     const def = pickCommandDefinition(commands, commandId);
     def.action();
   });

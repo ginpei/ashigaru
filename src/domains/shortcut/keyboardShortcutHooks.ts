@@ -4,14 +4,15 @@ import { KeyboardShortcut } from "./KeyboardShortcut";
 
 export function useKeyboardShortcuts(
   defs: KeyboardShortcut[],
+  focusId: string,
   onCommand: (commandId: string) => void
 ): void {
   useKeyDown((event) => {
     const input = keyboardEventToInputCommand(event);
 
-    // TODO support `def.when`
-
-    const def = defs.find((v) => v.key === input);
+    const def = defs.find(
+      (v) => v.key === input && (!v.when || v.when === focusId)
+    );
     if (!def) {
       return;
     }
