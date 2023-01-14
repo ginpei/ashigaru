@@ -1,4 +1,5 @@
 import { Note } from "../../../domains/note/Note";
+import { FocusTarget } from "../../../domains/shortcut/FocusTarget";
 import {
   useEditorPageState,
   useStartEditingNote,
@@ -18,16 +19,18 @@ export function ListPane(): JSX.Element {
   return (
     <section className="ListPane">
       <h1 className="font-bold px-4 text-lg">Notes</h1>
-      <div>
-        {notes.map((note) => (
-          <NoteItem
-            key={note.id}
-            note={note}
-            selected={editingNoteId === note.id}
-            onClick={onNoteClick}
-          />
-        ))}
-      </div>
+      <FocusTarget id="noteListFocus">
+        <div tabIndex={0}>
+          {notes.map((note) => (
+            <NoteItem
+              key={note.id}
+              note={note}
+              selected={editingNoteId === note.id}
+              onClick={onNoteClick}
+            />
+          ))}
+        </div>
+      </FocusTarget>
     </section>
   );
 }

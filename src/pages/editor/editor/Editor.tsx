@@ -1,5 +1,6 @@
 import { ChangeEventHandler } from "react";
 import { createNote } from "../../../domains/note/Note";
+import { FocusTarget } from "../../../domains/shortcut/FocusTarget";
 import {
   useEditingNote,
   useUpdateEditingNote,
@@ -39,14 +40,16 @@ export function Editor(): JSX.Element {
         type="text"
         value={note.title}
       />
-      <textarea
-        className="p-4 resize-none"
-        disabled={!note.id}
-        name="body"
-        onChange={onChange}
-        placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid nobis amet illum illo doloribus quo aut. Eius fugiat mollitia illum excepturi repellat, commodi, quasi nihil facilis at eaque, deserunt iusto!"
-        value={note.body}
-      />
+      <FocusTarget id="noteBodyFocus">
+        <textarea
+          className="p-4 resize-none"
+          disabled={!note.id}
+          name="body"
+          onChange={onChange}
+          placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid nobis amet illum illo doloribus quo aut. Eius fugiat mollitia illum excepturi repellat, commodi, quasi nihil facilis at eaque, deserunt iusto!"
+          value={note.body}
+        />
+      </FocusTarget>
     </div>
   );
 }

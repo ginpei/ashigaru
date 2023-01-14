@@ -7,6 +7,7 @@ import {
 } from "react";
 import { CommandDefinition } from "../command/CommandDefinition";
 import { NiceInput } from "../control/NiceInput";
+import { FocusTarget } from "../shortcut/FocusTarget";
 import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
 import { useFilteredCommand } from "./commandFilterHooks";
 import { CommandListItem } from "./CommandListItem";
@@ -47,29 +48,31 @@ export function EditorCommandPalette({
   return (
     <Dialog className="EditorCommandPallet" onClose={onDialogClose} open={open}>
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-      <div className="fixed w-full top-0 mx-auto flex items-center justify-center p-4">
-        <Dialog.Panel className="w-full max-w-sm rounded bg-white">
-          <Dialog.Title className="hidden">Command pallet</Dialog.Title>
-          <form className="flex [&>*]:flex-1" onSubmit={onSubmit}>
-            <NiceInput value={input} onChange={onInputChange} />
-          </form>
-          <ul className="CommandSuggestions">
-            {filteredCommands.map((command) => (
-              <CommandListItem
-                command={command}
-                key={command.id}
-                shortcut={shortcuts.find((v) => v.commandId === command.id)}
-                onClick={onSelect}
-              />
-            ))}
-            {filteredCommands.length < 1 && (
-              <li>
-                <small>No matching results</small>
-              </li>
-            )}
-          </ul>
-        </Dialog.Panel>
-      </div>
+      <FocusTarget id="commandPaletteFocus">
+        <div className="fixed w-full top-0 mx-auto flex items-center justify-center p-4">
+          <Dialog.Panel className="w-full max-w-sm rounded bg-white">
+            <Dialog.Title className="hidden">Command pallet</Dialog.Title>
+            <form className="flex [&>*]:flex-1" onSubmit={onSubmit}>
+              <NiceInput value={input} onChange={onInputChange} />
+            </form>
+            <ul className="CommandSuggestions">
+              {filteredCommands.map((command) => (
+                <CommandListItem
+                  command={command}
+                  key={command.id}
+                  shortcut={shortcuts.find((v) => v.commandId === command.id)}
+                  onClick={onSelect}
+                />
+              ))}
+              {filteredCommands.length < 1 && (
+                <li>
+                  <small>No matching results</small>
+                </li>
+              )}
+            </ul>
+          </Dialog.Panel>
+        </div>
+      </FocusTarget>
     </Dialog>
   );
 }

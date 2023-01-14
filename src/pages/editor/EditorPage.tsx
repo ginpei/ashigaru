@@ -6,6 +6,7 @@ import {
 } from "../../domains/command/CommandDefinition";
 import { EditorCommandPalette } from "../../domains/commandPalette/EditorCommandPalette";
 import { Note } from "../../domains/note/Note";
+import { useFocusTarget } from "../../domains/shortcut/focusHooks";
 import { useKeyboardShortcuts } from "../../domains/shortcut/keyboardShortcutHooks";
 import { editorCommands } from "./actions/editorCommands";
 import { EditorPageStateProvider } from "./actions/editorPageContext";
@@ -32,6 +33,9 @@ const rootStyle: CSSProperties = {
 };
 
 export function EditorPage(): JSX.Element {
+  const focusId = useFocusTarget();
+  console.log("# focusId", focusId); // TODO pass to shortcut runner
+
   const [state, setState] = useState(
     createEditorPageState({ notes: dummyNotes })
   );
