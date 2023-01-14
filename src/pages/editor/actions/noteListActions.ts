@@ -22,14 +22,14 @@ export const noteListShortcuts: KeyboardShortcut[] = [
 
 export const noteListCommands: CommandDefinition<EditorPageState>[] = [
   {
-    action: (state) => {
+    action(state) {
       console.log("select", state.notes);
     },
     id: "selectAllNotes",
     title: "Select all notes",
   },
   {
-    action: (state, setState) => {
+    action(state, setState) {
       const { editingNoteId, notes } = state;
       const index = notes.findIndex((v) => v.id === editingNoteId);
       const prevNote = index < 1 ? notes[0] : notes[index - 1];
@@ -42,7 +42,7 @@ export const noteListCommands: CommandDefinition<EditorPageState>[] = [
     title: "Focus on the previous note",
   },
   {
-    action: (state, setState) => {
+    action(state, setState) {
       const { editingNoteId, notes } = state;
       const index = notes.findIndex((v) => v.id === editingNoteId);
       const nextNote =

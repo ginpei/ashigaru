@@ -7,21 +7,21 @@ import { noteListCommands, noteListShortcuts } from "./noteListActions";
 export const editorCommands: CommandDefinition<EditorPageState>[] = [
   ...noteListCommands,
   {
-    action: () => {
+    action() {
       giveFocusOn("noteListFocus");
     },
     id: "focusOnNoteList",
     title: "Focus on the note list",
   },
   {
-    action: () => {
+    action() {
       giveFocusOn("noteTitleFocus");
     },
     id: "focusOnNoteTitle",
     title: "Focus on the note title input",
   },
   {
-    action: () => {
+    action() {
       giveFocusOn("noteBodyFocus");
     },
     id: "focusOnEditor",
