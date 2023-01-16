@@ -22,3 +22,27 @@ export function isCommandMatched<State>(
     return true;
   });
 }
+
+export function highlightFilteredCommandTitle(
+  title: string,
+  keyword: string
+): { highlight: boolean; character: string }[] {
+  const letters = Array.from(keyword.toLowerCase());
+  const highlighted: ReturnType<typeof highlightFilteredCommandTitle> =
+    Array.from(title).map((titleCharacter) => {
+      const index = letters.indexOf(titleCharacter.toLowerCase());
+      if (index < 0) {
+        return {
+          character: titleCharacter,
+          highlight: false,
+        };
+      }
+
+      letters[index] = "";
+      return {
+        character: titleCharacter,
+        highlight: true,
+      };
+    });
+  return highlighted;
+}

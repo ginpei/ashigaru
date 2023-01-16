@@ -3,7 +3,10 @@ import {
   CommandDefinition,
   createCommandDefinition,
 } from "../command/CommandDefinition";
-import { isCommandMatched } from "./commandFilter";
+import {
+  highlightFilteredCommandTitle,
+  isCommandMatched,
+} from "./commandFilter";
 
 describe("commandFilter", () => {
   it("matches if no filters", () => {
@@ -36,5 +39,20 @@ describe("commandFilter", () => {
       const result = isCommandMatched(command, { keyword: "acb" });
       expect(result).toBe(false);
     });
+  });
+});
+
+describe("highlightFilteredCommandTitle()", () => {
+  it("highlights", () => {
+    const title = "Hello";
+    const keyword = "hlo";
+    const result = highlightFilteredCommandTitle(title, keyword);
+    expect(result).toEqual([
+      { character: "H", highlight: true },
+      { character: "e", highlight: false },
+      { character: "l", highlight: true },
+      { character: "l", highlight: false },
+      { character: "o", highlight: true },
+    ]);
   });
 });

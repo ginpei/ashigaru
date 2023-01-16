@@ -61,6 +61,7 @@ export function EditorCommandPalette({
                 <CommandListItem
                   command={command}
                   key={command.id}
+                  keyword={input}
                   shortcut={shortcuts.find((v) => v.commandId === command.id)}
                   onClick={onSelect}
                 />
