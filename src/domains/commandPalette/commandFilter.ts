@@ -4,13 +4,10 @@ export interface CommandFilter {
   keyword: string;
 }
 
-export function filterCommands<State>(
-  commands: CommandDefinition<State>[],
+export function isCommandMatched<State>(
+  command: CommandDefinition<State>,
   filter: CommandFilter
-): CommandDefinition<State>[] {
+): boolean {
   const input = filter.keyword;
-  const filteredCommands = commands.filter((v) =>
-    v.title.toLowerCase().includes(input.toLowerCase())
-  );
-  return filteredCommands;
+  return command.title.toLowerCase().includes(input.toLowerCase());
 }
