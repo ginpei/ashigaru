@@ -8,7 +8,7 @@ import {
   isCommandMatched,
 } from "./commandFilter";
 
-describe("commandFilter", () => {
+describe("isCommandMatched()", () => {
   it("matches if no filters", () => {
     const command = createCommandDefinition({ title: "Command 1" });
     const result = isCommandMatched(command, { keyword: "" });
