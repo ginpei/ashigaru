@@ -18,5 +18,23 @@ describe("commandFilter", () => {
       const result = isCommandMatched(command, { keyword: "command 1" });
       expect(result).toBe(true);
     });
+
+    it("skips unmatched letters", () => {
+      const command = createCommandDefinition({ title: "a.b..c" });
+      const result = isCommandMatched(command, { keyword: "abc" });
+      expect(result).toBe(true);
+    });
+
+    it("doesn't matches with duplicated characters", () => {
+      const command = createCommandDefinition({ title: "a.b..c" });
+      const result = isCommandMatched(command, { keyword: "abbc" });
+      expect(result).toBe(false);
+    });
+
+    it("doesn't matches in wrong order", () => {
+      const command = createCommandDefinition({ title: "a.b..c" });
+      const result = isCommandMatched(command, { keyword: "acb" });
+      expect(result).toBe(false);
+    });
   });
 });
