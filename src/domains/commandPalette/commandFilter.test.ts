@@ -1,8 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  CommandDefinition,
-  createCommandDefinition,
-} from "../command/CommandDefinition";
+import { createCommandDefinition } from "../command/CommandDefinition";
 import {
   highlightFilteredCommandTitle,
   isCommandMatched,
