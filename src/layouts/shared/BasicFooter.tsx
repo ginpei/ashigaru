@@ -4,7 +4,7 @@ export interface BasicFooterProps {}
 
 export function BasicFooter(): JSX.Element {
   return (
-    <div className="BasicFooter">
+    <div className="BasicFooter border-t border-gray-500 border-dashed">
       <Container>BasicFooter</Container>
     </div>
   );
