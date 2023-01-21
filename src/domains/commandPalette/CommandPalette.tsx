@@ -1,12 +1,6 @@
-import { Dialog } from "@headlessui/react";
-import {
-  ChangeEventHandler,
-  FormEventHandler,
-  useEffect,
-  useState,
-} from "react";
+import { Combobox, Dialog } from "@headlessui/react";
+import { useEffect, useState } from "react";
 import { CommandDefinition } from "../command/CommandDefinition";
-import { NiceInput } from "../control/NiceInput";
 import { FocusTarget } from "../shortcut/FocusTarget";
 import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
 import { useFilteredCommand } from "./commandFilterHooks";
@@ -42,15 +36,8 @@ export function CommandPalette<State>({
 
   const onDialogClose = () => onSelect(null);
 
-  const onSubmit: FormEventHandler = (event) => {
-    event.preventDefault();
-    onSelect(filteredCommands[0] ?? null);
-  };
-
-  const onInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    const el = event.currentTarget;
-    const { value } = el;
-    setInput(value);
+  const onComboboxChange = (command: CommandDefinition) => {
+    onSelect(command);
   };
 
   return (
@@ -60,25 +47,32 @@ export function CommandPalette<State>({
         <div className="fixed w-full top-0 mx-auto flex items-center justify-center p-4">
           <Dialog.Panel className="w-full max-w-sm rounded bg-white">
             <Dialog.Title className="hidden">Command pallet</Dialog.Title>
-            <form className="flex [&>*]:flex-1" onSubmit={onSubmit}>
-              <NiceInput value={input} onChange={onInputChange} />
-            </form>
-            <ul className="CommandSuggestions">
-              {filteredCommands.map((command) => (
-                <CommandListItem
-                  command={command}
-                  key={command.id}
-                  keyword={input}
-                  shortcut={shortcuts.find((v) => v.commandId === command.id)}
-                  onClick={onSelect}
+            <Combobox<CommandDefinition> onChange={onComboboxChange}>
+              <div className="flex [&>*]:flex-1">
+                <Combobox.Input
+                  className="border-[1px] border-ginpei px-4 py-1 text-black"
+                  onChange={(v) => setInput(v.currentTarget.value)}
+                  value={input}
                 />
-              ))}
-              {filteredCommands.length < 1 && (
-                <li>
-                  <small>No matching results</small>
-                </li>
-              )}
-            </ul>
+              </div>
+              <Combobox.Options data-headlessui-state="open">
+                {filteredCommands.map((command) => (
+                  <CommandListItem
+                    command={command}
+                    key={command.id}
+                    keyword={input}
+                    shortcut={shortcuts.find((v) => v.commandId === command.id)}
+                  />
+                ))}
+                {filteredCommands.length < 1 && (
+                  <li className="px-2 py-1 leading-4 cursor-default">
+                    <small className="text-slate-500">
+                      No matching results
+                    </small>
+                  </li>
+                )}
+              </Combobox.Options>
+            </Combobox>
           </Dialog.Panel>
         </div>
       </FocusTarget>
