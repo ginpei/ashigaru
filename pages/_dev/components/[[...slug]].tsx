@@ -1,12 +1,9 @@
 import { GetServerSideProps } from "next";
 import {
+  isShowcaseIndexPage,
   ShowcaseIndexPage,
   ShowcaseIndexPageProps,
 } from "../../../src/domains/showcase/ShowcaseIndexPage";
-import {
-  getShowcaseIndexPageProps,
-  isShowcaseIndexPage,
-} from "../../../src/domains/showcase/showcaseIndexPageHelpers";
 import {
   getShowcasePageProps,
   isShowcasePage,
@@ -30,7 +27,6 @@ export const getServerSideProps: GetServerSideProps<ServerProps> = async (
   if (isShowcaseIndexPage(context)) {
     return {
       props: {
-        ...(await getShowcaseIndexPageProps()),
         type: "index",
       },
     };
@@ -50,7 +46,7 @@ export const getServerSideProps: GetServerSideProps<ServerProps> = async (
 
 function Page(props: ServerProps): JSX.Element {
   if (props.type === "index") {
-    return <ShowcaseIndexPage {...props} />;
+    return <ShowcaseIndexPage />;
   }
 
   if (props.type === "demo") {

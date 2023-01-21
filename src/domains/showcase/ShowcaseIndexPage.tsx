@@ -1,8 +1,8 @@
+import { GetServerSidePropsContext } from "next";
 import { StraightLayout } from "../../layouts/straight/StraightLayout";
+import { showcaseList } from "./showcaseList";
 
-export interface ShowcaseIndexPageProps {
-  components: ComponentDemo[];
-}
+export interface ShowcaseIndexPageProps {}
 
 /**
  * TODO rename
@@ -12,23 +12,26 @@ export interface ComponentDemo {
   url: string;
 }
 
-export function ShowcaseIndexPage({
-  components,
-}: ShowcaseIndexPageProps): JSX.Element {
+export function ShowcaseIndexPage(): JSX.Element {
+  const showcasePaths = Object.keys(showcaseList);
+
   return (
     <StraightLayout className="ShowcaseIndexPage" title="Components">
-      <h1>Components ({components.length})</h1>
+      <h1>Components ({showcasePaths.length})</h1>
       <ul className="m-4 ml-8 list-disc">
-        {components.map(({ name, url }) => (
-          <li key={url}>
-            <a href={`./components/${url}`}>
-              {name}
-              <br />
-              <small>{url}</small>
-            </a>
+        {showcasePaths.map((path) => (
+          <li key={path}>
+            <a href={`./components/${path}`}>{path}</a>
           </li>
         ))}
       </ul>
     </StraightLayout>
   );
+}
+
+export function isShowcaseIndexPage(
+  context: GetServerSidePropsContext
+): boolean {
+  const slug = context.params?.slug;
+  return slug === undefined;
 }

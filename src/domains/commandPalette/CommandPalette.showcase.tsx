@@ -9,8 +9,6 @@ import {
   CommandPaletteSelectHandler,
 } from "./CommandPalette";
 
-export interface CommandPaletteShowcaseProps {}
-
 const demoCommands: CommandDefinition[] = [
   {
     action() {
@@ -42,7 +40,7 @@ const demoShortcuts: KeyboardShortcut[] = [
   },
 ];
 
-export function CommandPaletteShowcase({}: CommandPaletteShowcaseProps): JSX.Element {
+function CommandPaletteShowcase(): JSX.Element {
   const [state, setState] = useState<CommandPalettePageState>({
     commandPaletteVisible: false,
   });
@@ -74,3 +72,5 @@ export function CommandPaletteShowcase({}: CommandPaletteShowcaseProps): JSX.Ele
     </div>
   );
 }
+
+export default CommandPaletteShowcase;
