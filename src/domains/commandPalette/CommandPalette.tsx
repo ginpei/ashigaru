@@ -55,7 +55,7 @@ export function CommandPalette<State>({
                   value={input}
                 />
               </div>
-              <Combobox.Options data-headlessui-state="open">
+              <Combobox.Options data-headlessui-state="open" static>
                 {filteredCommands.map((command) => (
                   <CommandListItem
                     command={command}
