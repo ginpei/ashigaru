@@ -1,6 +1,7 @@
 import glob from "fast-glob";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { GetServerSideProps } from "next";
 import getConfig from "next/config";
+import { useRouter } from "next/router";
 
 const { serverRuntimeConfig } = getConfig();
 const root = serverRuntimeConfig.PROJECT_ROOT;
@@ -14,17 +15,43 @@ interface ComponentDemo {
   url: string;
 }
 
-type Data = {
-  components: ComponentDemo[];
-};
+type ServerProps = IndexPageServerProps | DemoPageServerProps;
 
-export const getServerSideProps: GetServerSideProps<Data> = async (context) => {
-  const components = await getComponentDemos();
-  return {
-    props: {
-      components,
-    },
-  };
+interface IndexPageServerProps {
+  components: ComponentDemo[];
+  type: "index";
+}
+
+interface DemoPageServerProps {
+  slug: string[];
+  type: "demo";
+}
+
+export const getServerSideProps: GetServerSideProps<ServerProps> = async (
+  context
+) => {
+  const slug = context.params?.slug;
+
+  if (slug === undefined) {
+    const components = await getComponentDemos();
+    return {
+      props: {
+        components,
+        type: "index",
+      },
+    };
+  }
+
+  if (Array.isArray(slug)) {
+    return {
+      props: {
+        slug,
+        type: "demo",
+      },
+    };
+  }
+
+  throw new Error(`Unknown pattern`);
 };
 
 async function getComponentDemos() {
@@ -46,9 +73,19 @@ async function getComponentDemos() {
   return components;
 }
 
-function Page({
-  components,
-}: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+function Page(props: ServerProps): JSX.Element {
+  if (props.type === "index") {
+    return <IndexPage {...props} />;
+  }
+
+  if (props.type === "demo") {
+    return <DemoPage {...props} />;
+  }
+
+  throw new Error(`Unknown pattern`);
+}
+
+function IndexPage({ components }: IndexPageServerProps): JSX.Element {
   return (
     <div>
       <h1>Components ({components.length})</h1>
@@ -63,6 +100,16 @@ function Page({
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+function DemoPage({ slug }: { slug: string[] }): JSX.Element {
+  // TODO
+  return (
+    <div>
+      Slug:
+      {JSON.stringify(slug)}
     </div>
   );
 }
