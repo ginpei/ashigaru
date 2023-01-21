@@ -37,7 +37,7 @@ const demoCommands: CommandDefinition[] = [
 const demoShortcuts: KeyboardShortcut[] = [
   {
     commandId: "command2",
-    key: "Ctrl+Shift+A",
+    key: "Ctrl+Example",
   },
 ];
 
