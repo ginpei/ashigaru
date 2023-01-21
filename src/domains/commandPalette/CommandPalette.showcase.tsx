@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CommandDefinition } from "../command/CommandDefinition";
 import { NiceButton } from "../control/NiceButton";
 import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
+import { ComboboxDemo } from "./ComboboxDemo";
 import {
   CommandPalette,
   CommandPalettePageState,
@@ -63,6 +64,7 @@ export function CommandPaletteShowcase({}: CommandPaletteShowcaseProps): JSX.Ele
           Open
         </NiceButton>
       </p>
+      <ComboboxDemo />
       <CommandPalette
         commands={demoCommands}
         open={state.commandPaletteVisible}
