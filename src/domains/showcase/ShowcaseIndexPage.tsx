@@ -1,3 +1,5 @@
+import { StraightLayout } from "../../layouts/straight/StraightLayout";
+
 export interface ShowcaseIndexPageProps {
   components: ComponentDemo[];
 }
@@ -14,7 +16,7 @@ export function ShowcaseIndexPage({
   components,
 }: ShowcaseIndexPageProps): JSX.Element {
   return (
-    <div className="ShowcaseIndexPage">
+    <StraightLayout className="ShowcaseIndexPage" title="Components">
       <h1>Components ({components.length})</h1>
       <ul className="m-4 ml-8 list-disc">
         {components.map(({ name, url }) => (
@@ -27,6 +29,6 @@ export function ShowcaseIndexPage({
           </li>
         ))}
       </ul>
-    </div>
+    </StraightLayout>
   );
 }

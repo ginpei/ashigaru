@@ -1,4 +1,5 @@
 import { GetServerSidePropsContext } from "next";
+import { StraightLayout } from "../../layouts/straight/StraightLayout";
 
 export interface ShowcasePageProps {
   slug: string[];
@@ -24,9 +25,9 @@ export async function getShowcasePageProps(
 
 export function ShowcasePage({ slug }: ShowcasePageProps): JSX.Element {
   return (
-    <div className="ShowcasePage">
+    <StraightLayout className="HomePage" title={slug.join("/")}>
       <h1>ShowcasePage</h1>
       <p>{slug.join("/")}</p>
-    </div>
+    </StraightLayout>
   );
 }
