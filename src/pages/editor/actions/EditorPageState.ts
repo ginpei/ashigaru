@@ -1,9 +1,7 @@
 import { Note } from "../../../domains/note/Note";
+import { NoteListState } from "../../../domains/note/noteListActions";
 
-export interface EditorPageState extends CommandPaletteState {
-  editingNoteId: string;
-  notes: Note[];
-}
+export interface EditorPageState extends CommandPaletteState, NoteListState {}
 
 interface CommandPaletteState {
   commandPaletteVisible: boolean;

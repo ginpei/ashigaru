@@ -1,6 +1,11 @@
-import { CommandDefinition } from "../../../domains/command/CommandDefinition";
-import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
-import { EditorPageState } from "./EditorPageState";
+import { CommandDefinition } from "../command/CommandDefinition";
+import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
+import { Note } from "./Note";
+
+export interface NoteListState {
+  editingNoteId: string;
+  notes: Note[];
+}
 
 export const noteListShortcuts: KeyboardShortcut[] = [
   {
@@ -20,7 +25,7 @@ export const noteListShortcuts: KeyboardShortcut[] = [
   },
 ];
 
-export const noteListCommands: CommandDefinition<EditorPageState>[] = [
+export const noteListCommands: CommandDefinition<NoteListState>[] = [
   {
     action(state) {
       console.log("select", state.notes);

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
-export interface CommandDefinition<State> {
+export interface CommandDefinition<State = any> {
   action: (state: State, setState: Dispatch<SetStateAction<State>>) => void;
   id: string;
   title: string;

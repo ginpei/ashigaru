@@ -1,10 +1,12 @@
 import { CommandDefinition } from "../../../domains/command/CommandDefinition";
+import {
+  noteListCommands,
+  noteListShortcuts,
+} from "../../../domains/note/noteListActions";
 import { giveFocusOn } from "../../../domains/shortcut/domFocusManipulators";
 import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
-import { EditorPageState } from "./EditorPageState";
-import { noteListCommands, noteListShortcuts } from "./noteListActions";
 
-export const editorCommands: CommandDefinition<EditorPageState>[] = [
+export const editorCommands: CommandDefinition[] = [
   ...noteListCommands,
   {
     action() {
