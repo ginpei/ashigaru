@@ -27,9 +27,11 @@ export function CommandListItem<State>({
       onClick={onItemClick}
     >
       <span>
-        {titleCharacters.map((c) =>
+        {titleCharacters.map((c, i) =>
           c.highlight ? (
-            <b className="text-cyan-800">{c.character}</b>
+            <b className="text-cyan-800" key={`${c}-${i}`}>
+              {c.character}
+            </b>
           ) : (
             c.character
           )
