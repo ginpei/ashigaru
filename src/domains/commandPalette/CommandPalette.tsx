@@ -64,13 +64,7 @@ export function CommandPalette<State>({
                     shortcut={shortcuts.find((v) => v.commandId === command.id)}
                   />
                 ))}
-                {filteredCommands.length < 1 && (
-                  <li className="px-2 py-1 leading-4 cursor-default">
-                    <small className="text-slate-500">
-                      No matching results
-                    </small>
-                  </li>
-                )}
+                {filteredCommands.length < 1 && <CommandListItem.Empty />}
               </Combobox.Options>
             </Combobox>
           </Dialog.Panel>
