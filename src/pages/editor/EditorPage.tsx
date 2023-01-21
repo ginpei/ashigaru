@@ -4,7 +4,7 @@ import {
   CommandDefinition,
   pickCommandDefinition,
 } from "../../domains/command/CommandDefinition";
-import { EditorCommandPalette } from "../../domains/commandPalette/EditorCommandPalette";
+import { CommandPalette } from "../../domains/commandPalette/CommandPalette";
 import { Note } from "../../domains/note/Note";
 import {
   useFocusMarkEffect,
@@ -89,7 +89,7 @@ export function EditorPage(): JSX.Element {
           <Editor />
         </div>
       </div>
-      <EditorCommandPalette
+      <CommandPalette
         commands={commands}
         open={state.commandPaletteVisible}
         onSelect={onCommandSelect}

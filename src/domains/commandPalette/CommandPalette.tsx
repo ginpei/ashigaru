@@ -5,7 +5,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import { EditorPageState } from "../../pages/editor/actions/EditorPageState";
 import { CommandDefinition } from "../command/CommandDefinition";
 import { NiceInput } from "../control/NiceInput";
 import { FocusTarget } from "../shortcut/FocusTarget";
@@ -13,19 +12,27 @@ import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
 import { useFilteredCommand } from "./commandFilterHooks";
 import { CommandListItem } from "./CommandListItem";
 
-export interface EditorCommandPaletteProps {
-  commands: CommandDefinition<EditorPageState>[];
+export type CommandPaletteSelectHandler<State> = (
+  command: CommandDefinition<State> | null
+) => void;
+
+export interface EditorCommandPaletteProps<State> {
+  commands: CommandDefinition<State>[];
   open: boolean;
-  onSelect: (command: CommandDefinition<EditorPageState> | null) => void;
+  onSelect: CommandPaletteSelectHandler<State>;
   shortcuts: KeyboardShortcut[];
 }
 
-export function EditorCommandPalette({
+export interface CommandPalettePageState {
+  commandPaletteVisible: boolean;
+}
+
+export function CommandPalette<State>({
   commands,
   open,
   onSelect,
   shortcuts,
-}: EditorCommandPaletteProps): JSX.Element {
+}: EditorCommandPaletteProps<State>): JSX.Element {
   const [input, setInput] = useState("");
   const filteredCommands = useFilteredCommand(commands, { keyword: input });
 
