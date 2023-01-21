@@ -20,7 +20,10 @@ export function CommandListItem<State>({
 
   return (
     <li
-      className="mb-1 px-2 flex place-content-between leading-4"
+      className={`
+        px-2 py-1 flex place-content-between leading-4 cursor-pointer
+        hover:bg-slate-300
+      `}
       onClick={onItemClick}
     >
       <span>
