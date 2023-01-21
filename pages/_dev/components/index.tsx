@@ -19,6 +19,15 @@ type Data = {
 };
 
 export const getServerSideProps: GetServerSideProps<Data> = async (context) => {
+  const components = await getComponentDemos();
+  return {
+    props: {
+      components,
+    },
+  };
+};
+
+async function getComponentDemos() {
   const paths = await glob(pattern);
   const components: ComponentDemo[] = paths.map((filePath) => {
     const individualPath = filePath.slice(componentsDir.length + 1);
@@ -34,12 +43,8 @@ export const getServerSideProps: GetServerSideProps<Data> = async (context) => {
     };
   });
 
-  return {
-    props: {
-      components,
-    },
-  };
-};
+  return components;
+}
 
 function Page({
   components,
