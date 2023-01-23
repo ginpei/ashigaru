@@ -40,16 +40,40 @@ describe("isCommandMatched()", () => {
 });
 
 describe("highlightFilteredCommandTitle()", () => {
-  it("highlights", () => {
+  it("highlights matched characters", () => {
     const title = "Hello";
-    const keyword = "hlo";
+    const keyword = "Heo";
     const result = highlightFilteredCommandTitle(title, keyword);
     expect(result).toEqual([
       { character: "H", highlight: true },
-      { character: "e", highlight: false },
-      { character: "l", highlight: true },
+      { character: "e", highlight: true },
+      { character: "l", highlight: false },
       { character: "l", highlight: false },
       { character: "o", highlight: true },
+    ]);
+  });
+
+  it("matches as case insensitive", () => {
+    const title = "Hello";
+    const keyword = "hE";
+    const result = highlightFilteredCommandTitle(title, keyword);
+    expect(result).toEqual([
+      { character: "H", highlight: true },
+      { character: "e", highlight: true },
+      { character: "l", highlight: false },
+      { character: "l", highlight: false },
+      { character: "o", highlight: false },
+    ]);
+  });
+
+  it("matches only characters from the head", () => {
+    const title = "lll";
+    const keyword = "ll";
+    const result = highlightFilteredCommandTitle(title, keyword);
+    expect(result).toEqual([
+      { character: "l", highlight: true },
+      { character: "l", highlight: true },
+      { character: "l", highlight: false },
     ]);
   });
 });
