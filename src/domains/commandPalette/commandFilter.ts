@@ -4,6 +4,11 @@ export interface CommandFilter {
   keyword: string;
 }
 
+export interface HighlightedCharacter {
+  character: string;
+  highlight: boolean;
+}
+
 export function isCommandMatched<State>(
   command: CommandDefinition<State>,
   filter: CommandFilter
@@ -29,8 +34,8 @@ export function isCommandMatched<State>(
 export function highlightFilteredCommandTitle(
   title: string,
   keyword: string
-): { highlight: boolean; character: string }[] | null {
-  const highlighted: ReturnType<typeof highlightFilteredCommandTitle> = [];
+): HighlightedCharacter[] | null {
+  const highlighted: HighlightedCharacter[] = [];
 
   let kIndex = 0;
   for (const tChar of title) {
