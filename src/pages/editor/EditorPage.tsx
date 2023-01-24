@@ -77,6 +77,7 @@ export function EditorPage(): JSX.Element {
         style={rootStyle}
       >
         <Head>
+          <link rel="shortcut icon" href="/icon-512.png" type="image/png" />
           <title>Editor</title>
         </Head>
         <header style={{ gridArea: "navbar" }}>

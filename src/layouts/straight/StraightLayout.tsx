@@ -17,6 +17,7 @@ export function StraightLayout({
   return (
     <div className={`${className} StraightLayout`}>
       <Head>
+        <link rel="shortcut icon" href="/icon-512.png" type="image/png" />
         <title>{`${title} | Ashigaru`}</title>
       </Head>
       <BasicHeader />
