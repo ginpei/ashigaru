@@ -7,14 +7,12 @@ export interface CommandListItemProps<State> {
   command: CommandDefinition<State>;
   keyword: string;
   shortcut?: KeyboardShortcut;
-  onClick?: (command: CommandDefinition<State>) => void;
 }
 
 export function CommandListItem<State>({
   command,
   keyword,
   shortcut,
-  onClick,
 }: CommandListItemProps<State>): JSX.Element {
   const titleCharacters = highlightFilteredCommandTitle(command.title, keyword);
 
