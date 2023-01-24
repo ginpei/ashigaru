@@ -11,7 +11,7 @@ export function BasicHeader(): JSX.Element {
       BasicHeader
       bg-ginpei
       [&_a]:text-white [&_a]:no-underline
-      [&_a:hover]:text-white [&_a:hover]:underline
+      [&_a:is(:hover,:focus)]:text-white [&_a:is(:hover,:focus)]:underline
     `}
     >
       <Container>
