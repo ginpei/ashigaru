@@ -18,6 +18,11 @@ export function CommandListItem<State>({
 }: CommandListItemProps<State>): JSX.Element {
   const titleCharacters = highlightFilteredCommandTitle(command.title, keyword);
 
+  //  TODO receive object and skip null check
+  if (!titleCharacters) {
+    return <></>;
+  }
+
   return (
     <Combobox.Option className="CommandListItem" value={command}>
       {({ active }) => (
