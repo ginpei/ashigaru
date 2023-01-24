@@ -23,26 +23,29 @@ export function isCommandMatched<State>(
   });
 }
 
+/**
+ * @returns `null` if not matched
+ */
 export function highlightFilteredCommandTitle(
   title: string,
   keyword: string
-): { highlight: boolean; character: string }[] {
-  const letters = Array.from(keyword.toLowerCase());
-  const highlighted: ReturnType<typeof highlightFilteredCommandTitle> =
-    Array.from(title).map((titleCharacter) => {
-      const index = letters.indexOf(titleCharacter.toLowerCase());
-      if (index < 0) {
-        return {
-          character: titleCharacter,
-          highlight: false,
-        };
-      }
+): { highlight: boolean; character: string }[] | null {
+  const highlighted: ReturnType<typeof highlightFilteredCommandTitle> = [];
 
-      letters[index] = "";
-      return {
-        character: titleCharacter,
-        highlight: true,
-      };
-    });
+  let kIndex = 0;
+  for (const tChar of title) {
+    const kChar = keyword[kIndex] ?? "";
+    if (tChar.toLowerCase() === kChar.toLowerCase()) {
+      highlighted.push({ character: tChar, highlight: true });
+      kIndex += 1;
+    } else {
+      highlighted.push({ character: tChar, highlight: false });
+    }
+  }
+
+  if (kIndex !== keyword.length) {
+    return null;
+  }
+
   return highlighted;
 }

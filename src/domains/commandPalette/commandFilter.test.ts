@@ -53,6 +53,13 @@ describe("highlightFilteredCommandTitle()", () => {
     ]);
   });
 
+  it("returns null if not match", () => {
+    const title = "Hello";
+    const keyword = "hol";
+    const result = highlightFilteredCommandTitle(title, keyword);
+    expect(result).toEqual(null);
+  });
+
   it("matches as case insensitive", () => {
     const title = "Hello";
     const keyword = "hE";
@@ -74,6 +81,18 @@ describe("highlightFilteredCommandTitle()", () => {
       { character: "l", highlight: true },
       { character: "l", highlight: true },
       { character: "l", highlight: false },
+    ]);
+  });
+
+  it("matches only forward", () => {
+    const title = "holo";
+    const keyword = "hlo";
+    const result = highlightFilteredCommandTitle(title, keyword);
+    expect(result).toEqual([
+      { character: "h", highlight: true },
+      { character: "o", highlight: false },
+      { character: "l", highlight: true },
+      { character: "o", highlight: true },
     ]);
   });
 });
