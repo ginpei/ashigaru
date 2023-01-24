@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CommandDefinition } from "../command/CommandDefinition";
-import { NiceButton } from "../control/NiceButton";
+import { NiceButton } from "../nice/NiceButton";
 import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
 import { ComboboxDemo } from "./ComboboxDemo";
 import {

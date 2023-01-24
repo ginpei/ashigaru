@@ -1,4 +1,4 @@
-import { NiceLink } from "../../domains/atom/NiceLink";
+import { NiceLink } from "../../domains/nice/NiceLink";
 import { StraightLayout } from "../../layouts/straight/StraightLayout";
 import { aboutPagePath } from "../about/aboutPageMeta";
 import { editorPagePath } from "../editor/editorPageMeta";
