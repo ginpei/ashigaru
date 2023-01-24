@@ -47,10 +47,6 @@ function Page({ showcaseId }: ServerProps): JSX.Element {
   }
 
   const Component = getShowcaseComponent(showcaseId);
-  if (!Component) {
-    throw new Error(`Failed to get component: ${showcaseId}`);
-  }
-
   return <Component />;
 }
 
