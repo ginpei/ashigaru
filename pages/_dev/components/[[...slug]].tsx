@@ -1,59 +1,57 @@
-import { GetServerSideProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { ShowcaseIndexPage } from "../../../src/domains/showcase/ShowcaseIndexPage";
+import { showcaseList } from "../../../src/domains/showcase/showcaseList";
 import {
-  isShowcaseIndexPage,
-  ShowcaseIndexPage,
-  ShowcaseIndexPageProps,
-} from "../../../src/domains/showcase/ShowcaseIndexPage";
-import {
-  getShowcasePageProps,
-  isShowcasePage,
-  ShowcasePage,
-  ShowcasePageProps,
-} from "../../../src/domains/showcase/ShowcasePage";
+  getShowcaseComponent,
+  isShowcaseListKey,
+} from "../../../src/domains/showcase/showcaseListHandlers";
 
-type ServerProps = IndexPageServerProps | DemoPageServerProps;
-
-interface IndexPageServerProps extends ShowcaseIndexPageProps {
-  type: "index";
+interface ServerProps {
+  showcaseId: keyof typeof showcaseList | "";
 }
 
-interface DemoPageServerProps extends ShowcasePageProps {
-  type: "demo";
-}
-
-export const getServerSideProps: GetServerSideProps<ServerProps> = async (
-  context
-) => {
-  if (isShowcaseIndexPage(context)) {
-    return {
-      props: {
-        type: "index",
+export const getStaticPaths: GetStaticPaths = () => {
+  return {
+    paths: [
+      {
+        params: { slug: [] },
       },
-    };
-  }
-
-  if (isShowcasePage(context)) {
-    return {
-      props: {
-        ...(await getShowcasePageProps(context)),
-        type: "demo",
-      },
-    };
-  }
-
-  throw new Error(`Unknown pattern`);
+      ...Object.keys(showcaseList).map((v) => ({
+        params: { slug: v.split("/") },
+      })),
+    ],
+    fallback: false, // can also be true or 'blocking'
+  };
 };
 
-function Page(props: ServerProps): JSX.Element {
-  if (props.type === "index") {
+export const getStaticProps: GetStaticProps<ServerProps> = async (context) => {
+  const slug = context.params?.slug;
+  const showcaseId = Array.isArray(slug) ? slug.join("/") : undefined;
+
+  if (showcaseId !== undefined && !isShowcaseListKey(showcaseId)) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      showcaseId: showcaseId ?? "",
+    },
+  };
+};
+
+function Page({ showcaseId }: ServerProps): JSX.Element {
+  if (showcaseId === "") {
     return <ShowcaseIndexPage />;
   }
 
-  if (props.type === "demo") {
-    return <ShowcasePage {...props} />;
+  const Component = getShowcaseComponent(showcaseId);
+  if (!Component) {
+    throw new Error(`Failed to get component: ${showcaseId}`);
   }
 
-  throw new Error(`Unknown pattern`);
+  return <Component />;
 }
 
 export default Page;

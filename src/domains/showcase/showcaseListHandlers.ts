@@ -8,6 +8,8 @@ export function getShowcaseComponent(path: string): (() => JSX.Element) | null {
   return showcaseList[path];
 }
 
-function isShowcaseListKey(path: string): path is keyof typeof showcaseList {
+export function isShowcaseListKey(
+  path: string
+): path is keyof typeof showcaseList {
   return path in showcaseList;
 }
