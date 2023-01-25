@@ -25,6 +25,16 @@ export const noteListShortcuts: KeyboardShortcut[] = [
     key: "ArrowDown",
     when: "noteListFocus",
   },
+  {
+    commandId: "focusFirstNote",
+    key: "Home",
+    when: "noteListFocus",
+  },
+  {
+    commandId: "focusLastNote",
+    key: "End",
+    when: "noteListFocus",
+  },
 ];
 
 export const noteListCommands: CommandDefinition<NoteListState>[] = [
@@ -78,5 +88,39 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
     },
     id: "focusNextNote",
     title: "Focus on the next note",
+  },
+  {
+    action(state, setState) {
+      const { notes } = state;
+      const note = notes[0];
+      if (!note) {
+        return;
+      }
+      setState({
+        ...state,
+        editingNoteId: note.id,
+        focusedNoteId: note.id,
+        selectedNoteIds: [note.id],
+      });
+    },
+    id: "focusFirstNote",
+    title: "Focus on the first note",
+  },
+  {
+    action(state, setState) {
+      const { notes } = state;
+      const note = notes.at(-1);
+      if (!note) {
+        return;
+      }
+      setState({
+        ...state,
+        editingNoteId: note.id,
+        focusedNoteId: note.id,
+        selectedNoteIds: [note.id],
+      });
+    },
+    id: "focusLastNote",
+    title: "Focus on the last note",
   },
 ];
