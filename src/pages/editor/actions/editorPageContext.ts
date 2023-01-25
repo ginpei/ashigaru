@@ -25,7 +25,13 @@ export function useEditingNote(): Note | null {
 
 export function useStartEditingNote(): (id: string) => void {
   const [state, set] = useContext(EditorPageContext);
-  return (id) => set({ ...state, editingNoteId: id });
+  return (id) =>
+    set({
+      ...state,
+      editingNoteId: id,
+      focusedNoteId: id,
+      selectedNoteIds: [id],
+    });
 }
 
 export function useUpdateEditingNote(): (note: Partial<Note>) => void {

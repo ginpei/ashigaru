@@ -4,7 +4,9 @@ import { Note } from "./Note";
 
 export interface NoteListState {
   editingNoteId: string;
+  focusedNoteId: string;
   notes: Note[];
+  selectedNoteIds: string[];
 }
 
 export const noteListShortcuts: KeyboardShortcut[] = [
@@ -27,8 +29,11 @@ export const noteListShortcuts: KeyboardShortcut[] = [
 
 export const noteListCommands: CommandDefinition<NoteListState>[] = [
   {
-    action(state) {
-      console.log("select", state.notes);
+    action(state, setState) {
+      setState({
+        ...state,
+        selectedNoteIds: state.notes.map((v) => v.id),
+      });
     },
     id: "selectAllNotes",
     title: "Select all notes",
@@ -41,7 +46,12 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
       if (!prevNote) {
         return;
       }
-      setState({ ...state, editingNoteId: prevNote.id });
+      setState({
+        ...state,
+        editingNoteId: prevNote.id,
+        focusedNoteId: prevNote.id,
+        selectedNoteIds: [prevNote.id],
+      });
     },
     id: "focusPreviousNote",
     title: "Focus on the previous note",
@@ -59,7 +69,12 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
       if (!nextNote) {
         return;
       }
-      setState({ ...state, editingNoteId: nextNote.id });
+      setState({
+        ...state,
+        editingNoteId: nextNote.id,
+        focusedNoteId: nextNote.id,
+        selectedNoteIds: [nextNote.id],
+      });
     },
     id: "focusNextNote",
     title: "Focus on the next note",

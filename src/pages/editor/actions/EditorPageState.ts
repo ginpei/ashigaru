@@ -12,7 +12,9 @@ export function createEditorPageState(
   return {
     commandPaletteVisible: initial?.commandPaletteVisible ?? false,
     editingNoteId: initial?.editingNoteId ?? "",
+    focusedNoteId: initial?.focusedNoteId ?? "",
     notes: initial?.notes ?? [],
+    selectedNoteIds: initial?.selectedNoteIds ?? [],
   };
 }
 

@@ -9,7 +9,7 @@ import { NoteItem } from "./NoteItem";
 export interface ListPaneProps {}
 
 export function ListPane(): JSX.Element {
-  const { editingNoteId, notes } = useEditorPageState();
+  const { focusedNoteId, notes, selectedNoteIds } = useEditorPageState();
   const startEditingNote = useStartEditingNote();
 
   const onNoteClick = (note: Note) => {
@@ -23,9 +23,10 @@ export function ListPane(): JSX.Element {
         <div tabIndex={0}>
           {notes.map((note) => (
             <NoteItem
+              focused={focusedNoteId === note.id}
               key={note.id}
               note={note}
-              selected={editingNoteId === note.id}
+              selected={selectedNoteIds.includes(note.id)}
               onClick={onNoteClick}
             />
           ))}
