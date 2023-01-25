@@ -17,10 +17,10 @@ export function ListPane(): JSX.Element {
   };
 
   return (
-    <section className="ListPane">
+    <section className="ListPane h-full flex flex-col">
       <h1 className="font-bold px-4 text-lg">Notes</h1>
       <FocusTarget id="noteListFocus">
-        <div tabIndex={0}>
+        <div className="overflow-auto" tabIndex={0}>
           {notes.map((note) => (
             <NoteItem
               focused={focusedNoteId === note.id}

@@ -73,7 +73,7 @@ export function EditorPage(): JSX.Element {
   return (
     <EditorPageStateProvider value={[state, setState]}>
       <div
-        className="EditorPage grid h-[100vh] [&>*]:overflow-auto"
+        className="EditorPage grid h-[100vh] [&>*]:overflow-hidden"
         style={rootStyle}
       >
         <Head>
