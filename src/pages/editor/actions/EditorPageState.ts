@@ -34,7 +34,7 @@ export function updateEditingNote(
     throw new Error(`Note not found. ID: ${note.id}`);
   }
 
-  const newNote = { ...notes, ...note } as Note;
+  const newNote: Note = { ...notes[index], ...note };
   const newNotes = [
     ...notes.slice(0, index),
     newNote,
