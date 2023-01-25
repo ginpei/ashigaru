@@ -1,26 +1,16 @@
 import { Combobox } from "@headlessui/react";
-import { CommandDefinition } from "../command/CommandDefinition";
 import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
-import { highlightFilteredCommandTitle } from "./commandFilter";
+import { HighlightedCommand } from "./commandFilterHooks";
 
 export interface CommandListItemProps<State> {
-  command: CommandDefinition<State>;
-  keyword: string;
+  command: HighlightedCommand<State>;
   shortcut?: KeyboardShortcut;
 }
 
 export function CommandListItem<State>({
   command,
-  keyword,
   shortcut,
 }: CommandListItemProps<State>): JSX.Element {
-  const titleCharacters = highlightFilteredCommandTitle(command.title, keyword);
-
-  //  TODO receive object and skip null check
-  if (!titleCharacters) {
-    return <></>;
-  }
-
   return (
     <Combobox.Option className="CommandListItem" value={command}>
       {({ active }) => (
@@ -32,7 +22,7 @@ export function CommandListItem<State>({
           `}
         >
           <span>
-            {titleCharacters.map((c, i) =>
+            {command.highlightedCharacters.map((c, i) =>
               c.highlight ? (
                 <b className="text-cyan-800" key={`${c}-${i}`}>
                   {c.character}
