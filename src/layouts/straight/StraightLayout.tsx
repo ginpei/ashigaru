@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { Container } from "../../domains/layout/Container";
+import { VStack } from "../../domains/layout/VStack";
 import { BasicFooter } from "../shared/BasicFooter";
 import { BasicHeader } from "../shared/BasicHeader";
 
@@ -20,11 +21,13 @@ export function StraightLayout({
         <link rel="shortcut icon" href="/icon-512.png" type="image/png" />
         <title>{`${title} | Ashigaru`}</title>
       </Head>
-      <BasicHeader />
-      <Container>
-        <main className="min-h-[50vh]">{children}</main>
-      </Container>
-      <BasicFooter />
+      <VStack>
+        <BasicHeader />
+        <Container>
+          <main className="min-h-[50vh]">{children}</main>
+        </Container>
+        <BasicFooter />
+      </VStack>
     </div>
   );
 }
