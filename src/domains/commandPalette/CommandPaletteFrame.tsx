@@ -1,51 +1,41 @@
 import { Combobox, Dialog } from "@headlessui/react";
-import { useEffect, useMemo, useState } from "react";
+import { ChangeEventHandler } from "react";
 import { FocusTarget, FocusTargetId } from "../shortcut/FocusTarget";
-import { CommandListItem } from "./CommandListItem";
 
-export interface CommandPaletteFrameProps<
-  Value,
-  FilteredValue extends Value = Value
-> {
-  filter: (input: string, values: Value[]) => FilteredValue[];
+export interface CommandPaletteFrameProps<Value> {
   focusTargetId: FocusTargetId;
-  getKey?: (value: Value) => string;
+  getKey: (value: Value) => string;
+  input: string;
+  onInput: (input: string) => void;
   onSelect: CommandPaletteSelectHandler<Value>;
   open: boolean;
-  options: Value[];
+  options: Readonly<Value[]>;
   renderEmptyItem: () => React.ReactNode;
   renderItem: (value: Value, index: number) => React.ReactNode;
 }
 
 export type CommandPaletteSelectHandler<T> = (command: T | null) => void;
 
-export function CommandPaletteFrame<
-  Value = { id: string },
-  FilteredValue extends Value = Value
->({
-  filter,
+export function CommandPaletteFrame<Value>({
   focusTargetId,
-  getKey = getId,
+  getKey,
+  input,
+  onInput,
   onSelect,
   open,
   options,
   renderEmptyItem,
   renderItem,
-}: CommandPaletteFrameProps<Value, FilteredValue>): JSX.Element {
-  const [input, setInput] = useState("");
-
-  const filteredOptions = useMemo(() => {
-    return filter(input, options);
-  }, [filter, input, options]);
-
-  useEffect(() => {
-    setInput("");
-  }, [open]);
-
+}: CommandPaletteFrameProps<Value>): JSX.Element {
   const onDialogClose = () => onSelect(null);
 
   const onComboboxChange = (option: Value) => {
     onSelect(option);
+  };
+
+  const onInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    const value = event.currentTarget.value;
+    onInput(value);
   };
 
   return (
@@ -59,12 +49,12 @@ export function CommandPaletteFrame<
               <div className="flex [&>*]:flex-1">
                 <Combobox.Input
                   className="border-[1px] border-ginpei px-4 py-1 text-black"
-                  onChange={(v) => setInput(v.currentTarget.value)}
+                  onChange={onInputChange}
                   value={input}
                 />
               </div>
               <Combobox.Options data-headlessui-state="open" static>
-                {filteredOptions.map((option, index) => (
+                {options.map((option, index) => (
                   <Combobox.Option key={getKey(option)} value={option}>
                     {({ active }) => (
                       <div
@@ -79,7 +69,7 @@ export function CommandPaletteFrame<
                     )}
                   </Combobox.Option>
                 ))}
-                {filteredOptions.length < 1 && (
+                {options.length < 1 && (
                   <li className="px-2 py-1 leading-4 cursor-default">
                     {renderEmptyItem()}
                   </li>
@@ -90,15 +80,5 @@ export function CommandPaletteFrame<
         </div>
       </FocusTarget>
     </Dialog>
-  );
-}
-
-function getId(value: unknown) {
-  if (typeof value === "object" && value && "id" in value) {
-    return String(value.id);
-  }
-
-  throw new Error(
-    `Failed to get key. Please give a proper key getter function`
   );
 }

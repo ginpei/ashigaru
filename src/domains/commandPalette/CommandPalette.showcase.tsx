@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { StraightLayout } from "../../layouts/straight/StraightLayout";
 import { CommandDefinition } from "../command/CommandDefinition";
 import { HStack } from "../layout/HStask";
@@ -84,25 +84,33 @@ function CommandPaletteShowcase(): JSX.Element {
 export default CommandPaletteShowcase;
 
 function CommandPaletteFrameExample() {
-  const [frameVisible, setFrameVisible] = useState(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const options = ["One", "Two", "Three"] as const;
+
+  const [input, setInput] = useState("");
+  const [visible, setVisible] = useState(false);
+
+  const filteredOptions = useMemo(() => {
+    return options.filter((v) => v.toLowerCase().includes(input.toLowerCase()));
+  }, [options, input]);
+
   return (
     <>
       <NiceH2>&lt;CommandPaletteFrame&gt;</NiceH2>
       <p>
-        <NiceButton onClick={() => setFrameVisible(true)}>Open</NiceButton>
+        <NiceButton onClick={() => setVisible(true)}>Open</NiceButton>
       </p>
       <CommandPaletteFrame
-        filter={(input, values) =>
-          values.filter((v) => v.toLowerCase().includes(input.toLowerCase()))
-        }
         focusTargetId="demoCommandPaletteFrameFocus"
         getKey={(v) => v}
+        input={input}
+        onInput={setInput}
         onSelect={(v) => {
           console.log(v);
-          setFrameVisible(false);
+          setVisible(false);
         }}
-        open={frameVisible}
-        options={["One", "Two", "Three"]}
+        open={visible}
+        options={filteredOptions}
         renderEmptyItem={() => <>No match</>}
         renderItem={(v) => <>{v}</>}
       />
