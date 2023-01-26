@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { StraightLayout } from "../../layouts/straight/StraightLayout";
 import { CommandDefinition } from "../command/CommandDefinition";
-import { Container } from "../layout/Container";
 import { VStack } from "../layout/VStack";
 import { NiceButton } from "../nice/NiceButton";
 import { NiceH1, NiceH2, NiceH3 } from "../nice/NiceH";
@@ -54,7 +54,7 @@ function CommandPaletteShowcase(): JSX.Element {
   };
 
   return (
-    <Container>
+    <StraightLayout title="<CommandPalette> demo">
       <VStack className="CommandPaletteShowcase">
         <NiceH1>&lt;CommandPalette&gt;</NiceH1>
         <NiceH2>Basics</NiceH2>
@@ -77,7 +77,7 @@ function CommandPaletteShowcase(): JSX.Element {
           shortcuts={demoShortcuts}
         />
       </VStack>
-    </Container>
+    </StraightLayout>
   );
 }
 
