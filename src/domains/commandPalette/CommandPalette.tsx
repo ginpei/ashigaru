@@ -10,7 +10,7 @@ export type CommandPaletteSelectHandler<State> = (
   command: CommandDefinition<State> | null
 ) => void;
 
-export interface EditorCommandPaletteProps<State> {
+export interface CommandPaletteProps<State> {
   commands: CommandDefinition<State>[];
   open: boolean;
   onSelect: CommandPaletteSelectHandler<State>;
@@ -26,7 +26,7 @@ export function CommandPalette<State>({
   open,
   onSelect,
   shortcuts,
-}: EditorCommandPaletteProps<State>): JSX.Element {
+}: CommandPaletteProps<State>): JSX.Element {
   const [input, setInput] = useState("");
   const filteredCommands = useFilteredCommand(commands, { keyword: input });
 
@@ -41,7 +41,7 @@ export function CommandPalette<State>({
   };
 
   return (
-    <Dialog className="EditorCommandPallet" onClose={onDialogClose} open={open}>
+    <Dialog className="CommandPallet" onClose={onDialogClose} open={open}>
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
       <FocusTarget id="commandPaletteFocus">
         <div className="fixed w-full top-0 mx-auto flex items-center justify-center p-4">
