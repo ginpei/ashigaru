@@ -68,7 +68,49 @@ const demoFiles: CommandDefinition[] = [
 ];
 
 function CommandPaletteShowcase(): JSX.Element {
+  return (
+    <StraightLayout title="<CommandPalette> demo">
+      <VStack className="CommandPaletteShowcase">
+        <NiceH1>Command palette</NiceH1>
+        <CommandPaletteFrameExample />
+        <CommandPaletteExample />
+        <NiceH3>Headless UI original combo box</NiceH3>
+        <ComboboxDemo />
+      </VStack>
+    </StraightLayout>
+  );
+}
+
+export default CommandPaletteShowcase;
+
+function CommandPaletteFrameExample() {
   const [frameVisible, setFrameVisible] = useState(false);
+  return (
+    <>
+      <NiceH2>&lt;CommandPaletteFrame&gt;</NiceH2>
+      <p>
+        <NiceButton onClick={() => setFrameVisible(true)}>Open</NiceButton>
+      </p>
+      <CommandPaletteFrame
+        filter={(input, values) =>
+          values.filter((v) => v.toLowerCase().includes(input.toLowerCase()))
+        }
+        focusTargetId="demoCommandPaletteFrameFocus"
+        getKey={(v) => v}
+        onSelect={(v) => {
+          console.log(v);
+          setFrameVisible(false);
+        }}
+        open={frameVisible}
+        options={["One", "Two", "Three"]}
+        renderEmptyItem={() => <>No match</>}
+        renderItem={(v) => <>{v}</>}
+      />
+    </>
+  );
+}
+
+function CommandPaletteExample() {
   const [state, setState] = useState<PageState>({
     commandPaletteVisible: false,
     filePaletteVisible: false,
@@ -85,62 +127,34 @@ function CommandPaletteShowcase(): JSX.Element {
   };
 
   return (
-    <StraightLayout title="<CommandPalette> demo">
-      <VStack className="CommandPaletteShowcase">
-        <NiceH1>Command palette</NiceH1>
-        <NiceH2>&lt;CommandPaletteFrame&gt;</NiceH2>
-        <p>
-          <NiceButton onClick={() => setFrameVisible(true)}>Open</NiceButton>
-        </p>
-        <NiceH2>&lt;CommandPalette&gt;</NiceH2>
-        <p>* No shortcuts are prepared in this demo page.</p>
-        <HStack>
-          <NiceButton
-            onClick={() =>
-              setState((v) => ({ ...v, commandPaletteVisible: true }))
-            }
-          >
-            Open
-          </NiceButton>
-          <NiceButton
-            onClick={() =>
-              setState((v) => ({ ...v, filePaletteVisible: true }))
-            }
-          >
-            Select file...
-          </NiceButton>
-        </HStack>
-        <NiceH3>Headless UI original combo box</NiceH3>
-        <ComboboxDemo />
-        <CommandPaletteFrame
-          filter={(input, values) =>
-            values.filter((v) => v.toLowerCase().includes(input.toLowerCase()))
+    <>
+      <NiceH2>&lt;CommandPalette&gt;</NiceH2>
+      <p>* No shortcuts are prepared in this demo page.</p>
+      <HStack>
+        <NiceButton
+          onClick={() =>
+            setState((v) => ({ ...v, commandPaletteVisible: true }))
           }
-          focusTargetId="demoCommandPaletteFrameFocus"
-          getKey={(v) => v}
-          onSelect={(v) => {
-            console.log(v);
-            setFrameVisible(false);
-          }}
-          open={frameVisible}
-          options={["One", "Two", "Three"]}
-          renderEmptyItem={() => <>No match</>}
-          renderItem={(v) => <>{v}</>}
-        />
-        <CommandPalette
-          commands={demoCommands}
-          open={state.commandPaletteVisible}
-          onSelect={onCommandSelect}
-          shortcuts={demoShortcuts}
-        />
-        <CommandPalette
-          commands={demoFiles}
-          open={state.filePaletteVisible}
-          onSelect={onFileSelect}
-        />
-      </VStack>
-    </StraightLayout>
+        >
+          Open
+        </NiceButton>
+        <NiceButton
+          onClick={() => setState((v) => ({ ...v, filePaletteVisible: true }))}
+        >
+          Select file...
+        </NiceButton>
+      </HStack>
+      <CommandPalette
+        commands={demoCommands}
+        open={state.commandPaletteVisible}
+        onSelect={onCommandSelect}
+        shortcuts={demoShortcuts}
+      />
+      <CommandPalette
+        commands={demoFiles}
+        open={state.filePaletteVisible}
+        onSelect={onFileSelect}
+      />
+    </>
   );
 }
-
-export default CommandPaletteShowcase;
