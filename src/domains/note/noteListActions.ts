@@ -28,6 +28,11 @@ export const noteListShortcuts: KeyboardShortcut[] = [
     key: "End",
     when: "noteListFocus",
   },
+  {
+    commandId: "deleteNote",
+    key: "Delete",
+    when: "noteListFocus",
+  },
 ];
 
 export const noteListCommands: CommandDefinition<NoteListState>[] = [
@@ -43,8 +48,8 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
   },
   {
     action(state, setState) {
-      const { editingNoteId, notes } = state;
-      const index = notes.findIndex((v) => v.id === editingNoteId);
+      const { focusedNoteId, notes } = state;
+      const index = notes.findIndex((v) => v.id === focusedNoteId);
       const prevNote = index < 1 ? notes[0] : notes[index - 1];
       if (!prevNote) {
         return;
@@ -61,8 +66,8 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
   },
   {
     action(state, setState) {
-      const { editingNoteId, notes } = state;
-      const index = notes.findIndex((v) => v.id === editingNoteId);
+      const { focusedNoteId, notes } = state;
+      const index = notes.findIndex((v) => v.id === focusedNoteId);
       const nextNote =
         index < 0
           ? notes[0]
@@ -115,5 +120,27 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
     },
     id: "focusLastNote",
     title: "Focus on the last note",
+  },
+  {
+    action(state, setState) {
+      const notes = state.notes.filter(
+        (v) => !state.selectedNoteIds.includes(v.id)
+      );
+
+      const editingNoteId = state.selectedNoteIds.includes(state.editingNoteId)
+        ? ""
+        : state.editingNoteId;
+      const focusedNoteId = findFocusAfterDeletion(state);
+
+      setState({
+        ...state,
+        editingNoteId,
+        focusedNoteId,
+        notes,
+        selectedNoteIds: [],
+      });
+    },
+    id: "deleteNote",
+    title: "Delete the selected notes",
   },
 ];
