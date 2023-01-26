@@ -1,6 +1,9 @@
 import { CommandPalettePageState } from "../../../domains/commandPalette/CommandPalette";
 import { Note } from "../../../domains/note/Note";
-import { NoteListState } from "../../../domains/note/NoteListState";
+import {
+  createNoteListState,
+  NoteListState,
+} from "../../../domains/note/NoteListState";
 
 export interface EditorPageState
   extends CommandPalettePageState,
@@ -10,11 +13,8 @@ export function createEditorPageState(
   initial?: Partial<EditorPageState>
 ): EditorPageState {
   return {
+    ...createNoteListState(initial),
     commandPaletteVisible: initial?.commandPaletteVisible ?? false,
-    editingNoteId: initial?.editingNoteId ?? "",
-    focusedNoteId: initial?.focusedNoteId ?? "",
-    notes: initial?.notes ?? [],
-    selectedNoteIds: initial?.selectedNoteIds ?? [],
   };
 }
 

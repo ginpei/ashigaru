@@ -6,3 +6,14 @@ export interface NoteListState {
   notes: Note[];
   selectedNoteIds: string[];
 }
+
+export function createNoteListState(
+  initial?: Partial<NoteListState>
+): NoteListState {
+  return {
+    editingNoteId: initial?.editingNoteId ?? "",
+    focusedNoteId: initial?.focusedNoteId ?? "",
+    notes: initial?.notes ?? [],
+    selectedNoteIds: initial?.selectedNoteIds ?? [],
+  };
+}
