@@ -12,6 +12,7 @@ import {
   CommandPalettePageState,
   CommandPaletteSelectHandler,
 } from "./CommandPalette";
+import { CommandPaletteFrame } from "./CommandPaletteFrame";
 
 interface PageState extends CommandPalettePageState {
   filePaletteVisible: boolean;
@@ -67,6 +68,7 @@ const demoFiles: CommandDefinition[] = [
 ];
 
 function CommandPaletteShowcase(): JSX.Element {
+  const [frameVisible, setFrameVisible] = useState(false);
   const [state, setState] = useState<PageState>({
     commandPaletteVisible: false,
     filePaletteVisible: false,
@@ -85,8 +87,12 @@ function CommandPaletteShowcase(): JSX.Element {
   return (
     <StraightLayout title="<CommandPalette> demo">
       <VStack className="CommandPaletteShowcase">
-        <NiceH1>&lt;CommandPalette&gt;</NiceH1>
-        <NiceH2>Basics</NiceH2>
+        <NiceH1>Command palette</NiceH1>
+        <NiceH2>&lt;CommandPaletteFrame&gt;</NiceH2>
+        <p>
+          <NiceButton onClick={() => setFrameVisible(true)}>Open</NiceButton>
+        </p>
+        <NiceH2>&lt;CommandPalette&gt;</NiceH2>
         <p>* No shortcuts are prepared in this demo page.</p>
         <HStack>
           <NiceButton
@@ -106,6 +112,35 @@ function CommandPaletteShowcase(): JSX.Element {
         </HStack>
         <NiceH3>Headless UI original combo box</NiceH3>
         <ComboboxDemo />
+        <CommandPaletteFrame
+          filter={(input, values) =>
+            values.filter((v) =>
+              v.title.toLowerCase().includes(input.toLowerCase())
+            )
+          }
+          focusTargetId="demoCommandPaletteFrameFocus"
+          onSelect={(v) => {
+            console.log(v);
+            setFrameVisible(false);
+          }}
+          open={frameVisible}
+          options={[
+            {
+              id: "1",
+              title: "One",
+            },
+            {
+              id: "2",
+              title: "Two",
+            },
+            {
+              id: "3",
+              title: "Three",
+            },
+          ]}
+          renderEmptyItem={() => <>No</>}
+          renderItem={(v) => <>{v.title}</>}
+        />
         <CommandPalette
           commands={demoCommands}
           open={state.commandPaletteVisible}
