@@ -1,5 +1,6 @@
 import { CommandDefinition } from "../command/CommandDefinition";
 import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
+import { findFocusAfterDeletion } from "./noteListHandlers";
 import { NoteListState } from "./NoteListState";
 
 export const noteListShortcuts: KeyboardShortcut[] = [
@@ -26,6 +27,11 @@ export const noteListShortcuts: KeyboardShortcut[] = [
   {
     commandId: "focusLastNote",
     key: "End",
+    when: "noteListFocus",
+  },
+  {
+    commandId: "selectNote",
+    key: "Space",
     when: "noteListFocus",
   },
   {
@@ -120,6 +126,17 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
     },
     id: "focusLastNote",
     title: "Focus on the last note",
+  },
+  {
+    action(state, setState) {
+      setState({
+        ...state,
+        editingNoteId: state.focusedNoteId,
+        selectedNoteIds: [state.focusedNoteId],
+      });
+    },
+    id: "selectNote",
+    title: "Select the current focus note",
   },
   {
     action(state, setState) {
