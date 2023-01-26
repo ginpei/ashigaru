@@ -1,9 +1,9 @@
-import { CommandPalettePageState } from "../../../domains/commandPalette/CommandPalette";
 import { Note } from "../../../domains/note/Note";
 import {
   createNoteListState,
   NoteListState,
 } from "../../../domains/note/NoteListState";
+import { CommandPalettePageState } from "./EditorCommandPalette";
 
 export interface EditorPageState
   extends CommandPalettePageState,

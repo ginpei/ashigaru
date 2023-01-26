@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
-import { CommandDefinition } from "../command/CommandDefinition";
-import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
-import { HighlightedCommand, useFilteredCommand } from "./commandFilterHooks";
-import { CommandListItem } from "./CommandListItem";
-import { CommandPaletteFrame } from "./CommandPaletteFrame";
+import { CommandDefinition } from "../../../domains/command/CommandDefinition";
+import {
+  HighlightedCommand,
+  useFilteredCommand,
+} from "../../../domains/commandPalette/commandFilterHooks";
+import { CommandPaletteFrame } from "../../../domains/commandPalette/CommandPaletteFrame";
+import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
+import { EditorCommandListItem } from "./EditorCommandListItem";
 
 export type CommandPaletteSelectHandler<State> = (
   command: CommandDefinition<State> | null
 ) => void;
 
-export interface CommandPaletteProps<State> {
+export interface EditorCommandPaletteProps<State> {
   commands: CommandDefinition<State>[];
   open: boolean;
   onSelect: CommandPaletteSelectHandler<State>;
@@ -20,12 +23,12 @@ export interface CommandPalettePageState {
   commandPaletteVisible: boolean;
 }
 
-export function CommandPalette<State>({
+export function EditorCommandPalette<State>({
   commands,
   open,
   onSelect,
   shortcuts,
-}: CommandPaletteProps<State>): JSX.Element {
+}: EditorCommandPaletteProps<State>): JSX.Element {
   const [input, setInput] = useState("");
   const filteredCommands = useFilteredCommand(commands, { keyword: input });
 
@@ -47,9 +50,9 @@ export function CommandPalette<State>({
       onSelect={onComboboxChange}
       open={open}
       options={filteredCommands}
-      renderEmptyItem={() => <CommandListItem.Empty />}
+      renderEmptyItem={() => <EditorCommandListItem.Empty />}
       renderItem={(command) => (
-        <CommandListItem
+        <EditorCommandListItem
           command={command}
           key={command.id}
           shortcut={shortcuts?.find((v) => v.commandId === command.id)}

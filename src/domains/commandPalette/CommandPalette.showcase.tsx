@@ -1,5 +1,10 @@
 import { useMemo, useState } from "react";
 import { StraightLayout } from "../../layouts/straight/StraightLayout";
+import {
+  CommandPalettePageState,
+  CommandPaletteSelectHandler,
+  EditorCommandPalette,
+} from "../../pages/editor/actions/EditorCommandPalette";
 import { CommandDefinition } from "../command/CommandDefinition";
 import { HStack } from "../layout/HStask";
 import { VStack } from "../layout/VStack";
@@ -7,11 +12,6 @@ import { NiceButton } from "../nice/NiceButton";
 import { NiceH1, NiceH2, NiceH3 } from "../nice/NiceH";
 import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
 import { ComboboxDemo } from "./ComboboxDemo";
-import {
-  CommandPalette,
-  CommandPalettePageState,
-  CommandPaletteSelectHandler,
-} from "./CommandPalette";
 import { CommandPaletteFrame } from "./CommandPaletteFrame";
 
 interface PageState extends CommandPalettePageState {
@@ -152,13 +152,13 @@ function CommandPaletteExample() {
           Select file...
         </NiceButton>
       </HStack>
-      <CommandPalette
+      <EditorCommandPalette
         commands={demoCommands}
         open={state.commandPaletteVisible}
         onSelect={onCommandSelect}
         shortcuts={demoShortcuts}
       />
-      <CommandPalette
+      <EditorCommandPalette
         commands={demoFiles}
         open={state.filePaletteVisible}
         onSelect={onFileSelect}

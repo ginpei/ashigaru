@@ -1,15 +1,15 @@
-import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
-import { HighlightedCommand } from "./commandFilterHooks";
+import { HighlightedCommand } from "../../../domains/commandPalette/commandFilterHooks";
+import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
 
-export interface CommandListItemProps<State> {
+export interface EditorCommandListItemProps<State> {
   command: HighlightedCommand<State>;
   shortcut?: KeyboardShortcut;
 }
 
-export function CommandListItem<State>({
+export function EditorCommandListItem<State>({
   command,
   shortcut,
-}: CommandListItemProps<State>): JSX.Element {
+}: EditorCommandListItemProps<State>): JSX.Element {
   return (
     <>
       <span>
@@ -33,7 +33,7 @@ export function CommandListItem<State>({
   );
 }
 
-CommandListItem.Empty = function CommandListItem_Empty(): JSX.Element {
+EditorCommandListItem.Empty = function CommandListItem_Empty(): JSX.Element {
   return (
     <li className="px-2 py-1 leading-4 cursor-default">
       <small className="text-slate-500">No matching results</small>

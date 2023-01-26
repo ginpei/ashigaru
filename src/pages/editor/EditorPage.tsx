@@ -4,7 +4,6 @@ import {
   CommandDefinition,
   pickCommandDefinition,
 } from "../../domains/command/CommandDefinition";
-import { CommandPalette } from "../../domains/commandPalette/CommandPalette";
 import { Note } from "../../domains/note/Note";
 import {
   useFocusMarkEffect,
@@ -12,6 +11,7 @@ import {
 } from "../../domains/shortcut/focusHooks";
 import { useKeyboardShortcuts } from "../../domains/shortcut/keyboardShortcutHooks";
 import { editorCommands, editorShortcuts } from "./actions/editorActions";
+import { EditorCommandPalette } from "./actions/EditorCommandPalette";
 import { EditorPageStateProvider } from "./actions/editorPageContext";
 import {
   createEditorPageState,
@@ -90,7 +90,7 @@ export function EditorPage(): JSX.Element {
           <Editor />
         </div>
       </div>
-      <CommandPalette
+      <EditorCommandPalette
         commands={commands}
         open={state.commandPaletteVisible}
         onSelect={onCommandSelect}
