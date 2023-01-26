@@ -1,13 +1,6 @@
 import { CommandDefinition } from "../command/CommandDefinition";
 import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
-import { Note } from "./Note";
-
-export interface NoteListState {
-  editingNoteId: string;
-  focusedNoteId: string;
-  notes: Note[];
-  selectedNoteIds: string[];
-}
+import { NoteListState } from "./NoteListState";
 
 export const noteListShortcuts: KeyboardShortcut[] = [
   {
