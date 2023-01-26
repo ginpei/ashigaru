@@ -1,7 +1,9 @@
 export interface FocusTargetProps {
   children: React.ReactNode;
-  id: `${string}Focus`;
+  id: FocusTargetId;
 }
+
+export type FocusTargetId = `${string}Focus`;
 
 export function FocusTarget({ children, id }: FocusTargetProps): JSX.Element {
   return (
