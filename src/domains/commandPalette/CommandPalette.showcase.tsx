@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { CommandDefinition } from "../command/CommandDefinition";
+import { Container } from "../layout/Container";
+import { VStack } from "../layout/VStack";
 import { NiceButton } from "../nice/NiceButton";
+import { NiceH1, NiceH2, NiceH3 } from "../nice/NiceH";
 import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
 import { ComboboxDemo } from "./ComboboxDemo";
 import {
@@ -51,25 +54,30 @@ function CommandPaletteShowcase(): JSX.Element {
   };
 
   return (
-    <div className="CommandPaletteShowcase">
-      <h1>CommandPaletteShowcase</h1>
-      <p>
-        <NiceButton
-          onClick={() =>
-            setState((v) => ({ ...v, commandPaletteVisible: true }))
-          }
-        >
-          Open
-        </NiceButton>
-      </p>
-      <ComboboxDemo />
-      <CommandPalette
-        commands={demoCommands}
-        open={state.commandPaletteVisible}
-        onSelect={onCommandSelect}
-        shortcuts={demoShortcuts}
-      />
-    </div>
+    <Container>
+      <VStack className="CommandPaletteShowcase">
+        <NiceH1>&lt;CommandPalette&gt;</NiceH1>
+        <NiceH2>Basics</NiceH2>
+        <p>* No shortcuts are prepared in this demo page.</p>
+        <p>
+          <NiceButton
+            onClick={() =>
+              setState((v) => ({ ...v, commandPaletteVisible: true }))
+            }
+          >
+            Open
+          </NiceButton>
+        </p>
+        <NiceH3>Headless UI original combo box</NiceH3>
+        <ComboboxDemo />
+        <CommandPalette
+          commands={demoCommands}
+          open={state.commandPaletteVisible}
+          onSelect={onCommandSelect}
+          shortcuts={demoShortcuts}
+        />
+      </VStack>
+    </Container>
   );
 }
 
