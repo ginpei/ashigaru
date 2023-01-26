@@ -114,32 +114,18 @@ function CommandPaletteShowcase(): JSX.Element {
         <ComboboxDemo />
         <CommandPaletteFrame
           filter={(input, values) =>
-            values.filter((v) =>
-              v.title.toLowerCase().includes(input.toLowerCase())
-            )
+            values.filter((v) => v.toLowerCase().includes(input.toLowerCase()))
           }
           focusTargetId="demoCommandPaletteFrameFocus"
+          getKey={(v) => v}
           onSelect={(v) => {
             console.log(v);
             setFrameVisible(false);
           }}
           open={frameVisible}
-          options={[
-            {
-              id: "1",
-              title: "One",
-            },
-            {
-              id: "2",
-              title: "Two",
-            },
-            {
-              id: "3",
-              title: "Three",
-            },
-          ]}
-          renderEmptyItem={() => <>No</>}
-          renderItem={(v) => <>{v.title}</>}
+          options={["One", "Two", "Three"]}
+          renderEmptyItem={() => <>No match</>}
+          renderItem={(v) => <>{v}</>}
         />
         <CommandPalette
           commands={demoCommands}

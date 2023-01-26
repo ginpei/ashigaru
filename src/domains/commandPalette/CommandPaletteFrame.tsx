@@ -4,11 +4,12 @@ import { FocusTarget, FocusTargetId } from "../shortcut/FocusTarget";
 import { CommandListItem } from "./CommandListItem";
 
 export interface CommandPaletteFrameProps<
-  Value extends { id: string },
+  Value,
   FilteredValue extends Value = Value
 > {
   filter: (input: string, values: Value[]) => FilteredValue[];
   focusTargetId: FocusTargetId;
+  getKey?: (value: Value) => string;
   onSelect: CommandPaletteSelectHandler<Value>;
   open: boolean;
   options: Value[];
@@ -19,11 +20,12 @@ export interface CommandPaletteFrameProps<
 export type CommandPaletteSelectHandler<T> = (command: T | null) => void;
 
 export function CommandPaletteFrame<
-  Value extends { id: string },
+  Value = { id: string },
   FilteredValue extends Value = Value
 >({
   filter,
   focusTargetId,
+  getKey = getId,
   onSelect,
   open,
   options,
@@ -63,7 +65,7 @@ export function CommandPaletteFrame<
               </div>
               <Combobox.Options data-headlessui-state="open" static>
                 {filteredOptions.map((option, index) => (
-                  <Combobox.Option key={option.id} value={option}>
+                  <Combobox.Option key={getKey(option)} value={option}>
                     {({ active }) => (
                       <div
                         className={`
@@ -88,5 +90,15 @@ export function CommandPaletteFrame<
         </div>
       </FocusTarget>
     </Dialog>
+  );
+}
+
+function getId(value: unknown) {
+  if (typeof value === "object" && value && "id" in value) {
+    return String(value.id);
+  }
+
+  throw new Error(
+    `Failed to get key. Please give a proper key getter function`
   );
 }
