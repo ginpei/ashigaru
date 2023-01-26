@@ -8,16 +8,16 @@ import { CommandPaletteFrame } from "../../../domains/commandPalette/CommandPale
 import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
 import { EditorCommandListItem } from "./EditorCommandListItem";
 
-export type CommandPaletteSelectHandler<State> = (
-  command: CommandDefinition<State> | null
-) => void;
-
 export interface EditorCommandPaletteProps<State> {
   commands: CommandDefinition<State>[];
   open: boolean;
   onSelect: CommandPaletteSelectHandler<State>;
   shortcuts?: KeyboardShortcut[];
 }
+
+export type CommandPaletteSelectHandler<State> = (
+  command: CommandDefinition<State> | null
+) => void;
 
 export interface CommandPalettePageState {
   commandPaletteVisible: boolean;
