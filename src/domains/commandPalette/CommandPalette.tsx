@@ -1,10 +1,9 @@
-import { Combobox, Dialog } from "@headlessui/react";
 import { useEffect, useState } from "react";
 import { CommandDefinition } from "../command/CommandDefinition";
-import { FocusTarget } from "../shortcut/FocusTarget";
 import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
-import { useFilteredCommand } from "./commandFilterHooks";
+import { HighlightedCommand, useFilteredCommand } from "./commandFilterHooks";
 import { CommandListItem } from "./CommandListItem";
+import { CommandPaletteFrame } from "./CommandPaletteFrame";
 
 export type CommandPaletteSelectHandler<State> = (
   command: CommandDefinition<State> | null
@@ -34,43 +33,28 @@ export function CommandPalette<State>({
     setInput("");
   }, [open]);
 
-  const onDialogClose = () => onSelect(null);
-
-  const onComboboxChange = (command: CommandDefinition) => {
+  const onComboboxChange = (command: HighlightedCommand<State> | null) => {
     onSelect(command);
   };
 
   return (
-    <Dialog className="CommandPallet" onClose={onDialogClose} open={open}>
-      <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-      <FocusTarget id="commandPaletteFocus">
-        <div className="fixed w-full top-0 mx-auto flex items-center justify-center p-4">
-          <Dialog.Panel className="w-full max-w-sm rounded bg-white">
-            <Dialog.Title className="hidden">Command pallet</Dialog.Title>
-            <Combobox<CommandDefinition> onChange={onComboboxChange}>
-              <div className="flex [&>*]:flex-1">
-                <Combobox.Input
-                  className="border-[1px] border-ginpei px-4 py-1 text-black"
-                  onChange={(v) => setInput(v.currentTarget.value)}
-                  value={input}
-                />
-              </div>
-              <Combobox.Options data-headlessui-state="open" static>
-                {filteredCommands.map((command) => (
-                  <CommandListItem
-                    command={command}
-                    key={command.id}
-                    shortcut={shortcuts?.find(
-                      (v) => v.commandId === command.id
-                    )}
-                  />
-                ))}
-                {filteredCommands.length < 1 && <CommandListItem.Empty />}
-              </Combobox.Options>
-            </Combobox>
-          </Dialog.Panel>
-        </div>
-      </FocusTarget>
-    </Dialog>
+    <CommandPaletteFrame
+      // className="CommandPallet"
+      focusTargetId="commandPalletFocus"
+      getKey={(v) => v.id}
+      input={input}
+      onInput={setInput}
+      onSelect={onComboboxChange}
+      open={open}
+      options={filteredCommands}
+      renderEmptyItem={() => <CommandListItem.Empty />}
+      renderItem={(command) => (
+        <CommandListItem
+          command={command}
+          key={command.id}
+          shortcut={shortcuts?.find((v) => v.commandId === command.id)}
+        />
+      )}
+    />
   );
 }
