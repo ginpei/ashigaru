@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { StraightLayout } from "../../layouts/straight/StraightLayout";
 import { CommandDefinition } from "../command/CommandDefinition";
+import { HStack } from "../layout/HStask";
 import { VStack } from "../layout/VStack";
 import { NiceButton } from "../nice/NiceButton";
 import { NiceH1, NiceH2, NiceH3 } from "../nice/NiceH";
@@ -11,6 +12,10 @@ import {
   CommandPalettePageState,
   CommandPaletteSelectHandler,
 } from "./CommandPalette";
+
+interface PageState extends CommandPalettePageState {
+  filePaletteVisible: boolean;
+}
 
 const demoCommands: CommandDefinition[] = [
   {
@@ -43,14 +48,38 @@ const demoShortcuts: KeyboardShortcut[] = [
   },
 ];
 
+const demoFiles: CommandDefinition[] = [
+  {
+    action() {},
+    id: "file://path/to/file1",
+    title: "file1",
+  },
+  {
+    action() {},
+    id: "file://path/to/file2",
+    title: "file2",
+  },
+  {
+    action() {},
+    id: "file://path/to/file3",
+    title: "file3",
+  },
+];
+
 function CommandPaletteShowcase(): JSX.Element {
-  const [state, setState] = useState<CommandPalettePageState>({
+  const [state, setState] = useState<PageState>({
     commandPaletteVisible: false,
+    filePaletteVisible: false,
   });
 
   const onCommandSelect: CommandPaletteSelectHandler<{}> = (command) => {
     console.log("# command", command);
     setState((v) => ({ ...v, commandPaletteVisible: false }));
+  };
+
+  const onFileSelect: CommandPaletteSelectHandler<{}> = (command) => {
+    console.log("# file", command);
+    setState((v) => ({ ...v, filePaletteVisible: false }));
   };
 
   return (
@@ -59,7 +88,7 @@ function CommandPaletteShowcase(): JSX.Element {
         <NiceH1>&lt;CommandPalette&gt;</NiceH1>
         <NiceH2>Basics</NiceH2>
         <p>* No shortcuts are prepared in this demo page.</p>
-        <p>
+        <HStack>
           <NiceButton
             onClick={() =>
               setState((v) => ({ ...v, commandPaletteVisible: true }))
@@ -67,7 +96,14 @@ function CommandPaletteShowcase(): JSX.Element {
           >
             Open
           </NiceButton>
-        </p>
+          <NiceButton
+            onClick={() =>
+              setState((v) => ({ ...v, filePaletteVisible: true }))
+            }
+          >
+            Select file...
+          </NiceButton>
+        </HStack>
         <NiceH3>Headless UI original combo box</NiceH3>
         <ComboboxDemo />
         <CommandPalette
@@ -75,6 +111,11 @@ function CommandPaletteShowcase(): JSX.Element {
           open={state.commandPaletteVisible}
           onSelect={onCommandSelect}
           shortcuts={demoShortcuts}
+        />
+        <CommandPalette
+          commands={demoFiles}
+          open={state.filePaletteVisible}
+          onSelect={onFileSelect}
         />
       </VStack>
     </StraightLayout>

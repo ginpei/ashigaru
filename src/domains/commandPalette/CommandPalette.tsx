@@ -14,7 +14,7 @@ export interface EditorCommandPaletteProps<State> {
   commands: CommandDefinition<State>[];
   open: boolean;
   onSelect: CommandPaletteSelectHandler<State>;
-  shortcuts: KeyboardShortcut[];
+  shortcuts?: KeyboardShortcut[];
 }
 
 export interface CommandPalettePageState {
@@ -60,7 +60,9 @@ export function CommandPalette<State>({
                   <CommandListItem
                     command={command}
                     key={command.id}
-                    shortcut={shortcuts.find((v) => v.commandId === command.id)}
+                    shortcut={shortcuts?.find(
+                      (v) => v.commandId === command.id
+                    )}
                   />
                 ))}
                 {filteredCommands.length < 1 && <CommandListItem.Empty />}
