@@ -10,7 +10,11 @@ import {
   useFocusTarget,
 } from "../../domains/shortcut/focusHooks";
 import { useKeyboardShortcuts } from "../../domains/shortcut/keyboardShortcutHooks";
-import { editorCommands, editorShortcuts } from "./actions/editorActions";
+import {
+  editorCommands,
+  EditorPageCommand,
+  editorShortcuts,
+} from "./actions/editorActions";
 import { EditorCommandPalette } from "./actions/EditorCommandPalette";
 import { EditorPageStateProvider } from "./actions/editorPageContext";
 import {
@@ -45,7 +49,7 @@ export function EditorPage(): JSX.Element {
     createEditorPageState({ notes: dummyNotes })
   );
 
-  const commands = useMemo<CommandDefinition<EditorPageState>[]>(() => {
+  const commands = useMemo<EditorPageCommand[]>(() => {
     return [
       ...editorCommands,
       {
@@ -63,9 +67,7 @@ export function EditorPage(): JSX.Element {
     def.action(state, setState);
   });
 
-  const onCommandSelect = (
-    command: Note | CommandDefinition<EditorPageState> | null
-  ) => {
+  const onCommandSelect = (command: Note | EditorPageCommand | null) => {
     if (command) {
       if ("action" in command) {
         command.action(state, setState);

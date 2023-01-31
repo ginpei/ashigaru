@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { CommandDefinition } from "../../../domains/command/CommandDefinition";
 import {
   highlightCommands,
   HighlightedCommand,
@@ -16,8 +17,6 @@ export interface EditorCommandPaletteProps {
 }
 
 type Option = Note | HighlightedCommand<EditorPageState>;
-
-// TODO prepare alias of CommandDefinition<EditorPageState>
 
 export function EditorCommandPalette({
   open,

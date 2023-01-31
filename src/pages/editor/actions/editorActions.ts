@@ -5,6 +5,9 @@ import {
 } from "../../../domains/note/noteListActions";
 import { giveFocusOn } from "../../../domains/shortcut/domFocusManipulators";
 import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
+import { EditorPageState } from "./EditorPageState";
+
+export type EditorPageCommand = CommandDefinition<EditorPageState>;
 
 export const editorCommands: CommandDefinition[] = [
   ...noteListCommands,
