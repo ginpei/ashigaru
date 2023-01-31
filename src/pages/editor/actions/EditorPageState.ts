@@ -3,9 +3,13 @@ import {
   createNoteListState,
   NoteListState,
 } from "../../../domains/note/NoteListState";
+import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
+import { EditorPageCommand } from "./editorActions";
 
 export interface EditorPageState extends NoteListState {
   commandPaletteVisible: boolean;
+  commands: EditorPageCommand[];
+  shortcuts: KeyboardShortcut[];
 }
 
 export function createEditorPageState(
@@ -14,6 +18,8 @@ export function createEditorPageState(
   return {
     ...createNoteListState(initial),
     commandPaletteVisible: initial?.commandPaletteVisible ?? false,
+    commands: initial?.commands ?? [],
+    shortcuts: initial?.shortcuts ?? [],
   };
 }
 

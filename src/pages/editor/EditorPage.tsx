@@ -40,12 +40,12 @@ export function EditorPage(): JSX.Element {
   useFocusMarkEffect();
 
   const [state, setState] = useState(
-    createEditorPageState({ notes: dummyNotes })
+    createEditorPageState({ commands: editorCommands, notes: dummyNotes })
   );
 
   const commands = useMemo<EditorPageCommand[]>(() => {
     return [
-      ...editorCommands,
+      ...state.commands,
       {
         action() {
           setState((v) => ({ ...v, commandPaletteVisible: true }));
@@ -54,7 +54,7 @@ export function EditorPage(): JSX.Element {
         title: "Show command palette",
       },
     ];
-  }, []);
+  }, [state.commands]);
 
   useKeyboardShortcuts(editorShortcuts, focusId, (commandId) => {
     const def = pickCommandDefinition(commands, commandId);

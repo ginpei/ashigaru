@@ -129,7 +129,11 @@ function CommandPaletteExample() {
   }));
 
   const [state, setState] = useState(
-    createEditorPageState({ notes: dummyNotes })
+    createEditorPageState({
+      commands: demoCommands,
+      notes: dummyNotes,
+      shortcuts: demoShortcuts,
+    })
   );
 
   const onCommandSelect = (

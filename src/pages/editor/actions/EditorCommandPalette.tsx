@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import { CommandDefinition } from "../../../domains/command/CommandDefinition";
 import {
   highlightCommands,
   HighlightedCommand,
 } from "../../../domains/commandPalette/commandFilter";
 import { CommandPaletteFrame } from "../../../domains/commandPalette/CommandPaletteFrame";
 import { Note } from "../../../domains/note/Note";
-import { editorCommands, editorShortcuts } from "./editorActions";
 import { EditorCommandListItem } from "./EditorCommandListItem";
 import { useEditorPageState } from "./editorPageContext";
 import { EditorPageState } from "./EditorPageState";
@@ -22,9 +20,9 @@ export function EditorCommandPalette({
   open,
   onSelect,
 }: EditorCommandPaletteProps): JSX.Element {
+  const { shortcuts } = useEditorPageState();
   const [input, setInput] = useState("");
-  const state = useEditorPageState();
-  const options = useOptions(input, state.notes);
+  const options = useOptions(input);
 
   useEffect(() => {
     setInput("");
@@ -46,7 +44,7 @@ export function EditorCommandPalette({
           <EditorCommandListItem
             command={option}
             key={option.id}
-            shortcut={editorShortcuts?.find((v) => v.commandId === option.id)}
+            shortcut={shortcuts?.find((v) => v.commandId === option.id)}
           />
         ) : (
           option.title
@@ -56,11 +54,14 @@ export function EditorCommandPalette({
   );
 }
 
-function useOptions(input: string, notes: Note[]): Option[] {
+function useOptions(input: string): Option[] {
+  const { commands, notes } = useEditorPageState();
+
   if (input.startsWith(">")) {
     const keyword = input.slice(1).trim();
-    return highlightCommands(editorCommands, { keyword });
+    return highlightCommands(commands, { keyword });
   }
 
+  // TODO filter
   return notes;
 }
