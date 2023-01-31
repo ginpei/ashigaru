@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import {
   highlightCommands,
+  Highlighted,
   HighlightedCommand,
+  highlightFilteredCommandTitle,
 } from "../../../domains/commandPalette/commandFilter";
 import { CommandPaletteFrame } from "../../../domains/commandPalette/CommandPaletteFrame";
 import { Note } from "../../../domains/note/Note";
@@ -14,7 +16,7 @@ export interface EditorCommandPaletteProps {
   onSelect: (option: Option | null) => void;
 }
 
-type Option = Note | HighlightedCommand<EditorPageState>;
+type Option = Highlighted<Note> | HighlightedCommand<EditorPageState>;
 
 export function EditorCommandPalette({
   open,
@@ -47,7 +49,17 @@ export function EditorCommandPalette({
             shortcut={shortcuts?.find((v) => v.commandId === option.id)}
           />
         ) : (
-          option.title
+          <span>
+            {option.highlightedCharacters.map((c, i) =>
+              c.highlight ? (
+                <b className="text-cyan-800" key={`${c}-${i}`}>
+                  {c.character}
+                </b>
+              ) : (
+                c.character
+              )
+            )}
+          </span>
         )
       }
     />
@@ -62,6 +74,15 @@ function useOptions(input: string): Option[] {
     return highlightCommands(commands, { keyword });
   }
 
-  // TODO filter
-  return notes;
+  const highlightedNotes: Highlighted<Note>[] = [];
+  for (const note of notes) {
+    const highlightedCharacters = highlightFilteredCommandTitle(
+      note.title,
+      input
+    );
+    if (highlightedCharacters) {
+      highlightedNotes.push({ ...note, highlightedCharacters });
+    }
+  }
+  return highlightedNotes;
 }

@@ -9,6 +9,11 @@ export interface HighlightedCharacter {
   highlight: boolean;
 }
 
+export type Highlighted<T> = T & {
+  highlightedCharacters: HighlightedCharacter[];
+};
+
+// TODO replace with Highlighted
 export interface HighlightedCommand<State> extends CommandDefinition<State> {
   highlightedCharacters: HighlightedCharacter[];
 }
@@ -16,6 +21,7 @@ export interface HighlightedCommand<State> extends CommandDefinition<State> {
 /**
  * @returns `null` if not matched
  */
+// TODO rename
 export function highlightFilteredCommandTitle(
   title: string,
   keyword: string
@@ -40,9 +46,8 @@ export function highlightFilteredCommandTitle(
   return highlighted;
 }
 
-/**
- * TODO find better name
- */
+// TODO find better name
+// TODO accept anything other than commands
 export function highlightCommands<State>(
   commands: CommandDefinition<State>[],
   filter: CommandFilter
