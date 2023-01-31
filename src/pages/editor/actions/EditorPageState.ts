@@ -3,11 +3,10 @@ import {
   createNoteListState,
   NoteListState,
 } from "../../../domains/note/NoteListState";
-import { CommandPalettePageState } from "./EditorCommandPalette";
 
-export interface EditorPageState
-  extends CommandPalettePageState,
-    NoteListState {}
+export interface EditorPageState extends NoteListState {
+  commandPaletteVisible: boolean;
+}
 
 export function createEditorPageState(
   initial?: Partial<EditorPageState>

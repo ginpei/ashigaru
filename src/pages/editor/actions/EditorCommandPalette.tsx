@@ -17,11 +17,6 @@ export interface EditorCommandPaletteProps {
 
 type Option = Note | HighlightedCommand<EditorPageState>;
 
-export interface CommandPalettePageState {
-  // TODO remove because visibility is managed outside
-  commandPaletteVisible: boolean;
-}
-
 // TODO prepare alias of CommandDefinition<EditorPageState>
 
 export function EditorCommandPalette({
