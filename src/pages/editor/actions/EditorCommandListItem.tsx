@@ -1,4 +1,5 @@
 import { HighlightedCommand } from "../../../domains/commandPalette/commandFilter";
+import { HighlightedTitle } from "../../../domains/commandPalette/HighlightedTitle";
 import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
 
 export interface EditorCommandListItemProps<State> {
@@ -12,17 +13,7 @@ export function EditorCommandListItem<State>({
 }: EditorCommandListItemProps<State>): JSX.Element {
   return (
     <>
-      <span>
-        {command.highlightedCharacters.map((c, i) =>
-          c.highlight ? (
-            <b className="text-cyan-800" key={`${c}-${i}`}>
-              {c.character}
-            </b>
-          ) : (
-            c.character
-          )
-        )}
-      </span>
+      <HighlightedTitle chars={command.highlightedCharacters} />
       {shortcut && (
         <>
           {" "}

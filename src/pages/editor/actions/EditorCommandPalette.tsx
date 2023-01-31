@@ -6,6 +6,7 @@ import {
   highlightFilteredCommandTitle,
 } from "../../../domains/commandPalette/commandFilter";
 import { CommandPaletteFrame } from "../../../domains/commandPalette/CommandPaletteFrame";
+import { HighlightedTitle } from "../../../domains/commandPalette/HighlightedTitle";
 import { Note } from "../../../domains/note/Note";
 import { EditorCommandListItem } from "./EditorCommandListItem";
 import { useEditorPageState } from "./editorPageContext";
@@ -49,17 +50,7 @@ export function EditorCommandPalette({
             shortcut={shortcuts?.find((v) => v.commandId === option.id)}
           />
         ) : (
-          <span>
-            {option.highlightedCharacters.map((c, i) =>
-              c.highlight ? (
-                <b className="text-cyan-800" key={`${c}-${i}`}>
-                  {c.character}
-                </b>
-              ) : (
-                c.character
-              )
-            )}
-          </span>
+          <HighlightedTitle chars={option.highlightedCharacters} />
         )
       }
     />
