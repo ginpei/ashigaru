@@ -1,9 +1,6 @@
 import Head from "next/head";
 import { CSSProperties, useMemo, useState } from "react";
-import {
-  CommandDefinition,
-  pickCommandDefinition,
-} from "../../domains/command/CommandDefinition";
+import { pickCommandDefinition } from "../../domains/command/CommandDefinition";
 import { Note } from "../../domains/note/Note";
 import {
   useFocusMarkEffect,
@@ -17,10 +14,7 @@ import {
 } from "./actions/editorActions";
 import { EditorCommandPalette } from "./actions/EditorCommandPalette";
 import { EditorPageStateProvider } from "./actions/editorPageContext";
-import {
-  createEditorPageState,
-  EditorPageState,
-} from "./actions/EditorPageState";
+import { createEditorPageState } from "./actions/EditorPageState";
 import { Editor } from "./editor/Editor";
 import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
