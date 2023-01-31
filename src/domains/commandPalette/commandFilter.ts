@@ -40,6 +40,9 @@ export function highlightFilteredCommandTitle(
   return highlighted;
 }
 
+/**
+ * TODO find better name
+ */
 export function highlightCommands<State>(
   commands: CommandDefinition<State>[],
   filter: CommandFilter
