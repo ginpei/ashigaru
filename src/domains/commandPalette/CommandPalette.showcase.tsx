@@ -1,21 +1,20 @@
 import { useMemo, useState } from "react";
 import { StraightLayout } from "../../layouts/straight/StraightLayout";
-import {
-  CommandPalettePageState,
-  CommandPaletteSelectHandler,
-  EditorCommandPalette,
-} from "../../pages/editor/actions/EditorCommandPalette";
+import { EditorCommandPalette } from "../../pages/editor/actions/EditorCommandPalette";
+import { EditorPageState } from "../../pages/editor/actions/EditorPageState";
 import { CommandDefinition } from "../command/CommandDefinition";
 import { HStack } from "../layout/HStask";
 import { VStack } from "../layout/VStack";
 import { NiceButton } from "../nice/NiceButton";
 import { NiceH1, NiceH2, NiceH3 } from "../nice/NiceH";
+import { Note } from "../note/Note";
 import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
 import { ComboboxDemo } from "./ComboboxDemo";
+import { HighlightedCommand } from "./commandFilterHooks";
 import { CommandPaletteFrame } from "./CommandPaletteFrame";
 
-interface PageState extends CommandPalettePageState {
-  filePaletteVisible: boolean;
+interface PageState {
+  commandPaletteVisible: boolean;
 }
 
 const demoCommands: CommandDefinition[] = [
@@ -121,19 +120,16 @@ function CommandPaletteFrameExample() {
 function CommandPaletteExample() {
   const [state, setState] = useState<PageState>({
     commandPaletteVisible: false,
-    filePaletteVisible: false,
   });
 
-  const onCommandSelect: CommandPaletteSelectHandler<{}> = (command) => {
+  const onCommandSelect = (
+    command: Note | HighlightedCommand<EditorPageState> | null
+  ) => {
     console.log("# command", command);
     setState((v) => ({ ...v, commandPaletteVisible: false }));
   };
 
-  const onFileSelect: CommandPaletteSelectHandler<{}> = (command) => {
-    console.log("# file", command);
-    setState((v) => ({ ...v, filePaletteVisible: false }));
-  };
-
+  // TODO use <EditorPageStateProvider> here
   return (
     <>
       <NiceH2>&lt;CommandPalette&gt;</NiceH2>
@@ -147,21 +143,16 @@ function CommandPaletteExample() {
           Open
         </NiceButton>
         <NiceButton
-          onClick={() => setState((v) => ({ ...v, filePaletteVisible: true }))}
+          onClick={() =>
+            setState((v) => ({ ...v, commandPaletteVisible: true }))
+          }
         >
           Select file...
         </NiceButton>
       </HStack>
       <EditorCommandPalette
-        commands={demoCommands}
         open={state.commandPaletteVisible}
         onSelect={onCommandSelect}
-        shortcuts={demoShortcuts}
-      />
-      <EditorCommandPalette
-        commands={demoFiles}
-        open={state.filePaletteVisible}
-        onSelect={onFileSelect}
       />
     </>
   );

@@ -1,44 +1,40 @@
 import { useEffect, useState } from "react";
-import { CommandDefinition } from "../../../domains/command/CommandDefinition";
 import {
+  highlightCommands,
   HighlightedCommand,
-  useFilteredCommand,
 } from "../../../domains/commandPalette/commandFilterHooks";
 import { CommandPaletteFrame } from "../../../domains/commandPalette/CommandPaletteFrame";
-import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
+import { Note } from "../../../domains/note/Note";
+import { editorCommands, editorShortcuts } from "./editorActions";
 import { EditorCommandListItem } from "./EditorCommandListItem";
+import { useEditorPageState } from "./editorPageContext";
+import { EditorPageState } from "./EditorPageState";
 
-export interface EditorCommandPaletteProps<State> {
-  commands: CommandDefinition<State>[];
+export interface EditorCommandPaletteProps {
   open: boolean;
-  onSelect: CommandPaletteSelectHandler<State>;
-  shortcuts?: KeyboardShortcut[];
+  onSelect: (option: Option | null) => void;
 }
 
-export type CommandPaletteSelectHandler<State> = (
-  command: CommandDefinition<State> | null
-) => void;
+type Option = Note | HighlightedCommand<EditorPageState>;
 
 export interface CommandPalettePageState {
+  // TODO remove because visibility is managed outside
   commandPaletteVisible: boolean;
 }
 
-export function EditorCommandPalette<State>({
-  commands,
+// TODO prepare alias of CommandDefinition<EditorPageState>
+
+export function EditorCommandPalette({
   open,
   onSelect,
-  shortcuts,
-}: EditorCommandPaletteProps<State>): JSX.Element {
+}: EditorCommandPaletteProps): JSX.Element {
   const [input, setInput] = useState("");
-  const filteredCommands = useFilteredCommand(commands, { keyword: input });
+  const state = useEditorPageState();
+  const options = useOptions(input, state.notes);
 
   useEffect(() => {
     setInput("");
   }, [open]);
-
-  const onComboboxChange = (command: HighlightedCommand<State> | null) => {
-    onSelect(command);
-  };
 
   return (
     <CommandPaletteFrame
@@ -47,17 +43,30 @@ export function EditorCommandPalette<State>({
       getKey={(v) => v.id}
       input={input}
       onInput={setInput}
-      onSelect={onComboboxChange}
+      onSelect={onSelect}
       open={open}
-      options={filteredCommands}
+      options={options}
       renderEmptyItem={() => <EditorCommandListItem.Empty />}
-      renderItem={(command) => (
-        <EditorCommandListItem
-          command={command}
-          key={command.id}
-          shortcut={shortcuts?.find((v) => v.commandId === command.id)}
-        />
-      )}
+      renderItem={(option) =>
+        "action" in option ? (
+          <EditorCommandListItem
+            command={option}
+            key={option.id}
+            shortcut={editorShortcuts?.find((v) => v.commandId === option.id)}
+          />
+        ) : (
+          option.title
+        )
+      }
     />
   );
+}
+
+function useOptions(input: string, notes: Note[]): Option[] {
+  if (input.startsWith(">")) {
+    const keyword = input.slice(1).trim();
+    return highlightCommands(editorCommands, { keyword });
+  }
+
+  return notes;
 }

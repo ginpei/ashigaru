@@ -64,9 +64,23 @@ export function EditorPage(): JSX.Element {
   });
 
   const onCommandSelect = (
-    command: CommandDefinition<EditorPageState> | null
+    command: Note | CommandDefinition<EditorPageState> | null
   ) => {
-    command?.action(state, setState);
+    if (command) {
+      if ("action" in command) {
+        command.action(state, setState);
+      } else {
+        // TODO extract
+        setState({
+          ...state,
+          editingNoteId: command.id,
+          focusedNoteId: command.id,
+          selectedNoteIds: [command.id],
+        });
+        // TODO focus on editor
+      }
+    }
+
     setState((v) => ({ ...v, commandPaletteVisible: false }));
   };
 
@@ -91,10 +105,8 @@ export function EditorPage(): JSX.Element {
         </div>
       </div>
       <EditorCommandPalette
-        commands={commands}
         open={state.commandPaletteVisible}
         onSelect={onCommandSelect}
-        shortcuts={editorShortcuts}
       />
     </EditorPageStateProvider>
   );

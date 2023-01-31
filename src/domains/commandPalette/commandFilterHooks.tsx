@@ -10,6 +10,7 @@ export interface HighlightedCommand<State> extends CommandDefinition<State> {
   highlightedCharacters: HighlightedCharacter[];
 }
 
+// TODO remove and rename this file no to hook
 export function useFilteredCommand<State>(
   commands: CommandDefinition<State>[],
   filter: CommandFilter
