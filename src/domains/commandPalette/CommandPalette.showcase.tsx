@@ -1,7 +1,11 @@
 import { useMemo, useState } from "react";
 import { StraightLayout } from "../../layouts/straight/StraightLayout";
 import { EditorCommandPalette } from "../../pages/editor/actions/EditorCommandPalette";
-import { EditorPageState } from "../../pages/editor/actions/EditorPageState";
+import { EditorPageStateProvider } from "../../pages/editor/actions/editorPageContext";
+import {
+  createEditorPageState,
+  EditorPageState,
+} from "../../pages/editor/actions/EditorPageState";
 import { CommandDefinition } from "../command/CommandDefinition";
 import { HStack } from "../layout/HStask";
 import { VStack } from "../layout/VStack";
@@ -118,9 +122,15 @@ function CommandPaletteFrameExample() {
 }
 
 function CommandPaletteExample() {
-  const [state, setState] = useState<PageState>({
-    commandPaletteVisible: false,
-  });
+  const dummyNotes: Note[] = Array.from({ length: 30 }).map((_v, i) => ({
+    body: `Hello, this is a note #${i}`,
+    id: `note-${i}`,
+    title: `Note ${i}`,
+  }));
+
+  const [state, setState] = useState(
+    createEditorPageState({ notes: dummyNotes })
+  );
 
   const onCommandSelect = (
     command: Note | HighlightedCommand<EditorPageState> | null
@@ -129,9 +139,8 @@ function CommandPaletteExample() {
     setState((v) => ({ ...v, commandPaletteVisible: false }));
   };
 
-  // TODO use <EditorPageStateProvider> here
   return (
-    <>
+    <EditorPageStateProvider value={[state, setState]}>
       <NiceH2>&lt;CommandPalette&gt;</NiceH2>
       <p>* No shortcuts are prepared in this demo page.</p>
       <HStack>
@@ -154,6 +163,6 @@ function CommandPaletteExample() {
         open={state.commandPaletteVisible}
         onSelect={onCommandSelect}
       />
-    </>
+    </EditorPageStateProvider>
   );
 }
