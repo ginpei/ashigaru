@@ -1,8 +1,12 @@
+import { NiceLink } from "../../src/domains/nice/NiceLink";
+
 function Page(): JSX.Element {
   return (
     <ul className="ml-8 list-disc">
       <li>
-        <a href="/_dev/components/CommandPalette/">Command palette</a>
+        <NiceLink href="/_dev/components/CommandPalette/">
+          Command palette
+        </NiceLink>
       </li>
     </ul>
   );
