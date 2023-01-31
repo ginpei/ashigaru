@@ -35,8 +35,8 @@ export function EditorCommandListItem<State>({
 
 EditorCommandListItem.Empty = function CommandListItem_Empty(): JSX.Element {
   return (
-    <li className="px-2 py-1 leading-4 cursor-default">
+    <div className="px-2 py-1 leading-4 cursor-default">
       <small className="text-slate-500">No matching results</small>
-    </li>
+    </div>
   );
 };
