@@ -15,16 +15,23 @@ export function useFilteredCommand<State>(
   filter: CommandFilter
 ): HighlightedCommand<State>[] {
   return useMemo(() => {
-    const filtered: HighlightedCommand<State>[] = [];
-    for (const command of commands) {
-      const highlightedCharacters = highlightFilteredCommandTitle(
-        command.title,
-        filter.keyword
-      );
-      if (highlightedCharacters) {
-        filtered.push({ ...command, highlightedCharacters });
-      }
-    }
-    return filtered;
+    return highlightCommands<State>(commands, filter);
   }, [commands, filter]);
+}
+
+export function highlightCommands<State>(
+  commands: CommandDefinition<State>[],
+  filter: CommandFilter
+) {
+  const filtered: HighlightedCommand<State>[] = [];
+  for (const command of commands) {
+    const highlightedCharacters = highlightFilteredCommandTitle(
+      command.title,
+      filter.keyword
+    );
+    if (highlightedCharacters) {
+      filtered.push({ ...command, highlightedCharacters });
+    }
+  }
+  return filtered;
 }
