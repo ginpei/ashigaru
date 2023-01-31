@@ -1,4 +1,5 @@
 import { HighlightedCommand } from "../../../domains/commandPalette/commandFilter";
+import { CommandListEmptyItem } from "../../../domains/commandPalette/CommandListEmptyItem";
 import { HighlightedTitle } from "../../../domains/commandPalette/HighlightedTitle";
 import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
 
@@ -25,9 +26,5 @@ export function EditorCommandListItem<State>({
 }
 
 EditorCommandListItem.Empty = function CommandListItem_Empty(): JSX.Element {
-  return (
-    <div className="px-2 py-1 leading-4 cursor-default">
-      <small className="text-slate-500">No matching results</small>
-    </div>
-  );
+  return <CommandListEmptyItem>No matching results</CommandListEmptyItem>;
 };

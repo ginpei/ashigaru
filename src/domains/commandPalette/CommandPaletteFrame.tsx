@@ -69,11 +69,7 @@ export function CommandPaletteFrame<Value>({
                     )}
                   </Combobox.Option>
                 ))}
-                {options.length < 1 && (
-                  <li className="px-2 py-1 leading-4 cursor-default">
-                    {renderEmptyItem()}
-                  </li>
-                )}
+                {options.length < 1 && renderEmptyItem()}
               </Combobox.Options>
             </Combobox>
           </Dialog.Panel>

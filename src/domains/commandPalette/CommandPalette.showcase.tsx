@@ -15,6 +15,7 @@ import { Note } from "../note/Note";
 import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
 import { ComboboxDemo } from "./ComboboxDemo";
 import { HighlightedCommand } from "./commandFilter";
+import { CommandListEmptyItem } from "./CommandListEmptyItem";
 import { CommandPaletteFrame } from "./CommandPaletteFrame";
 
 interface PageState {
@@ -102,7 +103,9 @@ function CommandPaletteFrameExample() {
         }}
         open={visible}
         options={filteredOptions}
-        renderEmptyItem={() => <>No match</>}
+        renderEmptyItem={() => (
+          <CommandListEmptyItem>No match</CommandListEmptyItem>
+        )}
         renderItem={(v) => <>{v}</>}
       />
     </>
