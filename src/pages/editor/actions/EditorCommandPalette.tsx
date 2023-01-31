@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   highlightCommands,
   HighlightedCommand,
-} from "../../../domains/commandPalette/commandFilterHooks";
+} from "../../../domains/commandPalette/commandFilter";
 import { CommandPaletteFrame } from "../../../domains/commandPalette/CommandPaletteFrame";
 import { Note } from "../../../domains/note/Note";
 import { editorCommands, editorShortcuts } from "./editorActions";

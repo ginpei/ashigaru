@@ -9,6 +9,10 @@ export interface HighlightedCharacter {
   highlight: boolean;
 }
 
+export interface HighlightedCommand<State> extends CommandDefinition<State> {
+  highlightedCharacters: HighlightedCharacter[];
+}
+
 /**
  * @returns `null` if not matched
  */
@@ -34,4 +38,21 @@ export function highlightFilteredCommandTitle(
   }
 
   return highlighted;
+}
+
+export function highlightCommands<State>(
+  commands: CommandDefinition<State>[],
+  filter: CommandFilter
+) {
+  const filtered: HighlightedCommand<State>[] = [];
+  for (const command of commands) {
+    const highlightedCharacters = highlightFilteredCommandTitle(
+      command.title,
+      filter.keyword
+    );
+    if (highlightedCharacters) {
+      filtered.push({ ...command, highlightedCharacters });
+    }
+  }
+  return filtered;
 }

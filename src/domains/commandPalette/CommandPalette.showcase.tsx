@@ -10,7 +10,7 @@ import { NiceH1, NiceH2, NiceH3 } from "../nice/NiceH";
 import { Note } from "../note/Note";
 import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
 import { ComboboxDemo } from "./ComboboxDemo";
-import { HighlightedCommand } from "./commandFilterHooks";
+import { HighlightedCommand } from "./commandFilter";
 import { CommandPaletteFrame } from "./CommandPaletteFrame";
 
 interface PageState {

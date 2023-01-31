@@ -1,4 +1,4 @@
-import { HighlightedCommand } from "../../../domains/commandPalette/commandFilterHooks";
+import { HighlightedCommand } from "../../../domains/commandPalette/commandFilter";
 import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
 
 export interface EditorCommandListItemProps<State> {
