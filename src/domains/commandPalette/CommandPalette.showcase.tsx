@@ -52,23 +52,11 @@ const demoShortcuts: KeyboardShortcut[] = [
   },
 ];
 
-const demoFiles: CommandDefinition[] = [
-  {
-    action() {},
-    id: "file://path/to/file1",
-    title: "file1",
-  },
-  {
-    action() {},
-    id: "file://path/to/file2",
-    title: "file2",
-  },
-  {
-    action() {},
-    id: "file://path/to/file3",
-    title: "file3",
-  },
-];
+const demoNotes: Note[] = Array.from({ length: 30 }).map((_v, i) => ({
+  body: `Hello, this is a note #${i}`,
+  id: `note-${i}`,
+  title: `Demo note ${i}`,
+}));
 
 function CommandPaletteShowcase(): JSX.Element {
   return (
@@ -122,16 +110,10 @@ function CommandPaletteFrameExample() {
 }
 
 function CommandPaletteExample() {
-  const dummyNotes: Note[] = Array.from({ length: 30 }).map((_v, i) => ({
-    body: `Hello, this is a note #${i}`,
-    id: `note-${i}`,
-    title: `Note ${i}`,
-  }));
-
   const [state, setState] = useState(
     createEditorPageState({
       commands: demoCommands,
-      notes: dummyNotes,
+      notes: demoNotes,
       shortcuts: demoShortcuts,
     })
   );
