@@ -8,10 +8,6 @@ import { ComboboxDemo } from "./ComboboxDemo";
 import { CommandPaletteExample } from "./CommandPaletteExample";
 import { CommandPaletteFrameExample } from "./CommandPaletteFrameExample";
 
-interface PageState {
-  commandPaletteVisible: boolean;
-}
-
 export const demoCommands: CommandDefinition[] = [
   {
     action() {
