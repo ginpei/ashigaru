@@ -53,7 +53,11 @@ export function CommandPaletteFrame<Value>({
                   value={input}
                 />
               </div>
-              <Combobox.Options data-headlessui-state="open" static>
+              <Combobox.Options
+                className="max-h-[50vh] overflow-auto"
+                data-headlessui-state="open"
+                static
+              >
                 {options.map((option, index) => (
                   <Combobox.Option key={getKey(option)} value={option}>
                     {({ active }) => (
