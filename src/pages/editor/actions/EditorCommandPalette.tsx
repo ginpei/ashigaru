@@ -13,9 +13,11 @@ import { useEditorPageState } from "./editorPageContext";
 import { EditorPageState } from "./EditorPageState";
 
 export interface EditorCommandPaletteProps {
-  open: boolean;
+  open: EditorCommandPaletteOpenType;
   onSelect: (option: Option | null) => void;
 }
+
+export type EditorCommandPaletteOpenType = "" | "files" | "commands";
 
 type Option = Highlighted<Note> | HighlightedCommand<EditorPageState>;
 
@@ -28,6 +30,11 @@ export function EditorCommandPalette({
   const options = useOptions(input);
 
   useEffect(() => {
+    if (open === "commands") {
+      setInput(">");
+      return;
+    }
+
     setInput("");
   }, [open]);
 
@@ -39,7 +46,7 @@ export function EditorCommandPalette({
       input={input}
       onInput={setInput}
       onSelect={onSelect}
-      open={open}
+      open={open !== ""}
       options={options}
       renderEmptyItem={() => <EditorCommandListItem.Empty />}
       renderItem={(option) =>

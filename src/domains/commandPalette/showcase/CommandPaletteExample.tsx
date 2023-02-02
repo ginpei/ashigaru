@@ -25,7 +25,7 @@ export function CommandPaletteExample() {
     command: Note | HighlightedCommand<EditorPageState> | null
   ) => {
     console.log("# command", command);
-    setState((v) => ({ ...v, commandPaletteVisible: false }));
+    setState((v) => ({ ...v, commandPaletteVisible: "" }));
   };
 
   return (
@@ -35,14 +35,14 @@ export function CommandPaletteExample() {
       <HStack>
         <NiceButton
           onClick={() =>
-            setState((v) => ({ ...v, commandPaletteVisible: true }))
+            setState((v) => ({ ...v, commandPaletteVisible: "commands" }))
           }
         >
           Open
         </NiceButton>
         <NiceButton
           onClick={() =>
-            setState((v) => ({ ...v, commandPaletteVisible: true }))
+            setState((v) => ({ ...v, commandPaletteVisible: "files" }))
           }
         >
           Select file...

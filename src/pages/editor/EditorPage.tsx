@@ -48,7 +48,7 @@ export function EditorPage(): JSX.Element {
       ...state.commands,
       {
         action() {
-          setState((v) => ({ ...v, commandPaletteVisible: true }));
+          setState((v) => ({ ...v, commandPaletteVisible: "files" }));
         },
         id: "showCommandPalette",
         title: "Show command palette",
@@ -77,7 +77,7 @@ export function EditorPage(): JSX.Element {
       }
     }
 
-    setState((v) => ({ ...v, commandPaletteVisible: false }));
+    setState((v) => ({ ...v, commandPaletteVisible: "" }));
   };
 
   return (
