@@ -1,22 +1,22 @@
 import { useMemo, useState } from "react";
-import { StraightLayout } from "../../layouts/straight/StraightLayout";
-import { EditorCommandPalette } from "../../pages/editor/actions/EditorCommandPalette";
-import { EditorPageStateProvider } from "../../pages/editor/actions/editorPageContext";
+import { StraightLayout } from "../../../layouts/straight/StraightLayout";
+import { EditorCommandPalette } from "../../../pages/editor/actions/EditorCommandPalette";
+import { EditorPageStateProvider } from "../../../pages/editor/actions/editorPageContext";
 import {
   createEditorPageState,
   EditorPageState,
-} from "../../pages/editor/actions/EditorPageState";
-import { CommandDefinition } from "../command/CommandDefinition";
-import { HStack } from "../layout/HStask";
-import { VStack } from "../layout/VStack";
-import { NiceButton } from "../nice/NiceButton";
-import { NiceH1, NiceH2, NiceH3 } from "../nice/NiceH";
-import { Note } from "../note/Note";
-import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
+} from "../../../pages/editor/actions/EditorPageState";
+import { CommandDefinition } from "../../command/CommandDefinition";
+import { HStack } from "../../layout/HStask";
+import { VStack } from "../../layout/VStack";
+import { NiceButton } from "../../nice/NiceButton";
+import { NiceH1, NiceH2, NiceH3 } from "../../nice/NiceH";
+import { Note } from "../../note/Note";
+import { KeyboardShortcut } from "../../shortcut/KeyboardShortcut";
 import { ComboboxDemo } from "./ComboboxDemo";
-import { HighlightedCommand } from "./commandFilter";
-import { CommandListEmptyItem } from "./CommandListEmptyItem";
-import { CommandPaletteFrame } from "./CommandPaletteFrame";
+import { HighlightedCommand } from "../commandFilter";
+import { CommandListEmptyItem } from "../CommandListEmptyItem";
+import { CommandPaletteFrame } from "../CommandPaletteFrame";
 
 interface PageState {
   commandPaletteVisible: boolean;
