@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
 import { NiceButton } from "../../nice/NiceButton";
 import { NiceH2 } from "../../nice/NiceH";
+import { Highlighted, highlightFilteredCommandTitle } from "../commandFilter";
 import { CommandListEmptyItem } from "../CommandListEmptyItem";
 import { CommandPaletteFrame } from "../CommandPaletteFrame";
+import { HighlightedTitle } from "../HighlightedTitle";
 
 export function CommandPaletteFrameExample() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -12,7 +14,17 @@ export function CommandPaletteFrameExample() {
   const [visible, setVisible] = useState(false);
 
   const filteredOptions = useMemo(() => {
-    return options.filter((v) => v.toLowerCase().includes(input.toLowerCase()));
+    const result: Highlighted<{ title: string }>[] = [];
+    for (const title of options) {
+      const chars = highlightFilteredCommandTitle(title, input);
+      if (chars) {
+        result.push({
+          highlightedCharacters: chars,
+          title,
+        });
+      }
+    }
+    return result;
   }, [options, input]);
 
   return (
@@ -23,7 +35,7 @@ export function CommandPaletteFrameExample() {
       </p>
       <CommandPaletteFrame
         focusTargetId="demoCommandPaletteFrameFocus"
-        getKey={(v) => v}
+        getKey={(v) => v.title}
         input={input}
         onInput={setInput}
         onSelect={(v) => {
@@ -35,7 +47,7 @@ export function CommandPaletteFrameExample() {
         renderEmptyItem={() => (
           <CommandListEmptyItem>No match</CommandListEmptyItem>
         )}
-        renderItem={(v) => <>{v}</>}
+        renderItem={(v) => <HighlightedTitle chars={v.highlightedCharacters} />}
       />
     </>
   );
