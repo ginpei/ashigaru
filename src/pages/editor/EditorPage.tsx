@@ -2,6 +2,7 @@ import Head from "next/head";
 import { CSSProperties, useMemo, useState } from "react";
 import { pickCommandDefinition } from "../../domains/command/CommandDefinition";
 import { Note } from "../../domains/note/Note";
+import { giveFocusOn } from "../../domains/shortcut/domFocusManipulators";
 import {
   useFocusMarkEffect,
   useFocusTarget,
@@ -61,10 +62,11 @@ export function EditorPage(): JSX.Element {
     def.action(state, setState);
   });
 
-  const onCommandSelect = (command: Note | EditorPageCommand | null) => {
+  const onCommandSelect = async (command: Note | EditorPageCommand | null) => {
     if (command) {
       if ("action" in command) {
         command.action(state, setState);
+        setState((v) => ({ ...v, commandPaletteVisible: "" }));
       } else {
         // TODO extract
         setState({
@@ -73,11 +75,13 @@ export function EditorPage(): JSX.Element {
           focusedNoteId: command.id,
           selectedNoteIds: [command.id],
         });
-        // TODO focus on editor
+        setState((v) => ({ ...v, commandPaletteVisible: "" }));
+
+        // TODO find better way
+        await tick();
+        giveFocusOn("noteBodyFocus");
       }
     }
-
-    setState((v) => ({ ...v, commandPaletteVisible: "" }));
   };
 
   return (
@@ -106,4 +110,10 @@ export function EditorPage(): JSX.Element {
       />
     </EditorPageStateProvider>
   );
+}
+
+function tick(timeout = 1): Promise<void> {
+  return new Promise((resolve) => {
+    window.setTimeout(resolve, timeout);
+  });
 }
