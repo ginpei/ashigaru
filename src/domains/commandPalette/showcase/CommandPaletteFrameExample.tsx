@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { NiceButton } from "../../nice/NiceButton";
 import { NiceH2 } from "../../nice/NiceH";
 import { Highlighted, highlightFilteredCommandTitle } from "../commandFilter";
@@ -26,6 +26,12 @@ export function CommandPaletteFrameExample() {
     }
     return result;
   }, [options, input]);
+
+  useEffect(() => {
+    if (visible) {
+      setInput("");
+    }
+  }, [visible]);
 
   return (
     <>
