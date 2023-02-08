@@ -45,11 +45,19 @@ export function EditorPage(): JSX.Element {
   );
 
   const commands = useMemo<EditorPageCommand[]>(() => {
+    // TODO extract
     return [
       ...state.commands,
       {
         action() {
           setState((v) => ({ ...v, commandPaletteVisible: "files" }));
+        },
+        id: "selectFileInCommandPalette",
+        title: "Select file in command palette",
+      },
+      {
+        action() {
+          setState((v) => ({ ...v, commandPaletteVisible: "commands" }));
         },
         id: "showCommandPalette",
         title: "Show command palette",

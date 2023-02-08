@@ -37,6 +37,10 @@ export const editorCommands: CommandDefinition[] = [
 export const editorShortcuts: KeyboardShortcut[] = [
   ...noteListShortcuts,
   {
+    commandId: "selectFileInCommandPalette",
+    key: "Ctrl+P",
+  },
+  {
     commandId: "showCommandPalette",
     key: "Ctrl+Shift+P",
   },
