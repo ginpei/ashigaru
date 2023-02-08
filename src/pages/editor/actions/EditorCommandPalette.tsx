@@ -54,7 +54,7 @@ export function EditorCommandPalette({
           <EditorCommandListItem
             command={option}
             key={option.id}
-            shortcut={shortcuts?.find((v) => v.commandId === option.id)}
+            shortcut={shortcuts.find((v) => v.commandId === option.id)}
           />
         ) : (
           <HighlightedTitle chars={option.highlightedCharacters} />

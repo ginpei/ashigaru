@@ -5,7 +5,7 @@ import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
 
 export interface EditorCommandListItemProps<State> {
   command: HighlightedCommand<State>;
-  shortcut?: KeyboardShortcut;
+  shortcut: KeyboardShortcut | undefined;
 }
 
 export function EditorCommandListItem<State>({
