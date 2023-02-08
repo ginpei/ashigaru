@@ -41,7 +41,11 @@ export function EditorPage(): JSX.Element {
   useFocusMarkEffect();
 
   const [state, setState] = useState(
-    createEditorPageState({ commands: editorCommands, notes: dummyNotes })
+    createEditorPageState({
+      commands: editorCommands,
+      notes: dummyNotes,
+      shortcuts: editorShortcuts,
+    })
   );
 
   const commands = useMemo<EditorPageCommand[]>(() => {
