@@ -63,24 +63,27 @@ export function EditorPage(): JSX.Element {
   });
 
   const onCommandSelect = async (command: Note | EditorPageCommand | null) => {
-    if (command) {
-      if ("action" in command) {
-        command.action(state, setState);
-        setState((v) => ({ ...v, commandPaletteVisible: "" }));
-      } else {
-        // TODO extract
-        setState({
-          ...state,
-          editingNoteId: command.id,
-          focusedNoteId: command.id,
-          selectedNoteIds: [command.id],
-        });
-        setState((v) => ({ ...v, commandPaletteVisible: "" }));
+    if (!command) {
+      setState((v) => ({ ...v, commandPaletteVisible: "" }));
+      return;
+    }
 
-        // TODO find better way
-        await tick();
-        giveFocusOn("noteBodyFocus");
-      }
+    if ("action" in command) {
+      command.action(state, setState);
+      setState((v) => ({ ...v, commandPaletteVisible: "" }));
+    } else {
+      // TODO extract
+      setState({
+        ...state,
+        editingNoteId: command.id,
+        focusedNoteId: command.id,
+        selectedNoteIds: [command.id],
+      });
+      setState((v) => ({ ...v, commandPaletteVisible: "" }));
+
+      // TODO find better way
+      await tick();
+      giveFocusOn("noteBodyFocus");
     }
   };
 
