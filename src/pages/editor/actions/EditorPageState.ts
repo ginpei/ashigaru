@@ -52,3 +52,34 @@ export function updateEditingNote(
   ];
   return { ...state, notes: newNotes };
 }
+
+export function startEditingNoteState(
+  state: EditorPageState,
+  id: string
+): EditorPageState {
+  const openNoteIds = state.openNoteIds.includes(id)
+    ? state.openNoteIds
+    : state.openNoteIds.concat(id);
+
+  return {
+    ...state,
+    editingNoteId: id,
+    focusedNoteId: id,
+    openNoteIds,
+    selectedNoteIds: [id],
+  };
+}
+
+export function closeNoteState(
+  state: EditorPageState,
+  id: string
+): EditorPageState {
+  const editingNoteId = state.editingNoteId === id ? "" : state.editingNoteId;
+  const openNoteIds = state.openNoteIds.filter((v) => v !== id);
+
+  return {
+    ...state,
+    editingNoteId,
+    openNoteIds,
+  };
+}

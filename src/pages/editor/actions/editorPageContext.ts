@@ -1,9 +1,11 @@
 import { createContext, Dispatch, SetStateAction, useContext } from "react";
 import { Note } from "../../../domains/note/Note";
 import {
+  closeNoteState,
   createEditorPageState,
   EditorPageState,
   getEditingNote,
+  startEditingNoteState,
   updateEditingNote,
 } from "./EditorPageState";
 
@@ -25,29 +27,13 @@ export function useEditingNote(): Note | null {
 
 export function useStartEditingNote(): (id: string) => void {
   const [state, set] = useContext(EditorPageContext);
-  return (id) =>
-    set({
-      ...state,
-      editingNoteId: id,
-      focusedNoteId: id,
-      openNoteIds: state.openNoteIds.includes(id)
-        ? state.openNoteIds
-        : state.openNoteIds.concat(id),
-      selectedNoteIds: [id],
-    });
+  return (id) => set(startEditingNoteState(state, id));
 }
 
 export function useCloseNote(): (id: string) => void {
   const [state, set] = useContext(EditorPageContext);
   return (id) => {
-    const editingNoteId = state.editingNoteId === id ? "" : state.editingNoteId;
-    const openNoteIds = state.openNoteIds.filter((v) => v !== id);
-
-    return set({
-      ...state,
-      editingNoteId,
-      openNoteIds,
-    });
+    return set(closeNoteState(state, id));
   };
 }
 
