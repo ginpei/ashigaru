@@ -35,6 +35,11 @@ export const noteListShortcuts: KeyboardShortcut[] = [
     when: "noteListFocus",
   },
   {
+    commandId: "selectNote",
+    key: "Enter",
+    when: "noteListFocus",
+  },
+  {
     commandId: "deleteNote",
     key: "Delete",
     when: "noteListFocus",
