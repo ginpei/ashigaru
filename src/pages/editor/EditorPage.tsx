@@ -16,7 +16,7 @@ import {
 import { EditorCommandPalette } from "./actions/EditorCommandPalette";
 import { EditorPageStateProvider } from "./actions/editorPageContext";
 import { createEditorPageState } from "./actions/EditorPageState";
-import { Editor } from "./editor/Editor";
+import { EditorPane } from "./editor/EditorPane";
 import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
 
@@ -89,6 +89,7 @@ export function EditorPage(): JSX.Element {
         ...state,
         editingNoteId: command.id,
         focusedNoteId: command.id,
+        openNoteIds: [command.id],
         selectedNoteIds: [command.id],
       });
       setState((v) => ({ ...v, commandPaletteVisible: "" }));
@@ -116,7 +117,7 @@ export function EditorPage(): JSX.Element {
           <ListPane />
         </div>
         <div style={{ gridArea: "editor" }}>
-          <Editor />
+          <EditorPane />
         </div>
       </div>
       <EditorCommandPalette

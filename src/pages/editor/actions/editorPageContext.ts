@@ -30,6 +30,9 @@ export function useStartEditingNote(): (id: string) => void {
       ...state,
       editingNoteId: id,
       focusedNoteId: id,
+      openNoteIds: state.openNoteIds.includes(id)
+        ? state.openNoteIds
+        : state.openNoteIds.concat(id),
       selectedNoteIds: [id],
     });
 }
