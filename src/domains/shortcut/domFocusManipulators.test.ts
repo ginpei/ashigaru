@@ -17,14 +17,12 @@ describe("giveFocusOn()", () => {
 
   describe("focuses on the first focusable element", () => {
     it("a", () => {
-      prepareTarget("someFocus", `<a id="ok-a"></a>`);
+      prepareTarget("someFocus", `<a id="ok-a" href="/"></a>`);
 
       const result = giveFocusOn("someFocus");
       expect(result).toBe(true);
 
-      // the activeElement becomes `<body>` on JSDOM
-      // TODO find why
-      // expect(document.activeElement?.id).toBe("ok-a");
+      expect(document.activeElement?.id).toBe("ok-a");
     });
 
     it("audio", () => {
