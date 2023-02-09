@@ -1,4 +1,4 @@
-import { Note } from "../../../domains/note/Note";
+import { createNote, Note } from "../../../domains/note/Note";
 import { OpenNoteTab } from "./OpenNoteTab";
 
 export interface EditorTabListProps {
@@ -12,6 +12,9 @@ export function OpenNoteList({
   openNotes: notes,
   onSelect,
 }: EditorTabListProps): JSX.Element {
+  const spacerNote =
+    notes.length < 1 ? createNote({ title: "(No items)" }) : null;
+
   return (
     <div className="EditorTabList bg-gray-100 flex gap-2">
       {notes.map((note) => (
@@ -22,6 +25,11 @@ export function OpenNoteList({
           onClick={onSelect}
         />
       ))}
+      {spacerNote && (
+        <div className="contents invisible">
+          <OpenNoteTab active={true} note={spacerNote} onClick={onSelect} />
+        </div>
+      )}
     </div>
   );
 }
