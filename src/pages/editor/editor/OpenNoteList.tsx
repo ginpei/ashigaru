@@ -2,13 +2,13 @@ import { Note } from "../../../domains/note/Note";
 
 export interface EditorTabListProps {
   activeNoteId: string;
-  editingNotes: Note[];
+  openNotes: Note[];
   onSelect: (noteId: string) => void;
 }
 
-export function EditorTabList({
+export function OpenNoteList({
   activeNoteId,
-  editingNotes: notes,
+  openNotes: notes,
   onSelect,
 }: EditorTabListProps): JSX.Element {
   return (

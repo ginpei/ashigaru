@@ -3,7 +3,7 @@ import {
   useStartEditingNote,
 } from "../actions/editorPageContext";
 import { Editor } from "./Editor";
-import { EditorTabList } from "./EditorTabList";
+import { OpenNoteList } from "./OpenNoteList";
 
 export interface EditorPaneProps {}
 
@@ -15,9 +15,9 @@ export function EditorPane({}: EditorPaneProps): JSX.Element {
 
   return (
     <div className="EditorPane h-full flex flex-col">
-      <EditorTabList
+      <OpenNoteList
         activeNoteId={editingNote?.id ?? ""}
-        editingNotes={openNotes}
+        openNotes={openNotes}
         onSelect={startEditingNote}
       />
       <div className="grow grid">
