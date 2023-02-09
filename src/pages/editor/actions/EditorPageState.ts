@@ -53,7 +53,7 @@ export function updateEditingNote(
   return { ...state, notes: newNotes };
 }
 
-export function startEditingNoteState(
+export function openNoteState(
   state: EditorPageState,
   id: string
 ): EditorPageState {

@@ -17,7 +17,7 @@ import { EditorCommandPalette } from "./actions/EditorCommandPalette";
 import { EditorPageStateProvider } from "./actions/editorPageContext";
 import {
   createEditorPageState,
-  startEditingNoteState,
+  openNoteState,
 } from "./actions/EditorPageState";
 import { EditorPane } from "./editor/EditorPane";
 import { ListPane } from "./list/ListPane";
@@ -88,7 +88,7 @@ export function EditorPage(): JSX.Element {
       setState((v) => ({ ...v, commandPaletteVisible: "" }));
     } else {
       setState({
-        ...startEditingNoteState(state, command.id),
+        ...openNoteState(state, command.id),
         commandPaletteVisible: "",
       });
 

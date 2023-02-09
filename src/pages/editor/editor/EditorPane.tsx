@@ -1,7 +1,7 @@
 import { useEditorPageStateContext } from "../actions/editorPageContext";
 import {
   closeNoteState,
-  startEditingNoteState,
+  openNoteState,
 } from "../actions/EditorPageState";
 import { Editor } from "./Editor";
 import { OpenNoteList } from "./OpenNoteList";
@@ -19,7 +19,7 @@ export function EditorPane({}: EditorPaneProps): JSX.Element {
       <OpenNoteList
         activeNoteId={editingNote?.id ?? ""}
         openNotes={openNotes}
-        onSelect={(id) => setState(startEditingNoteState(state, id))}
+        onSelect={(id) => setState(openNoteState(state, id))}
         onClose={(id) => setState(closeNoteState(state, id))}
       />
       <div className="grow grid">
