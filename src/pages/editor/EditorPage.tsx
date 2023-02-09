@@ -15,7 +15,10 @@ import {
 } from "./actions/editorActions";
 import { EditorCommandPalette } from "./actions/EditorCommandPalette";
 import { EditorPageStateProvider } from "./actions/editorPageContext";
-import { createEditorPageState } from "./actions/EditorPageState";
+import {
+  createEditorPageState,
+  startEditingNoteState,
+} from "./actions/EditorPageState";
 import { EditorPane } from "./editor/EditorPane";
 import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
@@ -84,15 +87,10 @@ export function EditorPage(): JSX.Element {
       command.action(state, setState);
       setState((v) => ({ ...v, commandPaletteVisible: "" }));
     } else {
-      // TODO extract
       setState({
-        ...state,
-        editingNoteId: command.id,
-        focusedNoteId: command.id,
-        openNoteIds: [command.id],
-        selectedNoteIds: [command.id],
+        ...startEditingNoteState(state, command.id),
+        commandPaletteVisible: "",
       });
-      setState((v) => ({ ...v, commandPaletteVisible: "" }));
 
       // TODO find better way
       await tick();
