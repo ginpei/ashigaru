@@ -34,3 +34,10 @@ export function findFocusAfterDeletion({
 
   return "";
 }
+
+export function pickNotesByIds(notes: Note[], ids: string[]): Note[] {
+  const targets = ids
+    .map((id) => notes.find((v) => v.id === id))
+    .filter((v): v is Note => Boolean(v));
+  return targets;
+}

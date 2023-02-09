@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createNote } from "./Note";
-import { findFocusAfterDeletion } from "./noteListHandlers";
+import { findFocusAfterDeletion, pickNotesByIds } from "./noteListHandlers";
 import { NoteListState } from "./NoteListState";
 
 describe("findFocusAfterDeletion", () => {
@@ -72,5 +72,19 @@ describe("findFocusAfterDeletion", () => {
 
     const result = findFocusAfterDeletion(state);
     expect(result).toBe("");
+  });
+});
+
+describe("pickNotesByIds", () => {
+  it("returns matched notes in the given order", () => {
+    const notes = [
+      createNote({ id: "0" }),
+      createNote({ id: "1" }),
+      createNote({ id: "2" }),
+      createNote({ id: "3" }),
+      createNote({ id: "4" }),
+    ];
+    const result = pickNotesByIds(notes, ["2", "4", "1"]);
+    expect(result).toEqual([notes[2], notes[4], notes[1]]);
   });
 });
