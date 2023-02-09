@@ -27,6 +27,36 @@ describe("giveFocusOn()", () => {
       // expect(document.activeElement?.id).toBe("ok-a");
     });
 
+    it("audio", () => {
+      prepareTarget("someFocus", `<audio id="ok-audio">`);
+
+      const result = giveFocusOn("someFocus");
+      expect(result).toBe(true);
+
+      // the activeElement becomes `<body>` on JSDOM
+      // TODO find why
+      // expect(document.activeElement?.id).toBe("ok-audio");
+    });
+
+    it("button", () => {
+      prepareTarget("someFocus", `<button id="ok-button">`);
+
+      const result = giveFocusOn("someFocus");
+      expect(result).toBe(true);
+      expect(document.activeElement?.id).toBe("ok-button");
+    });
+
+    it("details", () => {
+      prepareTarget("someFocus", `<details id="ok-details">`);
+
+      const result = giveFocusOn("someFocus");
+      expect(result).toBe(true);
+
+      // the activeElement becomes `<body>` on JSDOM
+      // TODO find why
+      // expect(document.activeElement?.id).toBe("ok-details");
+    });
+
     it("input", () => {
       prepareTarget("someFocus", `<input id="ok-input">`);
 
@@ -49,6 +79,17 @@ describe("giveFocusOn()", () => {
       const result = giveFocusOn("someFocus");
       expect(result).toBe(true);
       expect(document.activeElement?.id).toBe("ok-textarea");
+    });
+
+    it("video", () => {
+      prepareTarget("someFocus", `<video id="ok-video">`);
+
+      const result = giveFocusOn("someFocus");
+      expect(result).toBe(true);
+
+      // the activeElement becomes `<body>` on JSDOM
+      // TODO find why
+      // expect(document.activeElement?.id).toBe("ok-video");
     });
 
     it("div[tabindex=0]", () => {

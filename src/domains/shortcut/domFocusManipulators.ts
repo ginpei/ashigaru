@@ -8,7 +8,7 @@ export function giveFocusOn(focusId: string): boolean {
   }
 
   const elFocusable = el.querySelector(
-    ":where(a, input, select, textarea, [tabindex]):not(:disabled, [tabindex='-1'])"
+    ":where(a, audio, button, details, input, select, textarea, video, [tabindex]):not(:disabled, [tabindex='-1'])"
   );
   if (!elFocusable || !(elFocusable instanceof HTMLElement)) {
     return false;
