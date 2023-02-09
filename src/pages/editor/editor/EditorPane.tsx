@@ -1,17 +1,16 @@
+import { useEditorPageStateContext } from "../actions/editorPageContext";
 import {
-  useCloseNote,
-  useEditorPageState,
-  useStartEditingNote,
-} from "../actions/editorPageContext";
+  closeNoteState,
+  startEditingNoteState,
+} from "../actions/EditorPageState";
 import { Editor } from "./Editor";
 import { OpenNoteList } from "./OpenNoteList";
 
 export interface EditorPaneProps {}
 
 export function EditorPane({}: EditorPaneProps): JSX.Element {
-  const { editingNoteId, notes, openNoteIds } = useEditorPageState();
-  const startEditingNote = useStartEditingNote();
-  const closeNote = useCloseNote();
+  const [state, setState] = useEditorPageStateContext();
+  const { editingNoteId, notes, openNoteIds } = state;
   const openNotes = notes.filter((v) => openNoteIds.includes(v.id));
   const editingNote = notes.find((v) => v.id === editingNoteId);
 
@@ -20,8 +19,8 @@ export function EditorPane({}: EditorPaneProps): JSX.Element {
       <OpenNoteList
         activeNoteId={editingNote?.id ?? ""}
         openNotes={openNotes}
-        onSelect={startEditingNote}
-        onClose={closeNote}
+        onSelect={(id) => setState(startEditingNoteState(state, id))}
+        onClose={(id) => setState(closeNoteState(state, id))}
       />
       <div className="grow grid">
         <Editor note={editingNote} />

@@ -1,26 +1,19 @@
 import { useRef, useState } from "react";
-import { Note } from "../../../domains/note/Note";
 import { FocusTarget } from "../../../domains/shortcut/FocusTarget";
-import {
-  useEditorPageState,
-  useStartEditingNote,
-} from "../actions/editorPageContext";
+import { useEditorPageStateContext } from "../actions/editorPageContext";
+import { startEditingNoteState } from "../actions/EditorPageState";
 import { NoteItem } from "./NoteItem";
 import { useListScrollEffect } from "./noteListUiHooks";
 
 export interface ListPaneProps {}
 
 export function ListPane(): JSX.Element {
-  const { focusedNoteId, notes, selectedNoteIds } = useEditorPageState();
+  const [state, setState] = useEditorPageStateContext();
+  const { focusedNoteId, notes, selectedNoteIds } = state;
   const [elFocusItem, setElFocusItem] = useState<HTMLElement | null>(null);
   const refList = useRef<HTMLDivElement>(null);
-  const startEditingNote = useStartEditingNote();
 
   useListScrollEffect(elFocusItem, refList.current);
-
-  const onNoteClick = (note: Note) => {
-    startEditingNote(note.id);
-  };
 
   return (
     <section className="ListPane h-full flex flex-col">
@@ -33,7 +26,7 @@ export function ListPane(): JSX.Element {
               key={note.id}
               note={note}
               selected={selectedNoteIds.includes(note.id)}
-              onClick={onNoteClick}
+              onClick={(v) => setState(startEditingNoteState(state, v.id))}
               onFocusRef={setElFocusItem}
             />
           ))}

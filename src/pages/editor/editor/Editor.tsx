@@ -1,23 +1,23 @@
 import { ChangeEventHandler } from "react";
 import { Note } from "../../../domains/note/Note";
 import { FocusTarget } from "../../../domains/shortcut/FocusTarget";
-import { useUpdateEditingNote } from "../actions/editorPageContext";
+import { useEditorPageStateContext } from "../actions/editorPageContext";
+import { updateEditingNote } from "../actions/EditorPageState";
 
 export interface EditorProps {
   note: Note | undefined;
 }
 
 export function Editor({ note }: EditorProps): JSX.Element {
-  const updateEditingNote = useUpdateEditingNote();
-
+  const [state, setState] = useEditorPageStateContext();
   const onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
     event
   ) => {
     const { name, value } = event.currentTarget;
     if (name === "title") {
-      updateEditingNote({ ...note, title: value });
+      setState(updateEditingNote(state, { ...note, title: value }));
     } else if (name === "body") {
-      updateEditingNote({ ...note, body: value });
+      setState(updateEditingNote(state, { ...note, body: value }));
     } else {
       throw new Error(`Unknown input name: ${name}`);
     }

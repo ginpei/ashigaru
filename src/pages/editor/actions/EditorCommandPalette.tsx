@@ -9,7 +9,7 @@ import { CommandPaletteFrame } from "../../../domains/commandPalette/CommandPale
 import { HighlightedTitle } from "../../../domains/commandPalette/HighlightedTitle";
 import { Note } from "../../../domains/note/Note";
 import { EditorCommandListItem } from "./EditorCommandListItem";
-import { useEditorPageState } from "./editorPageContext";
+import { useEditorPageStateContext } from "./editorPageContext";
 import { EditorPageState } from "./EditorPageState";
 
 export interface EditorCommandPaletteProps {
@@ -25,7 +25,7 @@ export function EditorCommandPalette({
   open,
   onSelect,
 }: EditorCommandPaletteProps): JSX.Element {
-  const { shortcuts } = useEditorPageState();
+  const [{ shortcuts }] = useEditorPageStateContext();
   const [input, setInput] = useState("");
   const options = useOptions(input);
 
@@ -65,7 +65,7 @@ export function EditorCommandPalette({
 }
 
 function useOptions(input: string): Option[] {
-  const { commands, notes } = useEditorPageState();
+  const [{ commands, notes }] = useEditorPageStateContext();
 
   if (input.startsWith(">")) {
     const keyword = input.slice(1).trim();
