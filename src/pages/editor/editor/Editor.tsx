@@ -33,7 +33,7 @@ export function Editor({ note }: EditorProps): JSX.Element {
           onChange={onChange}
           placeholder="Title"
           type="text"
-          value={note?.title}
+          value={note?.title ?? ""}
         />
       </FocusTarget>
       <FocusTarget id="noteBodyFocus">
@@ -43,7 +43,7 @@ export function Editor({ note }: EditorProps): JSX.Element {
           name="body"
           onChange={onChange}
           placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid nobis amet illum illo doloribus quo aut. Eius fugiat mollitia illum excepturi repellat, commodi, quasi nihil facilis at eaque, deserunt iusto!"
-          value={note?.body}
+          value={note?.body ?? ""}
         />
       </FocusTarget>
     </div>
