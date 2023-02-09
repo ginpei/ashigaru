@@ -18,7 +18,7 @@ export function OpenNoteList({
     notes.length < 1 ? createNote({ title: "(No items)" }) : null;
 
   return (
-    <div className="EditorTabList bg-gray-100 flex gap-2 flex-wrap">
+    <div className="EditorTabList bg-gray-100 flex gap-2 flex-wrap p-1">
       {notes.map((note) => (
         <OpenNoteTab
           active={activeNoteId === note.id}
