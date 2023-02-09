@@ -1,4 +1,5 @@
 import { Note } from "../../../domains/note/Note";
+import { OpenNoteTab } from "./OpenNoteTab";
 
 export interface EditorTabListProps {
   activeNoteId: string;
@@ -14,17 +15,12 @@ export function OpenNoteList({
   return (
     <div className="EditorTabList bg-gray-100 flex gap-2">
       {notes.map((note) => (
-        <span
-          className={`
-            border cursor-pointer
-            hover:underline
-            ${activeNoteId === note.id ? "font-bold" : ""}
-          `}
+        <OpenNoteTab
+          active={activeNoteId === note.id}
           key={note.id}
-          onClick={() => onSelect(note.id)}
-        >
-          {note.title}
-        </span>
+          note={note}
+          onClick={onSelect}
+        />
       ))}
     </div>
   );
