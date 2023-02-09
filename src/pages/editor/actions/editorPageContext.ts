@@ -37,6 +37,20 @@ export function useStartEditingNote(): (id: string) => void {
     });
 }
 
+export function useCloseNote(): (id: string) => void {
+  const [state, set] = useContext(EditorPageContext);
+  return (id) => {
+    const editingNoteId = state.editingNoteId === id ? "" : state.editingNoteId;
+    const openNoteIds = state.openNoteIds.filter((v) => v !== id);
+
+    return set({
+      ...state,
+      editingNoteId,
+      openNoteIds,
+    });
+  };
+}
+
 export function useUpdateEditingNote(): (note: Partial<Note>) => void {
   const [state, set] = useContext(EditorPageContext);
   return (note) => {

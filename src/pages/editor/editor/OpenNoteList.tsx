@@ -5,12 +5,14 @@ export interface EditorTabListProps {
   activeNoteId: string;
   openNotes: Note[];
   onSelect: (noteId: string) => void;
+  onClose: (noteId: string) => void;
 }
 
 export function OpenNoteList({
   activeNoteId,
   openNotes: notes,
   onSelect,
+  onClose,
 }: EditorTabListProps): JSX.Element {
   const spacerNote =
     notes.length < 1 ? createNote({ title: "(No items)" }) : null;
@@ -22,12 +24,18 @@ export function OpenNoteList({
           active={activeNoteId === note.id}
           key={note.id}
           note={note}
-          onClick={onSelect}
+          onSelect={onSelect}
+          onClose={onClose}
         />
       ))}
       {spacerNote && (
         <div className="contents invisible">
-          <OpenNoteTab active={true} note={spacerNote} onClick={onSelect} />
+          <OpenNoteTab
+            active={true}
+            note={spacerNote}
+            onSelect={onSelect}
+            onClose={onClose}
+          />
         </div>
       )}
     </div>

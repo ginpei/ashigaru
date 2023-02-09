@@ -3,26 +3,30 @@ import { Note } from "../../../domains/note/Note";
 export interface OpenNoteTabProps {
   active: boolean;
   note: Note;
-  onClick: (noteId: string) => void;
+  onSelect: (noteId: string) => void;
+  onClose: (noteId: string) => void;
 }
 
 export function OpenNoteTab({
   active,
   note,
-  onClick,
+  onSelect,
+  onClose,
 }: OpenNoteTabProps): JSX.Element {
   return (
-    <span
-      className={`
-      OpenNoteTab
-        border cursor-pointer
-        hover:underline
-        ${active ? "font-bold" : ""}
-      `}
-      key={note.id}
-      onClick={() => onClick(note.id)}
-    >
-      {note.title}
+    <span className={"OpenNoteTab flex border cursor-pointer"} key={note.id}>
+      <span
+        className={`px-1 hover:underline ${active ? "font-bold" : ""}`}
+        onClick={() => onSelect(note.id)}
+      >
+        {note.title}
+      </span>
+      <button
+        className="hover:bg-gray-300 w-4"
+        onClick={() => onClose(note.id)}
+      >
+        ×
+      </button>
     </span>
   );
 }
