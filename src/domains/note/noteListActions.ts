@@ -62,9 +62,7 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
       }
       setState({
         ...state,
-        editingNoteId: prevNote.id,
         focusedNoteId: prevNote.id,
-        selectedNoteIds: [prevNote.id],
       });
     },
     id: "focusPreviousNote",
@@ -85,9 +83,7 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
       }
       setState({
         ...state,
-        editingNoteId: nextNote.id,
         focusedNoteId: nextNote.id,
-        selectedNoteIds: [nextNote.id],
       });
     },
     id: "focusNextNote",
@@ -102,9 +98,7 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
       }
       setState({
         ...state,
-        editingNoteId: note.id,
         focusedNoteId: note.id,
-        selectedNoteIds: [note.id],
       });
     },
     id: "focusFirstNote",
@@ -119,9 +113,7 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
       }
       setState({
         ...state,
-        editingNoteId: note.id,
         focusedNoteId: note.id,
-        selectedNoteIds: [note.id],
       });
     },
     id: "focusLastNote",
