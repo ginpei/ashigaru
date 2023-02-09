@@ -26,7 +26,7 @@ describe("giveFocusOn()", () => {
     });
 
     it("audio", () => {
-      prepareTarget("someFocus", `<audio id="ok-audio">`);
+      prepareTarget("someFocus", `<audio controls id="ok-audio"></audio>`);
 
       const result = giveFocusOn("someFocus");
       expect(result).toBe(true);
