@@ -28,8 +28,8 @@ export function getNoteOptions(
 
   result.sort((note1, note2) => {
     return (
-      calcNoteOptionWeight(note1, openNoteIds, editingNoteId) -
-      calcNoteOptionWeight(note2, openNoteIds, editingNoteId)
+      calcNoteOptionWeight(note2, openNoteIds, editingNoteId) -
+      calcNoteOptionWeight(note1, openNoteIds, editingNoteId)
     );
   });
 
@@ -42,13 +42,13 @@ function calcNoteOptionWeight(
   editingNoteId: string
 ): number {
   if (note.id === editingNoteId) {
-    return -Number.MAX_SAFE_INTEGER;
+    return Number.MAX_SAFE_INTEGER;
   }
 
   const index = openNoteIds.findIndex((v) => v === note.id);
   if (index < 0) {
-    return -Number.MIN_SAFE_INTEGER;
+    return Number.MIN_SAFE_INTEGER;
   }
 
-  return index;
+  return -index;
 }
