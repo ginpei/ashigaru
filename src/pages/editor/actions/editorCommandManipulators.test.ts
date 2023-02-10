@@ -16,7 +16,7 @@ describe("getNoteOptions()", () => {
     ];
     const openNoteIds: string[] = [];
     const input = "";
-    const result = getNoteOptions(notes, openNoteIds, input);
+    const result = getNoteOptions(notes, openNoteIds, "", input);
     expect(result.map((v) => v.id)).toEqual(["note1", "note2"]);
   });
 
@@ -33,7 +33,7 @@ describe("getNoteOptions()", () => {
     ];
     const input = "he";
     const openNoteIds: string[] = [];
-    const result = getNoteOptions(notes, openNoteIds, input);
+    const result = getNoteOptions(notes, openNoteIds, "", input);
     expect(result.map((v) => v.id)).toEqual(["note2"]);
   });
 
@@ -54,15 +54,37 @@ describe("getNoteOptions()", () => {
     ];
     const input = "";
     const openNoteIds = ["note3", "note1"];
-    const result = getNoteOptions(notes, openNoteIds, input);
+    const result = getNoteOptions(notes, openNoteIds, "", input);
     expect(result.map((v) => v.id)).toEqual(["note3", "note1", "note2"]);
+  });
+
+  it("prioritize editing note", () => {
+    const notes: Note[] = [
+      createNote({
+        id: "note1",
+        title: "Note 1",
+      }),
+      createNote({
+        id: "note2",
+        title: "Note 2",
+      }),
+      createNote({
+        id: "note3",
+        title: "Note 3",
+      }),
+    ];
+    const editingNoteId = "note2";
+    const input = "";
+    const openNoteIds = ["note3", "note1"];
+    const result = getNoteOptions(notes, openNoteIds, editingNoteId, input);
+    expect(result.map((v) => v.id)).toEqual(["note2", "note3", "note1"]);
   });
 
   it("returns empty by empty", () => {
     const notes: Note[] = [];
     const input = "";
     const openNoteIds: string[] = [];
-    const result = getNoteOptions(notes, openNoteIds, input);
+    const result = getNoteOptions(notes, openNoteIds, "", input);
     expect(result).toEqual([]);
   });
 });

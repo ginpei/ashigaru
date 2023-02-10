@@ -11,6 +11,7 @@ export type Option = Highlighted<Note> | HighlightedCommand<EditorPageState>;
 export function getNoteOptions(
   notes: Note[],
   openNoteIds: string[],
+  editingNoteId: string,
   input: string
 ): Option[] {
   const result: Highlighted<Note>[] = [];
@@ -27,15 +28,23 @@ export function getNoteOptions(
 
   result.sort((note1, note2) => {
     return (
-      calcNoteOptionWeight(note1, openNoteIds) -
-      calcNoteOptionWeight(note2, openNoteIds)
+      calcNoteOptionWeight(note1, openNoteIds, editingNoteId) -
+      calcNoteOptionWeight(note2, openNoteIds, editingNoteId)
     );
   });
 
   return result;
 }
 
-function calcNoteOptionWeight(note: Note, openNoteIds: string[]): number {
+function calcNoteOptionWeight(
+  note: Note,
+  openNoteIds: string[],
+  editingNoteId: string
+): number {
+  if (note.id === editingNoteId) {
+    return -Number.MAX_SAFE_INTEGER;
+  }
+
   const index = openNoteIds.findIndex((v) => v === note.id);
   if (index < 0) {
     return -Number.MIN_SAFE_INTEGER;
