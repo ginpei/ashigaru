@@ -37,7 +37,7 @@ describe("getNoteOptions()", () => {
     expect(result.map((v) => v.id)).toEqual(["note2"]);
   });
 
-  it("returns filtered ones by keyword", () => {
+  it("returns ordered by open note IDs", () => {
     const notes: Note[] = [
       createNote({
         id: "note1",
