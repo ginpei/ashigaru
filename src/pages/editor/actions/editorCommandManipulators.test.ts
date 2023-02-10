@@ -19,7 +19,7 @@ describe("getNoteOptions()", () => {
     const input = "";
 
     const result = getNoteOptions(notes, openNoteIds, editingNoteId, input);
-    expect(result.map((v) => v.id)).toEqual(["note1", "note2"]);
+    expect(result.map((v) => v.id).join(",")).toBe("note1,note2");
   });
 
   it("returns filtered ones by keyword", () => {
@@ -38,7 +38,7 @@ describe("getNoteOptions()", () => {
     const input = "he";
 
     const result = getNoteOptions(notes, openNoteIds, editingNoteId, input);
-    expect(result.map((v) => v.id)).toEqual(["note2"]);
+    expect(result.map((v) => v.id).join(",")).toBe("note2");
   });
 
   it("returns ordered by open note IDs", () => {
@@ -61,7 +61,7 @@ describe("getNoteOptions()", () => {
     const input = "";
 
     const result = getNoteOptions(notes, openNoteIds, editingNoteId, input);
-    expect(result.map((v) => v.id)).toEqual(["note3", "note1", "note2"]);
+    expect(result.map((v) => v.id).join(",")).toBe("note3,note1,note2");
   });
 
   it("prioritize editing note", () => {
@@ -84,7 +84,7 @@ describe("getNoteOptions()", () => {
     const input = "";
 
     const result = getNoteOptions(notes, openNoteIds, editingNoteId, input);
-    expect(result.map((v) => v.id)).toEqual(["note2", "note3", "note1"]);
+    expect(result.map((v) => v.id).join(",")).toBe("note2,note3,note1");
   });
 
   it("returns empty by empty", () => {
@@ -94,6 +94,6 @@ describe("getNoteOptions()", () => {
     const input = "";
 
     const result = getNoteOptions(notes, openNoteIds, editingNoteId, input);
-    expect(result).toEqual([]);
+    expect(result.map((v) => v.id).join(",")).toBe("");
   });
 });
