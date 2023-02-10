@@ -20,7 +20,6 @@ export function ListPane(): JSX.Element {
   const onNoteSelect = useCallback(
     (note: Note) => {
       setState(openNoteState(state, note.id));
-      giveFocusOn("noteBodyFocus");
     },
     [setState, state]
   );
