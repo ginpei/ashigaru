@@ -27,7 +27,10 @@ export function Editor({ note }: EditorProps): JSX.Element {
     <div className="Editor grid grid-rows-[2.25rem_auto]">
       <FocusTarget id="noteTitleFocus">
         <input
-          className="h-9 border-b px-4 text-3xl"
+          className="
+            h-9 border border-transparent border-b-gray-200 px-4 text-3xl
+            focus:outline-none focus:border-gray-200
+          "
           disabled={!note}
           name="title"
           onChange={onChange}
@@ -38,7 +41,10 @@ export function Editor({ note }: EditorProps): JSX.Element {
       </FocusTarget>
       <FocusTarget id="noteBodyFocus">
         <textarea
-          className="p-4 resize-none"
+          className="
+            p-4 resize-none border border-transparent
+            focus:outline-none focus:border-gray-200
+          "
           disabled={!note}
           name="body"
           onChange={onChange}
