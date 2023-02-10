@@ -3,3 +3,13 @@ export interface KeyboardShortcut {
   key: string;
   when?: string;
 }
+
+export function createKeyboardShortcut(
+  initial?: Partial<KeyboardShortcut>
+): KeyboardShortcut {
+  return {
+    commandId: initial?.commandId ?? "",
+    key: initial?.key ?? "",
+    when: initial?.when ?? "",
+  };
+}
