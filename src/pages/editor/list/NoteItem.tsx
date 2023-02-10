@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Note } from "../../../domains/note/Note";
+import { useFocusTarget } from "../../../domains/shortcut/focusHooks";
 
 export interface NoteItemProps {
   focused: boolean;
@@ -18,6 +19,7 @@ export function NoteItem({
   onFocus,
   onFocusRef,
 }: NoteItemProps): JSX.Element {
+  const focusTarget = useFocusTarget();
   const refNote = useRef<HTMLButtonElement>(null);
 
   const onRootClick = () => {
@@ -29,11 +31,11 @@ export function NoteItem({
   };
 
   useEffect(() => {
-    if (!focused || !refNote.current) {
+    if (!focused || !refNote.current || focusTarget !== "noteListFocus") {
       return;
     }
     refNote.current.focus();
-  }, [focused]);
+  }, [focusTarget, focused]);
 
   return (
     <div
