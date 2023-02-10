@@ -8,6 +8,7 @@ import {
   useFocusTarget,
 } from "../../domains/shortcut/focusHooks";
 import { useKeyboardShortcuts } from "../../domains/shortcut/keyboardShortcutHooks";
+import { tick } from "../../domains/time/timeManipulator";
 import {
   editorCommands,
   EditorPageCommand,
@@ -124,10 +125,4 @@ export function EditorPage(): JSX.Element {
       />
     </EditorPageStateProvider>
   );
-}
-
-function tick(timeout = 1): Promise<void> {
-  return new Promise((resolve) => {
-    window.setTimeout(resolve, timeout);
-  });
 }
