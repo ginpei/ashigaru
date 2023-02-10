@@ -1,4 +1,4 @@
-import { StraightLayout } from "../../layouts/straight/StraightLayout";
+import { StraightLayout } from "../../domains/pageLayout/straight/StraightLayout";
 
 export interface AboutPageProps {}
 

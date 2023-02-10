@@ -1,4 +1,4 @@
-import { Container } from "../../domains/layout/Container";
+import { Container } from "../../layout/Container";
 
 export interface BasicFooterProps {}
 

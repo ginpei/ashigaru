@@ -1,6 +1,6 @@
 import Head from "next/head";
-import { Container } from "../../domains/layout/Container";
-import { VStack } from "../../domains/layout/VStack";
+import { Container } from "../../layout/Container";
+import { VStack } from "../../layout/VStack";
 import { BasicFooter } from "../shared/BasicFooter";
 import { BasicHeader } from "../shared/BasicHeader";
 

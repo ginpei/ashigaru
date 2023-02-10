@@ -1,4 +1,4 @@
-import { StraightLayout } from "../../layouts/straight/StraightLayout";
+import { StraightLayout } from "../pageLayout/straight/StraightLayout";
 import { NiceUL } from "../nice/NiceUL";
 import { showcaseList } from "./showcaseList";
 

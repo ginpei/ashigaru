@@ -1,8 +1,8 @@
-import { StraightLayout } from "../../../layouts/straight/StraightLayout";
 import { CommandDefinition } from "../../command/CommandDefinition";
 import { VStack } from "../../layout/VStack";
 import { NiceH1, NiceH3 } from "../../nice/NiceH";
 import { Note } from "../../note/Note";
+import { StraightLayout } from "../../pageLayout/straight/StraightLayout";
 import { KeyboardShortcut } from "../../shortcut/KeyboardShortcut";
 import { ComboboxDemo } from "./ComboboxDemo";
 import { CommandPaletteExample } from "./CommandPaletteExample";

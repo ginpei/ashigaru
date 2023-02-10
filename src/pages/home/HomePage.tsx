@@ -1,6 +1,6 @@
 import { NiceLink } from "../../domains/nice/NiceLink";
 import { NiceUL } from "../../domains/nice/NiceUL";
-import { StraightLayout } from "../../layouts/straight/StraightLayout";
+import { StraightLayout } from "../../domains/pageLayout/straight/StraightLayout";
 import { aboutPagePath } from "../about/aboutPageMeta";
 import { editorPagePath } from "../editor/editorPageMeta";
 
