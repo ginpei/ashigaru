@@ -15,8 +15,10 @@ describe("getNoteOptions()", () => {
       }),
     ];
     const openNoteIds: string[] = [];
+    const editingNoteId = "";
     const input = "";
-    const result = getNoteOptions(notes, openNoteIds, "", input);
+
+    const result = getNoteOptions(notes, openNoteIds, editingNoteId, input);
     expect(result.map((v) => v.id)).toEqual(["note1", "note2"]);
   });
 
@@ -31,9 +33,11 @@ describe("getNoteOptions()", () => {
         title: "Note 2 hehe",
       }),
     ];
-    const input = "he";
     const openNoteIds: string[] = [];
-    const result = getNoteOptions(notes, openNoteIds, "", input);
+    const editingNoteId = "";
+    const input = "he";
+
+    const result = getNoteOptions(notes, openNoteIds, editingNoteId, input);
     expect(result.map((v) => v.id)).toEqual(["note2"]);
   });
 
@@ -52,9 +56,11 @@ describe("getNoteOptions()", () => {
         title: "Note 3",
       }),
     ];
-    const input = "";
     const openNoteIds = ["note3", "note1"];
-    const result = getNoteOptions(notes, openNoteIds, "", input);
+    const editingNoteId = "";
+    const input = "";
+
+    const result = getNoteOptions(notes, openNoteIds, editingNoteId, input);
     expect(result.map((v) => v.id)).toEqual(["note3", "note1", "note2"]);
   });
 
@@ -73,18 +79,21 @@ describe("getNoteOptions()", () => {
         title: "Note 3",
       }),
     ];
+    const openNoteIds = ["note3", "note1"];
     const editingNoteId = "note2";
     const input = "";
-    const openNoteIds = ["note3", "note1"];
+
     const result = getNoteOptions(notes, openNoteIds, editingNoteId, input);
     expect(result.map((v) => v.id)).toEqual(["note2", "note3", "note1"]);
   });
 
   it("returns empty by empty", () => {
     const notes: Note[] = [];
-    const input = "";
     const openNoteIds: string[] = [];
-    const result = getNoteOptions(notes, openNoteIds, "", input);
+    const editingNoteId = "";
+    const input = "";
+
+    const result = getNoteOptions(notes, openNoteIds, editingNoteId, input);
     expect(result).toEqual([]);
   });
 });
