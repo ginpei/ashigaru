@@ -14,9 +14,12 @@ export function OpenNoteTab({
   onClose,
 }: OpenNoteTabProps): JSX.Element {
   return (
-    <span className={"OpenNoteTab flex border cursor-pointer"} key={note.id}>
+    <span
+      className="OpenNoteTab flex border cursor-pointer hover:border-black"
+      key={note.id}
+    >
       <button
-        className={`px-1 hover:underline ${active ? "font-bold" : ""}`}
+        className={`px-1 ${active ? "font-bold" : ""}`}
         onClick={() => onSelect(note.id)}
       >
         {note.title}
