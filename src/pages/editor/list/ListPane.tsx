@@ -1,4 +1,6 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import { Note } from "../../../domains/note/Note";
+import { giveFocusOn } from "../../../domains/shortcut/domFocusManipulators";
 import { FocusTarget } from "../../../domains/shortcut/FocusTarget";
 import { useEditorPageStateContext } from "../actions/editorPageContext";
 import { openNoteState } from "../actions/EditorPageState";
@@ -15,6 +17,14 @@ export function ListPane(): JSX.Element {
 
   useListScrollEffect(elFocusItem, refList.current);
 
+  const onNoteSelect = useCallback(
+    (note: Note) => {
+      setState(openNoteState(state, note.id));
+      giveFocusOn("noteBodyFocus");
+    },
+    [setState, state]
+  );
+
   return (
     <section className="ListPane h-full flex flex-col">
       <h1 className="font-bold px-4 text-lg">Notes</h1>
@@ -26,7 +36,7 @@ export function ListPane(): JSX.Element {
               key={note.id}
               note={note}
               selected={selectedNoteIds.includes(note.id)}
-              onClick={(v) => setState(openNoteState(state, v.id))}
+              onClick={onNoteSelect}
               onFocusRef={setElFocusItem}
             />
           ))}
