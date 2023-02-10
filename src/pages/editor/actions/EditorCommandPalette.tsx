@@ -62,12 +62,12 @@ export function EditorCommandPalette({
 }
 
 function useOptions(input: string): Option[] {
-  const [{ commands, notes }] = useEditorPageStateContext();
+  const [{ commands, notes, openNoteIds }] = useEditorPageStateContext();
 
   if (input.startsWith(">")) {
     const keyword = input.slice(1).trim();
     return highlightCommands(commands, { keyword });
   }
 
-  return getNoteOptions(notes, input);
+  return getNoteOptions(notes, openNoteIds, input);
 }
