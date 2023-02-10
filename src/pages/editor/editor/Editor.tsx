@@ -27,7 +27,7 @@ export function Editor({ note }: EditorProps): JSX.Element {
     <div className="Editor grid grid-rows-[2.25rem_auto]">
       <FocusTarget id="noteTitleFocus">
         <input
-          className="h-9 px-4 text-3xl"
+          className="h-9 border-b px-4 text-3xl"
           disabled={!note}
           name="title"
           onChange={onChange}
