@@ -15,12 +15,12 @@ export function OpenNoteTab({
 }: OpenNoteTabProps): JSX.Element {
   return (
     <span className={"OpenNoteTab flex border cursor-pointer"} key={note.id}>
-      <span
+      <button
         className={`px-1 hover:underline ${active ? "font-bold" : ""}`}
         onClick={() => onSelect(note.id)}
       >
         {note.title}
-      </span>
+      </button>
       <button
         className="hover:bg-gray-300 w-4"
         onClick={() => onClose(note.id)}
