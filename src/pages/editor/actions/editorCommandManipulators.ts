@@ -26,10 +26,20 @@ export function getNoteOptions(
   }
 
   result.sort((note1, note2) => {
-    const i1 = openNoteIds.findIndex((v) => v === note1.id);
-    const i2 = openNoteIds.findIndex((v) => v === note2.id);
-    return (i1 < 0 ? result.length : i1) - (i2 < 0 ? result.length : i2);
+    return (
+      calcNoteOptionWeight(note1, openNoteIds) -
+      calcNoteOptionWeight(note2, openNoteIds)
+    );
   });
 
   return result;
+}
+
+function calcNoteOptionWeight(note: Note, openNoteIds: string[]): number {
+  const index = openNoteIds.findIndex((v) => v === note.id);
+  if (index < 0) {
+    return -Number.MIN_SAFE_INTEGER;
+  }
+
+  return index;
 }
