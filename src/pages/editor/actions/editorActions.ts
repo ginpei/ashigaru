@@ -1,3 +1,4 @@
+import { Action, buildActions } from "../../../domains/command/Action";
 import { CommandDefinition } from "../../../domains/command/CommandDefinition";
 import {
   noteListCommands,
@@ -5,12 +6,30 @@ import {
 } from "../../../domains/note/noteListActions";
 import { giveFocusOn } from "../../../domains/shortcut/domFocusManipulators";
 import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
-import { EditorPageState } from "./EditorPageState";
+import { closeNoteState, EditorPageState } from "./EditorPageState";
 
 export type EditorPageCommand = CommandDefinition<EditorPageState>;
 
+const editorPageActions: Action<EditorPageState>[] = [
+  {
+    action(state, set) {
+      set(closeNoteState(state, state.editingNoteId));
+    },
+    id: "closeEditingNote",
+    shortcuts: [
+      {
+        key: "Alt+W",
+      },
+    ],
+    title: "Close editing note",
+  },
+];
+
+const [editorCommands2, editorShortcuts2] = buildActions(editorPageActions);
+
 export const editorCommands: CommandDefinition[] = [
   ...noteListCommands,
+  ...editorCommands2,
   {
     action() {
       giveFocusOn("noteListFocus");
@@ -36,6 +55,7 @@ export const editorCommands: CommandDefinition[] = [
 
 export const editorShortcuts: KeyboardShortcut[] = [
   ...noteListShortcuts,
+  ...editorShortcuts2,
   {
     commandId: "selectFileInCommandPalette",
     key: "Ctrl+P",
