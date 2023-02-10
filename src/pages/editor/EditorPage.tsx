@@ -57,14 +57,14 @@ export function EditorPage(): JSX.Element {
     return [
       ...state.commands,
       {
-        action() {
+        exec() {
           setState((v) => ({ ...v, commandPaletteVisible: "files" }));
         },
         id: "selectFileInCommandPalette",
         title: "Select file in command palette",
       },
       {
-        action() {
+        exec() {
           setState((v) => ({ ...v, commandPaletteVisible: "commands" }));
         },
         id: "showCommandPalette",
@@ -75,7 +75,7 @@ export function EditorPage(): JSX.Element {
 
   useKeyboardShortcuts(editorShortcuts, focusId, (commandId) => {
     const def = pickCommandDefinition(commands, commandId);
-    def.action(state, setState);
+    def.exec(state, setState);
   });
 
   const onCommandSelect = async (command: Note | EditorPageCommand | null) => {
@@ -84,8 +84,8 @@ export function EditorPage(): JSX.Element {
       return;
     }
 
-    if ("action" in command) {
-      command.action(state, setState);
+    if ("exec" in command) {
+      command.exec(state, setState);
       setState((v) => ({ ...v, commandPaletteVisible: "" }));
     } else {
       setState({

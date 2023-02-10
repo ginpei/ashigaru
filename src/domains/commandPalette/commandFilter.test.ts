@@ -66,20 +66,20 @@ describe("highlightFilteredCommandTitle()", () => {
 
 describe("highlightCommands", () => {
   it("filters and highlights commands", () => {
-    const action = () => {};
+    const exec = () => {};
     const commands: CommandDefinition[] = [
       {
-        action,
+        exec,
         id: "command1",
         title: "Command 1",
       },
       {
-        action,
+        exec,
         id: "command2",
         title: "Command 2",
       },
       {
-        action,
+        exec,
         id: "command3",
         title: "dd11",
       },

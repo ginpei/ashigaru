@@ -10,7 +10,7 @@ const noop = () => null;
 describe("createCommandDefinition()", () => {
   it("creates an object without initial values", () => {
     const result = createCommandDefinition();
-    expect(typeof result.action).toBe("function");
+    expect(typeof result.exec).toBe("function");
     expect(result).toContain({
       id: "",
       title: "",
@@ -19,11 +19,11 @@ describe("createCommandDefinition()", () => {
 
   it("creates an object with specified values", () => {
     const result = createCommandDefinition({
-      action: () => "action",
+      exec: () => "exec",
       id: "id",
       title: "title",
     });
-    expect(result.action(null, noop)).toBe("action");
+    expect(result.exec(null, noop)).toBe("exec");
     expect(result).toContain({
       id: "id",
       title: "title",
@@ -32,7 +32,7 @@ describe("createCommandDefinition()", () => {
 
   it("creates an object with partial initial values", () => {
     const result = createCommandDefinition({ title: "title" });
-    expect(result.action(null, noop)).toBe(undefined);
+    expect(result.exec(null, noop)).toBe(undefined);
     expect(result).toContain({
       id: "",
       title: "title",

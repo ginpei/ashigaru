@@ -4,7 +4,7 @@ import { NoteListState } from "./NoteListState";
 
 export const noteListActions: Action<NoteListState>[] = [
   {
-    action(state, setState) {
+    exec(state, setState) {
       setState({
         ...state,
         selectedNoteIds: state.notes.map((v) => v.id),
@@ -20,7 +20,7 @@ export const noteListActions: Action<NoteListState>[] = [
     title: "Select all notes",
   },
   {
-    action(state, setState) {
+    exec(state, setState) {
       const { focusedNoteId, notes } = state;
       const index = notes.findIndex((v) => v.id === focusedNoteId);
       const prevNote = index < 1 ? notes[0] : notes[index - 1];
@@ -42,7 +42,7 @@ export const noteListActions: Action<NoteListState>[] = [
     title: "Focus on the previous note",
   },
   {
-    action(state, setState) {
+    exec(state, setState) {
       const { focusedNoteId, notes } = state;
       const index = notes.findIndex((v) => v.id === focusedNoteId);
       const nextNote =
@@ -69,7 +69,7 @@ export const noteListActions: Action<NoteListState>[] = [
     title: "Focus on the next note",
   },
   {
-    action(state, setState) {
+    exec(state, setState) {
       const { notes } = state;
       const note = notes[0];
       if (!note) {
@@ -90,7 +90,7 @@ export const noteListActions: Action<NoteListState>[] = [
     title: "Focus on the first note",
   },
   {
-    action(state, setState) {
+    exec(state, setState) {
       const { notes } = state;
       const note = notes.at(-1);
       if (!note) {
@@ -111,7 +111,7 @@ export const noteListActions: Action<NoteListState>[] = [
     title: "Focus on the last note",
   },
   {
-    action(state, setState) {
+    exec(state, setState) {
       setState({
         ...state,
         editingNoteId: state.focusedNoteId,
@@ -132,7 +132,7 @@ export const noteListActions: Action<NoteListState>[] = [
     title: "Select the current focus note",
   },
   {
-    action(state, setState) {
+    exec(state, setState) {
       const notes = state.notes.filter(
         (v) => !state.selectedNoteIds.includes(v.id)
       );

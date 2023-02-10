@@ -11,7 +11,7 @@ const [noteListCommands, noteListShortcuts] = buildActions(noteListActions);
 
 const editorPageActions: Action<EditorPageState>[] = [
   {
-    action() {
+    exec() {
       giveFocusOn("noteListFocus");
     },
     id: "focusOnNoteList",
@@ -23,7 +23,7 @@ const editorPageActions: Action<EditorPageState>[] = [
     title: "Focus on the note list",
   },
   {
-    action() {
+    exec() {
       giveFocusOn("noteTitleFocus");
     },
     id: "focusOnNoteTitle",
@@ -35,7 +35,7 @@ const editorPageActions: Action<EditorPageState>[] = [
     title: "Focus on the note title input",
   },
   {
-    action() {
+    exec() {
       giveFocusOn("noteBodyFocus");
     },
     id: "focusOnEditor",
@@ -47,7 +47,7 @@ const editorPageActions: Action<EditorPageState>[] = [
     title: "Focus on the editor",
   },
   {
-    action(state, set) {
+    exec(state, set) {
       set(closeNoteState(state, state.editingNoteId));
     },
     id: "closeEditingNote",

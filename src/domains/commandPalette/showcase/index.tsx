@@ -10,21 +10,21 @@ import { CommandPaletteFrameExample } from "./CommandPaletteFrameExample";
 
 export const demoCommands: CommandDefinition[] = [
   {
-    action() {
+    exec() {
       console.log("This is the demo command #1");
     },
     id: "command1",
     title: "Demo command 1",
   },
   {
-    action() {
+    exec() {
       console.log("This is the demo command #2");
     },
     id: "command2",
     title: "Demo command 2",
   },
   {
-    action() {
+    exec() {
       console.log("This is the demo command #3");
     },
     id: "command3",

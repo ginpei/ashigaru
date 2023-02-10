@@ -5,7 +5,7 @@ describe("buildActions()", () => {
   it("builds", () => {
     const actions: Action[] = [
       {
-        action() {
+        exec() {
           return 1;
         },
         id: "action1",
@@ -20,7 +20,7 @@ describe("buildActions()", () => {
         title: "Action 1",
       },
       {
-        action() {
+        exec() {
           return 2;
         },
         id: "action2",
@@ -36,12 +36,12 @@ describe("buildActions()", () => {
 
     expect(commands).toEqual([
       {
-        action: actions[0].action,
+        exec: actions[0].exec,
         id: "action1",
         title: "Action 1",
       },
       {
-        action: actions[1].action,
+        exec: actions[1].exec,
         id: "action2",
         title: "Action 2",
       },
