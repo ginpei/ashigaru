@@ -1,52 +1,8 @@
-import { CommandDefinition } from "../command/CommandDefinition";
-import { KeyboardShortcut } from "../shortcut/KeyboardShortcut";
+import { Action } from "../command/Action";
 import { findFocusAfterDeletion } from "./noteListHandlers";
 import { NoteListState } from "./NoteListState";
 
-export const noteListShortcuts: KeyboardShortcut[] = [
-  {
-    commandId: "selectAllNotes",
-    key: "Ctrl+A",
-    when: "noteListFocus",
-  },
-  {
-    commandId: "focusPreviousNote",
-    key: "ArrowUp",
-    when: "noteListFocus",
-  },
-  {
-    commandId: "focusNextNote",
-    key: "ArrowDown",
-    when: "noteListFocus",
-  },
-  {
-    commandId: "focusFirstNote",
-    key: "Home",
-    when: "noteListFocus",
-  },
-  {
-    commandId: "focusLastNote",
-    key: "End",
-    when: "noteListFocus",
-  },
-  {
-    commandId: "selectNote",
-    key: "Space",
-    when: "noteListFocus",
-  },
-  {
-    commandId: "selectNote",
-    key: "Enter",
-    when: "noteListFocus",
-  },
-  {
-    commandId: "deleteNote",
-    key: "Delete",
-    when: "noteListFocus",
-  },
-];
-
-export const noteListCommands: CommandDefinition<NoteListState>[] = [
+export const noteListActions: Action<NoteListState>[] = [
   {
     action(state, setState) {
       setState({
@@ -55,6 +11,12 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
       });
     },
     id: "selectAllNotes",
+    shortcuts: [
+      {
+        key: "Ctrl+A",
+        when: "noteListFocus",
+      },
+    ],
     title: "Select all notes",
   },
   {
@@ -71,6 +33,12 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
       });
     },
     id: "focusPreviousNote",
+    shortcuts: [
+      {
+        key: "ArrowUp",
+        when: "noteListFocus",
+      },
+    ],
     title: "Focus on the previous note",
   },
   {
@@ -92,6 +60,12 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
       });
     },
     id: "focusNextNote",
+    shortcuts: [
+      {
+        key: "ArrowDown",
+        when: "noteListFocus",
+      },
+    ],
     title: "Focus on the next note",
   },
   {
@@ -107,6 +81,12 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
       });
     },
     id: "focusFirstNote",
+    shortcuts: [
+      {
+        key: "Home",
+        when: "noteListFocus",
+      },
+    ],
     title: "Focus on the first note",
   },
   {
@@ -122,6 +102,12 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
       });
     },
     id: "focusLastNote",
+    shortcuts: [
+      {
+        key: "End",
+        when: "noteListFocus",
+      },
+    ],
     title: "Focus on the last note",
   },
   {
@@ -133,6 +119,16 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
       });
     },
     id: "selectNote",
+    shortcuts: [
+      {
+        key: "Space",
+        when: "noteListFocus",
+      },
+      {
+        key: "Enter",
+        when: "noteListFocus",
+      },
+    ],
     title: "Select the current focus note",
   },
   {
@@ -155,6 +151,12 @@ export const noteListCommands: CommandDefinition<NoteListState>[] = [
       });
     },
     id: "deleteNote",
+    shortcuts: [
+      {
+        key: "Delete",
+        when: "noteListFocus",
+      },
+    ],
     title: "Delete the selected notes",
   },
 ];
