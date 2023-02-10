@@ -17,3 +17,13 @@ export function createNoteListState(
     selectedNoteIds: initial?.selectedNoteIds ?? [],
   };
 }
+
+export function focusNotesState<State extends NoteListState>(
+  state: State,
+  id: string
+): State {
+  return {
+    ...state,
+    focusedNoteId: id,
+  };
+}

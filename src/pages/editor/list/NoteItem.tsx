@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Note } from "../../../domains/note/Note";
 
 export interface NoteItemProps {
@@ -5,6 +6,7 @@ export interface NoteItemProps {
   note: Note;
   selected: boolean;
   onClick: (note: Note) => void;
+  onFocus: (noteId: string) => void;
   onFocusRef: (el: HTMLElement | null) => void;
 }
 
@@ -13,11 +15,25 @@ export function NoteItem({
   note,
   selected,
   onClick,
+  onFocus,
   onFocusRef,
 }: NoteItemProps): JSX.Element {
+  const refNote = useRef<HTMLButtonElement>(null);
+
   const onRootClick = () => {
     onClick(note);
   };
+
+  const onNoteFocus = () => {
+    onFocus(note.id);
+  };
+
+  useEffect(() => {
+    if (!focused || !refNote.current) {
+      return;
+    }
+    refNote.current.focus();
+  }, [focused]);
 
   return (
     <div
@@ -30,8 +46,10 @@ export function NoteItem({
       ref={(v) => focused && onFocusRef(v)}
     >
       <button
-        className="grow text-start px-4 py-2 cursor-pointer hover:underline"
+        className="grow outline-none text-start px-4 py-2 cursor-pointer hover:underline"
         onClick={onRootClick}
+        onFocus={onNoteFocus}
+        ref={refNote}
       >
         {note.title}
       </button>

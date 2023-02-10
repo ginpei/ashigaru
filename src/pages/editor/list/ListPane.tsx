@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { Note } from "../../../domains/note/Note";
+import { focusNotesState } from "../../../domains/note/NoteListState";
 import { giveFocusOn } from "../../../domains/shortcut/domFocusManipulators";
 import { FocusTarget } from "../../../domains/shortcut/FocusTarget";
 import { useEditorPageStateContext } from "../actions/editorPageContext";
@@ -24,6 +25,13 @@ export function ListPane(): JSX.Element {
     [setState, state]
   );
 
+  const onNoteFocus = useCallback(
+    (noteId: string) => {
+      setState(focusNotesState(state, noteId));
+    },
+    [setState, state]
+  );
+
   return (
     <section className="ListPane h-full flex flex-col">
       <h1 className="font-bold px-4 text-lg">Notes</h1>
@@ -36,6 +44,7 @@ export function ListPane(): JSX.Element {
               note={note}
               selected={selectedNoteIds.includes(note.id)}
               onClick={onNoteSelect}
+              onFocus={onNoteFocus}
               onFocusRef={setElFocusItem}
             />
           ))}
