@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import {
   highlightCommands,
   Highlighted,
-  HighlightedCommand,
   highlightFilteredCommandTitle,
 } from "../../../domains/commandPalette/commandFilter";
 import { CommandPaletteFrame } from "../../../domains/commandPalette/CommandPaletteFrame";
 import { HighlightedTitle } from "../../../domains/commandPalette/HighlightedTitle";
 import { Note } from "../../../domains/note/Note";
 import { EditorCommandListItem } from "./EditorCommandListItem";
+import { getNoteOptions, Option } from "./editorCommandManipulators";
 import { useEditorPageStateContext } from "./editorPageContext";
-import { EditorPageState } from "./EditorPageState";
 
 export interface EditorCommandPaletteProps {
   open: EditorCommandPaletteOpenType;
@@ -18,8 +17,6 @@ export interface EditorCommandPaletteProps {
 }
 
 export type EditorCommandPaletteOpenType = "" | "files" | "commands";
-
-type Option = Highlighted<Note> | HighlightedCommand<EditorPageState>;
 
 export function EditorCommandPalette({
   open,
@@ -72,15 +69,5 @@ function useOptions(input: string): Option[] {
     return highlightCommands(commands, { keyword });
   }
 
-  const highlightedNotes: Highlighted<Note>[] = [];
-  for (const note of notes) {
-    const highlightedCharacters = highlightFilteredCommandTitle(
-      note.title,
-      input
-    );
-    if (highlightedCharacters) {
-      highlightedNotes.push({ ...note, highlightedCharacters });
-    }
-  }
-  return highlightedNotes;
+  return getNoteOptions(notes, input);
 }
