@@ -47,7 +47,7 @@ export function EditorCommandPalette({
       options={options}
       renderEmptyItem={() => <EditorCommandListItem.Empty />}
       renderItem={(option) =>
-        "action" in option ? (
+        "exec" in option ? (
           <EditorCommandListItem
             command={option}
             key={option.id}
