@@ -13,7 +13,6 @@ import { Note } from "../../note/Note";
 import { HighlightedCommand } from "../commandFilter";
 import { demoActions, demoNotes } from "./exampleResources";
 
-console.log("# demoActions", demoActions);
 const [demoCommands, demoShortcuts] = buildActions(demoActions);
 
 export function CommandPaletteExample() {
