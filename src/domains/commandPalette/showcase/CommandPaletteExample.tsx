@@ -30,7 +30,7 @@ export function CommandPaletteExample() {
 
   return (
     <EditorPageStateProvider value={[state, setState]}>
-      <NiceH2>&lt;CommandPalette&gt;</NiceH2>
+      <NiceH2>&lt;EditorCommandPalette&gt;</NiceH2>
       <p>* No shortcuts are prepared in this demo page.</p>
       <HStack>
         <NiceButton
