@@ -11,8 +11,9 @@ import { NiceButton } from "../../nice/NiceButton";
 import { NiceH2 } from "../../nice/NiceH";
 import { Note } from "../../note/Note";
 import { HighlightedCommand } from "../commandFilter";
-import { demoActions, demoNotes } from "./index";
+import { demoActions, demoNotes } from "./exampleResources";
 
+console.log("# demoActions", demoActions);
 const [demoCommands, demoShortcuts] = buildActions(demoActions);
 
 export function CommandPaletteExample() {
