@@ -1,5 +1,5 @@
 import { Menu } from "@headlessui/react";
-import { useEffect, useRef } from "react";
+import { FocusEventHandler, useEffect, useRef } from "react";
 import { calcFloatingStyle, useFloatingStyle } from "./floatManipulator";
 import { NiceMenuItem } from "./NiceMenuItem";
 
@@ -13,6 +13,22 @@ export function NiceMenu({ elRef, onBlur, open }: NiceMenuProps): JSX.Element {
   const [style, setStyle] = useFloatingStyle();
   const refMenu = useRef<HTMLDivElement>(null);
   const refArrow = useRef<HTMLElement>(null);
+
+  const onListBlur: FocusEventHandler = () => {
+    const elFocus = document.activeElement;
+    if (!refMenu.current || !elFocus) {
+      // fail-safe
+      onBlur();
+      return;
+    }
+
+    const position = refMenu.current.compareDocumentPosition(elFocus);
+    if (position & Node.DOCUMENT_POSITION_CONTAINS) {
+      return;
+    }
+
+    onBlur();
+  };
 
   useEffect(() => {
     if (!elRef || !refMenu.current) {
@@ -37,8 +53,8 @@ export function NiceMenu({ elRef, onBlur, open }: NiceMenuProps): JSX.Element {
       <Menu.Items
         className="absolute shadow-lg border bg-white flex flex-col"
         ref={refMenu}
-        onBlur={onBlur}
-        onFocus={() => console.log(`# focus`)}
+        onBlur={onListBlur}
+        onFocus={() => refMenu.current?.focus()}
         static
         style={style}
       >
