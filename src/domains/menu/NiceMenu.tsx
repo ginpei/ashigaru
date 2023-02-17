@@ -1,6 +1,7 @@
 import { Menu } from "@headlessui/react";
-import { ReactNode, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { calcFloatingStyle, useFloatingStyle } from "./floatManipulator";
+import { NiceMenuItem } from "./NiceMenuItem";
 
 export interface NiceMenuProps {
   elRef: HTMLElement | null;
@@ -65,30 +66,8 @@ export function NiceMenu({ elRef, onBlur, open }: NiceMenuProps): JSX.Element {
             </button>
           )}
         </Menu.Item>
-        <MenuItem disabled>Invite a friend (coming soon!)</MenuItem>
+        <NiceMenuItem disabled>Invite a friend (coming soon!)</NiceMenuItem>
       </Menu.Items>
     </Menu>
-  );
-}
-
-interface MenuItemProps {
-  disabled?: boolean;
-  children: ReactNode;
-}
-
-function MenuItem({ disabled, children }: MenuItemProps): JSX.Element {
-  return (
-    <Menu.Item disabled={disabled}>
-      {({ active, disabled }) => (
-        <button
-          className={`border-b p-2 text-start ${
-            active && "bg-blue-500 text-white"
-          } ${disabled && "text-gray-400"}`}
-          disabled={disabled}
-        >
-          {children}
-        </button>
-      )}
-    </Menu.Item>
   );
 }
