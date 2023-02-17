@@ -42,30 +42,10 @@ export function NiceMenu({ elRef, onBlur, open }: NiceMenuProps): JSX.Element {
         static
         style={style}
       >
-        <Menu.Item>
-          {({ active }) => (
-            <a
-              className={`border-b p-2 no-underline ${
-                active ? "bg-blue-500 text-white" : "text-inherit"
-              }`}
-              href="#demo-link"
-            >
-              Demo link
-            </a>
-          )}
-        </Menu.Item>
-        <Menu.Item>
-          {({ active }) => (
-            <button
-              className={`border-b p-2 text-start ${
-                active && "bg-blue-500 text-white"
-              }`}
-              onClick={() => console.log(`# click`)}
-            >
-              Documentation
-            </button>
-          )}
-        </Menu.Item>
+        <NiceMenuItem href="#demo-link">Demo link</NiceMenuItem>
+        <NiceMenuItem onClick={() => console.log(`# click`)}>
+          Documentation
+        </NiceMenuItem>
         <NiceMenuItem disabled>Invite a friend (coming soon!)</NiceMenuItem>
       </Menu.Items>
     </Menu>

@@ -1,27 +1,41 @@
 import { Menu } from "@headlessui/react";
-import { ReactNode } from "react";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 
-export interface NiceMenuItemProps {
-  disabled?: boolean;
-  children: ReactNode;
-}
+export type NiceMenuItemProps = ButtonProps | LinkProps;
 
-export function NiceMenuItem({
-  disabled,
-  children,
-}: NiceMenuItemProps): JSX.Element {
+type ButtonProps = ComponentPropsWithoutRef<"button">;
+
+type LinkProps = ComponentPropsWithoutRef<"a"> & { disabled?: boolean };
+
+export function NiceMenuItem(props: NiceMenuItemProps): JSX.Element {
   return (
-    <Menu.Item disabled={disabled}>
-      {({ active, disabled }) => (
-        <button
-          className={`border-b p-2 text-start ${
-            active && "bg-blue-500 text-white"
-          } ${disabled && "text-gray-400"}`}
-          disabled={disabled}
-        >
-          {children}
-        </button>
-      )}
+    <Menu.Item disabled={props.disabled}>
+      {({ active, disabled }) =>
+        isButtonProps(props) ? (
+          <button
+            className={`border-b p-2 no-underline text-start ${
+              !active && !disabled && "text-inherit"
+            } ${active && "bg-blue-500 text-white"} ${
+              disabled && "text-gray-400"
+            }`}
+            disabled={disabled}
+            {...props}
+          />
+        ) : (
+          <a
+            className={`border-b p-2 no-underline text-start ${
+              !active && !disabled && "text-inherit"
+            } ${active && "bg-blue-500 text-white"} ${
+              disabled && "text-gray-400"
+            }`}
+            {...props}
+          />
+        )
+      }
     </Menu.Item>
   );
+}
+
+function isButtonProps(props: NiceMenuItemProps): props is ButtonProps {
+  return props.disabled || !("href" in props);
 }
