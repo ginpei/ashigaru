@@ -1,8 +1,35 @@
 import { Dispatch, SetStateAction } from "react";
 
+/**
+ * An executable command.
+ * @example
+ * const def: CommandDefinition = {
+ *   exec() { console.log("Hello, world!"); },
+ *   id: "hello",
+ *   title: "Hello",
+ * };
+ *
+ * def.exec();
+ * @example
+ * useKeyboardShortcuts(shortcuts, focusId, (commandId) => {
+ *   const def = pickCommandDefinition(commands, commandId);
+ *   def.exec(state, setState);
+ * });
+ * @example
+ * {commands.map((v) => (
+ *   <button key={v.id} onClick={() => v.exec()}>
+ *    {v.title}
+ *  </button>
+ * )}
+ */
 export interface CommandDefinition<State = any> {
   exec: (state: State, setState: Dispatch<SetStateAction<State>>) => void;
+
   id: string;
+
+  /**
+   * To display in the UI.
+   */
   title: string;
 }
 
