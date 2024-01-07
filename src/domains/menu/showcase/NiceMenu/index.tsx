@@ -14,4 +14,4 @@ export function MenuShowcase(): JSX.Element {
   );
 }
 
-MenuShowcase.path = "menu/NiceMenu";
+MenuShowcase.path = "menu/NiceMenu" as const;
