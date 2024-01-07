@@ -5,7 +5,7 @@ import { ComboboxDemo } from "./ComboboxDemo";
 import { CommandPaletteExample } from "./CommandPaletteExample";
 import { CommandPaletteFrameExample } from "./CommandPaletteFrameExample";
 
-function CommandPaletteShowcase(): JSX.Element {
+export function CommandPaletteShowcase(): JSX.Element {
   return (
     <StraightLayout title="<CommandPalette> demo">
       <VStack className="CommandPaletteShowcase">
@@ -19,4 +19,4 @@ function CommandPaletteShowcase(): JSX.Element {
   );
 }
 
-export default CommandPaletteShowcase;
+CommandPaletteShowcase.path = "commandPalette/CommandPalette" as const;

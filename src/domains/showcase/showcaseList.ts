@@ -1,7 +1,7 @@
-import CommandPaletteShowcase from "../commandPalette/showcase";
-import { MenuShowcase } from "../menu/showcase/NiceMenu";
+import { CommandPaletteShowcase } from "../commandPalette/showcase";
+import { MenuShowcase } from "../menu/showcase";
 
 export const showcaseList = {
-  "commandPalette/CommandPalette": CommandPaletteShowcase,
+  [CommandPaletteShowcase.path]: CommandPaletteShowcase,
   [MenuShowcase.path]: MenuShowcase,
 } as const;
