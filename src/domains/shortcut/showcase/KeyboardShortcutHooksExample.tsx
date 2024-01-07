@@ -89,7 +89,7 @@ useKeyboardShortcuts(defs, focusId, (commandId) => {
       <VStack
         className="border p-2 focus-within:border-blue-400"
         data-focus-target="list"
-        tabIndex={0}
+        tabIndex={-1}
       >
         <p>
           Press <NiceCode>Ctrl+A</NiceCode> to select all.
