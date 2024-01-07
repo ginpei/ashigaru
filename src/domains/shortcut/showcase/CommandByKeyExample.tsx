@@ -9,6 +9,7 @@ import {
   pickCommandDefinition,
 } from "../../command/CommandDefinition";
 import { NiceButton } from "../../nice/NiceButton";
+import { NiceCode } from "../../nice/NiceCode";
 
 const shortcuts: KeyboardShortcut[] = [
   {
@@ -40,7 +41,7 @@ export function CommandByKeyboardExample(): JSX.Element {
   return (
     <VStack className="CommandByKeyboardExample">
       <p>
-        Press the blow button or <code>Ctrl+S</code> to save.
+        Press the blow button or <NiceCode>Ctrl+S</NiceCode> to save.
       </p>
       <p>
         <NiceButton onClick={onSaveClick}>Save</NiceButton>

@@ -4,6 +4,7 @@ import { NiceInput } from "../../nice/NiceInput";
 import { KeyboardShortcut } from "../KeyboardShortcut";
 import { useFocusTarget } from "../focusHooks";
 import { useKeyboardShortcuts } from "../keyboardShortcutHooks";
+import { NiceCode } from "../../nice/NiceCode";
 
 const defs: KeyboardShortcut[] = [
   {
@@ -62,7 +63,7 @@ export function KeyboardShortcutHooksExample(): JSX.Element {
   return (
     <VStack className="KeyboardShortcutHooksExample">
       <details>
-        <summary>Example code</summary>
+        <summary>Example NiceCode</summary>
         <pre className="bg-slate-100 p-2 text-xs">
           const def = {JSON.stringify(defs, null, 2)};
           {`
@@ -74,7 +75,7 @@ useKeyboardShortcuts(defs, focusId, (commandId) => {
       </details>
       <label className="flex flex-col">
         <div>
-          Input your message and hit <code>Ctrl+Enter</code> to send:
+          Input your message and hit <NiceCode>Ctrl+Enter</NiceCode> to send:
         </div>
         <NiceInput
           data-focus-target="editor"
@@ -91,7 +92,7 @@ useKeyboardShortcuts(defs, focusId, (commandId) => {
         tabIndex={0}
       >
         <p>
-          Press <code>Ctrl+A</code> to select all.
+          Press <NiceCode>Ctrl+A</NiceCode> to select all.
         </p>
         <ul>
           <li>
