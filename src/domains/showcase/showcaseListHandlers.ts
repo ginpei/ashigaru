@@ -1,7 +1,7 @@
 import { showcaseList } from "./showcaseList";
 
 export function getShowcaseComponent(
-  path: keyof typeof showcaseList
+  path: keyof typeof showcaseList,
 ): () => JSX.Element;
 export function getShowcaseComponent(path: string): (() => JSX.Element) | null {
   if (!isShowcaseListKey(path)) {
@@ -12,7 +12,7 @@ export function getShowcaseComponent(path: string): (() => JSX.Element) | null {
 }
 
 export function isShowcaseListKey(
-  path: string
+  path: string,
 ): path is keyof typeof showcaseList {
   return path in showcaseList;
 }

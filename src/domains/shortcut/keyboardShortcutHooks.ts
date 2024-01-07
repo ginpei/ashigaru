@@ -5,13 +5,13 @@ import { KeyboardShortcut } from "./KeyboardShortcut";
 export function useKeyboardShortcuts(
   defs: KeyboardShortcut[],
   focusId: string,
-  onCommand: (commandId: string) => void
+  onCommand: (commandId: string) => void,
 ): void {
   useKeyDown((event) => {
     const input = keyboardEventToInputCommand(event);
 
     const def = defs.find(
-      (v) => v.key === input && (!v.when || v.when === focusId)
+      (v) => v.key === input && (!v.when || v.when === focusId),
     );
     if (!def) {
       return;
@@ -24,7 +24,7 @@ export function useKeyboardShortcuts(
 
 function useKeyDown(
   callback: (event: KeyboardEvent) => void,
-  d?: Document
+  d?: Document,
 ): void {
   useEffect(() => {
     const d2 = d ?? document;

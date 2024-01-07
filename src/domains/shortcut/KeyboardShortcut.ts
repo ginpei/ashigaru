@@ -5,7 +5,7 @@ export interface KeyboardShortcut {
 }
 
 export function createKeyboardShortcut(
-  initial?: Partial<KeyboardShortcut>
+  initial?: Partial<KeyboardShortcut>,
 ): KeyboardShortcut {
   return {
     commandId: initial?.commandId ?? "",

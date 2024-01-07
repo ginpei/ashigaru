@@ -21,11 +21,11 @@ export function CommandPaletteExample() {
       commands: demoCommands,
       notes: demoNotes,
       shortcuts: demoShortcuts,
-    })
+    }),
   );
 
   const onCommandSelect = (
-    command: Note | HighlightedCommand<EditorPageState> | null
+    command: Note | HighlightedCommand<EditorPageState> | null,
   ) => {
     console.log("# command", command);
     setState((v) => ({ ...v, commandPaletteVisible: "" }));

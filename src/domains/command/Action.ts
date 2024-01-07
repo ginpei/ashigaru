@@ -11,21 +11,21 @@ export interface Action<State = any> extends CommandDefinition<State> {
 type ActionKeyboardShortcut = Pick<KeyboardShortcut, "key" | "when">;
 
 export function buildAction<State = any>(
-  action: Action<State>
+  action: Action<State>,
 ): [CommandDefinition<State>, KeyboardShortcut[]] {
   const { shortcuts: actionShortcuts, ...command } = action;
   const shortcuts = actionShortcuts.map((v) =>
     createKeyboardShortcut({
       ...v,
       commandId: command.id,
-    })
+    }),
   );
 
   return [command, shortcuts];
 }
 
 export function buildActions<State = any>(
-  actions: Action<State>[]
+  actions: Action<State>[],
 ): [CommandDefinition<State>[], KeyboardShortcut[]] {
   const commands: CommandDefinition<State>[] = [];
   const shortcuts: KeyboardShortcut[] = [];

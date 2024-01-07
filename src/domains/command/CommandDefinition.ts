@@ -7,7 +7,7 @@ export interface CommandDefinition<State = any> {
 }
 
 export function createCommandDefinition<State>(
-  initial?: Partial<CommandDefinition<State>>
+  initial?: Partial<CommandDefinition<State>>,
 ): CommandDefinition<State> {
   return {
     exec: initial?.exec ?? (() => {}),
@@ -21,7 +21,7 @@ export function createCommandDefinition<State>(
  */
 export function findCommandDefinition<State>(
   commands: CommandDefinition<State>[],
-  commandId: string
+  commandId: string,
 ): CommandDefinition<State> | null {
   const def = commands.find((v) => v.id === commandId);
   return def ?? null;
@@ -34,7 +34,7 @@ export function findCommandDefinition<State>(
  */
 export function pickCommandDefinition<State>(
   commands: CommandDefinition<State>[],
-  commandId: string
+  commandId: string,
 ): CommandDefinition<State> {
   const def = findCommandDefinition(commands, commandId);
   if (!def) {

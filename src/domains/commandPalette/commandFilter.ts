@@ -24,7 +24,7 @@ export interface HighlightedCommand<State> extends CommandDefinition<State> {
 // TODO rename
 export function highlightFilteredCommandTitle(
   title: string,
-  keyword: string
+  keyword: string,
 ): HighlightedCharacter[] | null {
   const highlighted: HighlightedCharacter[] = [];
 
@@ -50,13 +50,13 @@ export function highlightFilteredCommandTitle(
 // TODO accept anything other than commands
 export function highlightCommands<State>(
   commands: CommandDefinition<State>[],
-  filter: CommandFilter
+  filter: CommandFilter,
 ) {
   const filtered: HighlightedCommand<State>[] = [];
   for (const command of commands) {
     const highlightedCharacters = highlightFilteredCommandTitle(
       command.title,
-      filter.keyword
+      filter.keyword,
     );
     if (highlightedCharacters) {
       filtered.push({ ...command, highlightedCharacters });

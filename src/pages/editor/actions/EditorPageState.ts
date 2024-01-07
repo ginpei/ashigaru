@@ -15,7 +15,7 @@ export interface EditorPageState extends NoteListState {
 }
 
 export function createEditorPageState(
-  initial?: Partial<EditorPageState>
+  initial?: Partial<EditorPageState>,
 ): EditorPageState {
   return {
     ...createNoteListState(initial),
@@ -32,7 +32,7 @@ export function getEditingNote(state: EditorPageState): Note | null {
 
 export function updateEditingNote(
   state: EditorPageState,
-  note: Partial<Note>
+  note: Partial<Note>,
 ): EditorPageState {
   if (!note.id) {
     throw new Error("Note ID required");
@@ -55,7 +55,7 @@ export function updateEditingNote(
 
 export function openNoteState(
   state: EditorPageState,
-  id: string
+  id: string,
 ): EditorPageState {
   const openNoteIds = state.openNoteIds.includes(id)
     ? state.openNoteIds
@@ -72,7 +72,7 @@ export function openNoteState(
 
 export function closeNoteState(
   state: EditorPageState,
-  id: string
+  id: string,
 ): EditorPageState {
   const editingNoteId = state.editingNoteId === id ? "" : state.editingNoteId;
   const openNoteIds = state.openNoteIds.filter((v) => v !== id);

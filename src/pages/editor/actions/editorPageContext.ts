@@ -9,7 +9,7 @@ export const EditorPageStateProvider = EditorPageContext.Provider;
 
 export function useEditorPageStateContext(): [
   EditorPageState,
-  Dispatch<SetStateAction<EditorPageState>>
+  Dispatch<SetStateAction<EditorPageState>>,
 ] {
   return useContext(EditorPageContext);
 }

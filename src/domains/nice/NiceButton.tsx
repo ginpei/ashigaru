@@ -11,7 +11,7 @@ export const NiceButton = forwardRef<HTMLButtonElement, NiceButtonProps>(
         {...props}
       />
     );
-  }
+  },
 );
 
 NiceButton.displayName = "NiceButton";

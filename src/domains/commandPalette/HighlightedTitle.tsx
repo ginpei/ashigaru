@@ -16,7 +16,7 @@ export function HighlightedTitle({
           </b>
         ) : (
           c.character
-        )
+        ),
       )}
     </span>
   );

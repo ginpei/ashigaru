@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 export function useListScrollEffect(
   el: Element | null,
-  elContainer: Element | null
+  elContainer: Element | null,
 ): void {
   useEffect(() => {
     if (!el || !elContainer) {

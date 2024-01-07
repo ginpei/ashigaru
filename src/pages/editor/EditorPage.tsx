@@ -49,7 +49,7 @@ export function EditorPage(): JSX.Element {
       commands: editorCommands,
       notes: dummyNotes,
       shortcuts: editorShortcuts,
-    })
+    }),
   );
 
   const commands = useMemo<EditorPageCommand[]>(() => {

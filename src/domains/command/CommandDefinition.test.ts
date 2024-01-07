@@ -64,7 +64,7 @@ describe("pickCommandDefinition()", () => {
   it("throw if nothing matched", () => {
     const command = createCommandDefinition({ id: "command1" });
     expect(() => pickCommandDefinition([command], "commandX")).toThrowError(
-      "Command ID commandX is not defined"
+      "Command ID commandX is not defined",
     );
   });
 });

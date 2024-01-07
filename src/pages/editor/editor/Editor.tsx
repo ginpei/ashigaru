@@ -11,7 +11,7 @@ export interface EditorProps {
 export function Editor({ note }: EditorProps): JSX.Element {
   const [state, setState] = useEditorPageStateContext();
   const onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
-    event
+    event,
   ) => {
     const { name, value } = event.currentTarget;
     if (name === "title") {

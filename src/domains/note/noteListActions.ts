@@ -49,8 +49,8 @@ export const noteListActions: Action<NoteListState>[] = [
         index < 0
           ? notes[0]
           : index >= notes.length
-          ? notes.at(-1)
-          : notes[index + 1];
+            ? notes.at(-1)
+            : notes[index + 1];
       if (!nextNote) {
         return;
       }
@@ -134,7 +134,7 @@ export const noteListActions: Action<NoteListState>[] = [
   {
     exec(state, setState) {
       const notes = state.notes.filter(
-        (v) => !state.selectedNoteIds.includes(v.id)
+        (v) => !state.selectedNoteIds.includes(v.id),
       );
 
       const editingNoteId = state.selectedNoteIds.includes(state.editingNoteId)

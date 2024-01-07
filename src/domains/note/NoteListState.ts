@@ -8,7 +8,7 @@ export interface NoteListState {
 }
 
 export function createNoteListState(
-  initial?: Partial<NoteListState>
+  initial?: Partial<NoteListState>,
 ): NoteListState {
   return {
     editingNoteId: initial?.editingNoteId ?? "",
@@ -20,7 +20,7 @@ export function createNoteListState(
 
 export function focusNotesState<State extends NoteListState>(
   state: State,
-  id: string
+  id: string,
 ): State {
   return {
     ...state,

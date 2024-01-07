@@ -19,7 +19,7 @@ export function EditorPane({}: EditorPaneProps): JSX.Element {
       setState(openNoteState(state, id));
       giveFocusOn("noteBodyFocus");
     },
-    [setState, state]
+    [setState, state],
   );
 
   return (

@@ -6,7 +6,7 @@ export type FloatingStyle = Pick<CSSProperties, "left" | "top">;
 // TODO extract
 export function useFloatingStyle(): [
   FloatingStyle,
-  Dispatch<SetStateAction<FloatingStyle>>
+  Dispatch<SetStateAction<FloatingStyle>>,
 ] {
   return useState<FloatingStyle>({});
 }
@@ -14,7 +14,7 @@ export function useFloatingStyle(): [
 export async function calcFloatingStyle(
   elRef: Element,
   elPopup: HTMLElement,
-  elArrow?: HTMLElement | null
+  elArrow?: HTMLElement | null,
 ): Promise<FloatingStyle> {
   const shiftPadding = 4; // px
   const { middlewareData, placement, x, y } = await computePosition(
@@ -28,7 +28,7 @@ export async function calcFloatingStyle(
         elArrow && arrow({ element: elArrow }),
       ],
       placement: "bottom-start",
-    }
+    },
   );
 
   return {

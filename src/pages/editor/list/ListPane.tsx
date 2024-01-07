@@ -22,14 +22,14 @@ export function ListPane(): JSX.Element {
     (note: Note) => {
       setState(openNoteState(state, note.id));
     },
-    [setState, state]
+    [setState, state],
   );
 
   const onNoteFocus = useCallback(
     (noteId: string) => {
       setState(focusNotesState(state, noteId));
     },
-    [setState, state]
+    [setState, state],
   );
 
   return (

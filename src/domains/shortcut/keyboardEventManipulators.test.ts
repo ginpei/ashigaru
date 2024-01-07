@@ -11,7 +11,7 @@ describe("keyboardEventToInputCommand", () => {
           key: "a",
           shiftKey: false,
           metaKey: false,
-        })
+        }),
       );
       expect(result).toBe("Ctrl+A");
     });
@@ -24,7 +24,7 @@ describe("keyboardEventToInputCommand", () => {
           key: "a",
           shiftKey: false,
           metaKey: false,
-        })
+        }),
       );
       expect(result).toBe("Alt+A");
     });
@@ -37,7 +37,7 @@ describe("keyboardEventToInputCommand", () => {
           key: "a",
           shiftKey: true,
           metaKey: false,
-        })
+        }),
       );
       expect(result).toBe("Shift+A");
     });
@@ -50,7 +50,7 @@ describe("keyboardEventToInputCommand", () => {
           key: "a",
           shiftKey: true,
           metaKey: false,
-        })
+        }),
       );
       expect(result).toBe("Ctrl+Alt+Shift+A");
     });
@@ -64,7 +64,7 @@ describe("keyboardEventToInputCommand", () => {
         key: " ",
         shiftKey: false,
         metaKey: false,
-      })
+      }),
     );
     expect(result).toBe("Space");
   });
@@ -74,7 +74,7 @@ function createKeyboardEvent(
   init: Pick<
     KeyboardEvent,
     "altKey" | "ctrlKey" | "key" | "shiftKey" | "metaKey"
-  >
+  >,
 ): KeyboardEvent {
   const mock = new Proxy(init, {
     get(target, prop) {

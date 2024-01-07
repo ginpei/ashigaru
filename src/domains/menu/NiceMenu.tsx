@@ -40,7 +40,7 @@ export function NiceMenu({ elRef, onBlur, open }: NiceMenuProps): JSX.Element {
         console.log("# newStyle", newStyle);
         setStyle(newStyle);
         refMenu.current?.focus();
-      }
+      },
     );
   }, [elRef, open, setStyle]);
 
