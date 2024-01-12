@@ -22,24 +22,24 @@ import {
 const commands: CommandDefinition[] = [
   {
     exec() {
-      window.alert("Command 1");
+      window.alert("One");
     },
     id: "command1",
-    title: "Command 1",
+    title: "One",
   },
   {
     exec() {
-      window.alert("Command 2");
+      window.alert("Two");
     },
     id: "command2",
-    title: "Command 2",
+    title: "Two",
   },
   {
     exec() {
-      window.alert("Command 3");
+      window.alert("Three");
     },
     id: "command3",
-    title: "Command 3",
+    title: "Three",
   },
 ];
 
