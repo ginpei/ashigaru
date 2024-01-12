@@ -20,6 +20,7 @@ import {
   highlightFilteredCommandTitle,
 } from "../../commandFilter";
 import { NiceInput } from "../../../nice/NiceInput";
+import { NiceDetails } from "../../../nice/NiceDetails";
 
 const predefinedCommands: CommandDefinition[] = [
   {
@@ -153,9 +154,9 @@ export function PageCommandSystemPage(): JSX.Element {
             Show command palette
           </NiceButton>
         </p>
-        <details open>
+        <NiceDetails open>
           <summary>Commands</summary>
-          <VStack>
+          <VStack className="NideDetails-content">
             <ol className="list-disc ms-8">
               {commands.map((command) => (
                 <li key={command.id}>
@@ -181,35 +182,37 @@ export function PageCommandSystemPage(): JSX.Element {
               </datalist>
             </form>
           </VStack>
-        </details>
-        <details open>
+        </NiceDetails>
+        <NiceDetails open>
           <summary>Shortcuts</summary>
-          <table className="[&_thead]:bg-slate-100 [&_td]:border [&_td]:p-2">
-            <thead>
-              <tr>
-                <th className="border px-2">Command</th>
-                <th className="border px-2">Keybinding</th>
-                <th className="border px-2">When?</th>
-              </tr>
-            </thead>
-            <tbody>
-              {shortcuts.map((shortcut) => (
-                <tr key={shortcut.key}>
-                  <td>
-                    <NiceCode>{shortcut.commandId}</NiceCode>
-                  </td>
-                  <td>
-                    <NiceCode>{shortcut.key}</NiceCode>
-                  </td>
-                  <td>
-                    {(shortcut.when && <NiceCode>shortcut.when</NiceCode>) ||
-                      "-"}
-                  </td>
+          <VStack className="NideDetails-content">
+            <table className="[&_thead]:bg-slate-100 [&_td]:border [&_td]:p-2">
+              <thead>
+                <tr>
+                  <th className="border px-2">Command</th>
+                  <th className="border px-2">Keybinding</th>
+                  <th className="border px-2">When?</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </details>
+              </thead>
+              <tbody>
+                {shortcuts.map((shortcut) => (
+                  <tr key={shortcut.key}>
+                    <td>
+                      <NiceCode>{shortcut.commandId}</NiceCode>
+                    </td>
+                    <td>
+                      <NiceCode>{shortcut.key}</NiceCode>
+                    </td>
+                    <td>
+                      {(shortcut.when && <NiceCode>shortcut.when</NiceCode>) ||
+                        "-"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </VStack>
+        </NiceDetails>
       </VStack>
       <CommandPaletteFrame
         focusTargetId="demoCommandPaletteFrameFocus"
