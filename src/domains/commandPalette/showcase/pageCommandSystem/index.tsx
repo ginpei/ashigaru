@@ -1,14 +1,23 @@
+import { useMemo, useState } from "react";
 import {
   CommandDefinition,
   pickCommandDefinition,
 } from "../../../command/CommandDefinition";
 import { VStack } from "../../../layout/VStack";
+import { NiceButton } from "../../../nice/NiceButton";
 import { NiceCode } from "../../../nice/NiceCode";
 import { NiceH1 } from "../../../nice/NiceH";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { KeyboardShortcut } from "../../../shortcut/KeyboardShortcut";
 import { useFocusTarget } from "../../../shortcut/focusHooks";
 import { useKeyboardShortcuts } from "../../../shortcut/keyboardShortcutHooks";
+import { CommandListEmptyItem } from "../../CommandListEmptyItem";
+import { CommandPaletteFrame } from "../../CommandPaletteFrame";
+import { HighlightedTitle } from "../../HighlightedTitle";
+import {
+  Highlighted,
+  highlightFilteredCommandTitle,
+} from "../../commandFilter";
 
 const commands: CommandDefinition[] = [
   {
@@ -17,6 +26,20 @@ const commands: CommandDefinition[] = [
     },
     id: "command1",
     title: "Command 1",
+  },
+  {
+    exec() {
+      window.alert("Command 2");
+    },
+    id: "command2",
+    title: "Command 2",
+  },
+  {
+    exec() {
+      window.alert("Command 3");
+    },
+    id: "command3",
+    title: "Command 3",
   },
 ];
 
@@ -27,20 +50,50 @@ const shortcuts: KeyboardShortcut[] = [
   },
 ];
 
-const options = ["One", "Two", "Three"] as const;
-
 export function PageCommandSystemPage(): JSX.Element {
+  const [paletteInput, setPaletteInput] = useState("");
+  const [commandPaletteVisible, setCommandPaletteVisible] = useState(false);
   const focusId = useFocusTarget();
+
+  const filteredOptions = useMemo(() => {
+    const result: Highlighted<CommandDefinition>[] = [];
+    for (const command of commands) {
+      const chars = highlightFilteredCommandTitle(command.title, paletteInput);
+      if (chars) {
+        result.push({
+          highlightedCharacters: chars,
+          ...command,
+        });
+      }
+    }
+    return result;
+  }, [paletteInput]);
 
   useKeyboardShortcuts(shortcuts, focusId, (commandId) => {
     const command = pickCommandDefinition(commands, commandId);
     command.exec(0, () => {});
   });
 
+  const onCommandSelect = (selected: Highlighted<CommandDefinition> | null) => {
+    if (!selected) {
+      setCommandPaletteVisible(false);
+      return;
+    }
+
+    selected.exec(0, () => {});
+
+    setCommandPaletteVisible(false);
+  };
+
   return (
     <StraightLayout title="Command demos">
       <VStack>
         <NiceH1>Page command system</NiceH1>
+        <p>
+          <NiceButton onClick={() => setCommandPaletteVisible(true)}>
+            Show command palette
+          </NiceButton>
+        </p>
         <ul className="list-decimal ms-8">
           <li>
             Prepare command definitions (
@@ -98,6 +151,19 @@ export function PageCommandSystemPage(): JSX.Element {
           </table>
         </details>
       </VStack>
+      <CommandPaletteFrame
+        focusTargetId="demoCommandPaletteFrameFocus"
+        getKey={(v) => v.title}
+        input={paletteInput}
+        onInput={setPaletteInput}
+        onSelect={onCommandSelect}
+        open={commandPaletteVisible}
+        options={filteredOptions}
+        renderEmptyItem={() => (
+          <CommandListEmptyItem>No match</CommandListEmptyItem>
+        )}
+        renderItem={(v) => <HighlightedTitle chars={v.highlightedCharacters} />}
+      />
     </StraightLayout>
   );
 }
