@@ -27,8 +27,17 @@ function useKeyDown(
   d?: Document,
 ): void {
   useEffect(() => {
+    const handler = (event: Event | KeyboardEvent) => {
+      // when you select from `<datalist>`, it becomes `Event` instead of `KeyboardEvent`
+      if (!(event instanceof KeyboardEvent)) {
+        return;
+      }
+
+      callback(event);
+    };
+
     const d2 = d ?? document;
-    d2.addEventListener("keydown", callback);
-    return () => d2.removeEventListener("keydown", callback);
+    d2.addEventListener("keydown", handler);
+    return () => d2.removeEventListener("keydown", handler);
   }, [callback, d]);
 }
