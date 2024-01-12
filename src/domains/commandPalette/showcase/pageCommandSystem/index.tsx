@@ -21,7 +21,7 @@ import {
 } from "../../commandFilter";
 import { NiceInput } from "../../../nice/NiceInput";
 
-const commands: CommandDefinition[] = [
+const predefinedCommands: CommandDefinition[] = [
   {
     exec() {
       window.alert("One");
@@ -50,6 +50,10 @@ const shortcuts: KeyboardShortcut[] = [
     commandId: "command1",
     key: "Ctrl+Alt+1",
   },
+  {
+    commandId: "showCommandPalette",
+    key: "Ctrl+P",
+  },
 ];
 
 export function PageCommandSystemPage(): JSX.Element {
@@ -57,6 +61,22 @@ export function PageCommandSystemPage(): JSX.Element {
   const [paletteInput, setPaletteInput] = useState("");
   const [commandPaletteVisible, setCommandPaletteVisible] = useState(false);
   const focusId = useFocusTarget();
+
+  const pageCommands: CommandDefinition[] = useMemo(() => {
+    return [
+      {
+        exec() {
+          setCommandPaletteVisible(true);
+        },
+        id: "showCommandPalette",
+        title: "Show command palette",
+      },
+    ];
+  }, []);
+
+  const commands = useMemo(() => {
+    return [...predefinedCommands, ...pageCommands];
+  }, [pageCommands]);
 
   const filteredOptions = useMemo(() => {
     const result: Highlighted<CommandDefinition>[] = [];
@@ -70,7 +90,7 @@ export function PageCommandSystemPage(): JSX.Element {
       }
     }
     return result;
-  }, [paletteInput]);
+  }, [commands, paletteInput]);
 
   useKeyboardShortcuts(shortcuts, focusId, (commandId) => {
     const command = pickCommandDefinition(commands, commandId);
