@@ -6,7 +6,7 @@ import {
 import { VStack } from "../../../layout/VStack";
 import { NiceButton } from "../../../nice/NiceButton";
 import { NiceCode } from "../../../nice/NiceCode";
-import { NiceH1 } from "../../../nice/NiceH";
+import { NiceH1, NiceH2 } from "../../../nice/NiceH";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { KeyboardShortcut } from "../../../shortcut/KeyboardShortcut";
 import { useFocusTarget } from "../../../shortcut/focusHooks";
@@ -89,29 +89,37 @@ export function PageCommandSystemPage(): JSX.Element {
     <StraightLayout title="Command demos">
       <VStack>
         <NiceH1>Page command system</NiceH1>
+        <p>There are three ways to execute commands:</p>
+        <ol className="list-disc ms-8">
+          <li>Execute by program</li>
+          <li>Execute from command palette</li>
+          <li>Execute by keyboard shortcuts</li>
+        </ol>
+        <p>Here is how to prepare them:</p>
+        <ul className="list-decimal ms-8">
+          <li>
+            <NiceCode>CommandDefinition[]</NiceCode> - Command definitions
+          </li>
+          <li>
+            <NiceCode>KeyboardShortcut[]</NiceCode>- Shortcut definitions
+          </li>
+          <li>
+            <NiceCode>useKeyboardShortcuts()</NiceCode> - Start observing
+            keyboard inputs for the shortcuts
+          </li>
+          <li>
+            <NiceCode>{`<CommandPaletteFrame>`}</NiceCode> - Command palette UI
+          </li>
+          <li>
+            <NiceCode>command.exec()</NiceCode> - Execute a command
+          </li>
+        </ul>
+        <NiceH2>Example</NiceH2>
         <p>
           <NiceButton onClick={() => setCommandPaletteVisible(true)}>
             Show command palette
           </NiceButton>
         </p>
-        <ul className="list-decimal ms-8">
-          <li>
-            Prepare command definitions (
-            <NiceCode>CommandDefinition[]</NiceCode>) to execute
-          </li>
-          <li>
-            Prepare shortcut definitions (
-            <NiceCode>KeyboardShortcut[]</NiceCode>) to assign
-          </li>
-          <li>
-            Start observing keyboard inputs for the shortcuts by{" "}
-            <NiceCode>useKeyboardShortcuts()</NiceCode>
-          </li>
-          <li>
-            Execute the command by the given ID like{" "}
-            <NiceCode>command.exec()</NiceCode>
-          </li>
-        </ul>
         <details>
           <summary>Registered commands in this example</summary>
           <ol className="list-disc ms-8">
