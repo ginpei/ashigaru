@@ -186,12 +186,12 @@ export function PageCommandSystemPage(): JSX.Element {
         <NiceDetails open>
           <summary>Shortcuts</summary>
           <VStack className="NideDetails-content">
-            <table className="[&_thead]:bg-slate-100 [&_td]:border [&_td]:p-2">
+            <table className="ui-table">
               <thead>
                 <tr>
-                  <th className="border px-2">Command</th>
-                  <th className="border px-2">Keybinding</th>
-                  <th className="border px-2">When?</th>
+                  <th>Command</th>
+                  <th>Keybinding</th>
+                  <th>When?</th>
                 </tr>
               </thead>
               <tbody>

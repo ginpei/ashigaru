@@ -1,0 +1,4 @@
+.ui-table {
+  @apply [&>thead]:bg-slate-100;
+  @apply [&>*>tr>:is(th,td)]:border [&>*>tr>:is(th,td)]:p-2;
+}
