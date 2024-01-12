@@ -1,6 +1,7 @@
-import { useMemo, useState } from "react";
+import { FormEventHandler, useMemo, useState } from "react";
 import {
   CommandDefinition,
+  findCommandDefinition,
   pickCommandDefinition,
 } from "../../../command/CommandDefinition";
 import { VStack } from "../../../layout/VStack";
@@ -18,6 +19,7 @@ import {
   Highlighted,
   highlightFilteredCommandTitle,
 } from "../../commandFilter";
+import { NiceInput } from "../../../nice/NiceInput";
 
 const commands: CommandDefinition[] = [
   {
@@ -51,6 +53,7 @@ const shortcuts: KeyboardShortcut[] = [
 ];
 
 export function PageCommandSystemPage(): JSX.Element {
+  const [commandInput, setCommandInput] = useState("");
   const [paletteInput, setPaletteInput] = useState("");
   const [commandPaletteVisible, setCommandPaletteVisible] = useState(false);
   const focusId = useFocusTarget();
@@ -73,6 +76,16 @@ export function PageCommandSystemPage(): JSX.Element {
     const command = pickCommandDefinition(commands, commandId);
     command.exec(0, () => {});
   });
+
+  const onCommandInputSubmit: FormEventHandler = (event) => {
+    event.preventDefault();
+    const command = findCommandDefinition(commands, commandInput);
+    if (command) {
+      command.exec(0, () => {});
+    } else {
+      window.alert(`Command not found: ${commandInput}`);
+    }
+  };
 
   const onCommandSelect = (selected: Highlighted<CommandDefinition> | null) => {
     if (!selected) {
@@ -120,18 +133,37 @@ export function PageCommandSystemPage(): JSX.Element {
             Show command palette
           </NiceButton>
         </p>
-        <details>
-          <summary>Registered commands in this example</summary>
-          <ol className="list-disc ms-8">
-            {commands.map((command) => (
-              <li key={command.id}>
-                {command.title} (<NiceCode>{command.id}</NiceCode>)
-              </li>
-            ))}
-          </ol>
+        <details open>
+          <summary>Commands</summary>
+          <VStack>
+            <ol className="list-disc ms-8">
+              {commands.map((command) => (
+                <li key={command.id}>
+                  {command.title} (<NiceCode>{command.id}</NiceCode>)
+                </li>
+              ))}
+            </ol>
+            <form onSubmit={onCommandInputSubmit}>
+              <label>
+                Exec command:{" "}
+                <NiceInput
+                  list="commandDataList"
+                  onChange={(v) => setCommandInput(v.target.value)}
+                  type="text"
+                  value={commandInput}
+                />
+              </label>
+              <NiceButton>Exec</NiceButton>
+              <datalist id="commandDataList">
+                {commands.map((command) => (
+                  <option key={command.id} value={command.id} />
+                ))}
+              </datalist>
+            </form>
+          </VStack>
         </details>
-        <details>
-          <summary>Registered shortcuts in this example</summary>
+        <details open>
+          <summary>Shortcuts</summary>
           <table className="[&_thead]:bg-slate-100 [&_td]:border [&_td]:p-2">
             <thead>
               <tr>
