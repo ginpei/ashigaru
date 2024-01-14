@@ -31,3 +31,23 @@
 .ui-pre {
   @apply bg-slate-100 p-2 text-xs;
 }
+
+.ui-details {
+  @apply border rounded;
+
+  & > summary {
+    @apply cursor-pointer px-4 py-2 bg-slate-100;
+
+    &:hover {
+      @apply bg-slate-200;
+    }
+  }
+
+  &[open] > summary {
+    @apply border-b;
+  }
+
+  & > .ui-details--content {
+    @apply p-4;
+  }
+}

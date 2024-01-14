@@ -8,6 +8,7 @@ import { VStack } from "../../../layout/VStack";
 import { NiceButton } from "../../../nice/NiceButton";
 import { NiceCode } from "../../../nice/NiceCode";
 import { NiceH1, NiceH2 } from "../../../nice/NiceH";
+import { NiceInput } from "../../../nice/NiceInput";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { KeyboardShortcut } from "../../../shortcut/KeyboardShortcut";
 import { useFocusTarget } from "../../../shortcut/focusHooks";
@@ -19,8 +20,6 @@ import {
   Highlighted,
   highlightFilteredCommandTitle,
 } from "../../commandFilter";
-import { NiceInput } from "../../../nice/NiceInput";
-import { NiceDetails } from "../../../nice/NiceDetails";
 
 const predefinedCommands: CommandDefinition[] = [
   {
@@ -154,9 +153,9 @@ export function PageCommandSystemPage(): JSX.Element {
             Show command palette
           </NiceButton>
         </p>
-        <NiceDetails open>
+        <details className="ui-details" open>
           <summary>Commands</summary>
-          <VStack className="NideDetails-content">
+          <VStack className="ui-details--content">
             <ul className="ui-ul">
               {commands.map((command) => (
                 <li key={command.id}>
@@ -182,10 +181,10 @@ export function PageCommandSystemPage(): JSX.Element {
               </datalist>
             </form>
           </VStack>
-        </NiceDetails>
-        <NiceDetails open>
+        </details>
+        <details className="ui-details" open>
           <summary>Shortcuts</summary>
-          <VStack className="NideDetails-content">
+          <VStack className="ui-details--content">
             <table className="ui-table">
               <thead>
                 <tr>
@@ -212,7 +211,7 @@ export function PageCommandSystemPage(): JSX.Element {
               </tbody>
             </table>
           </VStack>
-        </NiceDetails>
+        </details>
       </VStack>
       <CommandPaletteFrame
         focusTargetId="demoCommandPaletteFrameFocus"

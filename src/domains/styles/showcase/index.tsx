@@ -86,6 +86,33 @@ export function StylesPage(): JSX.Element {
 \`}</pre>
 `}</pre>
         </VStack>
+        <VStack>
+          <NiceH2>
+            <NiceCode>{`<details className="ui-details">`}</NiceCode>
+          </NiceH2>
+          <p>
+            Also use <NiceCode>{`className="ui-details--content"`}</NiceCode>{" "}
+            for content in need.
+          </p>
+          <details className="ui-details">
+            <summary>Details</summary>
+            <VStack className="ui-details--content">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Voluptates natus asperiores quidem sunt libero ut facere laborum
+              ducimus consequuntur quos. Ex quaerat ducimus eveniet, voluptatum
+              quae porro ab quisquam ratione.
+            </VStack>
+          </details>
+          <details className="ui-details" open>
+            <summary>Details</summary>
+            <VStack className="ui-details--content">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Voluptates natus asperiores quidem sunt libero ut facere laborum
+              ducimus consequuntur quos. Ex quaerat ducimus eveniet, voluptatum
+              quae porro ab quisquam ratione.
+            </VStack>
+          </details>
+        </VStack>
       </VStack>
     </StraightLayout>
   );
