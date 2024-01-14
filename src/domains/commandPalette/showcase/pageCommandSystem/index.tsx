@@ -20,6 +20,7 @@ import {
   Highlighted,
   highlightFilteredCommandTitle,
 } from "../../commandFilter";
+import { tick } from "../../../time/timeManipulator";
 
 const predefinedCommands: CommandDefinition[] = [
   {
@@ -113,9 +114,9 @@ export function PageCommandSystemPage(): JSX.Element {
       return;
     }
 
-    selected.exec(0, () => {});
-
     setCommandPaletteVisible(false);
+
+    tick().then(() => selected.exec(0, () => {}));
   };
 
   return (
