@@ -57,7 +57,7 @@ const shortcuts: KeyboardShortcut[] = [
   },
 ];
 
-export function PageCommandSystemPage(): JSX.Element {
+export function PageCommandSystemDemoPage(): JSX.Element {
   const [commandInput, setCommandInput] = useState("");
   const [paletteInput, setPaletteInput] = useState("");
   const [commandPaletteVisible, setCommandPaletteVisible] = useState(false);
@@ -231,4 +231,4 @@ export function PageCommandSystemPage(): JSX.Element {
   );
 }
 
-PageCommandSystemPage.path = "commandPalette/pageCommandSystem" as const;
+PageCommandSystemDemoPage.path = "commandPalette/pageCommandSystem" as const;
