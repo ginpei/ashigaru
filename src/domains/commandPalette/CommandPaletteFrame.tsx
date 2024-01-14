@@ -14,6 +14,11 @@ export interface CommandPaletteFrameProps<Value> {
   renderItem: (value: Value, index: number) => React.ReactNode;
 }
 
+export interface CommandPaletteOption {
+  id: string;
+  title: string;
+}
+
 export type CommandPaletteSelectHandler<T> = (command: T | null) => void;
 
 export function CommandPaletteFrame<Value>({

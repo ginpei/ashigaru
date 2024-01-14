@@ -14,13 +14,19 @@ import { KeyboardShortcut } from "../../../shortcut/KeyboardShortcut";
 import { useFocusTarget } from "../../../shortcut/focusHooks";
 import { useKeyboardShortcuts } from "../../../shortcut/keyboardShortcutHooks";
 import { CommandListEmptyItem } from "../../CommandListEmptyItem";
-import { CommandPaletteFrame } from "../../CommandPaletteFrame";
+import {
+  CommandPaletteFrame,
+  CommandPaletteOption,
+  CommandPaletteSelectHandler,
+} from "../../CommandPaletteFrame";
 import { HighlightedTitle } from "../../HighlightedTitle";
 import {
   Highlighted,
   highlightFilteredCommandTitle,
 } from "../../commandFilter";
 import { tick } from "../../../time/timeManipulator";
+
+interface DemoFile extends CommandPaletteOption {}
 
 const predefinedCommands: CommandDefinition[] = [
   {
@@ -43,6 +49,21 @@ const predefinedCommands: CommandDefinition[] = [
     },
     id: "command3",
     title: "Three",
+  },
+];
+
+const demoFiles: DemoFile[] = [
+  {
+    id: "file1",
+    title: "hello.txt",
+  },
+  {
+    id: "file2",
+    title: "world.js",
+  },
+  {
+    id: "file3",
+    title: "index.html",
   },
 ];
 
@@ -79,19 +100,29 @@ export function PageCommandSystemDemoPage(): JSX.Element {
     return [...predefinedCommands, ...pageCommands];
   }, [pageCommands]);
 
+  const [actualInput, options] = useMemo<
+    [string, CommandPaletteOption[]]
+  >(() => {
+    if (paletteInput.startsWith(">")) {
+      return [paletteInput.slice(1).trim(), commands];
+    }
+
+    return [paletteInput, demoFiles];
+  }, [commands, paletteInput]);
+
   const filteredOptions = useMemo(() => {
-    const result: Highlighted<CommandDefinition>[] = [];
-    for (const command of commands) {
-      const chars = highlightFilteredCommandTitle(command.title, paletteInput);
+    const result: Highlighted<CommandPaletteOption>[] = [];
+    for (const option of options) {
+      const chars = highlightFilteredCommandTitle(option.title, actualInput);
       if (chars) {
         result.push({
           highlightedCharacters: chars,
-          ...command,
+          ...option,
         });
       }
     }
     return result;
-  }, [commands, paletteInput]);
+  }, [actualInput, options]);
 
   useKeyboardShortcuts(shortcuts, focusId, (commandId) => {
     const command = pickCommandDefinition(commands, commandId);
@@ -108,7 +139,9 @@ export function PageCommandSystemDemoPage(): JSX.Element {
     }
   };
 
-  const onCommandSelect = (selected: Highlighted<CommandDefinition> | null) => {
+  const onPaletteSelect: CommandPaletteSelectHandler<
+    Highlighted<CommandPaletteOption | CommandDefinition>
+  > = (selected) => {
     if (!selected) {
       setCommandPaletteVisible(false);
       return;
@@ -116,7 +149,13 @@ export function PageCommandSystemDemoPage(): JSX.Element {
 
     setCommandPaletteVisible(false);
 
-    tick().then(() => selected.exec(0, () => {}));
+    tick().then(() => {
+      if ("exec" in selected) {
+        selected.exec(0, () => {});
+      } else {
+        window.alert(`File selected: ${selected.title}`);
+      }
+    });
   };
 
   return (
@@ -214,12 +253,12 @@ export function PageCommandSystemDemoPage(): JSX.Element {
           </VStack>
         </details>
       </VStack>
-      <CommandPaletteFrame
+      <CommandPaletteFrame<Highlighted<CommandPaletteOption>>
         focusTargetId="demoCommandPaletteFrameFocus"
-        getKey={(v) => v.title}
+        getKey={(v) => v.id}
         input={paletteInput}
         onInput={setPaletteInput}
-        onSelect={onCommandSelect}
+        onSelect={onPaletteSelect}
         open={commandPaletteVisible}
         options={filteredOptions}
         renderEmptyItem={() => (
