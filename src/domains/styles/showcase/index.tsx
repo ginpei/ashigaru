@@ -56,6 +56,26 @@ export function StylesPage(): JSX.Element {
             </tbody>
           </table>
         </VStack>
+        <VStack>
+          <NiceH2>
+            <NiceCode>{`<ul className="ui-ul">`}</NiceCode>
+          </NiceH2>
+          <ul className="ui-ul">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+          </ul>
+        </VStack>
+        <VStack>
+          <NiceH2>
+            <NiceCode>{`<ol className="ui-ol">`}</NiceCode>
+          </NiceH2>
+          <ol className="ui-ol">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+          </ol>
+        </VStack>
       </VStack>
     </StraightLayout>
   );

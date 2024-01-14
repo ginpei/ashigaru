@@ -2,3 +2,13 @@
   @apply [&>thead]:bg-slate-100;
   @apply [&>*>tr>:is(th,td)]:border [&>*>tr>:is(th,td)]:p-2;
 }
+
+.ui-ul {
+  @apply list-disc ml-8;
+  @apply [&>li+li]:mt-1;
+}
+
+.ui-ol {
+  @apply list-decimal ml-8;
+  @apply [&>li+li]:mt-1;
+}

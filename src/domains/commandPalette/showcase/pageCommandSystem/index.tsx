@@ -124,13 +124,13 @@ export function PageCommandSystemPage(): JSX.Element {
       <VStack>
         <NiceH1>Page command system</NiceH1>
         <p>There are three ways to execute commands:</p>
-        <ol className="list-disc ms-8">
+        <ul className="ui-ul">
           <li>Execute by program</li>
           <li>Execute from command palette</li>
           <li>Execute by keyboard shortcuts</li>
-        </ol>
+        </ul>
         <p>Here is how to prepare them:</p>
-        <ul className="list-decimal ms-8">
+        <ul className="ui-ul">
           <li>
             <NiceCode>CommandDefinition[]</NiceCode> - Command definitions
           </li>
@@ -157,13 +157,13 @@ export function PageCommandSystemPage(): JSX.Element {
         <NiceDetails open>
           <summary>Commands</summary>
           <VStack className="NideDetails-content">
-            <ol className="list-disc ms-8">
+            <ul className="ui-ul">
               {commands.map((command) => (
                 <li key={command.id}>
                   {command.title} (<NiceCode>{command.id}</NiceCode>)
                 </li>
               ))}
-            </ol>
+            </ul>
             <form onSubmit={onCommandInputSubmit}>
               <label>
                 Exec command:{" "}
