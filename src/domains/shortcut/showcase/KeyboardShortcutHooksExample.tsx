@@ -63,8 +63,8 @@ export function KeyboardShortcutHooksExample(): JSX.Element {
   return (
     <VStack className="KeyboardShortcutHooksExample">
       <details>
-        <summary>Example NiceCode</summary>
-        <pre className="bg-slate-100 p-2 text-xs">
+        <summary>Example</summary>
+        <pre className="ui-pre">
           const def = {JSON.stringify(defs, null, 2)};
           {`
 const focusId = useFocusTarget();

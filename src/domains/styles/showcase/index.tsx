@@ -76,6 +76,16 @@ export function StylesPage(): JSX.Element {
             <li>Item 3</li>
           </ol>
         </VStack>
+        <VStack>
+          <NiceH2>
+            <NiceCode>{`<pre className="ui-pre">`}</NiceCode>
+          </NiceH2>
+          <pre className="ui-pre">{`<pre className="ui-pre">{\`export function myFunction() {
+  console.log("hello");
+}
+\`}</pre>
+`}</pre>
+        </VStack>
       </VStack>
     </StraightLayout>
   );
