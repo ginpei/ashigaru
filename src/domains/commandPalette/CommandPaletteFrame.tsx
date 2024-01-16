@@ -64,18 +64,16 @@ export function CommandPaletteFrame<Value>({
                 static
               >
                 {options.map((option, index) => (
-                  <Combobox.Option key={getKey(option)} value={option}>
-                    {({ active }) => (
-                      <div
-                        className={`
-                        px-2 py-1 flex place-content-between leading-4 cursor-pointer
-                        hover:bg-slate-300
-                        ${active ? "bg-slate-300" : "bg-white"}
-                      `}
-                      >
-                        {renderItem(option, index)}
-                      </div>
-                    )}
+                  <Combobox.Option
+                    className={({ active }) => `
+                      px-2 py-1 flex place-content-between leading-4 cursor-pointer
+                      hover:bg-slate-300
+                      ${active ? "bg-slate-300" : "bg-white"}
+                    `}
+                    key={getKey(option)}
+                    value={option}
+                  >
+                    {renderItem(option, index)}
                   </Combobox.Option>
                 ))}
                 {options.length < 1 && renderEmptyItem()}
