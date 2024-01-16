@@ -76,6 +76,10 @@ const shortcuts: KeyboardShortcut[] = [
     commandId: "showCommandPalette",
     key: "Ctrl+P",
   },
+  {
+    commandId: "showCommandPaletteForCommand",
+    key: "Ctrl+Shift+P",
+  },
 ];
 
 export function PageCommandSystemDemoPage(): JSX.Element {
@@ -88,10 +92,19 @@ export function PageCommandSystemDemoPage(): JSX.Element {
     return [
       {
         exec() {
+          setPaletteInput("");
           setCommandPaletteVisible(true);
         },
         id: "showCommandPalette",
         title: "Show command palette",
+      },
+      {
+        exec() {
+          setPaletteInput(">");
+          setCommandPaletteVisible(true);
+        },
+        id: "showCommandPaletteForCommand",
+        title: "Show command palette for Command",
       },
     ];
   }, []);
