@@ -100,14 +100,14 @@ export function PageCommandSystemDemoPage(): JSX.Element {
     return [...predefinedCommands, ...pageCommands];
   }, [pageCommands]);
 
-  const [actualInput, options] = useMemo<
-    [string, CommandPaletteOption[]]
+  const [inputType, actualInput, options] = useMemo<
+    ["command", string, CommandDefinition[]] | ["file", string, DemoFile[]]
   >(() => {
     if (paletteInput.startsWith(">")) {
-      return [paletteInput.slice(1).trim(), commands];
+      return ["command", paletteInput.slice(1).trim(), commands];
     }
 
-    return [paletteInput, demoFiles];
+    return ["file", paletteInput, demoFiles];
   }, [commands, paletteInput]);
 
   const filteredOptions = useMemo(() => {
@@ -264,9 +264,38 @@ export function PageCommandSystemDemoPage(): JSX.Element {
         renderEmptyItem={() => (
           <CommandListEmptyItem>No match</CommandListEmptyItem>
         )}
-        renderItem={(v) => <HighlightedTitle chars={v.highlightedCharacters} />}
+        renderItem={(value) =>
+          inputType === "file" ? (
+            <HighlightedTitle chars={value.highlightedCharacters} />
+          ) : (
+            <CommandOption
+              shortcut={shortcuts.find((v) => v.commandId === value.id)}
+              value={value}
+            />
+          )
+        }
       />
     </StraightLayout>
+  );
+}
+
+function CommandOption({
+  shortcut,
+  value,
+}: {
+  shortcut: KeyboardShortcut | undefined;
+  value: Highlighted<CommandPaletteOption>;
+}): JSX.Element {
+  return (
+    <>
+      <HighlightedTitle chars={value.highlightedCharacters} />
+      {shortcut && (
+        <>
+          {" "}
+          <code className="bg-gray-100 text-xs">{shortcut.key}</code>
+        </>
+      )}
+    </>
   );
 }
 
