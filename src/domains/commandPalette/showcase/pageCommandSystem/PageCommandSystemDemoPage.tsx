@@ -209,13 +209,6 @@ export function PageCommandSystemDemoPage(): JSX.Element {
         <details className="ui-details" open>
           <summary>Commands</summary>
           <VStack className="ui-details--content">
-            <ul className="ui-ul">
-              {commands.map((command) => (
-                <li key={command.id}>
-                  {command.title} (<NiceCode>{command.id}</NiceCode>)
-                </li>
-              ))}
-            </ul>
             <form onSubmit={onCommandInputSubmit}>
               <label>
                 Exec command:{" "}
@@ -233,6 +226,24 @@ export function PageCommandSystemDemoPage(): JSX.Element {
                 ))}
               </datalist>
             </form>
+            <table className="ui-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>ID</th>
+                </tr>
+              </thead>
+              <tbody>
+                {commands.map((command) => (
+                  <tr key={command.id}>
+                    <td>{command.title}</td>
+                    <td>
+                      <NiceCode>{command.id}</NiceCode>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </VStack>
         </details>
         <details className="ui-details" open>
