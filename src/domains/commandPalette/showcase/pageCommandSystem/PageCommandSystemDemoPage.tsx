@@ -303,6 +303,8 @@ export function PageCommandSystemDemoPage(): JSX.Element {
   );
 }
 
+PageCommandSystemDemoPage.path = "commandPalette/pageCommandSystem" as const;
+
 function CommandOption({
   shortcut,
   value,
@@ -322,5 +324,3 @@ function CommandOption({
     </>
   );
 }
-
-PageCommandSystemDemoPage.path = "commandPalette/pageCommandSystem" as const;
