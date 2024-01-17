@@ -1,4 +1,11 @@
-import { FormEventHandler, useMemo, useState } from "react";
+/* eslint-disable prettier/prettier */
+import {
+  Dispatch,
+  FormEventHandler,
+  SetStateAction,
+  useMemo,
+  useState,
+} from "react";
 import {
   CommandDefinition,
   findCommandDefinition,
@@ -28,90 +35,26 @@ import { tick } from "../../../time/timeManipulator";
 
 interface DemoFile extends CommandPaletteOption {}
 
-const predefinedCommands: CommandDefinition[] = [
-  {
-    exec() {
-      window.alert("One");
-    },
-    id: "command1",
-    title: "One",
-  },
-  {
-    exec() {
-      window.alert("Two");
-    },
-    id: "command2",
-    title: "Two",
-  },
-  {
-    exec() {
-      window.alert("Three");
-    },
-    id: "command3",
-    title: "Three",
-  },
-];
-
-const demoFiles: DemoFile[] = [
-  {
-    id: "file1",
-    title: "hello.txt",
-  },
-  {
-    id: "file2",
-    title: "world.js",
-  },
-  {
-    id: "file3",
-    title: "index.html",
-  },
-];
-
-const shortcuts: KeyboardShortcut[] = [
-  {
-    commandId: "command1",
-    key: "Ctrl+Alt+1",
-  },
-  {
-    commandId: "showCommandPalette",
-    key: "Ctrl+P",
-  },
-  {
-    commandId: "showCommandPaletteForCommand",
-    key: "Ctrl+Shift+P",
-  },
-];
-
 export function PageCommandSystemDemoPage(): JSX.Element {
   const [commandInput, setCommandInput] = useState("");
   const [paletteInput, setPaletteInput] = useState("");
   const [commandPaletteVisible, setCommandPaletteVisible] = useState(false);
   const focusId = useFocusTarget();
 
-  const pageCommands: CommandDefinition[] = useMemo(() => {
-    return [
-      {
-        exec() {
-          setPaletteInput("");
-          setCommandPaletteVisible(true);
-        },
-        id: "showCommandPalette",
-        title: "Show command palette",
-      },
-      {
-        exec() {
-          setPaletteInput(">");
-          setCommandPaletteVisible(true);
-        },
-        id: "showCommandPaletteForCommand",
-        title: "Show command palette for Command",
-      },
-    ];
-  }, []);
+  const [predefinedCommands, predefinedShortcuts] = usePredefinedActions();
+  const [pageCommands, pageShortcuts] = usePageActions({
+    setCommandPaletteVisible,
+    setPaletteInput,
+  });
+  const demoFiles = useFiles();
 
   const commands = useMemo(() => {
     return [...predefinedCommands, ...pageCommands];
-  }, [pageCommands]);
+  }, [pageCommands, predefinedCommands]);
+
+  const shortcuts = useMemo(() => {
+    return [...predefinedShortcuts, ...pageShortcuts];
+  }, [pageShortcuts, predefinedShortcuts]);
 
   const [inputType, actualInput, options] = useMemo<
     ["command", string, CommandDefinition[]] | ["file", string, DemoFile[]]
@@ -121,7 +64,7 @@ export function PageCommandSystemDemoPage(): JSX.Element {
     }
 
     return ["file", paletteInput, demoFiles];
-  }, [commands, paletteInput]);
+  }, [commands, demoFiles, paletteInput]);
 
   const filteredOptions = useMemo(() => {
     const result: Highlighted<CommandPaletteOption>[] = [];
@@ -323,4 +266,97 @@ function CommandOption({
       )}
     </>
   );
+}
+
+function usePredefinedActions(): [CommandDefinition[], KeyboardShortcut[]] {
+  return useMemo(() => {
+    return [
+      [
+        {
+          exec() {
+            window.alert("One");
+          },
+          id: "command1",
+          title: "One",
+        },
+        {
+          exec() {
+            window.alert("Two");
+          },
+          id: "command2",
+          title: "Two",
+        },
+        {
+          exec() {
+            window.alert("Three");
+          },
+          id: "command3",
+          title: "Three",
+        },
+      ],
+      [
+        {
+          commandId: "command1",
+          key: "Ctrl+Alt+1",
+        },
+      ],
+    ];
+  }, []);
+}
+
+function usePageActions(vars: {
+  setCommandPaletteVisible: Dispatch<SetStateAction<boolean>>;
+  setPaletteInput: Dispatch<SetStateAction<string>>;
+}): [CommandDefinition[], KeyboardShortcut[]] {
+  return useMemo(() => {
+    return [
+      [
+        {
+          exec() {
+            vars.setPaletteInput("");
+            vars.setCommandPaletteVisible(true);
+          },
+          id: "showCommandPalette",
+          title: "Show command palette",
+        },
+        {
+          exec() {
+            vars.setPaletteInput(">");
+            vars.setCommandPaletteVisible(true);
+          },
+          id: "showCommandPaletteForCommand",
+          title: "Show command palette for Command",
+        },
+      ],
+      [
+        {
+          commandId: "showCommandPalette",
+          key: "Ctrl+P",
+        },
+        {
+          commandId: "showCommandPaletteForCommand",
+          key: "Ctrl+Shift+P",
+        },
+      ],
+    ];
+  }, [vars]);
+}
+
+function useFiles(): DemoFile[] {
+  return useMemo(() => {
+    return [
+      {
+        id: "file1",
+        title: "hello.txt",
+      },
+      {
+        id: "file2",
+        title: "world.js",
+      },
+      {
+        id: "file3",
+        title: "index.html",
+      },
+    ];
+  }, []);
 }
