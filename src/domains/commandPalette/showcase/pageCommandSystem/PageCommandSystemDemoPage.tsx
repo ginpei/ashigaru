@@ -48,14 +48,17 @@ export function PageCommandSystemDemoPage(): JSX.Element {
   });
   const demoFiles = useFiles();
 
+  // combine available commands
   const commands = useMemo(() => {
     return [...predefinedCommands, ...pageCommands];
   }, [pageCommands, predefinedCommands]);
 
+  // combine available shortcuts
   const shortcuts = useMemo(() => {
     return [...predefinedShortcuts, ...pageShortcuts];
   }, [pageShortcuts, predefinedShortcuts]);
 
+  // command palette input management
   const [inputType, actualInput, options] = useMemo<
     ["command", string, CommandDefinition[]] | ["file", string, DemoFile[]]
   >(() => {
@@ -66,6 +69,7 @@ export function PageCommandSystemDemoPage(): JSX.Element {
     return ["file", paletteInput, demoFiles];
   }, [commands, demoFiles, paletteInput]);
 
+  // filter command palette options
   const filteredOptions = useMemo(() => {
     const result: Highlighted<CommandPaletteOption>[] = [];
     for (const option of options) {
@@ -80,10 +84,14 @@ export function PageCommandSystemDemoPage(): JSX.Element {
     return result;
   }, [actualInput, options]);
 
+  // start observing keyboard shortcut inputs
   useKeyboardShortcuts(shortcuts, focusId, (commandId) => {
     const command = pickCommandDefinition(commands, commandId);
     command.exec(0, () => {});
   });
+
+  // ---------------------------------------------------------------------------
+  // callbacks
 
   const onCommandInputSubmit: FormEventHandler = (event) => {
     event.preventDefault();
@@ -113,6 +121,9 @@ export function PageCommandSystemDemoPage(): JSX.Element {
       }
     });
   };
+
+  // ---------------------------------------------------------------------------
+  // rendering
 
   return (
     <StraightLayout title="Command demos">
