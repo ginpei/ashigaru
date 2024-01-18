@@ -1,5 +1,17 @@
 import { useEffect, useState } from "react";
 
+/**
+ * Returns current focus target ID.
+ *
+ * If the input below is focused, this hook returns `"target1"`.
+ * The element with `data-focus-target` does not have to be focusable.
+ *
+ * ```html
+ * <div data-focus-target="target1">
+ *   <input id="foo" type="text" />
+ * </div>
+ * ```
+ */
 export function useFocusTarget(d?: Document): string {
   const el = useFocusElement(d);
   const attrName = "data-focus-target";
