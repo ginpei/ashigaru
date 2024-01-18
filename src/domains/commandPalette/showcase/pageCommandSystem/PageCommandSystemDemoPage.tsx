@@ -33,7 +33,7 @@ import {
 } from "../../commandFilter";
 import { tick } from "../../../time/timeManipulator";
 
-interface DemoFile extends CommandPaletteOption {}
+interface DemoFile extends CommandPaletteOption { }
 
 export function PageCommandSystemDemoPage(): JSX.Element {
   const [commandInput, setCommandInput] = useState("");
@@ -87,7 +87,7 @@ export function PageCommandSystemDemoPage(): JSX.Element {
   // start observing keyboard shortcut inputs
   useKeyboardShortcuts(shortcuts, focusId, (commandId) => {
     const command = pickCommandDefinition(commands, commandId);
-    command.exec(0, () => {});
+    command.exec(0, () => { });
   });
 
   // ---------------------------------------------------------------------------
@@ -97,7 +97,7 @@ export function PageCommandSystemDemoPage(): JSX.Element {
     event.preventDefault();
     const command = findCommandDefinition(commands, commandInput);
     if (command) {
-      command.exec(0, () => {});
+      command.exec(0, () => { });
     } else {
       window.alert(`Command not found: ${commandInput}`);
     }
@@ -115,7 +115,7 @@ export function PageCommandSystemDemoPage(): JSX.Element {
 
     tick().then(() => {
       if ("exec" in selected) {
-        selected.exec(0, () => {});
+        selected.exec(0, () => { });
       } else {
         window.alert(`File selected: ${selected.title}`);
       }
