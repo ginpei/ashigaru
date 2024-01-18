@@ -136,24 +136,17 @@ export function PageCommandSystemDemoPage(): JSX.Element {
           <li>Execute by keyboard shortcuts</li>
         </ul>
         <p>Here is how to prepare them:</p>
-        <ul className="ui-ul">
-          <li>
-            <NiceCode>CommandDefinition[]</NiceCode> - Command definitions
+        <ol className="ui-ol">
+          <li>Prepare commands (<NiceCode>CommandDefinition[]</NiceCode>) and shortcuts (<NiceCode>KeyboardShortcut[]</NiceCode>)</li>
+          <li>Switch command palette options by input prefix like <NiceCode>{">"}</NiceCode></li>
+          <li>Filter command palette options by input</li>
+          <li>Run <NiceCode>useKeyboardShortcuts()</NiceCode>
+            <ol className="ui-ol">
+              <li>Find a command by <NiceCode>pickCommandDefinition()</NiceCode> and run <NiceCode>command.exec()</NiceCode></li>
+            </ol>
           </li>
-          <li>
-            <NiceCode>KeyboardShortcut[]</NiceCode>- Shortcut definitions
-          </li>
-          <li>
-            <NiceCode>useKeyboardShortcuts()</NiceCode> - Start observing
-            keyboard inputs for the shortcuts
-          </li>
-          <li>
-            <NiceCode>{`<CommandPaletteFrame>`}</NiceCode> - Command palette UI
-          </li>
-          <li>
-            <NiceCode>command.exec()</NiceCode> - Execute a command
-          </li>
-        </ul>
+          <li>Place <NiceCode>{"<CommandPaletteFrame>"}</NiceCode></li>
+        </ol>
         <NiceH2>Example</NiceH2>
         <p>
           <NiceButton onClick={() => setCommandPaletteVisible(true)}>
