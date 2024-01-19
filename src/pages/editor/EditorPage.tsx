@@ -3,23 +3,20 @@ import { CSSProperties, useMemo, useState } from "react";
 import { pickCommandDefinition } from "../../domains/command/CommandDefinition";
 import { Note } from "../../domains/note/Note";
 import { giveFocusOn } from "../../domains/shortcut/domFocusManipulators";
-import {
-  useFocusMarkEffect,
-  useFocusTarget,
-} from "../../domains/shortcut/focusHooks";
+import { useFocusMarkEffect } from "../../domains/shortcut/focusHooks";
 import { useKeyboardShortcuts } from "../../domains/shortcut/keyboardShortcutHooks";
 import { tick } from "../../domains/time/timeManipulator";
-import {
-  editorCommands,
-  EditorPageCommand,
-  editorShortcuts,
-} from "./actions/editorActions";
 import { EditorCommandPalette } from "./actions/EditorCommandPalette";
-import { EditorPageStateProvider } from "./actions/editorPageContext";
 import {
   createEditorPageState,
   openNoteState,
 } from "./actions/EditorPageState";
+import {
+  EditorPageCommand,
+  editorCommands,
+  editorShortcuts,
+} from "./actions/editorActions";
+import { EditorPageStateProvider } from "./actions/editorPageContext";
 import { EditorPane } from "./editor/EditorPane";
 import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
@@ -41,7 +38,6 @@ const rootStyle: CSSProperties = {
 };
 
 export function EditorPage(): JSX.Element {
-  const focusId = useFocusTarget();
   useFocusMarkEffect();
 
   const [state, setState] = useState(
@@ -73,7 +69,7 @@ export function EditorPage(): JSX.Element {
     ];
   }, [state.commands]);
 
-  useKeyboardShortcuts(editorShortcuts, focusId, (commandId) => {
+  useKeyboardShortcuts(editorShortcuts, (commandId) => {
     const def = pickCommandDefinition(commands, commandId);
     def.exec(state, setState);
   });

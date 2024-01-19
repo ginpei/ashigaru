@@ -18,8 +18,8 @@ import { NiceH1, NiceH2 } from "../../../nice/NiceH";
 import { NiceInput } from "../../../nice/NiceInput";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { KeyboardShortcut } from "../../../shortcut/KeyboardShortcut";
-import { useFocusTarget } from "../../../shortcut/focusHooks";
 import { useKeyboardShortcuts } from "../../../shortcut/keyboardShortcutHooks";
+import { tick } from "../../../time/timeManipulator";
 import { CommandListEmptyItem } from "../../CommandListEmptyItem";
 import {
   CommandPaletteFrame,
@@ -31,7 +31,6 @@ import {
   Highlighted,
   highlightFilteredCommandTitle,
 } from "../../commandFilter";
-import { tick } from "../../../time/timeManipulator";
 
 interface DemoFile extends CommandPaletteOption { }
 
@@ -39,7 +38,6 @@ export function PageCommandSystemDemoPage(): JSX.Element {
   const [commandInput, setCommandInput] = useState("");
   const [paletteInput, setPaletteInput] = useState("");
   const [commandPaletteVisible, setCommandPaletteVisible] = useState(false);
-  const focusId = useFocusTarget();
 
   const [predefinedCommands, predefinedShortcuts] = usePredefinedActions();
   const [pageCommands, pageShortcuts] = usePageActions({
@@ -85,7 +83,7 @@ export function PageCommandSystemDemoPage(): JSX.Element {
   }, [actualInput, options]);
 
   // start observing keyboard shortcut inputs
-  useKeyboardShortcuts(shortcuts, focusId, (commandId) => {
+  useKeyboardShortcuts(shortcuts, (commandId) => {
     const command = pickCommandDefinition(commands, commandId);
     command.exec(0, () => { });
   });

@@ -1,15 +1,12 @@
-import { useState } from "react";
-import { VStack } from "../../layout/VStack";
-import { NiceInput } from "../../nice/NiceInput";
-import { KeyboardShortcut } from "../KeyboardShortcut";
-import { useFocusTarget } from "../focusHooks";
-import { useKeyboardShortcuts } from "../keyboardShortcutHooks";
 import {
   CommandDefinition,
   pickCommandDefinition,
 } from "../../command/CommandDefinition";
+import { VStack } from "../../layout/VStack";
 import { NiceButton } from "../../nice/NiceButton";
 import { NiceCode } from "../../nice/NiceCode";
+import { KeyboardShortcut } from "../KeyboardShortcut";
+import { useKeyboardShortcuts } from "../keyboardShortcutHooks";
 
 const shortcuts: KeyboardShortcut[] = [
   {
@@ -26,9 +23,7 @@ const commands: CommandDefinition[] = [
   },
 ];
 export function CommandByKeyboardExample(): JSX.Element {
-  const focusId = useFocusTarget();
-
-  useKeyboardShortcuts(shortcuts, focusId, (commandId) => {
+  useKeyboardShortcuts(shortcuts, (commandId) => {
     const command = pickCommandDefinition(commands, commandId);
     command.exec(0, () => {});
   });

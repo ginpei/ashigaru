@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { VStack } from "../../layout/VStack";
+import { NiceCode } from "../../nice/NiceCode";
 import { NiceInput } from "../../nice/NiceInput";
 import { KeyboardShortcut } from "../KeyboardShortcut";
-import { useFocusTarget } from "../focusHooks";
 import { useKeyboardShortcuts } from "../keyboardShortcutHooks";
-import { NiceCode } from "../../nice/NiceCode";
 
 const defs: KeyboardShortcut[] = [
   {
@@ -33,11 +32,10 @@ const defs: KeyboardShortcut[] = [
 ];
 
 export function KeyboardShortcutHooksExample(): JSX.Element {
-  const focusId = useFocusTarget();
   const [input, setInput] = useState("");
   const [message, setMessage] = useState("");
 
-  useKeyboardShortcuts(defs, focusId, (commandId) => {
+  useKeyboardShortcuts(defs, (commandId) => {
     console.log(commandId);
 
     // example to run CommandDefinition:
@@ -67,8 +65,7 @@ export function KeyboardShortcutHooksExample(): JSX.Element {
         <pre className="ui-pre">
           const def = {JSON.stringify(defs, null, 2)};
           {`
-const focusId = useFocusTarget();
-useKeyboardShortcuts(defs, focusId, (commandId) => {
+useKeyboardShortcuts(defs, (commandId) => {
   console.log(commandId);
 });`}
         </pre>

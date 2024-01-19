@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { keyboardEventToInputCommand } from "./keyboardEventManipulators";
 import { KeyboardShortcut } from "./KeyboardShortcut";
+import { useFocusTarget } from "./focusHooks";
 
 export function useKeyboardShortcuts(
   defs: KeyboardShortcut[],
-  focusId: string,
   onCommand: (commandId: string) => void,
 ): void {
+  const focusId = useFocusTarget();
+
   useKeyDown((event) => {
     const input = keyboardEventToInputCommand(event);
 
