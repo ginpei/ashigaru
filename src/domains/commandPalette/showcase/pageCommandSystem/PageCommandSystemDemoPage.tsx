@@ -89,9 +89,9 @@ export function PageCommandSystemDemoPage(): JSX.Element {
   }, [actualInput, options]);
 
   // start observing keyboard shortcut inputs
-  useKeyboardShortcuts(shortcuts, (commandId) => {
+  useKeyboardShortcuts(shortcuts, (commandId, args) => {
     const command = pickCommandDefinition(commands, commandId);
-    command.exec();
+    command.exec(...args);
   });
 
   // ---------------------------------------------------------------------------
@@ -230,6 +230,7 @@ export function PageCommandSystemDemoPage(): JSX.Element {
               <thead>
                 <tr>
                   <th>Command</th>
+                  <th>Args</th>
                   <th>Keybinding</th>
                   <th>When?</th>
                 </tr>
@@ -239,6 +240,13 @@ export function PageCommandSystemDemoPage(): JSX.Element {
                   <tr key={shortcut.key}>
                     <td>
                       <NiceCode>{shortcut.commandId}</NiceCode>
+                    </td>
+                    <td>
+                      {shortcut.args ? (
+                        <NiceCode>{JSON.stringify(shortcut.args)}</NiceCode>
+                      ) : (
+                        "-"
+                      )}
                     </td>
                     <td>
                       <NiceCode>{shortcut.key}</NiceCode>
@@ -391,11 +399,28 @@ function usePredefinedActions(): [CommandDefinition[], KeyboardShortcut[]] {
           id: "command3",
           title: "Three",
         },
+        {
+          exec(message = "(No message)") {
+            window.alert(message);
+          },
+          id: "say",
+          title: "Say",
+        },
       ],
       [
         {
           commandId: "command1",
           key: "Ctrl+Alt+1",
+        },
+        {
+          args: ["Hello World!"],
+          commandId: "say",
+          key: "Ctrl+S",
+        },
+        {
+          args: ["Yo!"],
+          commandId: "say",
+          key: "Ctrl+Shift+S",
         },
       ],
     ];

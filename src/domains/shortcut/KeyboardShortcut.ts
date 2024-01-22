@@ -2,6 +2,7 @@
  * Defines a shortcut bound to a keyboard input and a command.
  */
 export interface KeyboardShortcut {
+  args?: any[];
   commandId: string;
   /**
    * You can use modifiers like Ctrl, Shift, Alt in this order.
@@ -26,6 +27,7 @@ export function createKeyboardShortcut(
   initial?: Partial<KeyboardShortcut>,
 ): KeyboardShortcut {
   return {
+    args: initial?.args ?? [],
     commandId: initial?.commandId ?? "",
     key: initial?.key ?? "",
     when: initial?.when ?? "",

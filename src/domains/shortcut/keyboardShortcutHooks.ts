@@ -5,7 +5,7 @@ import { useFocusTarget } from "./focusHooks";
 
 export function useKeyboardShortcuts(
   defs: KeyboardShortcut[],
-  onCommand: (commandId: string) => void,
+  onCommand: (commandId: string, args: any[]) => void,
 ): void {
   const focusId = useFocusTarget();
 
@@ -20,7 +20,7 @@ export function useKeyboardShortcuts(
     }
 
     event.preventDefault();
-    onCommand(def.commandId);
+    onCommand(def.commandId, def.args ?? []);
   });
 }
 
