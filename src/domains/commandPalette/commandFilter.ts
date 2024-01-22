@@ -14,7 +14,8 @@ export type Highlighted<T> = T & {
 };
 
 // TODO replace with Highlighted
-export interface HighlightedCommand<State> extends CommandDefinition<State> {
+export interface HighlightedCommand<Args extends any[] = any[]>
+  extends CommandDefinition<Args> {
   highlightedCharacters: HighlightedCharacter[];
 }
 
@@ -48,11 +49,11 @@ export function highlightFilteredCommandTitle(
 
 // TODO find better name
 // TODO accept anything other than commands
-export function highlightCommands<State>(
-  commands: CommandDefinition<State>[],
+export function highlightCommands<Args extends any[] = any[]>(
+  commands: CommandDefinition<Args>[],
   filter: CommandFilter,
 ) {
-  const filtered: HighlightedCommand<State>[] = [];
+  const filtered: HighlightedCommand<Args>[] = [];
   for (const command of commands) {
     const highlightedCharacters = highlightFilteredCommandTitle(
       command.title,

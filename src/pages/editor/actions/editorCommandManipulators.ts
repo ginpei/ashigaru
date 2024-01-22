@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import {
   Highlighted,
   HighlightedCommand,
@@ -6,7 +7,11 @@ import {
 import { Note } from "../../../domains/note/Note";
 import { EditorPageState } from "./EditorPageState";
 
-export type Option = Highlighted<Note> | HighlightedCommand<EditorPageState>;
+export type Option =
+  | Highlighted<Note>
+  | HighlightedCommand<
+      [EditorPageState, Dispatch<SetStateAction<EditorPageState>>]
+    >;
 
 export function getNoteOptions(
   notes: Note[],

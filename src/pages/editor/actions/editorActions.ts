@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { Action, buildActions } from "../../../domains/command/Action";
 import { CommandDefinition } from "../../../domains/command/CommandDefinition";
 import { noteListActions } from "../../../domains/note/noteListActions";
@@ -5,11 +6,15 @@ import { giveFocusOn } from "../../../domains/shortcut/domFocusManipulators";
 import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
 import { closeNoteState, EditorPageState } from "./EditorPageState";
 
-export type EditorPageCommand = CommandDefinition<EditorPageState>;
+export type EditorPageCommand = CommandDefinition<
+  [EditorPageState, Dispatch<SetStateAction<EditorPageState>>]
+>;
 
 const [noteListCommands, noteListShortcuts] = buildActions(noteListActions);
 
-const editorPageActions: Action<EditorPageState>[] = [
+const editorPageActions: Action<
+  [EditorPageState, Dispatch<SetStateAction<EditorPageState>>]
+>[] = [
   {
     exec() {
       giveFocusOn("noteListFocus");

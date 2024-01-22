@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { EditorCommandPalette } from "../../../pages/editor/actions/EditorCommandPalette";
 import { EditorPageStateProvider } from "../../../pages/editor/actions/editorPageContext";
 import {
@@ -25,7 +25,12 @@ export function CommandPaletteExample() {
   );
 
   const onCommandSelect = (
-    command: Note | HighlightedCommand<EditorPageState> | null,
+    command:
+      | Note
+      | HighlightedCommand<
+          [EditorPageState, Dispatch<SetStateAction<EditorPageState>>]
+        >
+      | null,
   ) => {
     console.log("# command", command);
     setState((v) => ({ ...v, commandPaletteVisible: "" }));

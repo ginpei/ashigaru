@@ -25,12 +25,12 @@ const commands: CommandDefinition[] = [
 export function CommandByKeyboardExample(): JSX.Element {
   useKeyboardShortcuts(shortcuts, (commandId) => {
     const command = pickCommandDefinition(commands, commandId);
-    command.exec(0, () => {});
+    command.exec();
   });
 
   const onSaveClick = () => {
     const command = pickCommandDefinition(commands, "save");
-    command.exec(0, () => {});
+    command.exec();
   };
 
   return (

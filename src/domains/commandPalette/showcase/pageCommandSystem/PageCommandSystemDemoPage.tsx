@@ -91,7 +91,7 @@ export function PageCommandSystemDemoPage(): JSX.Element {
   // start observing keyboard shortcut inputs
   useKeyboardShortcuts(shortcuts, (commandId) => {
     const command = pickCommandDefinition(commands, commandId);
-    command.exec(0, () => {});
+    command.exec();
   });
 
   // ---------------------------------------------------------------------------
@@ -101,7 +101,7 @@ export function PageCommandSystemDemoPage(): JSX.Element {
     event.preventDefault();
     const command = findCommandDefinition(commands, commandInput);
     if (command) {
-      command.exec(0, () => {});
+      command.exec();
     } else {
       window.alert(`Command not found: ${commandInput}`);
     }
@@ -133,7 +133,7 @@ export function PageCommandSystemDemoPage(): JSX.Element {
 
     tick().then(() => {
       if ("exec" in selected) {
-        selected.exec(0, () => {});
+        selected.exec();
       } else {
         window.alert(`File selected: ${selected.title}`);
       }

@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-
 /**
  * An executable command.
  * @example
@@ -22,8 +20,8 @@ import { Dispatch, SetStateAction } from "react";
  *  </button>
  * )}
  */
-export interface CommandDefinition<State = any> {
-  exec: (state: State, setState: Dispatch<SetStateAction<State>>) => void;
+export interface CommandDefinition<Args extends any[] = any[]> {
+  exec: (...args: Args) => void;
 
   id: string;
 
@@ -33,9 +31,9 @@ export interface CommandDefinition<State = any> {
   title: string;
 }
 
-export function createCommandDefinition<State>(
-  initial?: Partial<CommandDefinition<State>>,
-): CommandDefinition<State> {
+export function createCommandDefinition<Args extends any[] = any[]>(
+  initial?: Partial<CommandDefinition<Args>>,
+): CommandDefinition<Args> {
   return {
     exec: initial?.exec ?? (() => {}),
     id: initial?.id ?? "",
@@ -46,10 +44,10 @@ export function createCommandDefinition<State>(
 /**
  * @see pickCommandDefinition
  */
-export function findCommandDefinition<State>(
-  commands: CommandDefinition<State>[],
+export function findCommandDefinition<Args extends any[] = any[]>(
+  commands: CommandDefinition<Args>[],
   commandId: string,
-): CommandDefinition<State> | null {
+): CommandDefinition<Args> | null {
   const def = commands.find((v) => v.id === commandId);
   return def ?? null;
 }
@@ -59,10 +57,10 @@ export function findCommandDefinition<State>(
  * Throws an error if not found.
  * @see findCommandDefinition
  */
-export function pickCommandDefinition<State>(
-  commands: CommandDefinition<State>[],
+export function pickCommandDefinition<T extends any[] = any[]>(
+  commands: CommandDefinition<T>[],
   commandId: string,
-): CommandDefinition<State> {
+): CommandDefinition<T> {
   const def = findCommandDefinition(commands, commandId);
   if (!def) {
     throw new Error(`Command ID ${commandId} is not defined`);

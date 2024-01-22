@@ -1,8 +1,11 @@
+import { Dispatch, SetStateAction } from "react";
 import { Action } from "../command/Action";
 import { findFocusAfterDeletion } from "./noteListHandlers";
 import { NoteListState } from "./NoteListState";
 
-export const noteListActions: Action<NoteListState>[] = [
+export const noteListActions: Action<
+  [NoteListState, Dispatch<SetStateAction<NoteListState>>]
+>[] = [
   {
     exec(state, setState) {
       setState({

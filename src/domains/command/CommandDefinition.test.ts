@@ -21,14 +21,14 @@ describe("createCommandDefinition()", () => {
       id: "id",
       title: "title",
     });
-    expect(result.exec(null, noop)).toBe("exec");
+    expect(result.exec()).toBe("exec");
     expect(result).toHaveProperty("id", "id");
     expect(result).toHaveProperty("title", "title");
   });
 
   it("creates an object with partial initial values", () => {
     const result = createCommandDefinition({ title: "title" });
-    expect(result.exec(null, noop)).toBe(undefined);
+    expect(result.exec()).toBe(undefined);
     expect(result).toHaveProperty("id", "");
     expect(result).toHaveProperty("title", "title");
   });

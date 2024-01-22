@@ -4,15 +4,16 @@ import {
   KeyboardShortcut,
 } from "../shortcut/KeyboardShortcut";
 
-export interface Action<State = any> extends CommandDefinition<State> {
+export interface Action<Args extends any[] = any[]>
+  extends CommandDefinition<Args> {
   shortcuts: ActionKeyboardShortcut[];
 }
 
 type ActionKeyboardShortcut = Pick<KeyboardShortcut, "key" | "when">;
 
-export function buildAction<State = any>(
-  action: Action<State>,
-): [CommandDefinition<State>, KeyboardShortcut[]] {
+export function buildAction<Args extends any[] = any[]>(
+  action: Action<Args>,
+): [CommandDefinition<Args>, KeyboardShortcut[]] {
   const { shortcuts: actionShortcuts, ...command } = action;
   const shortcuts = actionShortcuts.map((v) =>
     createKeyboardShortcut({
@@ -24,10 +25,10 @@ export function buildAction<State = any>(
   return [command, shortcuts];
 }
 
-export function buildActions<State = any>(
-  actions: Action<State>[],
-): [CommandDefinition<State>[], KeyboardShortcut[]] {
-  const commands: CommandDefinition<State>[] = [];
+export function buildActions<Args extends any[] = any[]>(
+  actions: Action<Args>[],
+): [CommandDefinition<Args>[], KeyboardShortcut[]] {
+  const commands: CommandDefinition<Args>[] = [];
   const shortcuts: KeyboardShortcut[] = [];
 
   for (const action of actions) {

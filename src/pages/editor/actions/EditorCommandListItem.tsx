@@ -1,10 +1,11 @@
+import { Dispatch, SetStateAction } from "react";
 import { HighlightedCommand } from "../../../domains/commandPalette/commandFilter";
 import { CommandListEmptyItem } from "../../../domains/commandPalette/CommandListEmptyItem";
 import { HighlightedTitle } from "../../../domains/commandPalette/HighlightedTitle";
 import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
 
 export interface EditorCommandListItemProps<State> {
-  command: HighlightedCommand<State>;
+  command: HighlightedCommand<[State, Dispatch<SetStateAction<State>>]>;
   shortcut: KeyboardShortcut | undefined;
 }
 
