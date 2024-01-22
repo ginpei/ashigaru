@@ -13,10 +13,14 @@ import {
 import { VStack } from "../../../layout/VStack";
 import { NiceButton } from "../../../nice/NiceButton";
 import { NiceCode } from "../../../nice/NiceCode";
-import { NiceH1, NiceH2 } from "../../../nice/NiceH";
+import { NiceH1, NiceH2, NiceH3 } from "../../../nice/NiceH";
 import { NiceInput } from "../../../nice/NiceInput";
+import { TextField } from "../../../nice/TextField";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
-import { KeyboardShortcut } from "../../../shortcut/KeyboardShortcut";
+import {
+  KeyboardShortcut,
+  createKeyboardShortcut,
+} from "../../../shortcut/KeyboardShortcut";
 import { useKeyboardShortcuts } from "../../../shortcut/keyboardShortcutHooks";
 import { tick } from "../../../time/timeManipulator";
 import { CommandListEmptyItem } from "../../CommandListEmptyItem";
@@ -38,6 +42,9 @@ export function PageCommandSystemDemoPage(): JSX.Element {
   const [paletteInput, setPaletteInput] = useState("");
   const [commandPaletteVisible, setCommandPaletteVisible] = useState(false);
 
+  const [userShortcut, setUserShortcut] = useState(createKeyboardShortcut());
+  const [userShortcuts, setUserShortcuts] = useState<KeyboardShortcut[]>([]);
+
   const [predefinedCommands, predefinedShortcuts] = usePredefinedActions();
   const [pageCommands, pageShortcuts] = usePageActions({
     setCommandPaletteVisible,
@@ -52,8 +59,8 @@ export function PageCommandSystemDemoPage(): JSX.Element {
 
   // combine available shortcuts
   const shortcuts = useMemo(() => {
-    return [...predefinedShortcuts, ...pageShortcuts];
-  }, [pageShortcuts, predefinedShortcuts]);
+    return [...predefinedShortcuts, ...pageShortcuts, ...userShortcuts];
+  }, [pageShortcuts, predefinedShortcuts, userShortcuts]);
 
   // command palette input management
   const [inputType, actualInput, options] = useMemo<
@@ -98,6 +105,20 @@ export function PageCommandSystemDemoPage(): JSX.Element {
     } else {
       window.alert(`Command not found: ${commandInput}`);
     }
+  };
+
+  const onUserShortcutSubmit: FormEventHandler = (event) => {
+    event.preventDefault();
+
+    const index = userShortcuts.findIndex((v) => userShortcut.key === v.key);
+    if (index < 0) {
+      setUserShortcuts([...userShortcuts, userShortcut]);
+    } else {
+      const copy = [...userShortcuts];
+      copy.splice(index, 1, userShortcut);
+      setUserShortcuts(copy);
+    }
+    setUserShortcut(createKeyboardShortcut());
   };
 
   const onPaletteSelect: CommandPaletteSelectHandler<
@@ -228,6 +249,70 @@ export function PageCommandSystemDemoPage(): JSX.Element {
                     </td>
                   </tr>
                 ))}
+              </tbody>
+            </table>
+            <NiceH3>User shortcuts</NiceH3>
+            <form className="UserShortcutForm" onSubmit={onUserShortcutSubmit}>
+              <div className="flex gap-4 items-end">
+                <TextField
+                  label="Command ID"
+                  list="userShortcutDataList"
+                  onChange={(v) =>
+                    setUserShortcut({
+                      ...userShortcut,
+                      commandId: v.target.value,
+                    })
+                  }
+                  pattern={commands.map((v) => v.id).join("|")}
+                  value={userShortcut.commandId}
+                />
+                <TextField
+                  label="Keybinding"
+                  placeholder="Ctrl+Alt+Shift+A"
+                  onChange={(v) =>
+                    setUserShortcut({ ...userShortcut, key: v.target.value })
+                  }
+                  pattern="(Ctrl\+)?(Alt\+)?(Shift\+)?\w*"
+                  value={userShortcut.key}
+                />
+                <NiceButton>Add</NiceButton>
+                <datalist id="userShortcutDataList">
+                  {commands.map((command) => (
+                    <option key={command.id} value={command.id} />
+                  ))}
+                </datalist>
+              </div>
+            </form>
+            <table className="ui-table">
+              <thead>
+                <tr>
+                  <th>Command</th>
+                  <th>Keybinding</th>
+                  <th>When?</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userShortcuts.map((shortcut) => (
+                  <tr key={`${shortcut.key}-${shortcut.when ?? ""}`}>
+                    <td>
+                      <NiceCode>{shortcut.commandId}</NiceCode>
+                    </td>
+                    <td>
+                      <NiceCode>{shortcut.key}</NiceCode>
+                    </td>
+                    <td>
+                      {(shortcut.when && <NiceCode>shortcut.when</NiceCode>) ||
+                        "-"}
+                    </td>
+                  </tr>
+                ))}
+                {userShortcuts.length === 0 && (
+                  <tr>
+                    <td colSpan={3}>
+                      <small>No shortcuts</small>
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </VStack>
