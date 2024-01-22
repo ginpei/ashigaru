@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import {
   Dispatch,
   FormEventHandler,
@@ -32,7 +31,7 @@ import {
   highlightFilteredCommandTitle,
 } from "../../commandFilter";
 
-interface DemoFile extends CommandPaletteOption { }
+interface DemoFile extends CommandPaletteOption {}
 
 export function PageCommandSystemDemoPage(): JSX.Element {
   const [commandInput, setCommandInput] = useState("");
@@ -85,7 +84,7 @@ export function PageCommandSystemDemoPage(): JSX.Element {
   // start observing keyboard shortcut inputs
   useKeyboardShortcuts(shortcuts, (commandId) => {
     const command = pickCommandDefinition(commands, commandId);
-    command.exec(0, () => { });
+    command.exec(0, () => {});
   });
 
   // ---------------------------------------------------------------------------
@@ -95,7 +94,7 @@ export function PageCommandSystemDemoPage(): JSX.Element {
     event.preventDefault();
     const command = findCommandDefinition(commands, commandInput);
     if (command) {
-      command.exec(0, () => { });
+      command.exec(0, () => {});
     } else {
       window.alert(`Command not found: ${commandInput}`);
     }
@@ -113,7 +112,7 @@ export function PageCommandSystemDemoPage(): JSX.Element {
 
     tick().then(() => {
       if ("exec" in selected) {
-        selected.exec(0, () => { });
+        selected.exec(0, () => {});
       } else {
         window.alert(`File selected: ${selected.title}`);
       }
@@ -135,15 +134,27 @@ export function PageCommandSystemDemoPage(): JSX.Element {
         </ul>
         <p>Here is how to prepare them:</p>
         <ol className="ui-ol">
-          <li>Prepare commands (<NiceCode>CommandDefinition[]</NiceCode>) and shortcuts (<NiceCode>KeyboardShortcut[]</NiceCode>)</li>
-          <li>Switch command palette options by input prefix like <NiceCode>{">"}</NiceCode></li>
+          <li>
+            Prepare commands (<NiceCode>CommandDefinition[]</NiceCode>) and
+            shortcuts (<NiceCode>KeyboardShortcut[]</NiceCode>)
+          </li>
+          <li>
+            Switch command palette options by input prefix like{" "}
+            <NiceCode>{">"}</NiceCode>
+          </li>
           <li>Filter command palette options by input</li>
-          <li>Run <NiceCode>useKeyboardShortcuts()</NiceCode>
+          <li>
+            Run <NiceCode>useKeyboardShortcuts()</NiceCode>
             <ol className="ui-ol">
-              <li>Find a command by <NiceCode>pickCommandDefinition()</NiceCode> and run <NiceCode>command.exec()</NiceCode></li>
+              <li>
+                Find a command by <NiceCode>pickCommandDefinition()</NiceCode>{" "}
+                and run <NiceCode>command.exec()</NiceCode>
+              </li>
             </ol>
           </li>
-          <li>Place <NiceCode>{"<CommandPaletteFrame>"}</NiceCode></li>
+          <li>
+            Place <NiceCode>{"<CommandPaletteFrame>"}</NiceCode>
+          </li>
         </ol>
         <NiceH2>Example</NiceH2>
         <p>
