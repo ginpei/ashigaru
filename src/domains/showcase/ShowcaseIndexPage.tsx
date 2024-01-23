@@ -3,7 +3,9 @@ import { NiceUL } from "../nice/NiceUL";
 import { showcaseList } from "./showcaseList";
 
 export function ShowcaseIndexPage(): JSX.Element {
-  const showcasePaths = Object.keys(showcaseList);
+  const showcasePaths = Object.keys(showcaseList).sort((a, b) =>
+    a.localeCompare(b),
+  );
 
   return (
     <StraightLayout className="ShowcaseIndexPage" title="Components">
