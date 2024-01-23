@@ -3,7 +3,7 @@ import { NiceH1 } from "../../../nice/NiceH";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { CommandExample } from "./CommandExample";
 
-export function CommandIndex(): JSX.Element {
+export function ActionCommandDemoPage(): JSX.Element {
   return (
     <StraightLayout title="Command demos">
       <VStack>
@@ -14,4 +14,4 @@ export function CommandIndex(): JSX.Element {
   );
 }
 
-CommandIndex.path = "action/command" as const;
+ActionCommandDemoPage.path = "action/command" as const;

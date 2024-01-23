@@ -1,17 +1,17 @@
-import { CommandAboutActionDemoPage } from "../action/showcase/aboutAction";
-import { CommandIndex } from "../action/showcase/command";
+import { ActionAboutActionDemoPage } from "../action/showcase/aboutAction";
+import { ActionCommandDemoPage } from "../action/showcase/command";
+import { ActionPageCommandSystemDemoPage } from "../action/showcase/pageCommandSystem/PageCommandSystemDemoPage";
 import { ActionShortcutDemoPage } from "../action/showcase/shortcut";
 import { CommandPaletteShowcase } from "../commandPalette/showcase";
-import { PageCommandSystemDemoPage } from "../commandPalette/showcase/pageCommandSystem/PageCommandSystemDemoPage";
 import { MenuShowcase } from "../menu/showcase";
 import { StylesPage } from "../styles/showcase";
 
 export const showcaseList = {
-  [CommandAboutActionDemoPage.path]: CommandAboutActionDemoPage,
-  [CommandIndex.path]: CommandIndex,
+  [ActionAboutActionDemoPage.path]: ActionAboutActionDemoPage,
+  [ActionCommandDemoPage.path]: ActionCommandDemoPage,
+  [ActionPageCommandSystemDemoPage.path]: ActionPageCommandSystemDemoPage,
+  [ActionShortcutDemoPage.path]: ActionShortcutDemoPage,
   [CommandPaletteShowcase.path]: CommandPaletteShowcase,
   [MenuShowcase.path]: MenuShowcase,
-  [PageCommandSystemDemoPage.path]: PageCommandSystemDemoPage,
-  [ActionShortcutDemoPage.path]: ActionShortcutDemoPage,
   [StylesPage.path]: StylesPage,
 } as const;

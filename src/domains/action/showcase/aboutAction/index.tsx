@@ -2,9 +2,8 @@ import { VStack } from "../../../layout/VStack";
 import { NiceCode } from "../../../nice/NiceCode";
 import { NiceH1 } from "../../../nice/NiceH";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
-import { CommandExample } from "../command/CommandExample";
 
-export function CommandAboutActionDemoPage(): JSX.Element {
+export function ActionAboutActionDemoPage(): JSX.Element {
   return (
     <StraightLayout title="About action">
       <VStack>
@@ -33,4 +32,4 @@ export function CommandAboutActionDemoPage(): JSX.Element {
   );
 }
 
-CommandAboutActionDemoPage.path = "action/aboutAction" as const;
+ActionAboutActionDemoPage.path = "action/aboutAction" as const;

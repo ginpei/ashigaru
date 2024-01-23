@@ -9,12 +9,12 @@ import {
   CommandDefinition,
   findCommandDefinition,
   pickCommandDefinition,
-} from "../../../action/CommandDefinition";
+} from "../../CommandDefinition";
 import {
   KeyboardShortcut,
   createKeyboardShortcut,
-} from "../../../action/KeyboardShortcut";
-import { useKeyboardShortcuts } from "../../../action/keyboardShortcutHooks";
+} from "../../KeyboardShortcut";
+import { useKeyboardShortcuts } from "../../keyboardShortcutHooks";
 import { VStack } from "../../../layout/VStack";
 import { NiceButton } from "../../../nice/NiceButton";
 import { NiceCode } from "../../../nice/NiceCode";
@@ -23,21 +23,21 @@ import { NiceInput } from "../../../nice/NiceInput";
 import { TextField } from "../../../nice/TextField";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { tick } from "../../../time/timeManipulator";
-import { CommandListEmptyItem } from "../../CommandListEmptyItem";
+import { CommandListEmptyItem } from "../../../commandPalette/CommandListEmptyItem";
 import {
   CommandPaletteFrame,
   CommandPaletteOption,
   CommandPaletteSelectHandler,
-} from "../../CommandPaletteFrame";
-import { HighlightedTitle } from "../../HighlightedTitle";
+} from "../../../commandPalette/CommandPaletteFrame";
+import { HighlightedTitle } from "../../../commandPalette/HighlightedTitle";
 import {
   Highlighted,
   highlightFilteredCommandTitle,
-} from "../../commandFilter";
+} from "../../../commandPalette/commandFilter";
 
 interface DemoFile extends CommandPaletteOption {}
 
-export function PageCommandSystemDemoPage(): JSX.Element {
+export function ActionPageCommandSystemDemoPage(): JSX.Element {
   const [commandInput, setCommandInput] = useState("");
   const [paletteInput, setPaletteInput] = useState("");
   const [commandPaletteVisible, setCommandPaletteVisible] = useState(false);
@@ -352,7 +352,7 @@ export function PageCommandSystemDemoPage(): JSX.Element {
   );
 }
 
-PageCommandSystemDemoPage.path = "commandPalette/pageCommandSystem" as const;
+ActionPageCommandSystemDemoPage.path = "action/pageCommandSystem" as const;
 
 function CommandOption({
   shortcut,
