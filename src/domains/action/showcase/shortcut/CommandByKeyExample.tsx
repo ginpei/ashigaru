@@ -1,12 +1,12 @@
 import {
   CommandDefinition,
   pickCommandDefinition,
-} from "../../action/CommandDefinition";
-import { VStack } from "../../layout/VStack";
-import { NiceButton } from "../../nice/NiceButton";
-import { NiceCode } from "../../nice/NiceCode";
-import { KeyboardShortcut } from "../KeyboardShortcut";
-import { useKeyboardShortcuts } from "../keyboardShortcutHooks";
+} from "../../CommandDefinition";
+import { VStack } from "../../../layout/VStack";
+import { NiceButton } from "../../../nice/NiceButton";
+import { NiceCode } from "../../../nice/NiceCode";
+import { KeyboardShortcut } from "../../KeyboardShortcut";
+import { useKeyboardShortcuts } from "../../keyboardShortcutHooks";
 
 const shortcuts: KeyboardShortcut[] = [
   {

@@ -10,6 +10,11 @@ import {
   findCommandDefinition,
   pickCommandDefinition,
 } from "../../../action/CommandDefinition";
+import {
+  KeyboardShortcut,
+  createKeyboardShortcut,
+} from "../../../action/KeyboardShortcut";
+import { useKeyboardShortcuts } from "../../../action/keyboardShortcutHooks";
 import { VStack } from "../../../layout/VStack";
 import { NiceButton } from "../../../nice/NiceButton";
 import { NiceCode } from "../../../nice/NiceCode";
@@ -17,11 +22,6 @@ import { NiceH1, NiceH2, NiceH3 } from "../../../nice/NiceH";
 import { NiceInput } from "../../../nice/NiceInput";
 import { TextField } from "../../../nice/TextField";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
-import {
-  KeyboardShortcut,
-  createKeyboardShortcut,
-} from "../../../shortcut/KeyboardShortcut";
-import { useKeyboardShortcuts } from "../../../shortcut/keyboardShortcutHooks";
 import { tick } from "../../../time/timeManipulator";
 import { CommandListEmptyItem } from "../../CommandListEmptyItem";
 import {

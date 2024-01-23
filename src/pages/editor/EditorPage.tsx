@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { CSSProperties, useMemo, useState } from "react";
 import { pickCommandDefinition } from "../../domains/action/CommandDefinition";
+import { giveFocusOn } from "../../domains/action/domFocusManipulators";
+import { useFocusMarkEffect } from "../../domains/action/focusHooks";
+import { useKeyboardShortcuts } from "../../domains/action/keyboardShortcutHooks";
 import { Note } from "../../domains/note/Note";
-import { giveFocusOn } from "../../domains/shortcut/domFocusManipulators";
-import { useFocusMarkEffect } from "../../domains/shortcut/focusHooks";
-import { useKeyboardShortcuts } from "../../domains/shortcut/keyboardShortcutHooks";
 import { tick } from "../../domains/time/timeManipulator";
 import { EditorCommandPalette } from "./actions/EditorCommandPalette";
 import {

@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
 import { Action, buildActions } from "../../../domains/action/Action";
 import { CommandDefinition } from "../../../domains/action/CommandDefinition";
+import { KeyboardShortcut } from "../../../domains/action/KeyboardShortcut";
+import { giveFocusOn } from "../../../domains/action/domFocusManipulators";
 import { noteListActions } from "../../../domains/note/noteListActions";
-import { giveFocusOn } from "../../../domains/shortcut/domFocusManipulators";
-import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
-import { closeNoteState, EditorPageState } from "./EditorPageState";
+import { EditorPageState, closeNoteState } from "./EditorPageState";
 
 export type EditorPageCommand = CommandDefinition<
   [EditorPageState, Dispatch<SetStateAction<EditorPageState>>]

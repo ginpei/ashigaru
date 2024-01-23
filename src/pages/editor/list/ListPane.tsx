@@ -1,10 +1,9 @@
 import { useCallback, useRef, useState } from "react";
+import { FocusTarget } from "../../../domains/action/FocusTarget";
 import { Note } from "../../../domains/note/Note";
 import { focusNotesState } from "../../../domains/note/NoteListState";
-import { giveFocusOn } from "../../../domains/shortcut/domFocusManipulators";
-import { FocusTarget } from "../../../domains/shortcut/FocusTarget";
-import { useEditorPageStateContext } from "../actions/editorPageContext";
 import { openNoteState } from "../actions/EditorPageState";
+import { useEditorPageStateContext } from "../actions/editorPageContext";
 import { NoteItem } from "./NoteItem";
 import { useListScrollEffect } from "./noteListUiHooks";
 

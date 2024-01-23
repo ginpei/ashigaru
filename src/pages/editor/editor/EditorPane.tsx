@@ -1,8 +1,8 @@
 import { useCallback } from "react";
+import { giveFocusOn } from "../../../domains/action/domFocusManipulators";
 import { pickNotesByIds } from "../../../domains/note/noteListHandlers";
-import { giveFocusOn } from "../../../domains/shortcut/domFocusManipulators";
-import { useEditorPageStateContext } from "../actions/editorPageContext";
 import { closeNoteState, openNoteState } from "../actions/EditorPageState";
+import { useEditorPageStateContext } from "../actions/editorPageContext";
 import { Editor } from "./Editor";
 import { OpenNoteList } from "./OpenNoteList";
 

@@ -1,9 +1,9 @@
+import { KeyboardShortcut } from "../../../domains/action/KeyboardShortcut";
 import { Note } from "../../../domains/note/Note";
 import {
   createNoteListState,
   NoteListState,
 } from "../../../domains/note/NoteListState";
-import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";
 import { EditorPageCommand } from "./editorActions";
 import { EditorCommandPaletteOpenType } from "./EditorCommandPalette";
 

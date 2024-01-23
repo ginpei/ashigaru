@@ -1,8 +1,5 @@
 import { CommandDefinition } from "./CommandDefinition";
-import {
-  createKeyboardShortcut,
-  KeyboardShortcut,
-} from "../shortcut/KeyboardShortcut";
+import { createKeyboardShortcut, KeyboardShortcut } from "./KeyboardShortcut";
 
 export interface Action<Args extends any[] = any[]>
   extends CommandDefinition<Args> {

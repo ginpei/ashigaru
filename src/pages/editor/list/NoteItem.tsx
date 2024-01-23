@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
+import { useFocusTarget } from "../../../domains/action/focusHooks";
 import { Note } from "../../../domains/note/Note";
-import { useFocusTarget } from "../../../domains/shortcut/focusHooks";
 
 export interface NoteItemProps {
   focused: boolean;

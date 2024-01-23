@@ -1,6 +1,6 @@
 import { Combobox, Dialog } from "@headlessui/react";
 import { ChangeEventHandler } from "react";
-import { FocusTarget, FocusTargetId } from "../shortcut/FocusTarget";
+import { FocusTarget, FocusTargetId } from "../action/FocusTarget";
 
 export interface CommandPaletteFrameProps<Value> {
   focusTargetId: FocusTargetId;

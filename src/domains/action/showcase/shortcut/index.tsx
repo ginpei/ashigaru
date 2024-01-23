@@ -1,11 +1,11 @@
-import { VStack } from "../../layout/VStack";
-import { NiceCode } from "../../nice/NiceCode";
-import { NiceH1 } from "../../nice/NiceH";
-import { StraightLayout } from "../../pageLayout/straight/StraightLayout";
+import { VStack } from "../../../layout/VStack";
+import { NiceCode } from "../../../nice/NiceCode";
+import { NiceH1 } from "../../../nice/NiceH";
+import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { CommandByKeyboardExample } from "./CommandByKeyExample";
 import { KeyboardShortcutHooksExample } from "./KeyboardShortcutHooksExample";
 
-export function ShortcutIndex(): JSX.Element {
+export function ActionShortcutDemoPage(): JSX.Element {
   return (
     <StraightLayout title="Shortcut demos">
       <VStack>
@@ -20,4 +20,4 @@ export function ShortcutIndex(): JSX.Element {
   );
 }
 
-ShortcutIndex.path = "shortcut/index" as const;
+ActionShortcutDemoPage.path = "action/shortcut" as const;

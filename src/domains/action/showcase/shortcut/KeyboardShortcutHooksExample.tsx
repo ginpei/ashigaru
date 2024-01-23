@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { VStack } from "../../layout/VStack";
-import { NiceCode } from "../../nice/NiceCode";
-import { NiceInput } from "../../nice/NiceInput";
-import { KeyboardShortcut } from "../KeyboardShortcut";
-import { useKeyboardShortcuts } from "../keyboardShortcutHooks";
+import { VStack } from "../../../layout/VStack";
+import { NiceCode } from "../../../nice/NiceCode";
+import { NiceInput } from "../../../nice/NiceInput";
+import { KeyboardShortcut } from "../../KeyboardShortcut";
+import { useKeyboardShortcuts } from "../../keyboardShortcutHooks";
 
 const defs: KeyboardShortcut[] = [
   {
