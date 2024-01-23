@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { CSSProperties, useMemo, useState } from "react";
-import { pickCommandDefinition } from "../../domains/command/CommandDefinition";
+import { pickCommandDefinition } from "../../domains/action/CommandDefinition";
 import { Note } from "../../domains/note/Note";
 import { giveFocusOn } from "../../domains/shortcut/domFocusManipulators";
 import { useFocusMarkEffect } from "../../domains/shortcut/focusHooks";

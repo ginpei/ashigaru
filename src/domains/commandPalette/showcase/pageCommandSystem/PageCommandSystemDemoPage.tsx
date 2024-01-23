@@ -9,7 +9,7 @@ import {
   CommandDefinition,
   findCommandDefinition,
   pickCommandDefinition,
-} from "../../../command/CommandDefinition";
+} from "../../../action/CommandDefinition";
 import { VStack } from "../../../layout/VStack";
 import { NiceButton } from "../../../nice/NiceButton";
 import { NiceCode } from "../../../nice/NiceCode";

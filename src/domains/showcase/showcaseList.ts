@@ -1,5 +1,5 @@
-import { CommandIndex } from "../command/showcase";
-import { CommandAboutActionDemoPage } from "../command/showcase/aboutAction";
+import { CommandIndex } from "../action/showcase/command";
+import { CommandAboutActionDemoPage } from "../action/showcase/aboutAction";
 import { CommandPaletteShowcase } from "../commandPalette/showcase";
 import { PageCommandSystemDemoPage } from "../commandPalette/showcase/pageCommandSystem/PageCommandSystemDemoPage";
 import { MenuShowcase } from "../menu/showcase";

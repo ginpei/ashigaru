@@ -2,7 +2,7 @@ import { VStack } from "../../../layout/VStack";
 import { NiceCode } from "../../../nice/NiceCode";
 import { NiceH1 } from "../../../nice/NiceH";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
-import { CommandExample } from "../CommandExample";
+import { CommandExample } from "../command/CommandExample";
 
 export function CommandAboutActionDemoPage(): JSX.Element {
   return (
@@ -33,4 +33,4 @@ export function CommandAboutActionDemoPage(): JSX.Element {
   );
 }
 
-CommandAboutActionDemoPage.path = "command/aboutAction" as const;
+CommandAboutActionDemoPage.path = "action/aboutAction" as const;

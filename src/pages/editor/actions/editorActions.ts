@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
-import { Action, buildActions } from "../../../domains/command/Action";
-import { CommandDefinition } from "../../../domains/command/CommandDefinition";
+import { Action, buildActions } from "../../../domains/action/Action";
+import { CommandDefinition } from "../../../domains/action/CommandDefinition";
 import { noteListActions } from "../../../domains/note/noteListActions";
 import { giveFocusOn } from "../../../domains/shortcut/domFocusManipulators";
 import { KeyboardShortcut } from "../../../domains/shortcut/KeyboardShortcut";

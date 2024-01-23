@@ -1,6 +1,6 @@
-import { VStack } from "../../layout/VStack";
-import { NiceCode } from "../../nice/NiceCode";
-import { CommandDefinition } from "../CommandDefinition";
+import { VStack } from "../../../layout/VStack";
+import { NiceCode } from "../../../nice/NiceCode";
+import { CommandDefinition } from "../../CommandDefinition";
 
 const commands: CommandDefinition[] = [
   {

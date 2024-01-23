@@ -5,7 +5,7 @@ import {
   createEditorPageState,
   EditorPageState,
 } from "../../../pages/editor/actions/EditorPageState";
-import { buildActions } from "../../command/Action";
+import { buildActions } from "../../action/Action";
 import { HStack } from "../../layout/HStask";
 import { NiceButton } from "../../nice/NiceButton";
 import { NiceH2 } from "../../nice/NiceH";

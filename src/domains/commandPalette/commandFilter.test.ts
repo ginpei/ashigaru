@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { CommandDefinition } from "../command/CommandDefinition";
+import { CommandDefinition } from "../action/CommandDefinition";
 import {
   CommandFilter,
   highlightCommands,

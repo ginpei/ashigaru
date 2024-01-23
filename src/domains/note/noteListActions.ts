@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { Action } from "../command/Action";
+import { Action } from "../action/Action";
 import { findFocusAfterDeletion } from "./noteListHandlers";
 import { NoteListState } from "./NoteListState";
 

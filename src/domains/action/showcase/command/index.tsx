@@ -1,6 +1,6 @@
-import { VStack } from "../../layout/VStack";
-import { NiceH1 } from "../../nice/NiceH";
-import { StraightLayout } from "../../pageLayout/straight/StraightLayout";
+import { VStack } from "../../../layout/VStack";
+import { NiceH1 } from "../../../nice/NiceH";
+import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { CommandExample } from "./CommandExample";
 
 export function CommandIndex(): JSX.Element {
@@ -14,4 +14,4 @@ export function CommandIndex(): JSX.Element {
   );
 }
 
-CommandIndex.path = "command" as const;
+CommandIndex.path = "action/command" as const;

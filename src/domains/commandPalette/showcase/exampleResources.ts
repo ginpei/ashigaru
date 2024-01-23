@@ -1,4 +1,4 @@
-import { Action } from "../../command/Action";
+import { Action } from "../../action/Action";
 import { Note } from "../../note/Note";
 
 export const demoActions: Action[] = [

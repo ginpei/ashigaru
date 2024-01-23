@@ -1,4 +1,4 @@
-import { CommandDefinition } from "../command/CommandDefinition";
+import { CommandDefinition } from "../action/CommandDefinition";
 
 export interface CommandFilter {
   keyword: string;
