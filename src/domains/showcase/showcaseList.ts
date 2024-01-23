@@ -1,4 +1,5 @@
 import { CommandIndex } from "../command/showcase";
+import { CommandAboutActionDemoPage } from "../command/showcase/aboutAction";
 import { CommandPaletteShowcase } from "../commandPalette/showcase";
 import { PageCommandSystemDemoPage } from "../commandPalette/showcase/pageCommandSystem/PageCommandSystemDemoPage";
 import { MenuShowcase } from "../menu/showcase";
@@ -6,6 +7,7 @@ import { ShortcutIndex } from "../shortcut/showcase";
 import { StylesPage } from "../styles/showcase";
 
 export const showcaseList = {
+  [CommandAboutActionDemoPage.path]: CommandAboutActionDemoPage,
   [CommandIndex.path]: CommandIndex,
   [CommandPaletteShowcase.path]: CommandPaletteShowcase,
   [MenuShowcase.path]: MenuShowcase,
