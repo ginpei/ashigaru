@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { NiceButton } from "../../../nice/NiceButton";
 import { NiceMenu } from "../../NiceMenu";
 
 export interface NiceMenuExampleProps {}
@@ -12,14 +11,16 @@ export function NiceMenuExample(): JSX.Element {
   return (
     <div className="NiceMenuExample">
       <textarea className="resize" disabled></textarea>
-      <NiceButton onClick={() => setOpen((v) => !v)} ref={refButton}>
-        Hi
-      </NiceButton>
-      <NiceMenu
-        elRef={refButton.current}
-        onBlur={() => setOpen(false)}
-        open={open}
-      />
+      <NiceMenu>
+        <NiceMenu.Button>Hi</NiceMenu.Button>
+        <NiceMenu.Items className="absolute shadow-lg border bg-white flex flex-col">
+          <NiceMenu.Item href="#demo-link">Demo link</NiceMenu.Item>
+          <NiceMenu.Item onClick={() => console.log(`# click`)}>
+            Documentation
+          </NiceMenu.Item>
+          <NiceMenu.Item disabled>Invite a friend (coming soon!)</NiceMenu.Item>
+        </NiceMenu.Items>
+      </NiceMenu>
     </div>
   );
 }
