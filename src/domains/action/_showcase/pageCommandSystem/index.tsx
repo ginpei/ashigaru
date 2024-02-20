@@ -54,13 +54,16 @@ export function ActionPageCommandSystemDemoPage(): JSX.Element {
 
   // combine available commands
   const commands = useMemo(() => {
-    return [...predefinedCommands, ...pageCommands];
+    return [...pageCommands, ...predefinedCommands];
   }, [pageCommands, predefinedCommands]);
 
   // combine available shortcuts
   const shortcuts = useMemo(() => {
     return [...userShortcuts, ...pageShortcuts, ...predefinedShortcuts];
   }, [pageShortcuts, predefinedShortcuts, userShortcuts]);
+  const defaultShortcuts = useMemo(() => {
+    return [...pageShortcuts, ...predefinedShortcuts];
+  }, [pageShortcuts, predefinedShortcuts]);
 
   // command palette input management
   const [inputType, actualInput, options] = useMemo<
@@ -236,7 +239,7 @@ export function ActionPageCommandSystemDemoPage(): JSX.Element {
                 </tr>
               </thead>
               <tbody>
-                {shortcuts.map((shortcut) => (
+                {defaultShortcuts.map((shortcut) => (
                   <tr key={shortcut.key}>
                     <td>
                       <NiceCode>{shortcut.commandId}</NiceCode>
