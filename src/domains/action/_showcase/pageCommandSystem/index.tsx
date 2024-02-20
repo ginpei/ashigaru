@@ -5,24 +5,6 @@ import {
   useMemo,
   useState,
 } from "react";
-import {
-  CommandDefinition,
-  findCommandDefinition,
-  pickCommandDefinition,
-} from "../../CommandDefinition";
-import {
-  KeyboardShortcut,
-  createKeyboardShortcut,
-} from "../../KeyboardShortcut";
-import { useKeyboardShortcuts } from "../../keyboardShortcutHooks";
-import { VStack } from "../../../layout/VStack";
-import { NiceButton } from "../../../nice/NiceButton";
-import { NiceCode } from "../../../nice/NiceCode";
-import { NiceH1, NiceH2, NiceH3 } from "../../../nice/NiceH";
-import { NiceInput } from "../../../nice/NiceInput";
-import { TextField } from "../../../nice/TextField";
-import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
-import { tick } from "../../../time/timeManipulator";
 import { CommandListEmptyItem } from "../../../commandPalette/CommandListEmptyItem";
 import {
   CommandPaletteFrame,
@@ -34,6 +16,25 @@ import {
   Highlighted,
   highlightFilteredCommandTitle,
 } from "../../../commandPalette/commandFilter";
+import { VStack } from "../../../layout/VStack";
+import { NiceButton } from "../../../nice/NiceButton";
+import { NiceCode } from "../../../nice/NiceCode";
+import { NiceH1, NiceH2, NiceH3 } from "../../../nice/NiceH";
+import { NiceInput } from "../../../nice/NiceInput";
+import { TextField } from "../../../nice/TextField";
+import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
+import { tick } from "../../../time/timeManipulator";
+import { Action, buildActions } from "../../Action";
+import {
+  CommandDefinition,
+  findCommandDefinition,
+  pickCommandDefinition,
+} from "../../CommandDefinition";
+import {
+  KeyboardShortcut,
+  createKeyboardShortcut,
+} from "../../KeyboardShortcut";
+import { useKeyboardShortcuts } from "../../keyboardShortcutHooks";
 
 interface DemoFile extends CommandPaletteOption {}
 
@@ -379,54 +380,45 @@ function CommandOption({
 
 function usePredefinedActions(): [CommandDefinition[], KeyboardShortcut[]] {
   return useMemo(() => {
-    return [
-      [
-        {
-          exec() {
-            window.alert("One");
-          },
-          id: "command1",
-          title: "One",
+    const actions: Action[] = [
+      {
+        exec() {
+          window.alert("One");
         },
-        {
-          exec() {
-            window.alert("Two");
-          },
-          id: "command2",
-          title: "Two",
+        id: "command1",
+        shortcuts: [{ key: "Ctrl+Alt+1" }],
+        title: "One",
+      },
+      {
+        exec() {
+          window.alert("Two");
         },
-        {
-          exec() {
-            window.alert("Three");
-          },
-          id: "command3",
-          title: "Three",
+        id: "command2",
+        shortcuts: [],
+        title: "Two",
+      },
+      {
+        exec() {
+          window.alert("Three");
         },
-        {
-          exec(message = "(No message)") {
-            window.alert(message);
-          },
-          id: "say",
-          title: "Say",
+        id: "command3",
+        shortcuts: [],
+        title: "Three",
+      },
+      {
+        exec(message = "(No message)") {
+          window.alert(message);
         },
-      ],
-      [
-        {
-          commandId: "command1",
-          key: "Ctrl+Alt+1",
-        },
-        {
-          args: ["Hello World!"],
-          commandId: "say",
-          key: "Ctrl+S",
-        },
-        {
-          args: ["Yo!"],
-          commandId: "say",
-          key: "Ctrl+Shift+S",
-        },
-      ],
+        id: "say",
+        shortcuts: [
+          { args: ["Hello World!"], key: "Ctrl+S" },
+          { args: ["Yo!"], key: "Ctrl+Shift+S" },
+        ],
+        title: "Say",
+      },
     ];
+
+    return buildActions(actions);
   }, []);
 }
 
@@ -435,36 +427,28 @@ function usePageActions(vars: {
   setPaletteInput: Dispatch<SetStateAction<string>>;
 }): [CommandDefinition[], KeyboardShortcut[]] {
   return useMemo(() => {
-    return [
-      [
-        {
-          exec() {
-            vars.setPaletteInput("");
-            vars.setCommandPaletteVisible(true);
-          },
-          id: "showCommandPalette",
-          title: "Show command palette",
+    const actions: Action[] = [
+      {
+        exec() {
+          vars.setPaletteInput("");
+          vars.setCommandPaletteVisible(true);
         },
-        {
-          exec() {
-            vars.setPaletteInput(">");
-            vars.setCommandPaletteVisible(true);
-          },
-          id: "showCommandPaletteForCommand",
-          title: "Show command palette for Command",
+        id: "showCommandPalette",
+        shortcuts: [{ key: "Ctrl+P" }],
+        title: "Show command palette",
+      },
+      {
+        exec() {
+          vars.setPaletteInput(">");
+          vars.setCommandPaletteVisible(true);
         },
-      ],
-      [
-        {
-          commandId: "showCommandPalette",
-          key: "Ctrl+P",
-        },
-        {
-          commandId: "showCommandPaletteForCommand",
-          key: "Ctrl+Shift+P",
-        },
-      ],
+        id: "showCommandPaletteForCommand",
+        shortcuts: [{ key: "Ctrl+Shift+P" }],
+        title: "Show command palette for Command",
+      },
     ];
+
+    return buildActions(actions);
   }, [vars]);
 }
 

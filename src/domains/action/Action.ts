@@ -6,7 +6,7 @@ export interface Action<Args extends any[] = any[]>
   shortcuts: ActionKeyboardShortcut[];
 }
 
-type ActionKeyboardShortcut = Pick<KeyboardShortcut, "key" | "when">;
+type ActionKeyboardShortcut = Pick<KeyboardShortcut, "args" | "key" | "when">;
 
 export function buildAction<Args extends any[] = any[]>(
   action: Action<Args>,
