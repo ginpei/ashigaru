@@ -1,7 +1,13 @@
 {
-  "extends": ["next/core-web-vitals"],
+  "extends": ["next/core-web-vitals", "plugin:tailwindcss/recommended"],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "tailwindcss/no-custom-classname": [
+      "warn",
+      {
+        "whitelist": ["[A-Z].*"]
+      }
+    ]
   }
 }
