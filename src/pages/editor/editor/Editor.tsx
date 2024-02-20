@@ -29,7 +29,7 @@ export function Editor({ note }: EditorProps): JSX.Element {
         <input
           className="
             h-9 border border-transparent border-b-gray-200 px-4 text-3xl
-            focus:outline-none focus:border-gray-200
+            focus:border-gray-200 focus:outline-none
           "
           disabled={!note}
           name="title"
@@ -42,8 +42,8 @@ export function Editor({ note }: EditorProps): JSX.Element {
       <FocusTarget id="noteBodyFocus">
         <textarea
           className="
-            p-4 resize-none border border-transparent
-            focus:outline-none focus:border-gray-200
+            resize-none border border-transparent p-4
+            focus:border-gray-200 focus:outline-none
           "
           disabled={!note}
           name="body"

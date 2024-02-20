@@ -4,6 +4,6 @@ export interface ContainerProps {
 
 export function Container({ children }: ContainerProps): JSX.Element {
   return (
-    <div className="Container mx-auto max-w-4xl w-full px-4">{children}</div>
+    <div className="Container mx-auto w-full max-w-4xl px-4">{children}</div>
   );
 }

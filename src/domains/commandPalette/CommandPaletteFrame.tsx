@@ -47,7 +47,7 @@ export function CommandPaletteFrame<Value>({
     <Dialog className="CommandPalletFrame" onClose={onDialogClose} open={open}>
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
       <FocusTarget id={focusTargetId}>
-        <div className="fixed w-full top-0 mx-auto flex items-center justify-center p-4">
+        <div className="fixed top-0 mx-auto flex w-full items-center justify-center p-4">
           <Dialog.Panel className="w-full max-w-sm rounded bg-white">
             <Dialog.Title className="hidden">Command pallet</Dialog.Title>
             <Combobox<Value> onChange={onComboboxChange}>

@@ -32,7 +32,7 @@ NiceMenu.Items = function NiceMenuItems({
 }: React.ComponentProps<typeof Menu.Items>) {
   return (
     <Menu.Items
-      className="NiceMenu.Items absolute shadow-lg border bg-white flex flex-col"
+      className="NiceMenu.Items absolute flex flex-col border bg-white shadow-lg"
       {...props}
     />
   );

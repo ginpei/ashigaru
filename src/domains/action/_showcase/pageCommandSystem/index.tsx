@@ -261,7 +261,7 @@ export function ActionPageCommandSystemDemoPage(): JSX.Element {
             </table>
             <NiceH3>User shortcuts</NiceH3>
             <form className="UserShortcutForm" onSubmit={onUserShortcutSubmit}>
-              <div className="flex gap-4 items-end">
+              <div className="flex items-end gap-4">
                 <TextField
                   label="Command ID"
                   list="userShortcutDataList"

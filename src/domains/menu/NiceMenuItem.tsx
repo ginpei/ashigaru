@@ -13,7 +13,7 @@ export function NiceMenuItem(props: NiceMenuItemProps): JSX.Element {
       {({ active, disabled }) =>
         isButtonProps(props) ? (
           <button
-            className={`border-b p-2 no-underline text-start ${
+            className={`border-b p-2 text-start no-underline ${
               !active && !disabled && "text-inherit"
             } ${active && "bg-blue-500 text-white"} ${
               disabled && "text-gray-400"
@@ -23,7 +23,7 @@ export function NiceMenuItem(props: NiceMenuItemProps): JSX.Element {
           />
         ) : (
           <a
-            className={`border-b p-2 no-underline text-start ${
+            className={`border-b p-2 text-start no-underline ${
               !active && !disabled && "text-inherit"
             } ${active && "bg-blue-500 text-white"} ${
               disabled && "text-gray-400"

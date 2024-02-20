@@ -7,7 +7,7 @@ export function BasicFooter(): JSX.Element {
     <div
       className="
       BasicFooter
-      mt-32 py-16 border-t border-dashed border-gray-500 text-gray-500
+      mt-32 border-t border-dashed border-gray-500 py-16 text-gray-500
       "
     >
       <Container>BasicFooter</Container>

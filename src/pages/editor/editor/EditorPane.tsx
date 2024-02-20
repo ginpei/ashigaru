@@ -23,14 +23,14 @@ export function EditorPane({}: EditorPaneProps): JSX.Element {
   );
 
   return (
-    <div className="EditorPane h-full flex flex-col">
+    <div className="EditorPane flex h-full flex-col">
       <OpenNoteList
         activeNoteId={editingNote?.id ?? ""}
         openNotes={openNotes}
         onSelect={onNoteSelect}
         onClose={(id) => setState(closeNoteState(state, id))}
       />
-      <div className="grow grid">
+      <div className="grid grow">
         <Editor note={editingNote} />
       </div>
     </div>

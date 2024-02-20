@@ -10,12 +10,12 @@ export function BasicHeader(): JSX.Element {
       className={`
       BasicHeader
       bg-ginpei
-      [&_a]:text-white [&_a]:no-underline
       [&_a:is(:hover,:focus)]:text-white [&_a:is(:hover,:focus)]:underline
+      [&_a]:text-white [&_a]:no-underline
     `}
     >
       <Container>
-        <div className="inner">
+        <div>
           <NiceLink href={homePagePath()}>Home</NiceLink>
         </div>
       </Container>

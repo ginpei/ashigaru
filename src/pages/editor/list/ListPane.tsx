@@ -32,8 +32,8 @@ export function ListPane(): JSX.Element {
   );
 
   return (
-    <section className="ListPane h-full flex flex-col">
-      <h1 className="font-bold px-4 text-lg">Notes</h1>
+    <section className="ListPane flex h-full flex-col">
+      <h1 className="px-4 text-lg font-bold">Notes</h1>
       <FocusTarget id="noteListFocus">
         <div className="overflow-auto" ref={refList} tabIndex={0}>
           {notes.map((note) => (

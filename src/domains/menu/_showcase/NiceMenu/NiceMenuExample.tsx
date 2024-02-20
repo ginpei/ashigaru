@@ -13,7 +13,7 @@ export function NiceMenuExample(): JSX.Element {
       <textarea className="resize" disabled></textarea>
       <NiceMenu>
         <NiceMenu.Button>Hi</NiceMenu.Button>
-        <NiceMenu.Items className="absolute shadow-lg border bg-white flex flex-col">
+        <NiceMenu.Items className="absolute flex flex-col border bg-white shadow-lg">
           <NiceMenu.Item href="#demo-link">Demo link</NiceMenu.Item>
           <NiceMenu.Item onClick={() => console.log(`# click`)}>
             Documentation
