@@ -1,9 +1,9 @@
 import { ActionAboutActionDemoPage } from "../action/showcase/aboutAction";
 import { ActionCommandDemoPage } from "../action/showcase/command";
-import { ActionPageCommandSystemDemoPage } from "../action/showcase/pageCommandSystem/PageCommandSystemDemoPage";
+import { ActionPageCommandSystemDemoPage } from "../action/showcase/pageCommandSystem";
 import { ActionShortcutDemoPage } from "../action/showcase/shortcut";
 import { CommandPaletteShowcase } from "../commandPalette/showcase";
-import { MenuShowcase } from "../menu/showcase";
+import { MenuShowcase } from "../menu/showcase/NiceMenu";
 import { StylesPage } from "../styles/showcase";
 
 export const showcaseList = {

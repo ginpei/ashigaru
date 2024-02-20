@@ -19,4 +19,4 @@ export function CommandPaletteShowcase(): JSX.Element {
   );
 }
 
-CommandPaletteShowcase.path = "commandPalette/CommandPalette" as const;
+CommandPaletteShowcase.path = "commandPalette" as const;
