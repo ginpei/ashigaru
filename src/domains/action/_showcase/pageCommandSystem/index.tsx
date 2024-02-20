@@ -59,7 +59,7 @@ export function ActionPageCommandSystemDemoPage(): JSX.Element {
 
   // combine available shortcuts
   const shortcuts = useMemo(() => {
-    return [...predefinedShortcuts, ...pageShortcuts, ...userShortcuts];
+    return [...userShortcuts, ...pageShortcuts, ...predefinedShortcuts];
   }, [pageShortcuts, predefinedShortcuts, userShortcuts]);
 
   // command palette input management
