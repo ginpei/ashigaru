@@ -1,10 +1,10 @@
-import { ActionAboutActionDemoPage } from "../action/showcase/aboutAction";
-import { ActionCommandDemoPage } from "../action/showcase/command";
-import { ActionPageCommandSystemDemoPage } from "../action/showcase/pageCommandSystem";
-import { ActionShortcutDemoPage } from "../action/showcase/shortcut";
-import { CommandPaletteShowcase } from "../commandPalette/showcase";
-import { MenuShowcase } from "../menu/showcase/NiceMenu";
-import { StylesPage } from "../styles/showcase";
+import { ActionAboutActionDemoPage } from "../action/_showcase/aboutAction";
+import { ActionCommandDemoPage } from "../action/_showcase/command";
+import { ActionPageCommandSystemDemoPage } from "../action/_showcase/pageCommandSystem";
+import { ActionShortcutDemoPage } from "../action/_showcase/shortcut";
+import { CommandPaletteShowcase } from "../commandPalette/_showcase";
+import { MenuShowcase } from "../menu/_showcase/NiceMenu";
+import { StylesPage } from "../styles/_showcase";
 
 export const showcaseList = {
   [ActionAboutActionDemoPage.path]: ActionAboutActionDemoPage,
