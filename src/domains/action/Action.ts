@@ -18,7 +18,7 @@ type ActionKeyboardShortcut = Omit<KeyboardShortcut, "commandId">;
 /**
  * Break down an action into a command and its keyboard shortcuts.
  */
-export function buildAction<Args extends any[] = any[]>(
+export function breakAction<Args extends any[] = any[]>(
   action: Action<Args>,
 ): [CommandDefinition<Args>, KeyboardShortcut[]] {
   const { shortcuts: actionShortcuts, ...command } = action;
@@ -35,14 +35,14 @@ export function buildAction<Args extends any[] = any[]>(
 /**
  * Break down a list of actions into commands and their keyboard shortcuts.
  */
-export function buildActions<Args extends any[] = any[]>(
+export function breakActions<Args extends any[] = any[]>(
   actions: Action<Args>[],
 ): [CommandDefinition<Args>[], KeyboardShortcut[]] {
   const commands: CommandDefinition<Args>[] = [];
   const shortcuts: KeyboardShortcut[] = [];
 
   for (const action of actions) {
-    const [command, shortcutList] = buildAction(action);
+    const [command, shortcutList] = breakAction(action);
     commands.push(command);
     for (const shortcut of shortcutList) {
       shortcuts.push(shortcut);

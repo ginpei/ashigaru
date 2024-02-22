@@ -5,7 +5,7 @@ import {
   createEditorPageState,
   EditorPageState,
 } from "../../../pages/editor/actions/EditorPageState";
-import { buildActions } from "../../action/Action";
+import { breakActions } from "../../action/Action";
 import { HStack } from "../../layout/HStask";
 import { NiceButton } from "../../nice/NiceButton";
 import { NiceH2 } from "../../nice/NiceH";
@@ -13,7 +13,7 @@ import { Note } from "../../note/Note";
 import { HighlightedCommand } from "../commandFilter";
 import { demoActions, demoNotes } from "./exampleResources";
 
-const [demoCommands, demoShortcuts] = buildActions(demoActions);
+const [demoCommands, demoShortcuts] = breakActions(demoActions);
 
 export function CommandPaletteExample() {
   const [state, setState] = useState(

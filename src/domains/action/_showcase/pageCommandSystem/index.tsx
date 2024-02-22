@@ -24,7 +24,7 @@ import { NiceInput } from "../../../nice/NiceInput";
 import { TextField } from "../../../nice/TextField";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { tick } from "../../../time/timeManipulator";
-import { Action, buildActions } from "../../Action";
+import { Action, breakActions } from "../../Action";
 import {
   CommandDefinition,
   findCommandDefinition,
@@ -418,7 +418,7 @@ function usePredefinedActions(): [CommandDefinition[], KeyboardShortcut[]] {
       },
     ];
 
-    return buildActions(actions);
+    return breakActions(actions);
   }, []);
 }
 
@@ -448,7 +448,7 @@ function usePageActions(vars: {
       },
     ];
 
-    return buildActions(actions);
+    return breakActions(actions);
   }, [vars]);
 }
 

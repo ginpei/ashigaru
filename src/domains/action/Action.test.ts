@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { Action, buildActions } from "./Action";
+import { Action, breakActions } from "./Action";
 
-describe("buildActions()", () => {
+describe("breakActions()", () => {
   it("builds", () => {
     const actions: Action[] = [
       {
@@ -29,7 +29,7 @@ describe("buildActions()", () => {
       },
     ];
 
-    const [commands, shortcuts] = buildActions(actions);
+    const [commands, shortcuts] = breakActions(actions);
 
     expect(commands.length).toBe(2);
     expect(commands[0].id).toBe("action1");
