@@ -14,6 +14,7 @@ describe("breakActions()", () => {
             key: "Ctrl+A",
           },
           {
+            args: [123],
             key: "Enter",
           },
         ],
@@ -49,11 +50,13 @@ describe("breakActions()", () => {
 
     expect(shortcuts).toEqual([
       {
+        args: [],
         commandId: "action1",
         key: "Ctrl+A",
         when: "",
       },
       {
+        args: [123],
         commandId: "action1",
         key: "Enter",
         when: "",
