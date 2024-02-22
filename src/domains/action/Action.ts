@@ -1,13 +1,23 @@
 import { CommandDefinition } from "./CommandDefinition";
 import { createKeyboardShortcut, KeyboardShortcut } from "./KeyboardShortcut";
 
+/**
+ * A definition set of a command and its keyboard shortcuts.
+ */
 export interface Action<Args extends any[] = any[]>
   extends CommandDefinition<Args> {
   shortcuts: ActionKeyboardShortcut[];
 }
 
+/**
+ * KeyboardShortcut definition bound to an action that includes a command.
+ * Used as a part of `Action`.
+ */
 type ActionKeyboardShortcut = Pick<KeyboardShortcut, "args" | "key" | "when">;
 
+/**
+ * Break down an action into a command and its keyboard shortcuts.
+ */
 export function buildAction<Args extends any[] = any[]>(
   action: Action<Args>,
 ): [CommandDefinition<Args>, KeyboardShortcut[]] {
@@ -22,6 +32,9 @@ export function buildAction<Args extends any[] = any[]>(
   return [command, shortcuts];
 }
 
+/**
+ * Break down a list of actions into commands and their keyboard shortcuts.
+ */
 export function buildActions<Args extends any[] = any[]>(
   actions: Action<Args>[],
 ): [CommandDefinition<Args>[], KeyboardShortcut[]] {
