@@ -16,23 +16,6 @@ export interface Action<Args extends any[] = any[]>
 type ActionKeyboardShortcut = Omit<KeyboardShortcut, "commandId">;
 
 /**
- * Break down an action into a command and its keyboard shortcuts.
- */
-export function breakAction<Args extends any[] = any[]>(
-  action: Action<Args>,
-): [CommandDefinition<Args>, KeyboardShortcut[]] {
-  const { shortcuts: actionShortcuts, ...command } = action;
-  const shortcuts = actionShortcuts.map((v) =>
-    createKeyboardShortcut({
-      ...v,
-      commandId: command.id,
-    }),
-  );
-
-  return [command, shortcuts];
-}
-
-/**
  * Break down a list of actions into commands and their keyboard shortcuts.
  */
 export function breakActions<Args extends any[] = any[]>(
@@ -50,4 +33,21 @@ export function breakActions<Args extends any[] = any[]>(
   }
 
   return [commands, shortcuts];
+}
+
+/**
+ * Break down an action into a command and its keyboard shortcuts.
+ */
+function breakAction<Args extends any[] = any[]>(
+  action: Action<Args>,
+): [CommandDefinition<Args>, KeyboardShortcut[]] {
+  const { shortcuts: actionShortcuts, ...command } = action;
+  const shortcuts = actionShortcuts.map((v) =>
+    createKeyboardShortcut({
+      ...v,
+      commandId: command.id,
+    }),
+  );
+
+  return [command, shortcuts];
 }
