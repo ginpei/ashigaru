@@ -13,7 +13,7 @@ export interface Action<Args extends any[] = any[]>
  * KeyboardShortcut definition bound to an action that includes a command.
  * Used as a part of `Action`.
  */
-type ActionKeyboardShortcut = Pick<KeyboardShortcut, "args" | "key" | "when">;
+type ActionKeyboardShortcut = Omit<KeyboardShortcut, "commandId">;
 
 /**
  * Break down an action into a command and its keyboard shortcuts.
