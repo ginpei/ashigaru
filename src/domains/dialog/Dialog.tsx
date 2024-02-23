@@ -12,6 +12,8 @@ export function Dialog({ children, onClose, open }: DialogProps): JSX.Element {
 
   useModalOpen(refDialog, open);
 
+  // TODO trap focus
+
   const onDialogClose = useCallback(
     (event: Event | SyntheticEvent<HTMLDialogElement, Event>) => {
       event.preventDefault();
