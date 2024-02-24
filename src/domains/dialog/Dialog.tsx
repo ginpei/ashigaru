@@ -1,3 +1,4 @@
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import { SyntheticEvent, createRef, useCallback } from "react";
 import { useModalCloseByBackdrop, useModalOpen } from "./dialogHooks";
 
@@ -67,7 +68,7 @@ export function DialogHeader({ children, onClose }: DialogHeaderProps) {
           onClick={onClose}
           title="Close"
         >
-          ×
+          <XMarkIcon className="w-4" />
         </button>
       )}
     </header>
