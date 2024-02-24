@@ -3,6 +3,9 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { giveFocusOn } from "./domFocusManipulators";
 
+// TODO upgrade jsdom to v24 once this error is fixed:
+// `querySelector(":is([a],b):not(.c)")` throws a "not a valid selector" error
+// https://github.com/jsdom/jsdom/issues/3686
 describe("giveFocusOn()", () => {
   function prepareTarget(focusId: string, html: string) {
     const el = document.createElement("div");
