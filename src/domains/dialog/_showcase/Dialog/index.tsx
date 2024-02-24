@@ -96,14 +96,12 @@ function StubbornDialog(props: {
           </p>
         </div>
       </DialogBody>
-      <DialogFooter>
-        <div className="flex w-full items-center justify-between">
-          <span>{!readyToClose && `Wait for ${remainingSec} sec`}</span>
-          <NiceButton disabled={!readyToClose} onClick={props.onClose}>
-            Close explicitly
-          </NiceButton>
-        </div>
-      </DialogFooter>
+      <div className="flex w-full items-center justify-between p-4">
+        <span>{!readyToClose && `Wait for ${remainingSec} sec`}</span>
+        <NiceButton disabled={!readyToClose} onClick={props.onClose}>
+          Close explicitly
+        </NiceButton>
+      </div>
     </Dialog>
   );
 }
