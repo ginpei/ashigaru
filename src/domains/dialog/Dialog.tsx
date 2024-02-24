@@ -32,8 +32,7 @@ export function Dialog({ children, onClose, open }: DialogProps): JSX.Element {
     >
       <div
         className="
-          min-h-52 min-w-96
-          overflow-auto rounded border border-ginpei bg-white
+          min-w-96 overflow-auto rounded border border-ginpei bg-white
           backdrop:bg-stone-500/25
         "
       >
@@ -59,16 +58,18 @@ export function DialogHeader({ children, onClose }: DialogHeaderProps) {
       "
     >
       <h1 className="px-4 py-1">{children}</h1>
-      <button
-        className="
+      {onClose && (
+        <button
+          className="
           px-4 py-1
           hover:bg-stone-500/25
         "
-        onClick={onClose}
-        title="Close"
-      >
-        ×
-      </button>
+          onClick={onClose}
+          title="Close"
+        >
+          ×
+        </button>
+      )}
     </header>
   );
 }
