@@ -3,6 +3,7 @@ import { VStack } from "../../../layout/VStack";
 import { NiceButton } from "../../../nice/NiceButton";
 import { NiceH1 } from "../../../nice/NiceH";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
+import { useNow } from "../../../time/timeHooks";
 import { Dialog, DialogBody, DialogFooter, DialogHeader } from "../../Dialog";
 
 export function DialogDemoPage(): JSX.Element {
@@ -67,9 +68,10 @@ function StubbornDialog(props: {
 }): JSX.Element {
   const waitTimeSec = 5000;
 
+  const now = useNow();
   const [openedAt, setOpenedAt] = useState(Date.now());
-  const [elapse, setElapse] = useState(0);
 
+  const elapse = useMemo(() => now - openedAt, [now, openedAt]);
   const remainingSec = useMemo(
     () => Math.ceil((waitTimeSec - elapse) / 1000),
     [elapse],
@@ -79,12 +81,6 @@ function StubbornDialog(props: {
   useEffect(() => {
     setOpenedAt(Date.now());
   }, [props.open]);
-
-  useEffect(() => {
-    let tm = 0;
-    tm = window.setInterval(() => setElapse(Date.now() - openedAt), 10);
-    return () => clearInterval(tm);
-  }, [openedAt]);
 
   return (
     <Dialog open={props.open}>
