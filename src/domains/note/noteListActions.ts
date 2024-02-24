@@ -2,6 +2,8 @@ import { Dispatch, SetStateAction } from "react";
 import { Action } from "../action/Action";
 import { findFocusAfterDeletion } from "./noteListHandlers";
 import { NoteListState } from "./NoteListState";
+import { createNote } from "./Note";
+import { createNewNote } from "../../pages/editor/actions/EditorPageState";
 
 export const noteListActions: Action<
   [NoteListState, Dispatch<SetStateAction<NoteListState>>]
@@ -133,6 +135,23 @@ export const noteListActions: Action<
       },
     ],
     title: "Select the current focus note",
+  },
+  {
+    exec(state, setState) {
+      // TODO give empty ID and generate once saved
+      const note = createNote({
+        id: crypto.randomUUID(),
+        title: "Untitled",
+      });
+      setState(createNewNote(state, note));
+    },
+    id: "createNewNote",
+    shortcuts: [
+      {
+        key: "Alt+N",
+      },
+    ],
+    title: "Create a new note",
   },
   {
     exec(state, setState) {

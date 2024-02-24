@@ -1,5 +1,5 @@
 import { KeyboardShortcut } from "../../../domains/action/KeyboardShortcut";
-import { Note } from "../../../domains/note/Note";
+import { createNote, Note } from "../../../domains/note/Note";
 import {
   createNoteListState,
   NoteListState,
@@ -28,6 +28,24 @@ export function createEditorPageState(
 
 export function getEditingNote(state: EditorPageState): Note | null {
   return state.notes.find((v) => v.id === state.editingNoteId) ?? null;
+}
+
+export function createNewNote<T extends NoteListState>(
+  state: T,
+  note: Note,
+): T {
+  const notes = [...state.notes, note];
+
+  const editingNoteId = note.id;
+  const focusedNoteId = note.id;
+
+  return {
+    ...state,
+    editingNoteId,
+    focusedNoteId,
+    notes,
+    selectedNoteIds: [],
+  };
 }
 
 export function updateEditingNote(
