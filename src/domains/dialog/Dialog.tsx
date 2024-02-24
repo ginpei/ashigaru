@@ -26,7 +26,7 @@ export function Dialog({ children, onClose, open }: DialogProps): JSX.Element {
 
   return (
     <dialog
-      className="Dialog shadow-lg"
+      className="Dialog bg-transparent shadow-lg"
       ref={refDialog}
       onCancel={(v) => onDialogClose(v)}
       onClose={(v) => onDialogClose(v)}
