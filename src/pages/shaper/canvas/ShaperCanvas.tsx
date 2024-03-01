@@ -1,7 +1,7 @@
-import { CanvasData } from "./CanvasData";
+import { ShapeData } from "../shape/ShapeData";
 
 export interface ShaperCanvasProps {
-  data: CanvasData[];
+  data: ShapeData[];
 }
 
 export function ShaperCanvas({ data }: ShaperCanvasProps): JSX.Element {
@@ -14,7 +14,7 @@ export function ShaperCanvas({ data }: ShaperCanvasProps): JSX.Element {
   );
 }
 
-function canvasDataToStyle(data: CanvasData): React.CSSProperties {
+function canvasDataToStyle(data: ShapeData): React.CSSProperties {
   return {
     backgroundColor: data.color,
     height: data.height,
