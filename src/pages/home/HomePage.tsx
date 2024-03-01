@@ -3,6 +3,7 @@ import { NiceUL } from "../../domains/nice/NiceUL";
 import { StraightLayout } from "../../domains/pageLayout/straight/StraightLayout";
 import { aboutPagePath } from "../about/aboutPageMeta";
 import { editorPagePath } from "../editor/editorPageMeta";
+import { shaperPagePath } from "../shaper/shaperPageMeta";
 
 export interface HomePageProps {}
 
@@ -13,6 +14,9 @@ export function HomePage(): JSX.Element {
       <NiceUL>
         <li>
           <NiceLink href={editorPagePath()}>Editor</NiceLink>
+        </li>
+        <li>
+          <NiceLink href={shaperPagePath()}>Shaper</NiceLink>
         </li>
         <li>
           <NiceLink href={aboutPagePath()}>About</NiceLink>
