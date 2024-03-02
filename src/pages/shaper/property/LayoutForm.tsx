@@ -10,18 +10,18 @@ export interface LayoutFormProps {
 export function LayoutForm({ shape, onChange }: LayoutFormProps): JSX.Element {
   const onInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (event) => {
-      const { name, value } = event.target;
+      const { name, valueAsNumber: value } = event.target;
       if (!isObjectKey(shape, name)) {
         throw new Error(`Invalid key: ${name}`);
       }
 
-      onChange({ ...shape, [name]: Number(value) });
+      onChange({ ...shape, [name]: value });
     },
     [onChange, shape],
   );
 
   return (
-    <div className="flex flex-col gap-1 p-4">
+    <div className="flex flex-col gap-1 px-4">
       <h3 className="font-bold">Layout</h3>
       <label className="grid grid-cols-2">
         <span>Top</span>

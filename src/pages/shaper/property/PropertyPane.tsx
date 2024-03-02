@@ -1,8 +1,8 @@
-import { ChangeEventHandler, useCallback } from "react";
-import { NiceInput } from "../../../domains/nice/NiceInput";
+import { useCallback } from "react";
 import { useShaperPageStateContext } from "../page/shaperPageStateContext";
-import { LayoutForm } from "./LayoutForm";
 import { ShapeData } from "../shape/ShapeData";
+import { GeneralForm } from "./GeneralForm";
+import { LayoutForm } from "./LayoutForm";
 
 export function PropertyPane(): JSX.Element {
   const [{ selectedShapeIds, shapes }, setState] = useShaperPageStateContext();
@@ -25,9 +25,10 @@ export function PropertyPane(): JSX.Element {
 
   return (
     <div className="PropertyPane bg-gray-100">
-      <h2>Properties</h2>
       {editingShape ? (
-        <div className="flex gap-8">
+        <div className="flex flex-col gap-4">
+          <h2 className="px-4 pt-4 text-sm font-bold">Properties</h2>
+          <GeneralForm shape={editingShape} onChange={onFormChange} />
           <LayoutForm shape={editingShape} onChange={onFormChange} />
         </div>
       ) : (
