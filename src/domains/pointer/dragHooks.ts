@@ -17,6 +17,13 @@ export interface DragHandlers {
   onStart?: (event: PointerEvent) => void;
 }
 
+/**
+ * Highly recommended to apply `touch-action: none` to the element.
+ * @example
+ * <div ref={refDrag} style={{ touchAction: "none", userSelect: "none" }}>
+ * <!-- for Tailwind CSS -->
+ * <div ref={refDrag} className="touch-none select-none">
+ */
 export function useDrag<Element extends HTMLElement>(
   handlers: DragHandlers,
 ): [ref: RefObject<Element>, dx: number, dy: number] {
