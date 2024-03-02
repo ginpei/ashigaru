@@ -16,7 +16,7 @@ export function ListPane(): JSX.Element {
 
   return (
     <div className="ListPane bg-white">
-      <h2 className="font-bold">Shapes</h2>
+      <h2 className="p-2 text-xs font-bold">Shapes</h2>
       <div className="h-full border-t bg-gray-100">
         {reverseShapes.map((shape) => (
           <ShapeListItem
