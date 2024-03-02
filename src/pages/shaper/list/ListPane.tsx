@@ -8,11 +8,20 @@ export function ListPane(): JSX.Element {
   const [{ selectedShapeIds, shapes }, setState] = useShaperPageStateContext();
 
   const onItemSelect: ShapeListItemProps["onSelect"] = (id, type) => {
-    setState((state) => ({
-      ...state,
-      selectedShapeIds:
-        type === "append" ? [...state.selectedShapeIds, id] : [id],
-    }));
+    setState((state) => {
+      const selected = state.selectedShapeIds.includes(id);
+      const append = type === "append";
+      let selectedShapeIds: typeof state.selectedShapeIds = [];
+      if (append) {
+        selectedShapeIds = selected
+          ? state.selectedShapeIds.filter((i) => i !== id)
+          : [...state.selectedShapeIds, id];
+      } else {
+        selectedShapeIds = [id];
+      }
+
+      return { ...state, selectedShapeIds };
+    });
   };
 
   return (
