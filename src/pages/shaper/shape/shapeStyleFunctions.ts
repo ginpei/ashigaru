@@ -1,4 +1,3 @@
-import { CSSProperties } from "react";
 import { ShapeData } from "./ShapeData";
 
 export function mergeMultipleShapes(shapes: ShapeData[]): Partial<ShapeData> {
@@ -29,7 +28,7 @@ function mergeValue<T extends keyof ShapeData>(
 
 export function getShapeLayoutStyle(
   shape: ShapeData,
-): Required<Pick<CSSProperties, "top" | "left" | "width" | "height">> {
+): Record<"top" | "left" | "width" | "height", number> {
   return {
     top: shape.top,
     left: shape.left,

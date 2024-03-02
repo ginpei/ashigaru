@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import { useDrag } from "../../../domains/pointer/dragHooks";
 import { ShapeData } from "../shape/ShapeData";
 import { getShapeLayoutStyle } from "../shape/shapeStyleFunctions";
 
@@ -8,11 +8,25 @@ export interface MarqueeProps {
 }
 
 export function Marquee({ onSelect, shape }: MarqueeProps): JSX.Element {
-  const layoutStyle = getShapeLayoutStyle(shape);
+  const [refDragButton, dx, dy] = useDrag<HTMLButtonElement>({
+    onClick(event) {
+      const type = event.ctrlKey ? "append" : "single";
+      onSelect(shape.id, type);
+    },
+    onEnd(x, y, ok) {
+      console.log("# complete", x, y, ok);
+    },
+    onStart(event) {
+      console.log("# start", event);
+    },
+  });
 
-  const onItemClick: MouseEventHandler<HTMLButtonElement> = (event) => {
-    const type = event.ctrlKey ? "append" : "single";
-    onSelect(shape.id, type);
+  const layoutStyle = getShapeLayoutStyle(shape);
+  const style: typeof layoutStyle = {
+    height: layoutStyle.height,
+    left: layoutStyle.left + dx, // TODO receive dx, dy as props
+    top: layoutStyle.top + dy,
+    width: layoutStyle.width,
   };
 
   return (
@@ -23,8 +37,8 @@ export function Marquee({ onSelect, shape }: MarqueeProps): JSX.Element {
         p-1 text-xs text-white outline-dashed -outline-offset-2 outline-white/75
         hover:bg-blue-500/50
       "
-      onClick={onItemClick}
-      style={layoutStyle}
+      ref={refDragButton}
+      style={style}
     >
       {shape.name}
     </button>
