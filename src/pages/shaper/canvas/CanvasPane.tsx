@@ -1,4 +1,5 @@
 import { MouseEventHandler } from "react";
+import { FocusTarget } from "../../../domains/action/FocusTarget";
 import { useCommand } from "../action/commandContext";
 import { useShaperPageStateContext } from "../page/shaperPageStateContext";
 import { Marquee, MarqueeProps } from "./Marquee";
@@ -25,13 +26,23 @@ export function CanvasPane(): JSX.Element {
   };
 
   return (
-    <div className="CanvasPane relative size-full" onMouseDown={onCanvasClick}>
-      {shapes.map((data) => (
-        <ShapeDisplay key={data.id} onSelect={onShapeSelect} shape={data} />
-      ))}
-      {selectedShapes.map((data) => (
-        <Marquee key={data.id} onSelect={onShapeSelect} shape={data} />
-      ))}
-    </div>
+    <FocusTarget id="canvasFocus">
+      <div
+        className="
+          CanvasPane
+          relative size-full
+          focus-within:bg-gray-50
+          [:focus_&]:bg-gray-50
+        "
+        onMouseDown={onCanvasClick}
+      >
+        {shapes.map((data) => (
+          <ShapeDisplay key={data.id} onSelect={onShapeSelect} shape={data} />
+        ))}
+        {selectedShapes.map((data) => (
+          <Marquee key={data.id} onSelect={onShapeSelect} shape={data} />
+        ))}
+      </div>
+    </FocusTarget>
   );
 }

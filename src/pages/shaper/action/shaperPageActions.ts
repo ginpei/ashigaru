@@ -31,6 +31,7 @@ function createShaperPagePredefinedActions(
       shortcuts: [
         {
           key: "Ctrl+A",
+          when: "canvasFocus",
         },
       ],
       title: "Select all shapes",
