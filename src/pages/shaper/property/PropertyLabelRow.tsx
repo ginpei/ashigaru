@@ -10,7 +10,7 @@ export function PropertyLabelRow({
   return (
     <label
       className={`PropertyLabelRow
-      grid grid-cols-2 ${ambiguous ? "bg-yellow-50" : ""}
+      grid grid-cols-2 items-center ${ambiguous ? "bg-yellow-50" : ""}
     `}
     >
       {children}
