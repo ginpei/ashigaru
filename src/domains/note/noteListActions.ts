@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
-import { Action } from "../action/Action";
-import { findFocusAfterDeletion } from "./noteListHandlers";
-import { NoteListState } from "./NoteListState";
-import { createNote } from "./Note";
 import { createNewNote } from "../../pages/editor/actions/EditorPageState";
+import { Action } from "../action/Action";
+import { createNote } from "./Note";
+import { NoteListState } from "./NoteListState";
+import { findFocusAfterDeletion } from "./noteListHandlers";
 
 export const noteListActions: Action<
   [NoteListState, Dispatch<SetStateAction<NoteListState>>]

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
+import { CommandPaletteFrame } from "../../../domains/commandPalette/CommandPaletteFrame";
+import { HighlightedTitle } from "../../../domains/commandPalette/HighlightedTitle";
 import {
   highlightCommands,
   Highlighted,
   highlightFilteredCommandTitle,
 } from "../../../domains/commandPalette/commandFilter";
-import { CommandPaletteFrame } from "../../../domains/commandPalette/CommandPaletteFrame";
-import { HighlightedTitle } from "../../../domains/commandPalette/HighlightedTitle";
 import { Note } from "../../../domains/note/Note";
 import { EditorCommandListItem } from "./EditorCommandListItem";
 import { getNoteOptions, Option } from "./editorCommandManipulators";

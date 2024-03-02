@@ -1,5 +1,5 @@
-import { StraightLayout } from "../pageLayout/straight/StraightLayout";
 import { NiceUL } from "../nice/NiceUL";
+import { StraightLayout } from "../pageLayout/straight/StraightLayout";
 import { showcaseList } from "./showcaseList";
 
 export function ShowcaseIndexPage(): JSX.Element {

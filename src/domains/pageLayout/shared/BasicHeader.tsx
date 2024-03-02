@@ -1,6 +1,6 @@
+import { homePagePath } from "../../../pages/home/homePageMeta";
 import { Container } from "../../layout/Container";
 import { NiceLink } from "../../nice/NiceLink";
-import { homePagePath } from "../../../pages/home/homePageMeta";
 
 export interface BasicHeaderProps {}
 

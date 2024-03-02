@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { keyboardEventToInputCommand } from "./keyboardEventManipulators";
 import { KeyboardShortcut } from "./KeyboardShortcut";
 import { useFocusTarget } from "./focusHooks";
+import { keyboardEventToInputCommand } from "./keyboardEventManipulators";
 
 export function useKeyboardShortcuts(
   defs: KeyboardShortcut[],

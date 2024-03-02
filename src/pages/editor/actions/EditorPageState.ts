@@ -4,8 +4,8 @@ import {
   createNoteListState,
   NoteListState,
 } from "../../../domains/note/NoteListState";
-import { EditorPageCommand } from "./editorActions";
 import { EditorCommandPaletteOpenType } from "./EditorCommandPalette";
+import { EditorPageCommand } from "./editorActions";
 
 export interface EditorPageState extends NoteListState {
   commandPaletteVisible: EditorCommandPaletteOpenType;

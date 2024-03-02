@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { EditorCommandPalette } from "../../../pages/editor/actions/EditorCommandPalette";
-import { EditorPageStateProvider } from "../../../pages/editor/actions/editorPageContext";
 import {
   createEditorPageState,
   EditorPageState,
 } from "../../../pages/editor/actions/EditorPageState";
+import { EditorPageStateProvider } from "../../../pages/editor/actions/editorPageContext";
 import { breakActions } from "../../action/Action";
 import { HStack } from "../../layout/HStask";
 import { NiceButton } from "../../nice/NiceButton";

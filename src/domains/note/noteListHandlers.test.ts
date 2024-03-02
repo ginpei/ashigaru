@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { createNote } from "./Note";
-import { findFocusAfterDeletion, pickNotesByIds } from "./noteListHandlers";
 import { NoteListState } from "./NoteListState";
+import { findFocusAfterDeletion, pickNotesByIds } from "./noteListHandlers";
 
 describe("findFocusAfterDeletion", () => {
   it("returns the first remaining item above", () => {

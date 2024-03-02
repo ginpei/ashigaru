@@ -1,14 +1,14 @@
 import { DocumentPlusIcon, FunnelIcon } from "@heroicons/react/24/outline";
 import { ComponentPropsWithoutRef, useCallback, useRef, useState } from "react";
+import { pickCommandDefinition } from "../../../domains/action/CommandDefinition";
 import { FocusTarget } from "../../../domains/action/FocusTarget";
 import { Note } from "../../../domains/note/Note";
 import { focusNotesState } from "../../../domains/note/NoteListState";
 import { openNoteState } from "../actions/EditorPageState";
+import { editorCommands } from "../actions/editorActions";
 import { useEditorPageStateContext } from "../actions/editorPageContext";
 import { NoteItem } from "./NoteItem";
 import { useListScrollEffect } from "./noteListUiHooks";
-import { pickCommandDefinition } from "../../../domains/action/CommandDefinition";
-import { editorCommands } from "../actions/editorActions";
 
 export interface ListPaneProps {}
 

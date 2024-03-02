@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { NiceButton } from "../../nice/NiceButton";
 import { NiceH2 } from "../../nice/NiceH";
-import { Highlighted, highlightFilteredCommandTitle } from "../commandFilter";
 import { CommandListEmptyItem } from "../CommandListEmptyItem";
 import { CommandPaletteFrame } from "../CommandPaletteFrame";
 import { HighlightedTitle } from "../HighlightedTitle";
+import { Highlighted, highlightFilteredCommandTitle } from "../commandFilter";
 
 export function CommandPaletteFrameExample() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
