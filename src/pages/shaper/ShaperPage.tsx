@@ -14,7 +14,7 @@ export interface ShaperPageProps {}
 
 const demoShapeData: ShapeData[] = [
   {
-    color: "red",
+    color: "#ff0000",
     height: 100,
     id: "1",
     left: 0,
@@ -23,7 +23,7 @@ const demoShapeData: ShapeData[] = [
     width: 100,
   },
   {
-    color: "blue",
+    color: "#0000ff",
     height: 100,
     id: "2",
     left: 90,
@@ -32,7 +32,7 @@ const demoShapeData: ShapeData[] = [
     width: 100,
   },
   {
-    color: "white",
+    color: "#ffffff",
     height: 100,
     id: "3",
     left: 20,

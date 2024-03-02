@@ -3,6 +3,7 @@ import { useShaperPageStateContext } from "../page/shaperPageStateContext";
 import { ShapeData } from "../shape/ShapeData";
 import { GeneralForm } from "./GeneralForm";
 import { LayoutForm } from "./LayoutForm";
+import { ThemeForm } from "./ThemeForm";
 
 export function PropertyPane(): JSX.Element {
   const [{ selectedShapeIds, shapes }, setState] = useShaperPageStateContext();
@@ -30,6 +31,7 @@ export function PropertyPane(): JSX.Element {
           <h2 className="px-4 pt-4 text-sm font-bold">Properties</h2>
           <GeneralForm shape={editingShape} onChange={onFormChange} />
           <LayoutForm shape={editingShape} onChange={onFormChange} />
+          <ThemeForm shape={editingShape} onChange={onFormChange} />
         </div>
       ) : (
         <p>Select one shape to edit.</p>
