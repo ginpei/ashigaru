@@ -2,6 +2,7 @@ import { ChangeEventHandler, useCallback } from "react";
 import { NiceCode } from "../../../domains/nice/NiceCode";
 import { NiceColorInput } from "../../../domains/nice/NiceColorInput";
 import { ShapeData } from "../shape/ShapeData";
+import { PropertyLabelRow } from "./PropertyRow";
 
 export interface ThemeFormProps {
   shape: Partial<ShapeData>;
@@ -24,8 +25,8 @@ export function ThemeForm({ shape, onChange }: ThemeFormProps): JSX.Element {
   return (
     <div className="flex flex-col gap-1 px-4">
       <h3 className="font-bold">Theme</h3>
-      <label className="grid grid-cols-2">
-        <span>Color</span>
+      <span>Color</span>
+      <PropertyLabelRow ambiguous={shape.color === undefined}>
         <span>
           <NiceColorInput
             className="size-6"
@@ -35,7 +36,7 @@ export function ThemeForm({ shape, onChange }: ThemeFormProps): JSX.Element {
           />{" "}
           <NiceCode>{shape.color}</NiceCode>
         </span>
-      </label>
+      </PropertyLabelRow>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { ChangeEventHandler, useCallback } from "react";
 import { NiceInput } from "../../../domains/nice/NiceInput";
 import { ShapeData } from "../shape/ShapeData";
+import { PropertyLabelRow } from "./PropertyRow";
 
 export interface LayoutFormProps {
   shape: Partial<ShapeData>;
@@ -23,7 +24,7 @@ export function LayoutForm({ shape, onChange }: LayoutFormProps): JSX.Element {
   return (
     <div className="flex flex-col gap-1 px-4">
       <h3 className="font-bold">Layout</h3>
-      <label className="grid grid-cols-2">
+      <PropertyLabelRow ambiguous={shape.top === undefined}>
         <span>Top</span>
         <NiceInput
           name="top"
@@ -31,8 +32,8 @@ export function LayoutForm({ shape, onChange }: LayoutFormProps): JSX.Element {
           type="number"
           value={shape.top ?? ""}
         />
-      </label>
-      <label className="grid grid-cols-2">
+      </PropertyLabelRow>
+      <PropertyLabelRow ambiguous={shape.left === undefined}>
         <span>Left</span>
         <NiceInput
           name="left"
@@ -40,8 +41,8 @@ export function LayoutForm({ shape, onChange }: LayoutFormProps): JSX.Element {
           type="number"
           value={shape.left ?? ""}
         />
-      </label>
-      <label className="grid grid-cols-2">
+      </PropertyLabelRow>
+      <PropertyLabelRow ambiguous={shape.width === undefined}>
         <span>Width</span>
         <NiceInput
           name="width"
@@ -49,8 +50,8 @@ export function LayoutForm({ shape, onChange }: LayoutFormProps): JSX.Element {
           type="number"
           value={shape.width ?? ""}
         />
-      </label>
-      <label className="grid grid-cols-2">
+      </PropertyLabelRow>
+      <PropertyLabelRow ambiguous={shape.height === undefined}>
         <span>Height</span>
         <NiceInput
           name="height"
@@ -58,7 +59,7 @@ export function LayoutForm({ shape, onChange }: LayoutFormProps): JSX.Element {
           type="number"
           value={shape.height ?? ""}
         />
-      </label>
+      </PropertyLabelRow>
     </div>
   );
 }
