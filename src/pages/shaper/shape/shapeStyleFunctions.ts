@@ -26,6 +26,14 @@ function mergeValue<T extends keyof ShapeData>(
   return same ? value : undefined;
 }
 
+export function canvasDataToStyle(data: ShapeData): React.CSSProperties {
+  return {
+    ...getShapeLayoutStyle(data),
+    backgroundColor: data.color,
+    position: "absolute",
+  };
+}
+
 export function getShapeLayoutStyle(
   shape: ShapeData,
 ): Record<"top" | "left" | "width" | "height", number> {

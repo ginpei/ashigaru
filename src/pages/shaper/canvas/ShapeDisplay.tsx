@@ -1,6 +1,6 @@
 import { MouseEventHandler } from "react";
 import { ShapeData } from "../shape/ShapeData";
-import { getShapeLayoutStyle } from "../shape/shapeStyleFunctions";
+import { canvasDataToStyle } from "../shape/shapeStyleFunctions";
 import { MarqueeProps } from "./Marquee";
 
 export interface ShapeDisplayProps {
@@ -28,12 +28,4 @@ export function ShapeDisplay({
     top: Number(style.top) + dy,
   };
   return <button onClick={onShapeClick} style={translatedStyle} />;
-}
-
-function canvasDataToStyle(data: ShapeData): React.CSSProperties {
-  return {
-    ...getShapeLayoutStyle(data),
-    backgroundColor: data.color,
-    position: "absolute",
-  };
 }
