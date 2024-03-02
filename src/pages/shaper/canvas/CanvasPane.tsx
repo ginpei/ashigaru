@@ -30,18 +30,27 @@ export function CanvasPane(): JSX.Element {
       <div
         className="
           CanvasPane
-          relative size-full
-          focus-within:bg-gray-50
-          [:focus_&]:bg-gray-50
+          relative size-full bg-gray-50
+          focus-within:bg-gray-200
+          [:focus_&]:bg-gray-200
         "
         onMouseDown={onCanvasClick}
       >
-        {shapes.map((data) => (
-          <ShapeDisplay key={data.id} onSelect={onShapeSelect} shape={data} />
-        ))}
-        {selectedShapes.map((data) => (
-          <Marquee key={data.id} onSelect={onShapeSelect} shape={data} />
-        ))}
+        <div
+          className="
+            absolute inset-0 m-2 border-4 border-gray-500 bg-white shadow-gray-900
+            focus-within:shadow
+            [:focus_&]:shadow
+          "
+          onMouseDown={onCanvasClick}
+        >
+          {shapes.map((data) => (
+            <ShapeDisplay key={data.id} onSelect={onShapeSelect} shape={data} />
+          ))}
+          {selectedShapes.map((data) => (
+            <Marquee key={data.id} onSelect={onShapeSelect} shape={data} />
+          ))}
+        </div>
       </div>
     </FocusTarget>
   );
