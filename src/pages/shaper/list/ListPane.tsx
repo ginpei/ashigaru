@@ -8,6 +8,8 @@ export interface ListPaneProps {}
 export function ListPane(): JSX.Element {
   const [{ selectedShapeIds, shapes }, setState] = useShaperPageStateContext();
 
+  const reverseShapes = [...shapes].reverse();
+
   const onItemSelect: ShapeListItemProps["onSelect"] = (id, type) => {
     setState((state) => selectShape(state, [id], type));
   };
@@ -16,7 +18,7 @@ export function ListPane(): JSX.Element {
     <div className="ListPane bg-white">
       <h2 className="font-bold">Shapes</h2>
       <div className="h-full border-t bg-gray-100">
-        {shapes.map((shape) => (
+        {reverseShapes.map((shape) => (
           <ShapeListItem
             key={shape.id}
             data={shape}

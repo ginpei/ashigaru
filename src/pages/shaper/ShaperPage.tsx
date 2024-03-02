@@ -25,9 +25,9 @@ const demoShapeData: ShapeData[] = [
     color: "blue",
     height: 100,
     id: "2",
-    left: 100,
+    left: 90,
     name: "Blue",
-    top: 0,
+    top: 10,
     width: 100,
   },
 ];
