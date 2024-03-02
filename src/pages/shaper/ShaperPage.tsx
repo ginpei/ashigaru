@@ -30,6 +30,15 @@ const demoShapeData: ShapeData[] = [
     top: 10,
     width: 100,
   },
+  {
+    color: "white",
+    height: 100,
+    id: "3",
+    left: 20,
+    name: "White",
+    top: 20,
+    width: 100,
+  },
 ];
 
 export function ShaperPage(): JSX.Element {
