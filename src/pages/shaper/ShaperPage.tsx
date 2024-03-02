@@ -7,6 +7,7 @@ import { ListPane } from "./list/ListPane";
 import { ShaperNavBar } from "./page/ShaperNavBar";
 import { ShaperPageState } from "./page/ShaperPageState";
 import { ShaperPageStateContextProvider } from "./page/shaperPageStateContext";
+import { PropertyPane } from "./property/PropertyPane";
 import { ShapeData } from "./shape/ShapeData";
 
 export interface ShaperPageProps {}
@@ -47,7 +48,7 @@ export function ShaperPage(): JSX.Element {
       <div
         className="
           grid h-[100vh] w-[100vw] overflow-hidden
-          [grid-template:'navbar_navbar'_2rem_'list_canvas'_auto_/_10rem_auto]
+          [grid-template:'navbar_navbar_navbar'_2rem_'list_canvas_property'_auto_/_10rem_auto_20rem]
         "
       >
         <div className="grid [grid-area:navbar]">
@@ -58,6 +59,9 @@ export function ShaperPage(): JSX.Element {
         </div>
         <div className="grid [grid-area:canvas]">
           <CanvasPane />
+        </div>
+        <div className="grid overflow-y-auto [grid-area:property]">
+          <PropertyPane />
         </div>
       </div>
     </Provider>
