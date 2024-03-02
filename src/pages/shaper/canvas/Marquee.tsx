@@ -47,7 +47,7 @@ export function Marquee({
       ref={refDragButton}
       style={style}
     >
-      {shape.name}
+      <span className="relative z-10">{shape.name}</span>
     </button>
   );
 }
