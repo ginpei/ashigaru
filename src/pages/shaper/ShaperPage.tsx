@@ -5,6 +5,7 @@ import { NiceH1 } from "../../domains/nice/NiceH";
 import { StraightLayout } from "../../domains/pageLayout/straight/StraightLayout";
 import { CanvasPane } from "./canvas/CanvasPane";
 import { ListPane } from "./list/ListPane";
+import { ShaperPageState } from "./page/ShaperPageState";
 import { ShaperPageStateContextProvider } from "./page/shaperPageStateContext";
 import { ShapeData } from "./shape/ShapeData";
 
@@ -32,9 +33,9 @@ const demoShapeData: ShapeData[] = [
 ];
 
 export function ShaperPage(): JSX.Element {
-  const [state, setState] = useState({
+  const [state, setState] = useState<ShaperPageState>({
     shapes: demoShapeData,
-    selectedShapeId: "",
+    selectedShapeIds: [],
   });
 
   return (

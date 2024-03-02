@@ -6,7 +6,7 @@ const ShaperPageStateContext = createContext<
 >([
   {
     shapes: [],
-    selectedShapeId: "",
+    selectedShapeIds: [],
   },
   () => {},
 ]);
