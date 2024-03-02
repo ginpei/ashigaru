@@ -30,7 +30,6 @@ export function canvasDataToStyle(data: ShapeData): React.CSSProperties {
   return {
     ...getShapeLayoutStyle(data),
     backgroundColor: data.color,
-    position: "absolute",
   };
 }
 

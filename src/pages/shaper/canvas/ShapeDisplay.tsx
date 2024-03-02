@@ -27,5 +27,11 @@ export function ShapeDisplay({
     left: Number(style.left) + dx,
     top: Number(style.top) + dy,
   };
-  return <button onClick={onShapeClick} style={translatedStyle} />;
+  return (
+    <button
+      className="absolute"
+      onClick={onShapeClick}
+      style={translatedStyle}
+    />
+  );
 }
