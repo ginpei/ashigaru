@@ -4,11 +4,15 @@ import { getShapeLayoutStyle } from "../shape/shapeStyleFunctions";
 import { MarqueeProps } from "./Marquee";
 
 export interface ShapeDisplayProps {
+  dx: number;
+  dy: number;
   shape: ShapeData;
   onSelect: MarqueeProps["onSelect"];
 }
 
 export function ShapeDisplay({
+  dx,
+  dy,
   shape,
   onSelect,
 }: ShapeDisplayProps): JSX.Element {
@@ -17,7 +21,13 @@ export function ShapeDisplay({
     onSelect(shape.id, type);
   };
 
-  return <button onClick={onShapeClick} style={canvasDataToStyle(shape)} />;
+  const style = canvasDataToStyle(shape);
+  const translatedStyle: typeof style = {
+    ...style,
+    left: Number(style.left) + dx,
+    top: Number(style.top) + dy,
+  };
+  return <button onClick={onShapeClick} style={translatedStyle} />;
 }
 
 function canvasDataToStyle(data: ShapeData): React.CSSProperties {

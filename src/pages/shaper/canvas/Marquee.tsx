@@ -1,30 +1,37 @@
-import { useDrag } from "../../../domains/pointer/dragHooks";
+import { DragHandlers, useDrag } from "../../../domains/pointer/dragHooks";
 import { ShapeData } from "../shape/ShapeData";
 import { getShapeLayoutStyle } from "../shape/shapeStyleFunctions";
 
 export interface MarqueeProps {
+  dx: number;
+  dy: number;
+  onDragEnd: DragHandlers["onEnd"];
+  onDragMove: DragHandlers["onMove"];
   onSelect: (id: string, type: "single" | "append") => void;
   shape: ShapeData;
 }
 
-export function Marquee({ onSelect, shape }: MarqueeProps): JSX.Element {
-  const [refDragButton, dx, dy] = useDrag<HTMLButtonElement>({
+export function Marquee({
+  dx,
+  dy,
+  onDragEnd,
+  onDragMove,
+  onSelect,
+  shape,
+}: MarqueeProps): JSX.Element {
+  const [refDragButton] = useDrag<HTMLButtonElement>({
     onClick(event) {
       const type = event.ctrlKey ? "append" : "single";
       onSelect(shape.id, type);
     },
-    onEnd(x, y, ok) {
-      console.log("# complete", x, y, ok);
-    },
-    onStart(event) {
-      console.log("# start", event);
-    },
+    onEnd: onDragEnd,
+    onMove: onDragMove,
   });
 
   const layoutStyle = getShapeLayoutStyle(shape);
   const style: typeof layoutStyle = {
     height: layoutStyle.height,
-    left: layoutStyle.left + dx, // TODO receive dx, dy as props
+    left: layoutStyle.left + dx,
     top: layoutStyle.top + dy,
     width: layoutStyle.width,
   };

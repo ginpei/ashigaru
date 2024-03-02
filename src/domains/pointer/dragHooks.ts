@@ -5,16 +5,17 @@ export interface DragHandlers {
    * Triggered when clicked without dragging.
    * `onStart` will not be triggered when this is invoked.
    */
-  onClick?: (event: MouseEvent) => void;
+  onClick: (event: MouseEvent) => void;
   /**
    * @param ok `false` if canceled.
    */
-  onEnd?: (x: number, y: number, ok: boolean) => void;
+  onEnd: (dx: number, dy: number, ok: boolean) => void;
+  onMove: (dx: number, dy: number) => void;
   /**
    * Triggered when dragging starts.
    * `onClick` will not be triggered when this is invoked.
    */
-  onStart?: (event: PointerEvent) => void;
+  onStart: (event: PointerEvent) => void;
 }
 
 /**
@@ -25,7 +26,7 @@ export interface DragHandlers {
  * <div ref={refDrag} className="touch-none select-none">
  */
 export function useDrag<Element extends HTMLElement>(
-  handlers: DragHandlers,
+  handlers: Partial<DragHandlers>,
 ): [ref: RefObject<Element>, dx: number, dy: number] {
   const ref = createRef<Element>();
   const [dragging, setDragging] = useState(false);
@@ -81,10 +82,11 @@ export function useDrag<Element extends HTMLElement>(
         handlers.onStart?.(event);
       }
 
-      const x = event.clientX - ox;
-      const y = event.clientY - oy;
-      setDx(x);
-      setDy(y);
+      const dx = event.clientX - ox;
+      const dy = event.clientY - oy;
+      setDx(dx);
+      setDy(dy);
+      handlers.onMove?.(dx, dy);
     }
 
     function onPointerUp(event: PointerEvent) {

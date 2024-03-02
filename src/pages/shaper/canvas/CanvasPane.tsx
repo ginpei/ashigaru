@@ -1,16 +1,52 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, useCallback, useState } from "react";
 import { FocusTarget } from "../../../domains/action/FocusTarget";
+import { DragHandlers } from "../../../domains/pointer/dragHooks";
 import { useCommand } from "../action/commandContext";
 import { useShaperPageStateContext } from "../page/shaperPageStateContext";
+import { ShapeData } from "../shape/ShapeData";
 import { Marquee, MarqueeProps } from "./Marquee";
 import { ShapeDisplay } from "./ShapeDisplay";
 
 export function CanvasPane(): JSX.Element {
   const [{ selectedShapeIds, shapes }, setState] = useShaperPageStateContext();
   const selectShape = useCommand("selectShape");
+  const [dx, setDx] = useState(0);
+  const [dy, setDy] = useState(0);
 
   const selectedShapes = shapes.filter((shape) =>
     selectedShapeIds.includes(shape.id),
+  );
+
+  const onMarqueeDragMove: DragHandlers["onMove"] = useCallback((dx, dy) => {
+    setDx(dx);
+    setDy(dy);
+  }, []);
+
+  const onMarqueeDragEnd: DragHandlers["onEnd"] = useCallback(
+    (dx, dy, ok) => {
+      setDx(0);
+      setDy(0);
+      if (!ok) {
+        return;
+      }
+
+      setState((state) => {
+        const shapes = state.shapes.map((shape) => {
+          if (!selectedShapeIds.includes(shape.id)) {
+            return shape;
+          }
+
+          const newShape: ShapeData = {
+            ...shape,
+            left: shape.left + dx,
+            top: shape.top + dy,
+          };
+          return newShape;
+        });
+        return { ...state, shapes };
+      });
+    },
+    [selectedShapeIds, setState],
   );
 
   const onCanvasClick: MouseEventHandler<HTMLDivElement> = (event) => {
@@ -47,13 +83,23 @@ export function CanvasPane(): JSX.Element {
           >
             {shapes.map((data) => (
               <ShapeDisplay
+                dx={selectedShapeIds.includes(data.id) ? dx : 0}
+                dy={selectedShapeIds.includes(data.id) ? dy : 0}
                 key={data.id}
                 onSelect={onShapeSelect}
                 shape={data}
               />
             ))}
             {selectedShapes.map((data) => (
-              <Marquee key={data.id} onSelect={onShapeSelect} shape={data} />
+              <Marquee
+                dx={dx}
+                dy={dy}
+                key={data.id}
+                onDragMove={onMarqueeDragMove}
+                onDragEnd={onMarqueeDragEnd}
+                onSelect={onShapeSelect}
+                shape={data}
+              />
             ))}
           </div>
         </div>
