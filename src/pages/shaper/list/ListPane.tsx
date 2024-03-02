@@ -1,4 +1,5 @@
 import { MouseEventHandler } from "react";
+import { selectShape } from "../page/ShaperPageState";
 import { useShaperPageStateContext } from "../page/shaperPageStateContext";
 import { ShapeData } from "../shape/ShapeData";
 
@@ -8,20 +9,7 @@ export function ListPane(): JSX.Element {
   const [{ selectedShapeIds, shapes }, setState] = useShaperPageStateContext();
 
   const onItemSelect: ShapeListItemProps["onSelect"] = (id, type) => {
-    setState((state) => {
-      const selected = state.selectedShapeIds.includes(id);
-      const append = type === "append";
-      let selectedShapeIds: typeof state.selectedShapeIds = [];
-      if (append) {
-        selectedShapeIds = selected
-          ? state.selectedShapeIds.filter((i) => i !== id)
-          : [...state.selectedShapeIds, id];
-      } else {
-        selectedShapeIds = [id];
-      }
-
-      return { ...state, selectedShapeIds };
-    });
+    setState((state) => selectShape(state, [id], type));
   };
 
   return (
