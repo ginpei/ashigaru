@@ -3,6 +3,8 @@ import { GridArea, GridFrame } from "../../domains/layout/GridFrame";
 import { VStack } from "../../domains/layout/VStack";
 import { NiceH1 } from "../../domains/nice/NiceH";
 import { StraightLayout } from "../../domains/pageLayout/straight/StraightLayout";
+import { CommandProvider } from "./action/commandContext";
+import { useShaperPageActions } from "./action/shaperPageActionHooks";
 import { CanvasPane } from "./canvas/CanvasPane";
 import { ListPane } from "./list/ListPane";
 import { ShaperPageState } from "./page/ShaperPageState";
@@ -42,13 +44,8 @@ const demoShapeData: ShapeData[] = [
 ];
 
 export function ShaperPage(): JSX.Element {
-  const [state, setState] = useState<ShaperPageState>({
-    shapes: demoShapeData,
-    selectedShapeIds: [],
-  });
-
   return (
-    <ShaperPageStateContextProvider value={[state, setState]}>
+    <Provider>
       <StraightLayout className="ShaperPage" title="Home">
         <VStack>
           <NiceH1>ShaperPage</NiceH1>
@@ -65,6 +62,24 @@ export function ShaperPage(): JSX.Element {
           </GridFrame>
         </VStack>
       </StraightLayout>
+    </Provider>
+  );
+}
+
+function Provider({ children }: { children: JSX.Element }) {
+  const [state, setState] = useState<ShaperPageState>({
+    shapes: demoShapeData,
+    selectedShapeIds: [],
+  });
+
+  const [commands, shortcuts] = useShaperPageActions(state, setState);
+
+  return (
+    <ShaperPageStateContextProvider value={[state, setState]}>
+      <CommandProvider value={commands}>
+        {children}
+        {/* ! */}
+      </CommandProvider>
     </ShaperPageStateContextProvider>
   );
 }

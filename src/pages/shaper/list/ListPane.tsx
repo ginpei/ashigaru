@@ -1,5 +1,5 @@
 import { MouseEventHandler } from "react";
-import { selectShape } from "../page/ShaperPageState";
+import { useCommand } from "../action/commandContext";
 import { useShaperPageStateContext } from "../page/shaperPageStateContext";
 import { ShapeData } from "../shape/ShapeData";
 
@@ -7,11 +7,12 @@ export interface ListPaneProps {}
 
 export function ListPane(): JSX.Element {
   const [{ selectedShapeIds, shapes }, setState] = useShaperPageStateContext();
+  const selectShape = useCommand("selectShape");
 
   const reverseShapes = [...shapes].reverse();
 
   const onItemSelect: ShapeListItemProps["onSelect"] = (id, type) => {
-    setState((state) => selectShape(state, [id], type));
+    selectShape?.exec([id], type);
   };
 
   return (

@@ -1,11 +1,12 @@
 import { MouseEventHandler } from "react";
-import { selectShape } from "../page/ShaperPageState";
+import { useCommand } from "../action/commandContext";
 import { useShaperPageStateContext } from "../page/shaperPageStateContext";
 import { Marquee, MarqueeProps } from "./Marquee";
 import { ShapeDisplay } from "./ShapeDisplay";
 
 export function CanvasPane(): JSX.Element {
   const [{ selectedShapeIds, shapes }, setState] = useShaperPageStateContext();
+  const selectShape = useCommand("selectShape");
 
   const selectedShapes = shapes.filter((shape) =>
     selectedShapeIds.includes(shape.id),
@@ -16,11 +17,11 @@ export function CanvasPane(): JSX.Element {
       return;
     }
 
-    onShapeSelect("", "single");
+    selectShape?.exec([], "single");
   };
 
   const onShapeSelect: MarqueeProps["onSelect"] = (id, type) => {
-    setState((state) => selectShape(state, [id], type));
+    selectShape?.exec([id], type);
   };
 
   return (
