@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useKeyboardShortcuts } from "../../domains/action/keyboardShortcutHooks";
-import { GridArea, GridFrame } from "../../domains/layout/GridFrame";
 import { CommandProvider } from "./action/commandContext";
 import { useShaperPageActions } from "./action/shaperPageActionHooks";
 import { CanvasPane } from "./canvas/CanvasPane";
@@ -45,24 +44,22 @@ const demoShapeData: ShapeData[] = [
 export function ShaperPage(): JSX.Element {
   return (
     <Provider>
-      <GridFrame
-        className="h-[100vh] w-[100vw] overflow-hidden"
-        gridTemplate={`
-          "navbar navbar" 2rem
-          "list   canvas" auto
-          / 10rem auto
-        `}
+      <div
+        className="
+          grid h-[100vh] w-[100vw] overflow-hidden
+          [grid-template:'navbar_navbar'_2rem_'list_canvas'_auto_/_10rem_auto]
+        "
       >
-        <GridArea area="navbar">
+        <div className="grid [grid-area:navbar]">
           <ShaperNavBar />
-        </GridArea>
-        <GridArea area="list" scroll>
+        </div>
+        <div className="grid overflow-auto [grid-area:list]">
           <ListPane />
-        </GridArea>
-        <GridArea area="canvas">
+        </div>
+        <div className="grid [grid-area:canvas]">
           <CanvasPane />
-        </GridArea>
-      </GridFrame>
+        </div>
+      </div>
     </Provider>
   );
 }
