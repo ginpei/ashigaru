@@ -23,7 +23,7 @@ export function selectShape(
     }
   } else {
     // select single
-    selectedShapeIds = [ids[0]];
+    selectedShapeIds = ids;
   }
 
   return { ...state, selectedShapeIds };

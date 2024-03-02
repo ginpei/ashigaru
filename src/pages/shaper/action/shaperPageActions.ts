@@ -18,6 +18,24 @@ function createShaperPagePredefinedActions(
 ): Action[] {
   return [
     {
+      exec() {
+        setState((state) =>
+          selectShape(
+            state,
+            state.shapes.map((v) => v.id),
+            "single",
+          ),
+        );
+      },
+      id: "selectAllShapes",
+      shortcuts: [
+        {
+          key: "Ctrl+A",
+        },
+      ],
+      title: "Select all shapes",
+    },
+    {
       exec(ids: string[], type: "single" | "append") {
         setState((state) => selectShape(state, ids, type));
       },

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useKeyboardShortcuts } from "../../domains/action/keyboardShortcutHooks";
 import { GridArea, GridFrame } from "../../domains/layout/GridFrame";
 import { VStack } from "../../domains/layout/VStack";
 import { NiceH1 } from "../../domains/nice/NiceH";
@@ -73,6 +74,11 @@ function Provider({ children }: { children: JSX.Element }) {
   });
 
   const [commands, shortcuts] = useShaperPageActions(state, setState);
+
+  useKeyboardShortcuts(shortcuts, (id) => {
+    const command = commands.find((command) => command.id === id);
+    command?.exec();
+  });
 
   return (
     <ShaperPageStateContextProvider value={[state, setState]}>
