@@ -25,8 +25,8 @@ export function ThemeForm({ shape, onChange }: ThemeFormProps): JSX.Element {
   return (
     <div className="flex flex-col gap-1 px-4">
       <h3 className="font-bold">Theme</h3>
-      <span>Color</span>
       <PropertyLabelRow ambiguous={shape.color === undefined}>
+        <span>Color</span>
         <span>
           <NiceColorInput
             className="size-6"
@@ -34,7 +34,7 @@ export function ThemeForm({ shape, onChange }: ThemeFormProps): JSX.Element {
             onChange={onInputChange}
             value={shape.color ?? "#000000"}
           />{" "}
-          <NiceCode>{shape.color}</NiceCode>
+          {shape.color && <NiceCode>{shape.color}</NiceCode>}
         </span>
       </PropertyLabelRow>
     </div>
