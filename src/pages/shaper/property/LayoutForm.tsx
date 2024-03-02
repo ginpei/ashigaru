@@ -1,7 +1,7 @@
 import { ChangeEventHandler, useCallback } from "react";
 import { NiceInput } from "../../../domains/nice/NiceInput";
 import { ShapeData } from "../shape/ShapeData";
-import { PropertyLabelRow } from "./PropertyRow";
+import { PropertyLabelRow } from "./PropertyLabelRow";
 
 export interface LayoutFormProps {
   shape: Partial<ShapeData>;

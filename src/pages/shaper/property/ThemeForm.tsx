@@ -2,7 +2,7 @@ import { ChangeEventHandler, useCallback } from "react";
 import { NiceCode } from "../../../domains/nice/NiceCode";
 import { NiceColorInput } from "../../../domains/nice/NiceColorInput";
 import { ShapeData } from "../shape/ShapeData";
-import { PropertyLabelRow } from "./PropertyRow";
+import { PropertyLabelRow } from "./PropertyLabelRow";
 
 export interface ThemeFormProps {
   shape: Partial<ShapeData>;
