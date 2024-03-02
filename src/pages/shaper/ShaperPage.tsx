@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { useKeyboardShortcuts } from "../../domains/action/keyboardShortcutHooks";
 import { GridArea, GridFrame } from "../../domains/layout/GridFrame";
-import { VStack } from "../../domains/layout/VStack";
-import { NiceH1 } from "../../domains/nice/NiceH";
-import { StraightLayout } from "../../domains/pageLayout/straight/StraightLayout";
 import { CommandProvider } from "./action/commandContext";
 import { useShaperPageActions } from "./action/shaperPageActionHooks";
 import { CanvasPane } from "./canvas/CanvasPane";
 import { ListPane } from "./list/ListPane";
+import { ShaperNavBar } from "./page/ShaperNavBar";
 import { ShaperPageState } from "./page/ShaperPageState";
 import { ShaperPageStateContextProvider } from "./page/shaperPageStateContext";
 import { ShapeData } from "./shape/ShapeData";
@@ -47,22 +45,24 @@ const demoShapeData: ShapeData[] = [
 export function ShaperPage(): JSX.Element {
   return (
     <Provider>
-      <StraightLayout className="ShaperPage" title="Home">
-        <VStack>
-          <NiceH1>ShaperPage</NiceH1>
-          <GridFrame
-            className="h-96"
-            gridTemplate="'list canvas' auto / 100px auto"
-          >
-            <GridArea area="list">
-              <ListPane />
-            </GridArea>
-            <GridArea area="canvas">
-              <CanvasPane />
-            </GridArea>
-          </GridFrame>
-        </VStack>
-      </StraightLayout>
+      <GridFrame
+        className="h-[100vh] w-[100vw] overflow-hidden"
+        gridTemplate={`
+          "navbar navbar" 2rem
+          "list   canvas" auto
+          / 10rem auto
+        `}
+      >
+        <GridArea area="navbar">
+          <ShaperNavBar />
+        </GridArea>
+        <GridArea area="list" scroll>
+          <ListPane />
+        </GridArea>
+        <GridArea area="canvas">
+          <CanvasPane />
+        </GridArea>
+      </GridFrame>
     </Provider>
   );
 }

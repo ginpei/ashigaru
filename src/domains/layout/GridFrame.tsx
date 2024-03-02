@@ -8,6 +8,12 @@ export interface GridFrameProps {
   style?: HTMLAttributes<HTMLDivElement>["style"];
 }
 
+export interface GridAreaProps {
+  area: CSSProperties["gridArea"];
+  children: React.ReactNode;
+  scroll?: boolean;
+}
+
 export function GridFrame({
   children,
   className,
@@ -25,13 +31,17 @@ export function GridFrame({
   );
 }
 
-export function GridArea(props: {
-  children: React.ReactNode;
-  area: CSSProperties["gridArea"];
-}): JSX.Element {
+export function GridArea({
+  area,
+  children,
+  scroll,
+}: GridAreaProps): JSX.Element {
   return (
-    <div className="GridArea contents" style={{ gridArea: props.area }}>
-      {props.children}
+    <div
+      className={`GridArea grid ${scroll ? "overflow-auto" : ""}`}
+      style={{ gridArea: area }}
+    >
+      {children}
     </div>
   );
 }
