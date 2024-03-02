@@ -15,7 +15,7 @@ export function createShaperPageActions(
 function createShaperPagePredefinedActions(
   state: ShaperPageState,
   setState: Dispatch<SetStateAction<ShaperPageState>>,
-) {
+): Action[] {
   return [
     {
       exec(ids: string[], type: "single" | "append") {
