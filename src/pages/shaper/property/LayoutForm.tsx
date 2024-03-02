@@ -3,8 +3,8 @@ import { NiceInput } from "../../../domains/nice/NiceInput";
 import { ShapeData } from "../shape/ShapeData";
 
 export interface LayoutFormProps {
-  shape: ShapeData;
-  onChange: (shape: ShapeData) => void;
+  shape: Partial<ShapeData>;
+  onChange: (shape: Partial<ShapeData>) => void;
 }
 
 export function LayoutForm({ shape, onChange }: LayoutFormProps): JSX.Element {
@@ -15,7 +15,7 @@ export function LayoutForm({ shape, onChange }: LayoutFormProps): JSX.Element {
         throw new Error(`Invalid key: ${name}`);
       }
 
-      onChange({ ...shape, [name]: value });
+      onChange({ [name]: value });
     },
     [onChange, shape],
   );
@@ -29,7 +29,7 @@ export function LayoutForm({ shape, onChange }: LayoutFormProps): JSX.Element {
           name="top"
           onChange={onInputChange}
           type="number"
-          value={shape.top}
+          value={shape.top ?? ""}
         />
       </label>
       <label className="grid grid-cols-2">
@@ -38,7 +38,7 @@ export function LayoutForm({ shape, onChange }: LayoutFormProps): JSX.Element {
           name="left"
           onChange={onInputChange}
           type="number"
-          value={shape.left}
+          value={shape.left ?? ""}
         />
       </label>
       <label className="grid grid-cols-2">
@@ -47,7 +47,7 @@ export function LayoutForm({ shape, onChange }: LayoutFormProps): JSX.Element {
           name="width"
           onChange={onInputChange}
           type="number"
-          value={shape.width}
+          value={shape.width ?? ""}
         />
       </label>
       <label className="grid grid-cols-2">
@@ -56,7 +56,7 @@ export function LayoutForm({ shape, onChange }: LayoutFormProps): JSX.Element {
           name="height"
           onChange={onInputChange}
           type="number"
-          value={shape.height}
+          value={shape.height ?? ""}
         />
       </label>
     </div>

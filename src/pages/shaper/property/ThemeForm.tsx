@@ -4,8 +4,8 @@ import { NiceColorInput } from "../../../domains/nice/NiceColorInput";
 import { ShapeData } from "../shape/ShapeData";
 
 export interface ThemeFormProps {
-  shape: ShapeData;
-  onChange: (shape: ShapeData) => void;
+  shape: Partial<ShapeData>;
+  onChange: (shape: Partial<ShapeData>) => void;
 }
 
 export function ThemeForm({ shape, onChange }: ThemeFormProps): JSX.Element {
@@ -16,7 +16,7 @@ export function ThemeForm({ shape, onChange }: ThemeFormProps): JSX.Element {
         throw new Error(`Invalid key: ${name}`);
       }
 
-      onChange({ ...shape, [name]: value });
+      onChange({ [name]: value });
     },
     [onChange, shape],
   );
@@ -31,7 +31,7 @@ export function ThemeForm({ shape, onChange }: ThemeFormProps): JSX.Element {
             className="size-6"
             name="color"
             onChange={onInputChange}
-            value={shape.color}
+            value={shape.color ?? "#000000"}
           />{" "}
           <NiceCode>{shape.color}</NiceCode>
         </span>
