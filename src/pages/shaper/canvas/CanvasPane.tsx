@@ -1,12 +1,12 @@
-import { useShapeData } from "../shape/shapeDataContext";
+import { useShaperPageStateContext } from "../page/shaperPageStateContext";
 import { ShaperCanvas } from "./ShaperCanvas";
 
 export function CanvasPane(): JSX.Element {
-  const data = useShapeData();
+  const [{ shapes }] = useShaperPageStateContext();
 
   return (
     <div className="CanvasPane">
-      <ShaperCanvas data={data} />
+      <ShaperCanvas data={shapes} />
     </div>
   );
 }

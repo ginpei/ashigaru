@@ -1,18 +1,17 @@
-import { NiceH2 } from "../../../domains/nice/NiceH";
+import { useShaperPageStateContext } from "../page/shaperPageStateContext";
 import { ShapeData } from "../shape/ShapeData";
-import { useShapeData } from "../shape/shapeDataContext";
 
 export interface ListPaneProps {}
 
 export function ListPane(): JSX.Element {
-  const data = useShapeData();
+  const [{ shapes }] = useShaperPageStateContext();
 
   return (
     <div className="ListPane bg-white">
       <h2 className="font-bold">Shapes</h2>
       <div className="h-full border-t bg-gray-100">
-        {data.map((data) => (
-          <ShapeListItem key={data.id} data={data} />
+        {shapes.map((shape) => (
+          <ShapeListItem key={shape.id} data={shape} />
         ))}
       </div>
     </div>
