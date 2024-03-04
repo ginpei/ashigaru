@@ -76,9 +76,9 @@ function Provider({ children }: { children: JSX.Element }) {
 
   const [commands, shortcuts] = useShaperPageActions(state, setState);
 
-  useKeyboardShortcuts(shortcuts, (id) => {
+  useKeyboardShortcuts(shortcuts, (id, args) => {
     const command = commands.find((command) => command.id === id);
-    command?.exec();
+    command?.exec(...args);
   });
 
   return (
