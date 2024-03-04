@@ -67,9 +67,29 @@ function createMoveActions(
           args: ["y", -1],
         },
         {
+          key: "Shift+ArrowUp",
+          when: "canvasFocus",
+          args: ["y", -10],
+        },
+        {
+          key: "Ctrl+ArrowUp",
+          when: "canvasFocus",
+          args: ["y", -100],
+        },
+        {
           key: "ArrowRight",
           when: "canvasFocus",
           args: ["x", 1],
+        },
+        {
+          key: "Shift+ArrowRight",
+          when: "canvasFocus",
+          args: ["x", 10],
+        },
+        {
+          key: "Ctrl+ArrowRight",
+          when: "canvasFocus",
+          args: ["x", 100],
         },
         {
           key: "ArrowDown",
@@ -77,9 +97,29 @@ function createMoveActions(
           args: ["y", 1],
         },
         {
+          key: "Shift+ArrowDown",
+          when: "canvasFocus",
+          args: ["y", 10],
+        },
+        {
+          key: "Ctrl+ArrowDown",
+          when: "canvasFocus",
+          args: ["y", 100],
+        },
+        {
           key: "ArrowLeft",
           when: "canvasFocus",
           args: ["x", -1],
+        },
+        {
+          key: "Shift+ArrowLeft",
+          when: "canvasFocus",
+          args: ["x", -10],
+        },
+        {
+          key: "Ctrl+ArrowLeft",
+          when: "canvasFocus",
+          args: ["x", -100],
         },
       ],
       title: "Move shape",
