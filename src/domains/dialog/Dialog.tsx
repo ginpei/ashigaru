@@ -8,6 +8,30 @@ export interface DialogProps {
   open: boolean;
 }
 
+/**
+ * @example
+ * function DemoDialog({
+ *   onClose,
+ *   open,
+ * }: {
+ *   onClose: () => void;
+ *   open: boolean;
+ * }): JSX.Element {
+ *   return (
+ *     <Dialog onClose={onClose} open={open}>
+ *       <DialogHeader onClose={onClose}>Hello World!</DialogHeader>
+ *       <DialogBody>
+ *         <div className="w-96">
+ *           <p>Lorem ipsum...</p>
+ *         </div>
+ *       </DialogBody>
+ *       <DialogFooter>
+ *         <NiceButton onClick={onClose}>OK</NiceButton>
+ *       </DialogFooter>
+ *     </Dialog>
+ *   );
+ * }
+ */
 export function Dialog({ children, onClose, open }: DialogProps): JSX.Element {
   const refDialog = createRef<HTMLDialogElement>();
 

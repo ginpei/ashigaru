@@ -34,16 +34,15 @@ export function DialogDemoPage(): JSX.Element {
 
 DialogDemoPage.path = "dialog/Dialog" as const;
 
-function DemoDialog(props: {
+function DemoDialog({
+  onClose,
+  open,
+}: {
   onClose: () => void;
   open: boolean;
 }): JSX.Element {
-  const onClose = () => {
-    props.onClose();
-  };
-
   return (
-    <Dialog onClose={onClose} open={props.open}>
+    <Dialog onClose={onClose} open={open}>
       <DialogHeader onClose={onClose}>Hello World!</DialogHeader>
       <DialogBody>
         <div className="w-96">
