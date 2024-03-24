@@ -6,7 +6,11 @@ import { CanvasPane } from "./canvas/CanvasPane";
 import { ListPane } from "./list/ListPane";
 import { ShaperNavBar } from "./page/ShaperNavBar";
 import { ShaperPageState } from "./page/ShaperPageState";
-import { ShaperPageStateContextProvider } from "./page/shaperPageStateContext";
+import { ShortcutListDialog } from "./page/ShortcutListDialog";
+import {
+  ShaperPageStateContextProvider,
+  useShaperPageStateContext,
+} from "./page/shaperPageStateContext";
 import { PropertyPane } from "./property/PropertyPane";
 import { ShapeData } from "./shape/ShapeData";
 
@@ -45,25 +49,28 @@ const demoShapeData: ShapeData[] = [
 export function ShaperPage(): JSX.Element {
   return (
     <Provider>
-      <div
-        className="
+      <>
+        <div
+          className="
           grid h-[100vh] w-[100vw] overflow-hidden
           [grid-template:'navbar_navbar_navbar'_2rem_'list_canvas_property'_auto_/_10rem_auto_20rem]
         "
-      >
-        <div className="grid [grid-area:navbar]">
-          <ShaperNavBar />
+        >
+          <div className="grid [grid-area:navbar]">
+            <ShaperNavBar />
+          </div>
+          <div className="grid overflow-auto [grid-area:list]">
+            <ListPane />
+          </div>
+          <div className="grid [grid-area:canvas]">
+            <CanvasPane />
+          </div>
+          <div className="grid overflow-y-auto [grid-area:property]">
+            <PropertyPane />
+          </div>
         </div>
-        <div className="grid overflow-auto [grid-area:list]">
-          <ListPane />
-        </div>
-        <div className="grid [grid-area:canvas]">
-          <CanvasPane />
-        </div>
-        <div className="grid overflow-y-auto [grid-area:property]">
-          <PropertyPane />
-        </div>
-      </div>
+        <PageDialogs />
+      </>
     </Provider>
   );
 }
@@ -72,6 +79,7 @@ function Provider({ children }: { children: JSX.Element }) {
   const [state, setState] = useState<ShaperPageState>({
     shapes: demoShapeData,
     selectedShapeIds: [],
+    shortcutListDialogOpen: false,
   });
 
   const [commands, shortcuts] = useShaperPageActions(state, setState);
@@ -88,5 +96,20 @@ function Provider({ children }: { children: JSX.Element }) {
         {/* ! */}
       </CommandProvider>
     </ShaperPageStateContextProvider>
+  );
+}
+
+function PageDialogs() {
+  const [pageState, setPageState] = useShaperPageStateContext();
+
+  return (
+    <>
+      <ShortcutListDialog
+        onClose={() =>
+          setPageState((v) => ({ ...v, shortcutListDialogOpen: false }))
+        }
+        open={pageState.shortcutListDialogOpen}
+      />
+    </>
   );
 }

@@ -124,5 +124,17 @@ function createMoveActions(
       ],
       title: "Move shape",
     },
+    {
+      exec() {
+        setState((state) => ({ ...state, shortcutListDialogOpen: true }));
+      },
+      id: "showShortcutList",
+      shortcuts: [
+        {
+          key: "Shift+?", // TODO fix input picker to remove "Shift+" prefix
+        },
+      ],
+      title: "Show shortcut list",
+    },
   ];
 }

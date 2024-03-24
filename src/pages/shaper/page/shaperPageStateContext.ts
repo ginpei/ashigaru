@@ -7,6 +7,7 @@ const ShaperPageStateContext = createContext<
   {
     shapes: [],
     selectedShapeIds: [],
+    shortcutListDialogOpen: false,
   },
   () => {},
 ]);
