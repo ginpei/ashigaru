@@ -56,6 +56,47 @@ describe("keyboardEventToInputCommand", () => {
     });
   });
 
+  describe("returns empty if key was a modifier", () => {
+    it("ctrl", () => {
+      const result = keyboardEventToInputCommand(
+        createKeyboardEvent({
+          altKey: false,
+          ctrlKey: false,
+          key: "Control",
+          shiftKey: true,
+          metaKey: false,
+        }),
+      );
+      expect(result).toBe("");
+    });
+
+    it("meta", () => {
+      const result = keyboardEventToInputCommand(
+        createKeyboardEvent({
+          altKey: false,
+          ctrlKey: false,
+          key: "Meta",
+          shiftKey: true,
+          metaKey: false,
+        }),
+      );
+      expect(result).toBe("");
+    });
+  });
+
+  it("removes the shift key for symbols", () => {
+    const result = keyboardEventToInputCommand(
+      createKeyboardEvent({
+        altKey: false,
+        ctrlKey: false,
+        key: "?",
+        shiftKey: true,
+        metaKey: false,
+      }),
+    );
+    expect(result).toBe("?");
+  });
+
   it("returns mapped symbols", () => {
     const result = keyboardEventToInputCommand(
       createKeyboardEvent({

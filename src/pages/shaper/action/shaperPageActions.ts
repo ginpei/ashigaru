@@ -131,7 +131,7 @@ function createMoveActions(
       id: "showShortcutList",
       shortcuts: [
         {
-          key: "Shift+?", // TODO fix input picker to remove "Shift+" prefix
+          key: "?",
         },
       ],
       title: "Show shortcut list",
