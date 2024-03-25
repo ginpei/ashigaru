@@ -1,6 +1,7 @@
 import { ChangeEventHandler, useCallback } from "react";
 import { NiceInput } from "../../../domains/nice/NiceInput";
 import { ShapeData } from "../shape/ShapeData";
+import { PropertyLabelRow } from "./PropertyLabelRow";
 
 export interface GeneralFormProps {
   shapes: ShapeData[];
@@ -34,11 +35,11 @@ export function GeneralForm({
       <h3 className="font-bold">General</h3>
       {shape ? (
         <>
-          <label className="grid grid-cols-2">
+          <PropertyLabelRow ambiguous={false}>
             <span>ID</span>
             <NiceInput name="id" readOnly type="text" value={shape.id} />
-          </label>
-          <label className="grid grid-cols-2">
+          </PropertyLabelRow>
+          <PropertyLabelRow ambiguous={false}>
             <span>Name</span>
             <NiceInput
               name="name"
@@ -46,7 +47,7 @@ export function GeneralForm({
               type="text"
               value={shape.name}
             />
-          </label>
+          </PropertyLabelRow>
         </>
       ) : (
         <p>
