@@ -9,7 +9,7 @@ export function ListPane(): JSX.Element {
   const [{ selectedShapeIds, shapes }, setState] = useShaperPageStateContext();
   const selectShape = useCommand("selectShape");
 
-  const reverseShapes = [...shapes].reverse();
+  const reverseShapes = shapes.toReversed();
 
   const onItemSelect: ShapeListItemProps["onSelect"] = (id, type) => {
     selectShape?.exec([id], type);
