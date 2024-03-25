@@ -2,6 +2,8 @@ import { Dispatch, SetStateAction } from "react";
 import { Action } from "../../../domains/action/Action";
 import { ShaperPageState, selectShape } from "../page/ShaperPageState";
 import { moveShape } from "../page/sateFunctions/move";
+import { ShapeData } from "../shape/ShapeData";
+import { addShape } from "../shape/shapeStateFunctions";
 
 export function createShaperPageActions(
   state: ShaperPageState,
@@ -135,6 +137,27 @@ function createMoveActions(
         },
       ],
       title: "Show shortcut list",
+    },
+    {
+      exec(shape?: ShapeData) {
+        const newShape = shape ?? {
+          color: "#000000",
+          height: 100,
+          id: crypto.randomUUID(),
+          left: 0,
+          name: "New shape",
+          top: 0,
+          width: 100,
+        };
+        setState((state) => addShape(state, newShape));
+      },
+      id: "addShape",
+      shortcuts: [
+        {
+          key: "Alt+N",
+        },
+      ],
+      title: "Add new shape",
     },
   ];
 }
