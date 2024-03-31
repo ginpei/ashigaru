@@ -3,7 +3,7 @@ import { Action } from "../../../domains/action/Action";
 import { ShaperPageState, selectShape } from "../page/ShaperPageState";
 import { moveShape } from "../page/sateFunctions/move";
 import { ShapeData } from "../shape/ShapeData";
-import { addShape } from "../shape/shapeStateFunctions";
+import { addShape, removeShape } from "../shape/shapeStateFunctions";
 
 export function createShaperPageActions(
   state: ShaperPageState,
@@ -158,6 +158,22 @@ function createMoveActions(
         },
       ],
       title: "Add new shape",
+    },
+    {
+      exec(shapeIds = state.selectedShapeIds) {
+        setState((state) => removeShape(state, shapeIds));
+      },
+      id: "removeShape",
+      shortcuts: [
+        {
+          key: "Delete",
+          // when: "selectionNotEmpty",
+        },
+        {
+          key: "Backspace",
+        },
+      ],
+      title: "Remove new shape",
     },
   ];
 }
