@@ -40,7 +40,7 @@ const actions: Action[] = [
 ];
 
 const [commands, shortcuts] = breakActions(actions);
-        `.trim()}
+        `}
         </NiceCodeBlock>
         <NiceH2>Run a command by ID</NiceH2>
         <ol className="ui-ol">
@@ -56,7 +56,7 @@ const [commands, shortcuts] = breakActions(actions);
           {`
 const command = pickCommandDefinition(commands, "action1");
 command.exec();
-        `.trim()}
+        `}
         </NiceCodeBlock>
         <NiceH2>Run a command by keyboard shortcut</NiceH2>
         <ol className="ui-ol">
@@ -88,7 +88,7 @@ const conditions: ConditionFunctionMap = {
 const shortcut = pickShortcutDefinition(shortcuts, conditions, key);
 const command = pickCommandDefinition(commands, shortcut.commandId);
 command.exec(...(shortcut.args ?? []));
-        `.trim()}
+        `}
         </NiceCodeBlock>
       </VStack>
     </StraightLayout>
