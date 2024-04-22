@@ -9,7 +9,7 @@ export function ActionAboutActionDemoPage(): JSX.Element {
     <StraightLayout title="About action">
       <VStack>
         <NiceH1>About action</NiceH1>
-        <NiceH2>Prepare</NiceH2>
+        <NiceH2>Prepare actions</NiceH2>
         <ol className="ui-ol">
           <li>
             Define actions, which type is <NiceCode>Action</NiceCode>
@@ -40,6 +40,25 @@ const actions: Action[] = [
 ];
 
 const [commands, shortcuts] = breakActions(actions);
+        `}
+        </NiceCodeBlock>
+        <NiceH2>Prepare conditions</NiceH2>
+        <p>
+          Condition is used to determine which keyboard shortcut is available in
+          a certain situation.
+        </p>
+        <ol className="ui-ol">
+          <li>
+            Implement a condition map, which type is{" "}
+            <NiceCode>ConditionFunctionMap</NiceCode>, using{" "}
+            <NiceCode>createConditionFunction()</NiceCode>
+          </li>
+        </ol>
+        <NiceCodeBlock>
+          {`
+const conditions: ConditionFunctionMap = {
+  "focus:canvas": createConditionFunction("", "focus:canvas", () => true),
+};
         `}
         </NiceCodeBlock>
         <NiceH2>Run a command by ID</NiceH2>
