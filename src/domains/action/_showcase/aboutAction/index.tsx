@@ -9,6 +9,19 @@ export function ActionAboutActionDemoPage(): JSX.Element {
     <StraightLayout title="About action">
       <VStack>
         <NiceH1>About action</NiceH1>
+        <p>
+          <a
+            className="block hover:bg-slate-50"
+            href="https://mermaid.live/edit#pako:eNqNU0FOwzAQ_ErkE0gNB45WFQm1ICHEqZwgHLb2prXS2JFjV0RV_44dpwTSuNSHyJ7MzM6u7ANhiiOhpDFgcClgo6FK9_e5TNzqwGStEcoHZoSSzc1tMp8XSpdZFigB__hM0jQbMenoHAQjNy9bqKoCyZslFkKK4Bclr7ZKG2aNp_xOyRzV4EJJ3jk8WdnJzgLHeSHKCH-FmsY1fyPUgpWneEMvZwmGDrqSMVUgTwW6QvaC7VqB5o97lKbjl9hS_xngN_Usa2v66Z-UjnKFf7RVL236H_SCyXhufYoLY5u6JT9JJ-R9hb76_8xYCi9kAb_DL2T-YkeNyIxUqCsQ3L2pgzfOidlihTmhbsuxALszOcnl0VHBGrVqJSPUaIszYms-vEJCC9g1Dq1Bvit1Oh-_AWBqRvY"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              alt=""
+              className="mx-auto max-w-96"
+              src="https://mermaid.ink/svg/pako:eNqNU0FOwzAQ_ErkE0gNB45WFQm1ICHEqZwgHLb2prXS2JFjV0RV_44dpwTSuNSHyJ7MzM6u7ANhiiOhpDFgcClgo6FK9_e5TNzqwGStEcoHZoSSzc1tMp8XSpdZFigB__hM0jQbMenoHAQjNy9bqKoCyZslFkKK4Bclr7ZKG2aNp_xOyRzV4EJJ3jk8WdnJzgLHeSHKCH-FmsY1fyPUgpWneEMvZwmGDrqSMVUgTwW6QvaC7VqB5o97lKbjl9hS_xngN_Usa2v66Z-UjnKFf7RVL236H_SCyXhufYoLY5u6JT9JJ-R9hb76_8xYCi9kAb_DL2T-YkeNyIxUqCsQ3L2pgzfOidlihTmhbsuxALszOcnl0VHBGrVqJSPUaIszYms-vEJCC9g1Dq1Bvit1Oh-_AWBqRvY"
+            />
+          </a>
+        </p>
         <NiceH2>Prepare actions</NiceH2>
         <ol className="ui-ol">
           <li>
