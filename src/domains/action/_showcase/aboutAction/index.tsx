@@ -75,6 +75,7 @@ const conditions: ConditionFunctionMap = {
 };
         `}
         </NiceCodeBlock>
+        <p>TODO: create createConditionFunction()</p>
         <NiceH2>Run a command by ID</NiceH2>
         <ol className="ui-ol">
           <li>
@@ -123,6 +124,7 @@ const command = pickCommandDefinition(commands, shortcut.commandId);
 command.exec(...(shortcut.args ?? []));
         `}
         </NiceCodeBlock>
+        <p>TODO: pickShortcutDefinition()</p>
       </VStack>
     </StraightLayout>
   );
