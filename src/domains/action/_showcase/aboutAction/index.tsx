@@ -125,6 +125,41 @@ command.exec(...(shortcut.args ?? []));
         `}
         </NiceCodeBlock>
         <p>TODO: pickShortcutDefinition()</p>
+        <NiceH2>React</NiceH2>
+        <p>
+          To prepare actions, commands, and shortcuts, use{" "}
+          <NiceCode>useMemo()</NiceCode> with{" "}
+          <NiceCode>breakActions()</NiceCode>
+        </p>
+        <NiceCodeBlock>
+          {`
+// (usage)
+const [commands, shortcuts] = useFooPageActions();
+
+// To prepare actions, commands, and shortcuts
+function useFooPageActions(state: PageState) {
+  return useMemo(() => {
+    const actions: Action[] = [ /* ... */ ];
+    return breakActions(actions);
+  }, [state]);
+}
+        `}
+        </NiceCodeBlock>
+        <p>
+          To run a command by keyboard shortcut, use{" "}
+          <NiceCode>useShortcutRunner()</NiceCode>
+        </p>
+        <NiceCodeBlock>
+          {`
+// (prerequisites)
+const [commands, shortcuts] = useFooPageActions();
+const pageCondition = useFooPageCondition();
+
+// To run a command by keyboard shortcut
+useShortcutRunner(commands, shortcuts, pageCondition);
+        `}
+        </NiceCodeBlock>
+        <p>TODO: create useShortcutRunner()</p>
       </VStack>
     </StraightLayout>
   );
