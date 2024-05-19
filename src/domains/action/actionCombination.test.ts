@@ -1,13 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { Action, breakActions } from "./Action";
 import { CommandDefinition, pickCommandDefinition } from "./CommandDefinition";
+import { ConditionFunctionMap, createConditionFunction } from "./Condition";
 import { KeyboardShortcut } from "./KeyboardShortcut";
-
-type ConditionFunction = ((args?: any[]) => boolean) & {
-  key: string;
-  source: string;
-};
-type ConditionFunctionMap = { [key: string]: ConditionFunction };
 
 describe("action", () => {
   let actions: Action[];
@@ -93,15 +88,4 @@ function pickShortcutDefinition(
   }
 
   return result;
-}
-
-function createConditionFunction(
-  source: string,
-  key: string,
-  fn: (args?: any[]) => boolean,
-): ConditionFunction {
-  const condition = (() => fn()) as ConditionFunction; // not to modify the original function instance
-  condition.key = key;
-  condition.source = source;
-  return condition;
 }

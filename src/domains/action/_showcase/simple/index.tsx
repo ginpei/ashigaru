@@ -7,8 +7,13 @@ import { NiceH1, NiceH2 } from "../../../nice/NiceH";
 import { NiceInput } from "../../../nice/NiceInput";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { Action, breakActions } from "../../Action";
-import { pickCommandDefinition } from "../../CommandDefinition";
-import { useKeyboardShortcuts } from "../../keyboardShortcutHooks";
+import {
+  CommandDefinition,
+  pickCommandDefinition,
+} from "../../CommandDefinition";
+import { ConditionFunctionMap, createConditionFunction } from "../../Condition";
+import { KeyboardShortcut } from "../../KeyboardShortcut";
+import { useKeyboardShortcuts2 } from "../../keyboardShortcutHooks";
 
 const fruits = ["Apple", "Banana", "Cherry", "Date", "Elderberry"] as const;
 
@@ -26,11 +31,8 @@ export function SimpleActionDemoPage(): JSX.Element {
   });
 
   const [commands, shortcuts] = useDemoPageActions(state, setState);
-
-  useKeyboardShortcuts(shortcuts, (commandId) => {
-    const command = pickCommandDefinition(commands, commandId);
-    command.exec();
-  });
+  const conditions = useDemoPageConditions(state);
+  useShortcutRunner(commands, shortcuts, conditions);
 
   const onSelectAllClick = () => {
     const command = pickCommandDefinition(commands, "selectAllFruits");
@@ -83,6 +85,7 @@ export function SimpleActionDemoPage(): JSX.Element {
           focus-within:bg-yellow-100 hover:border-yellow-600
           [&:focus-within_.shortcutList]:visible
           "
+          data-focus="ui1"
           tabIndex={-1}
         >
           <NiceH2>UI 1</NiceH2>
@@ -125,6 +128,7 @@ export function SimpleActionDemoPage(): JSX.Element {
           hover:border-yellow-600
           [&:focus-within_.shortcutList]:visible
           "
+          data-focus="ui2"
           tabIndex={-1}
         >
           <NiceH2>UI 2</NiceH2>
@@ -143,6 +147,7 @@ export function SimpleActionDemoPage(): JSX.Element {
                 Some number:{" "}
                 <NiceInput
                   className="w-24 px-0 text-center"
+                  data-focus="the-number"
                   type="number"
                   value={state.number}
                   onChange={onNumberChange}
@@ -186,7 +191,7 @@ function useDemoPageActions(
         shortcuts: [
           {
             key: "Ctrl+A",
-            // when: "focus:canvas",
+            when: "focus:ui1",
           },
         ],
         title: "Select all fruits",
@@ -201,7 +206,7 @@ function useDemoPageActions(
         shortcuts: [
           {
             key: "Ctrl+Shift+A",
-            // when: "focus:canvas",
+            when: "focus:ui1",
           },
         ],
         title: "Unselect all fruits",
@@ -215,7 +220,7 @@ function useDemoPageActions(
         shortcuts: [
           {
             key: "Ctrl+Enter",
-            // when: "focus:canvas",
+            when: "focus:ui2",
           },
         ],
         title: "Submit form",
@@ -230,7 +235,7 @@ function useDemoPageActions(
         shortcuts: [
           {
             key: "Ctrl+ArrowUp",
-            // when: "focus:canvas",
+            when: "focus:the-number",
           },
         ],
         title: "Increase number by 10",
@@ -245,7 +250,7 @@ function useDemoPageActions(
         shortcuts: [
           {
             key: "Ctrl+ArrowDown",
-            // when: "focus:canvas",
+            when: "focus:the-number",
           },
         ],
         title: "Decrease number by 10",
@@ -253,4 +258,59 @@ function useDemoPageActions(
     ];
     return breakActions(actions);
   }, [setState, state]);
+}
+
+function useDemoPageConditions(state: PageState) {
+  const conditions: ConditionFunctionMap = {
+    "focus:ui1": createConditionFunction("Demo page", "focus:ui1", () => {
+      const elFocus = document.activeElement;
+      if (!elFocus) {
+        return false;
+      }
+
+      const el = elFocus.closest("[data-focus='ui1']");
+      if (!el) {
+        return false;
+      }
+
+      return true;
+    }),
+    "focus:ui2": createConditionFunction("Demo page", "focus:ui2", () => {
+      const elFocus = document.activeElement;
+      if (!elFocus) {
+        return false;
+      }
+
+      const el = elFocus.closest("[data-focus='ui2']");
+      if (!el) {
+        return false;
+      }
+
+      return true;
+    }),
+    "focus:the-number": createConditionFunction(
+      "Number input",
+      "focus:the-number",
+      () => {
+        return (
+          document.activeElement ===
+          document.querySelector("[data-focus='the-number']")
+        );
+      },
+    ),
+  };
+
+  return conditions;
+}
+
+// TODO extract
+function useShortcutRunner(
+  commands: CommandDefinition[],
+  shortcuts: KeyboardShortcut[],
+  conditions: ConditionFunctionMap,
+) {
+  useKeyboardShortcuts2(shortcuts, conditions, (commandId) => {
+    const command = pickCommandDefinition(commands, commandId);
+    command.exec();
+  });
 }
