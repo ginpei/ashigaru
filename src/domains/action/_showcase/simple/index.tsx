@@ -240,6 +240,25 @@ function useDemoPageActions(
         title: "Toggle shortcut list dialog",
       },
       {
+        id: "message",
+        exec(message: string) {
+          window.alert(`Message: ${message}`);
+        },
+        shortcuts: [
+          {
+            args: ["Hello world from UI 1!"],
+            key: "Ctrl+Shift+M",
+            when: "focus:ui1",
+          },
+          {
+            args: ["Hi from UI 2!"],
+            key: "Ctrl+Shift+M",
+            when: "focus:ui2",
+          },
+        ],
+        title: "Message",
+      },
+      {
         exec(selected: boolean) {
           setState((prev) => {
             return selected
