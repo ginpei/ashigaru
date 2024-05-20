@@ -67,7 +67,7 @@ export function execCommand<T extends any[] = any[]>(
     throw new Error(`Command ID ${commandId} is not defined`);
   }
 
-  def.exec(...(args as any));
+  def.exec(...((args ?? []) as any));
 }
 
 /**

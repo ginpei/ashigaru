@@ -8,10 +8,9 @@ import { NiceH1, NiceH2 } from "../../../nice/NiceH";
 import { NiceInput } from "../../../nice/NiceInput";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { Action, breakActions } from "../../Action";
-import { CommandDefinition, execCommand } from "../../CommandDefinition";
+import { execCommand } from "../../CommandDefinition";
 import { ConditionFunctionMap, createConditionFunction } from "../../Condition";
-import { KeyboardShortcut } from "../../KeyboardShortcut";
-import { useKeyboardShortcuts2 } from "../../keyboardShortcutHooks";
+import { useShortcutRunner } from "../../keyboardShortcutHooks";
 
 const fruits = ["Apple", "Banana", "Cherry", "Date", "Elderberry"] as const;
 
@@ -344,15 +343,4 @@ function useDemoPageConditions(state: PageState) {
   };
 
   return conditions;
-}
-
-// TODO extract
-function useShortcutRunner(
-  commands: CommandDefinition[],
-  shortcuts: KeyboardShortcut[],
-  conditions: ConditionFunctionMap,
-) {
-  useKeyboardShortcuts2(shortcuts, conditions, (commandId, args) => {
-    execCommand(commands, commandId, args);
-  });
 }

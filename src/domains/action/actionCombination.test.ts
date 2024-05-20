@@ -1,8 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { Action, breakActions } from "./Action";
-import { CommandDefinition, pickCommandDefinition } from "./CommandDefinition";
+import {
+  CommandDefinition,
+  execCommand,
+  pickCommandDefinition,
+} from "./CommandDefinition";
 import { ConditionFunctionMap, createConditionFunction } from "./Condition";
-import { KeyboardShortcut } from "./KeyboardShortcut";
+import { KeyboardShortcut, findShortcut } from "./KeyboardShortcut";
 
 describe("action", () => {
   let actions: Action[];
@@ -31,12 +35,11 @@ describe("action", () => {
       conditions = prepareConditions();
     });
 
-    it("runs keyboard", () => {
+    it("runs shortcut", () => {
       const key = "Ctrl+X";
 
-      const shortcut = pickShortcutDefinition(shortcuts, conditions, key);
-      const command = pickCommandDefinition(commands, shortcut.commandId);
-      command.exec(...(shortcut.args ?? []));
+      const shortcut = findShortcut(shortcuts, key, conditions);
+      execCommand(commands, shortcut!.commandId, shortcut!.args);
 
       expect(actions[0].exec).toBeCalledWith(1, 2);
     });
@@ -64,28 +67,4 @@ function prepareConditions(): ConditionFunctionMap {
   return {
     "focus:canvas": createConditionFunction("", "focus:canvas", () => true),
   };
-}
-
-function pickShortcutDefinition(
-  shortcuts: KeyboardShortcut[],
-  conditions: ConditionFunctionMap,
-  key: string,
-): KeyboardShortcut {
-  let result: KeyboardShortcut | undefined = undefined;
-
-  for (const shortcut of shortcuts) {
-    const conditionKey = shortcut.when;
-    const condition = conditionKey ? conditions[conditionKey] : undefined;
-
-    if (shortcut.key === key && condition?.()) {
-      result = shortcut;
-      break;
-    }
-  }
-
-  if (!result) {
-    throw new Error(`Shortcut not found: ${key}`);
-  }
-
-  return result;
 }

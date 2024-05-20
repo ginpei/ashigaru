@@ -75,7 +75,6 @@ const conditions: ConditionFunctionMap = {
 };
         `}
         </NiceCodeBlock>
-        <p>TODO: create createConditionFunction()</p>
         <NiceH2>Run a command by ID</NiceH2>
         <ol className="ui-ol">
           <li>
@@ -99,7 +98,7 @@ execCommand(commands, "action2", args);
           </li>
           <li>
             Pick a shortcut by input key combination and conditions using{" "}
-            <NiceCode>pickShortcutDefinition()</NiceCode>
+            <NiceCode>findShortcut()</NiceCode>
           </li>
           <li>
             Run the command using <NiceCode>execCommand()</NiceCode>
@@ -107,17 +106,16 @@ execCommand(commands, "action2", args);
         </ol>
         <NiceCodeBlock>
           {`
-const key = keyboardEventToInputCommand(keyboardEvent);
+const input = keyboardEventToInputCommand(keyboardEvent);
 
 const conditions: ConditionFunctionMap = {
   "focus:canvas": createConditionFunction("", "focus:canvas", () => true),
 };
 
-const shortcut = pickShortcutDefinition(shortcuts, conditions, key);
+const shortcut = findShortcut(shortcuts, input, conditions);
 execCommand(commands, shortcut.commandId, shortcut.args);
         `}
         </NiceCodeBlock>
-        <p>TODO: pickShortcutDefinition()</p>
         <NiceH2>React</NiceH2>
         <p>
           To prepare actions, commands, and shortcuts, use{" "}
@@ -152,7 +150,6 @@ const pageCondition = useFooPageCondition();
 useShortcutRunner(commands, shortcuts, pageCondition);
         `}
         </NiceCodeBlock>
-        <p>TODO: create useShortcutRunner()</p>
       </VStack>
     </StraightLayout>
   );

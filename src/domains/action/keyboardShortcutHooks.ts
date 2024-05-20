@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from "react";
+import { CommandDefinition, execCommand } from "./CommandDefinition";
 import { ConditionFunctionMap } from "./Condition";
 import { KeyboardShortcut, findShortcut } from "./KeyboardShortcut";
 import { useFocusTarget } from "./focusHooks";
@@ -49,6 +50,16 @@ export function useKeyboardShortcuts2(
   );
 
   useKeyDown(onKeyDown);
+}
+
+export function useShortcutRunner(
+  commands: CommandDefinition[],
+  shortcuts: KeyboardShortcut[],
+  conditions: ConditionFunctionMap,
+) {
+  useKeyboardShortcuts2(shortcuts, conditions, (commandId, args) => {
+    execCommand(commands, commandId, args);
+  });
 }
 
 function useKeyDown(
