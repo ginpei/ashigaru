@@ -20,7 +20,7 @@ const editorPageActions: Action<
       giveFocusOn("noteListFocus");
     },
     id: "focusOnNoteList",
-    shortcuts: [
+    patterns: [
       {
         key: "Ctrl+Shift+E",
       },
@@ -32,7 +32,7 @@ const editorPageActions: Action<
       giveFocusOn("noteTitleFocus");
     },
     id: "focusOnNoteTitle",
-    shortcuts: [
+    patterns: [
       {
         key: "Ctrl+0",
       },
@@ -44,7 +44,7 @@ const editorPageActions: Action<
       giveFocusOn("noteBodyFocus");
     },
     id: "focusOnEditor",
-    shortcuts: [
+    patterns: [
       {
         key: "Ctrl+1",
       },
@@ -56,7 +56,7 @@ const editorPageActions: Action<
       set(closeNoteState(state, state.editingNoteId));
     },
     id: "closeEditingNote",
-    shortcuts: [
+    patterns: [
       {
         key: "Alt+W",
       },

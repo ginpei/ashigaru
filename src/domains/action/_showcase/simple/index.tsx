@@ -231,7 +231,7 @@ function useDemoPageActions(
           }));
         },
         id: "toggleShortcutListDialog",
-        shortcuts: [
+        patterns: [
           {
             key: "?",
             // when: "!input", // TODO
@@ -244,7 +244,7 @@ function useDemoPageActions(
         exec(message: string) {
           window.alert(`Message: ${message}`);
         },
-        shortcuts: [
+        patterns: [
           {
             args: ["Hello world from UI 1!"],
             key: "Ctrl+Shift+M",
@@ -267,7 +267,7 @@ function useDemoPageActions(
           });
         },
         id: "toggleAll",
-        shortcuts: [
+        patterns: [
           {
             args: [true],
             key: "Ctrl+A",
@@ -287,7 +287,7 @@ function useDemoPageActions(
           window.alert(`Message: ${state.message}\n\nNumber: ${state.number}`);
           setState((prev) => ({ ...prev, message: "", number: 0 }));
         },
-        shortcuts: [
+        patterns: [
           {
             key: "Ctrl+Enter",
             when: "focus:ui2",
@@ -302,7 +302,7 @@ function useDemoPageActions(
           });
         },
         id: "increaseNumber",
-        shortcuts: [
+        patterns: [
           {
             args: [10],
             key: "Ctrl+ArrowUp",

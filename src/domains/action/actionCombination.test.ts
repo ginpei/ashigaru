@@ -51,7 +51,7 @@ function prepareActions(): Action[] {
     {
       exec: vi.fn(),
       id: "action1",
-      shortcuts: [
+      patterns: [
         {
           args: [1, 2],
           key: "Ctrl+X",

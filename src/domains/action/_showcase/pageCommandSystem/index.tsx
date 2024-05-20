@@ -386,7 +386,7 @@ function usePredefinedActions(): [CommandDefinition[], KeyboardShortcut[]] {
           window.alert("One");
         },
         id: "command1",
-        shortcuts: [{ key: "Ctrl+Alt+1" }],
+        patterns: [{ key: "Ctrl+Alt+1" }],
         title: "One",
       },
       {
@@ -394,7 +394,7 @@ function usePredefinedActions(): [CommandDefinition[], KeyboardShortcut[]] {
           window.alert("Two");
         },
         id: "command2",
-        shortcuts: [],
+        patterns: [],
         title: "Two",
       },
       {
@@ -402,7 +402,7 @@ function usePredefinedActions(): [CommandDefinition[], KeyboardShortcut[]] {
           window.alert("Three");
         },
         id: "command3",
-        shortcuts: [],
+        patterns: [],
         title: "Three",
       },
       {
@@ -410,7 +410,7 @@ function usePredefinedActions(): [CommandDefinition[], KeyboardShortcut[]] {
           window.alert(message);
         },
         id: "say",
-        shortcuts: [
+        patterns: [
           { args: ["Hello World!"], key: "Ctrl+S" },
           { args: ["Yo!"], key: "Ctrl+Shift+S" },
         ],
@@ -434,7 +434,7 @@ function usePageActions(vars: {
           vars.setCommandPaletteVisible(true);
         },
         id: "showCommandPalette",
-        shortcuts: [{ key: "Ctrl+P" }],
+        patterns: [{ key: "Ctrl+P" }],
         title: "Show command palette",
       },
       {
@@ -443,7 +443,7 @@ function usePageActions(vars: {
           vars.setCommandPaletteVisible(true);
         },
         id: "showCommandPaletteForCommand",
-        shortcuts: [{ key: "Ctrl+Shift+P" }],
+        patterns: [{ key: "Ctrl+Shift+P" }],
         title: "Show command palette for Command",
       },
     ];

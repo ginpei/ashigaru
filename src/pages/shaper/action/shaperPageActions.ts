@@ -32,7 +32,7 @@ function createShaperPagePredefinedActions(
         );
       },
       id: "selectAllShapes",
-      shortcuts: [
+      patterns: [
         {
           key: "Ctrl+A",
           when: "canvasFocus",
@@ -45,7 +45,7 @@ function createShaperPagePredefinedActions(
         setState((state) => selectShape(state, ids, type));
       },
       id: "selectShape",
-      shortcuts: [],
+      patterns: [],
       title: "Select shape",
     },
   ];
@@ -62,7 +62,7 @@ function createMoveActions(
         setState((state) => moveShape(state, ids, direction, distance));
       },
       id: "moveShape",
-      shortcuts: [
+      patterns: [
         {
           key: "ArrowUp",
           when: "canvasFocus",
@@ -131,7 +131,7 @@ function createMoveActions(
         setState((state) => ({ ...state, shortcutListDialogOpen: true }));
       },
       id: "showShortcutList",
-      shortcuts: [
+      patterns: [
         {
           key: "?",
         },
@@ -152,7 +152,7 @@ function createMoveActions(
         setState((state) => addShape(state, newShape));
       },
       id: "addShape",
-      shortcuts: [
+      patterns: [
         {
           key: "Alt+N",
         },
@@ -164,7 +164,7 @@ function createMoveActions(
         setState((state) => removeShape(state, shapeIds));
       },
       id: "removeShape",
-      shortcuts: [
+      patterns: [
         {
           key: "Delete",
           // when: "selectionNotEmpty",

@@ -7,7 +7,7 @@ export const demoActions: Action[] = [
       console.log("This is the demo command #1");
     },
     id: "command1",
-    shortcuts: [],
+    patterns: [],
     title: "Demo command 1",
   },
   {
@@ -15,7 +15,7 @@ export const demoActions: Action[] = [
       console.log("This is the demo command #2");
     },
     id: "command2",
-    shortcuts: [
+    patterns: [
       {
         key: "Ctrl+Example",
       },
@@ -27,7 +27,7 @@ export const demoActions: Action[] = [
       console.log("This is the demo command #3");
     },
     id: "command3",
-    shortcuts: [],
+    patterns: [],
     title: "Demo command 3",
   },
 ];
