@@ -79,17 +79,15 @@ const conditions: ConditionFunctionMap = {
         <NiceH2>Run a command by ID</NiceH2>
         <ol className="ui-ol">
           <li>
-            Pick a command by an ID using{" "}
-            <NiceCode>pickCommandDefinition()</NiceCode>
-          </li>
-          <li>
-            Run the command using <NiceCode>command.exec()</NiceCode>
+            Run the command using <NiceCode>execCommand()</NiceCode>
           </li>
         </ol>
         <NiceCodeBlock>
           {`
-const command = pickCommandDefinition(commands, "action1");
-command.exec();
+execCommand(commands, "action1");
+
+const args = [1, 2];
+execCommand(commands, "action2", args);
         `}
         </NiceCodeBlock>
         <NiceH2>Run a command by keyboard shortcut</NiceH2>
@@ -104,11 +102,7 @@ command.exec();
             <NiceCode>pickShortcutDefinition()</NiceCode>
           </li>
           <li>
-            Pick a command by an command ID on the shortcut using{" "}
-            <NiceCode>pickCommandDefinition()</NiceCode>
-          </li>
-          <li>
-            Run the command using <NiceCode>command.exec()</NiceCode>
+            Run the command using <NiceCode>execCommand()</NiceCode>
           </li>
         </ol>
         <NiceCodeBlock>
@@ -120,8 +114,7 @@ const conditions: ConditionFunctionMap = {
 };
 
 const shortcut = pickShortcutDefinition(shortcuts, conditions, key);
-const command = pickCommandDefinition(commands, shortcut.commandId);
-command.exec(...(shortcut.args ?? []));
+execCommand(commands, shortcut.commandId, shortcut.args);
         `}
         </NiceCodeBlock>
         <p>TODO: pickShortcutDefinition()</p>

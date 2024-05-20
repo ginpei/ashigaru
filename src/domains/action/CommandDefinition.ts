@@ -57,6 +57,24 @@ export function findCommandDefinition<Args extends any[] = any[]>(
  * Throws an error if not found.
  * @see findCommandDefinition
  */
+export function execCommand<T extends any[] = any[]>(
+  commands: CommandDefinition<T>[],
+  commandId: string,
+  args?: T | undefined,
+): void {
+  const def = findCommandDefinition(commands, commandId);
+  if (!def) {
+    throw new Error(`Command ID ${commandId} is not defined`);
+  }
+
+  def.exec(...(args as any));
+}
+
+/**
+ * Returns the command specified by the given ID.
+ * Throws an error if not found.
+ * @see findCommandDefinition
+ */
 export function pickCommandDefinition<T extends any[] = any[]>(
   commands: CommandDefinition<T>[],
   commandId: string,

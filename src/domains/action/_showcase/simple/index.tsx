@@ -8,10 +8,7 @@ import { NiceH1, NiceH2 } from "../../../nice/NiceH";
 import { NiceInput } from "../../../nice/NiceInput";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { Action, breakActions } from "../../Action";
-import {
-  CommandDefinition,
-  pickCommandDefinition,
-} from "../../CommandDefinition";
+import { CommandDefinition, execCommand } from "../../CommandDefinition";
 import { ConditionFunctionMap, createConditionFunction } from "../../Condition";
 import { KeyboardShortcut } from "../../KeyboardShortcut";
 import { useKeyboardShortcuts2 } from "../../keyboardShortcutHooks";
@@ -38,13 +35,11 @@ export function SimpleActionDemoPage(): JSX.Element {
   useShortcutRunner(commands, shortcuts, conditions);
 
   const onSelectAllClick = () => {
-    const command = pickCommandDefinition(commands, "toggleAll");
-    command.exec(true);
+    execCommand(commands, "toggleAll", [true]);
   };
 
   const onUnselectAllClick = () => {
-    const command = pickCommandDefinition(commands, "toggleAll");
-    command.exec(false);
+    execCommand(commands, "toggleAll", [false]);
   };
 
   const onFruitChange = (fruit: (typeof fruits)[number]) => {
@@ -74,8 +69,7 @@ export function SimpleActionDemoPage(): JSX.Element {
 
   const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const command = pickCommandDefinition(commands, "submitForm");
-    command.exec();
+    execCommand(commands, "submitForm");
   };
 
   return (
@@ -359,7 +353,6 @@ function useShortcutRunner(
   conditions: ConditionFunctionMap,
 ) {
   useKeyboardShortcuts2(shortcuts, conditions, (commandId, args) => {
-    const command = pickCommandDefinition(commands, commandId);
-    command.exec(...args);
+    execCommand(commands, commandId, args);
   });
 }
