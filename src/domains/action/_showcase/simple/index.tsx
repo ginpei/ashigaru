@@ -35,13 +35,13 @@ export function SimpleActionDemoPage(): JSX.Element {
   useShortcutRunner(commands, shortcuts, conditions);
 
   const onSelectAllClick = () => {
-    const command = pickCommandDefinition(commands, "selectAllFruits");
-    command.exec();
+    const command = pickCommandDefinition(commands, "toggleAll");
+    command.exec(true);
   };
 
   const onUnselectAllClick = () => {
-    const command = pickCommandDefinition(commands, "unselectAllFruits");
-    command.exec();
+    const command = pickCommandDefinition(commands, "toggleAll");
+    command.exec(false);
   };
 
   const onFruitChange = (fruit: (typeof fruits)[number]) => {
@@ -181,35 +181,27 @@ function useDemoPageActions(
   return useMemo(() => {
     const actions: Action[] = [
       {
-        exec() {
+        exec(selected: boolean) {
           setState((prev) => {
-            const newFruits = [...fruits];
-            return { ...prev, fruits: newFruits };
+            return selected
+              ? { ...prev, fruits: [...fruits] }
+              : { ...prev, fruits: [] };
           });
         },
-        id: "selectAllFruits",
+        id: "toggleAll",
         shortcuts: [
           {
+            args: [true],
             key: "Ctrl+A",
             when: "focus:ui1",
           },
-        ],
-        title: "Select all fruits",
-      },
-      {
-        exec() {
-          setState((prev) => {
-            return { ...prev, fruits: [] };
-          });
-        },
-        id: "unselectAllFruits",
-        shortcuts: [
           {
+            args: [false],
             key: "Ctrl+Shift+A",
             when: "focus:ui1",
           },
         ],
-        title: "Unselect all fruits",
+        title: "Select all fruits",
       },
       {
         id: "submitForm",
@@ -226,34 +218,25 @@ function useDemoPageActions(
         title: "Submit form",
       },
       {
-        exec() {
+        exec(diff: number) {
           setState((prev) => {
-            return { ...prev, number: prev.number + 10 };
+            return { ...prev, number: prev.number + diff };
           });
         },
         id: "increaseNumber",
         shortcuts: [
           {
+            args: [10],
             key: "Ctrl+ArrowUp",
             when: "focus:the-number",
           },
-        ],
-        title: "Increase number by 10",
-      },
-      {
-        exec() {
-          setState((prev) => {
-            return { ...prev, number: prev.number - 10 };
-          });
-        },
-        id: "decreaseNumber",
-        shortcuts: [
           {
+            args: [-10],
             key: "Ctrl+ArrowDown",
             when: "focus:the-number",
           },
         ],
-        title: "Decrease number by 10",
+        title: "Increase number",
       },
     ];
     return breakActions(actions);
@@ -309,8 +292,8 @@ function useShortcutRunner(
   shortcuts: KeyboardShortcut[],
   conditions: ConditionFunctionMap,
 ) {
-  useKeyboardShortcuts2(shortcuts, conditions, (commandId) => {
+  useKeyboardShortcuts2(shortcuts, conditions, (commandId, args) => {
     const command = pickCommandDefinition(commands, commandId);
-    command.exec();
+    command.exec(...args);
   });
 }
