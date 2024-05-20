@@ -76,6 +76,10 @@ export function SimpleActionDemoPage(): JSX.Element {
       <VStack>
         <NiceH1>Simple action demos</NiceH1>
         <p>
+          An action can be called as a command, or invoked by a keyboard
+          shortcut.
+        </p>
+        <p>
           <NiceButton
             onClick={() => setState((v) => ({ ...v, shortcutListOpen: true }))}
           >
