@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useMemo, useState } from "react";
+import { Dialog, DialogBody, DialogHeader } from "../../../dialog/Dialog";
 import { HStack } from "../../../layout/HStask";
 import { VStack } from "../../../layout/VStack";
 import { NiceButton } from "../../../nice/NiceButton";
@@ -21,6 +22,7 @@ interface PageState {
   fruits: (typeof fruits)[number][];
   message: string;
   number: number;
+  shortcutListOpen: boolean;
 }
 
 export function SimpleActionDemoPage(): JSX.Element {
@@ -28,6 +30,7 @@ export function SimpleActionDemoPage(): JSX.Element {
     fruits: ["Apple"],
     message: "",
     number: 0,
+    shortcutListOpen: false,
   });
 
   const [commands, shortcuts] = useDemoPageActions(state, setState);
@@ -79,6 +82,13 @@ export function SimpleActionDemoPage(): JSX.Element {
     <StraightLayout title="Simple action demos">
       <VStack>
         <NiceH1>Simple action demos</NiceH1>
+        <p>
+          <NiceButton
+            onClick={() => setState((v) => ({ ...v, shortcutListOpen: true }))}
+          >
+            Shortcut list
+          </NiceButton>
+        </p>
         <div
           className="
           flex flex-col gap-4 border border-transparent
@@ -167,37 +177,46 @@ export function SimpleActionDemoPage(): JSX.Element {
             </li>
           </ul>
         </div>
-        <VStack>
-          <NiceH2>Shortcuts</NiceH2>
-          <table className="border [&>:is(thead,tbody)>tr>:is(th,td)]:border [&>:is(thead,tbody)>tr>:is(th,td)]:px-2">
-            <thead>
-              <tr>
-                <th>Key</th>
-                <th>When</th>
-                <th>Command ID</th>
-                <th>Args</th>
-              </tr>
-            </thead>
-            <tbody>
-              {shortcuts.map((shortcut) => (
-                <tr key={`${shortcut.commandId}-${shortcut.args}`}>
-                  <td>
-                    <code>{shortcut.key}</code>
-                  </td>
-                  <td>
-                    <code>{shortcut.when}</code>
-                  </td>
-                  <td>
-                    <code>{shortcut.commandId}</code>
-                  </td>
-                  <td>
-                    <code>{JSON.stringify(shortcut.args)}</code>
-                  </td>
+        <Dialog
+          onClose={() => setState((v) => ({ ...v, shortcutListOpen: false }))}
+          open={state.shortcutListOpen}
+        >
+          <DialogHeader
+            onClose={() => setState((v) => ({ ...v, shortcutListOpen: false }))}
+          >
+            Shortcut list
+          </DialogHeader>
+          <DialogBody>
+            <table className="border [&>:is(thead,tbody)>tr>:is(th,td)]:border [&>:is(thead,tbody)>tr>:is(th,td)]:px-2">
+              <thead>
+                <tr>
+                  <th>Key</th>
+                  <th>When</th>
+                  <th>Command ID</th>
+                  <th>Args</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </VStack>
+              </thead>
+              <tbody>
+                {shortcuts.map((shortcut) => (
+                  <tr key={`${shortcut.commandId}-${shortcut.args}`}>
+                    <td>
+                      <code>{shortcut.key}</code>
+                    </td>
+                    <td>
+                      <code>{shortcut.when}</code>
+                    </td>
+                    <td>
+                      <code>{shortcut.commandId}</code>
+                    </td>
+                    <td>
+                      <code>{JSON.stringify(shortcut.args)}</code>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </DialogBody>
+        </Dialog>
       </VStack>
     </StraightLayout>
   );
@@ -211,6 +230,22 @@ function useDemoPageActions(
 ) {
   return useMemo(() => {
     const actions: Action[] = [
+      {
+        exec() {
+          setState((prev) => ({
+            ...prev,
+            shortcutListOpen: !prev.shortcutListOpen,
+          }));
+        },
+        id: "toggleShortcutListDialog",
+        shortcuts: [
+          {
+            key: "?",
+            // when: "!input", // TODO
+          },
+        ],
+        title: "Toggle shortcut list dialog",
+      },
       {
         exec(selected: boolean) {
           setState((prev) => {
