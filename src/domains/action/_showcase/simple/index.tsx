@@ -167,6 +167,37 @@ export function SimpleActionDemoPage(): JSX.Element {
             </li>
           </ul>
         </div>
+        <VStack>
+          <NiceH2>Shortcuts</NiceH2>
+          <table className="border [&>:is(thead,tbody)>tr>:is(th,td)]:border [&>:is(thead,tbody)>tr>:is(th,td)]:px-2">
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>When</th>
+                <th>Command ID</th>
+                <th>Args</th>
+              </tr>
+            </thead>
+            <tbody>
+              {shortcuts.map((shortcut) => (
+                <tr key={`${shortcut.commandId}-${shortcut.args}`}>
+                  <td>
+                    <code>{shortcut.key}</code>
+                  </td>
+                  <td>
+                    <code>{shortcut.when}</code>
+                  </td>
+                  <td>
+                    <code>{shortcut.commandId}</code>
+                  </td>
+                  <td>
+                    <code>{JSON.stringify(shortcut.args)}</code>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </VStack>
       </VStack>
     </StraightLayout>
   );
