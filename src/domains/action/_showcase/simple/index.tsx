@@ -156,7 +156,7 @@ export function SimpleActionDemoPage(): JSX.Element {
                   className="w-24 px-0 text-center"
                   data-focus="the-number"
                   type="number"
-                  value={state.number}
+                  value={state.number || 0}
                   onChange={onNumberChange}
                 />
               </label>
