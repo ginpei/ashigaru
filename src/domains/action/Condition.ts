@@ -18,6 +18,8 @@ export interface ConditionFunctionToken {
 
 export interface ConditionOperatorToken {
   key: "&&" | "||";
+  left: ConditionToken;
+  right: ConditionToken;
   type: "operator";
 }
 
@@ -49,66 +51,41 @@ export function doesConditionMatch(
   return matched;
 }
 
-export function parseConditionString(condition: string): ConditionToken[] {
-  // TODO rename
-
-  const conditions: ConditionToken[] = [];
-  for (const expression of tokenize(condition)) {
-    const token = readToken(expression);
-    conditions.push(token);
-  }
-  return conditions;
-}
-
-/**
- * @example
- * tokenize("foo"); // ["foo"]
- * tokenize("!foo"); // ["!foo"]
- * tokenize("foo:arg"); // ["foo:arg"]
- * tokenize("foo&&bar || baz"); // ["foo", "&&", "bar", "||", "baz"]
- */
-function tokenize(expression: string) {
-  const rxToken = /(?:[!]?[\w.]+(?::[\w,]+)?|&&|\|\|)/g;
-  const tokens = expression.match(rxToken);
-  if (!tokens) {
-    throw new Error(`Invalid condition string: ${expression}`);
-  }
-
-  if (tokens.length % 2 === 0) {
-    throw new Error(`Invalid operator pair: ${expression}`);
-  }
-
-  const orderCorrect = tokens.every((token, index) => {
-    if (index % 2 === 0) {
-      return token !== "&&" && token !== "||";
+export function tokenizeConditionString(condition: string): ConditionToken {
+  const operators = ["||", "&&"] as const;
+  for (const operator of operators) {
+    const index = condition.indexOf(operator);
+    if (index >= 0) {
+      const token: ConditionOperatorToken = {
+        key: operator,
+        left: tokenizeConditionString(condition.slice(0, index)),
+        right: tokenizeConditionString(condition.slice(index + 2)),
+        type: "operator",
+      };
+      return token;
     }
-    return token === "&&" || token === "||";
-  });
-  if (!orderCorrect) {
-    throw new Error(`Invalid operator order: ${expression}`);
   }
 
-  return tokens;
+  const token = readFunctionToken(condition);
+  return token;
 }
 
-function readToken(expression: string): ConditionToken {
+function readFunctionToken(expression: string): ConditionFunctionToken {
   // break down condition function
   // "!foo:bar" => ["!foo:bar", "!", "foo", "bar"]
   const rxToken = /^(!?)((?:\w|\.)*)(?::([\w,]+))?$/;
 
-  if (expression === "&&" || expression === "||") {
-    return {
-      key: expression as "&&" | "||",
-      type: "operator",
-    };
+  const trimmed = expression.trim();
+  if (!trimmed) {
+    throw new Error("Empty condition string");
   }
 
-  const tokens = expression.match(rxToken);
+  const tokens = trimmed.match(rxToken);
   if (!tokens) {
-    throw new Error(`Invalid condition token: ${expression}`);
+    throw new Error(`Invalid condition function: ${trimmed}`);
   }
 
-  const [, sNegative, key, arg] = tokens;
+  const [, sNegative, key, arg = ""] = tokens;
   return {
     arg,
     key,

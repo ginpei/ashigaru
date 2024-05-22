@@ -1,9 +1,10 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   ConditionFunctionMap,
+  ConditionToken,
   createConditionFunction,
   doesConditionMatch,
-  parseConditionString,
+  tokenizeConditionString,
 } from "./Condition";
 
 describe("doesConditionMatch()", () => {
@@ -38,49 +39,64 @@ describe("doesConditionMatch()", () => {
   });
 });
 
-describe("parseConditionString()", () => {
+describe("tokenizeConditionString()", () => {
   it("returns multiple tokens with symbols", () => {
     const expression = "foo && !bar || boo:arg && !name_space.prop:arg1,arg_2";
-    const result = parseConditionString(expression);
+    const result = tokenizeConditionString(expression);
 
-    expect(result).toEqual([
-      { type: "function", key: "foo", negative: false },
-      { type: "operator", key: "&&" },
-      { type: "function", key: "bar", negative: true },
-      { type: "operator", key: "||" },
-      { type: "function", key: "boo", negative: false, arg: "arg" },
-      { type: "operator", key: "&&" },
-      {
-        type: "function",
-        key: "name_space.prop",
-        negative: true,
-        arg: "arg1,arg_2",
+    expect(result).toEqual({
+      type: "operator",
+      key: "||",
+      left: {
+        type: "operator",
+        key: "&&",
+        left: { type: "function", key: "foo", negative: false, arg: "" },
+        right: { type: "function", key: "bar", negative: true, arg: "" },
       },
-    ]);
+      right: {
+        type: "operator",
+        key: "&&",
+        left: { type: "function", key: "boo", negative: false, arg: "arg" },
+        right: {
+          type: "function",
+          key: "name_space.prop",
+          negative: true,
+          arg: "arg1,arg_2",
+        },
+      },
+    } satisfies ConditionToken);
   });
 
   it("does not require spaces", () => {
     const expression = "foo&&!bar:arg";
-    const result = parseConditionString(expression);
+    const result = tokenizeConditionString(expression);
 
-    expect(result).toEqual([
-      { type: "function", key: "foo", negative: false },
-      { type: "operator", key: "&&" },
-      { type: "function", key: "bar", negative: true, arg: "arg" },
-    ]);
+    expect(result).toEqual({
+      type: "operator",
+      key: "&&",
+      left: { type: "function", key: "foo", negative: false, arg: "" },
+      right: { type: "function", key: "bar", negative: true, arg: "arg" },
+    });
+  });
+
+  it("throws invalid condition function", () => {
+    expect(() => {
+      const expression = "foo-bar";
+      const result = tokenizeConditionString(expression);
+    }).toThrow("Invalid condition function");
   });
 
   it("throws for operator without expression", () => {
     expect(() => {
       const expression = "foo&&";
-      const result = parseConditionString(expression);
-    }).toThrow("Invalid operator pair");
+      const result = tokenizeConditionString(expression);
+    }).toThrow("Empty condition string");
   });
 
   it("throws for invalid operator pairs", () => {
     expect(() => {
       const expression = "foo&&||";
-      const result = parseConditionString(expression);
-    }).toThrow("Invalid operator order");
+      const result = tokenizeConditionString(expression);
+    }).toThrow("Empty condition string");
   });
 });
