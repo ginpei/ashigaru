@@ -154,7 +154,7 @@ export function SimpleActionDemoPage(): JSX.Element {
                 Some number:{" "}
                 <NiceInput
                   className="w-24 px-0 text-center"
-                  data-focus="the-number"
+                  data-focus="theNumber"
                   type="number"
                   value={state.number || 0}
                   onChange={onNumberChange}
@@ -310,12 +310,12 @@ function useDemoPageActions(
           {
             args: [10],
             key: "Ctrl+ArrowUp",
-            when: "focus:the-number",
+            when: "focus:theNumber",
           },
           {
             args: [-10],
             key: "Ctrl+ArrowDown",
-            when: "focus:the-number",
+            when: "focus:theNumber",
           },
         ],
         title: "Increase number",
@@ -327,42 +327,21 @@ function useDemoPageActions(
 
 function useDemoPageConditions(state: PageState) {
   const conditions: ConditionFunctionMap = {
-    "focus:ui1": createConditionFunction("Demo page", "focus:ui1", () => {
+    focus: createConditionFunction("Demo page", "focus", ([id]) => {
       const elFocus = document.activeElement;
       if (!elFocus) {
         return false;
       }
 
-      const el = elFocus.closest("[data-focus='ui1']");
+      const el = elFocus.closest("[data-focus]");
       if (!el) {
         return false;
       }
 
-      return true;
-    }),
-    "focus:ui2": createConditionFunction("Demo page", "focus:ui2", () => {
-      const elFocus = document.activeElement;
-      if (!elFocus) {
-        return false;
-      }
+      const focusId = el.getAttribute("data-focus");
 
-      const el = elFocus.closest("[data-focus='ui2']");
-      if (!el) {
-        return false;
-      }
-
-      return true;
+      return focusId === id;
     }),
-    "focus:the-number": createConditionFunction(
-      "Number input",
-      "focus:the-number",
-      () => {
-        return (
-          document.activeElement ===
-          document.querySelector("[data-focus='the-number']")
-        );
-      },
-    ),
   };
 
   return conditions;
