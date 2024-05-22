@@ -65,6 +65,10 @@ function prepareActions(): Action[] {
 
 function prepareConditions(): ConditionFunctionMap {
   return {
-    "focus:canvas": createConditionFunction("", "focus:canvas", () => true),
+    focus: createConditionFunction(
+      "",
+      "focus:canvas",
+      (args) => args[0] === "canvas",
+    ),
   };
 }

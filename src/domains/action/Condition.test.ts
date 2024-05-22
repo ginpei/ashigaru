@@ -37,6 +37,16 @@ describe("doesConditionMatch()", () => {
     expect(result).toBe(false);
     expect(fn).not.toBeCalled();
   });
+
+  it("gives args to the function", () => {
+    const fn = vi.fn((args) => args[0] === "11" && args[1] === "22");
+    const conditions: ConditionFunctionMap = {
+      foo: createConditionFunction("Test", "foo", fn),
+    };
+    const result = doesConditionMatch("foo:11,22", conditions);
+    expect(fn).toBeCalledWith(["11", "22"]);
+    expect(result).toBe(true);
+  });
 });
 
 describe("tokenizeConditionString()", () => {

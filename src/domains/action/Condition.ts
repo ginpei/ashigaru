@@ -1,4 +1,4 @@
-export type ConditionFunction = ((args?: any[]) => boolean) & {
+export type ConditionFunction = ((args: any[]) => boolean) & {
   key: string;
   source: string;
 };
@@ -26,9 +26,9 @@ export interface ConditionOperatorToken {
 export function createConditionFunction(
   source: string,
   key: string,
-  fn: (args?: any[]) => boolean,
+  fn: (args: string[]) => boolean,
 ): ConditionFunction {
-  const condition = (() => fn()) as ConditionFunction; // not to modify the original function instance
+  const condition = ((...args) => fn(...args)) as ConditionFunction; // not to modify the original function instance
   condition.key = key;
   condition.source = source;
   return condition;
@@ -38,17 +38,42 @@ export function doesConditionMatch(
   condition: string,
   conditions: ConditionFunctionMap,
 ): boolean {
-  if (!condition) {
+  if (condition.trim() === "") {
     return true;
   }
 
-  const doesConditionMatch = conditions[condition];
-  if (!doesConditionMatch) {
-    return false;
+  const token = tokenizeConditionString(condition);
+  const matched = evalCondition(token, conditions);
+  return matched;
+}
+
+function evalCondition(
+  token: ConditionToken,
+  conditions: ConditionFunctionMap,
+): boolean {
+  if (token.type === "function") {
+    const fn = conditions[token.key];
+    const matched = fn?.(token.arg.split(",")) ?? false;
+    return token.negative ? !matched : matched;
   }
 
-  const matched = doesConditionMatch();
-  return matched;
+  if (token.type === "operator") {
+    const left = evalCondition(token.left, conditions);
+    const right = evalCondition(token.right, conditions);
+
+    if (token.key === "&&") {
+      return left && right;
+    }
+
+    if (token.key === "||") {
+      return left || right;
+    }
+
+    throw new Error(`Unknown operator: ${token.key}`);
+  }
+
+  // @ts-expect-error: Property type does not exist on type
+  throw new Error(`Unknown token type: ${token.type}`);
 }
 
 export function tokenizeConditionString(condition: string): ConditionToken {
