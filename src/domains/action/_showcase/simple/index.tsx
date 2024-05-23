@@ -9,7 +9,8 @@ import { NiceInput } from "../../../nice/NiceInput";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { Action, breakActions } from "../../Action";
 import { execCommand } from "../../CommandDefinition";
-import { ConditionFunctionMap, createConditionFunction } from "../../Condition";
+import { ConditionFunctionMap } from "../../Condition";
+import { focusAtCondition, focusCondition } from "../../focusConditions";
 import { useShortcutRunner } from "../../keyboardShortcutHooks";
 
 const fruits = ["Apple", "Banana", "Cherry", "Date", "Elderberry"] as const;
@@ -310,12 +311,12 @@ function useDemoPageActions(
           {
             args: [10],
             key: "Ctrl+ArrowUp",
-            when: "focus:theNumber",
+            when: "focusAt:theNumber",
           },
           {
             args: [-10],
             key: "Ctrl+ArrowDown",
-            when: "focus:theNumber",
+            when: "focusAt:theNumber",
           },
         ],
         title: "Increase number",
@@ -327,21 +328,8 @@ function useDemoPageActions(
 
 function useDemoPageConditions(state: PageState) {
   const conditions: ConditionFunctionMap = {
-    focus: createConditionFunction("Demo page", "focus", ([id]) => {
-      const elFocus = document.activeElement;
-      if (!elFocus) {
-        return false;
-      }
-
-      const el = elFocus.closest("[data-focus]");
-      if (!el) {
-        return false;
-      }
-
-      const focusId = el.getAttribute("data-focus");
-
-      return focusId === id;
-    }),
+    focus: focusCondition,
+    focusAt: focusAtCondition,
   };
 
   return conditions;
