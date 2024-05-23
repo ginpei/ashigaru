@@ -10,7 +10,11 @@ import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { Action, breakActions } from "../../Action";
 import { execCommand } from "../../CommandDefinition";
 import { ConditionFunctionMap } from "../../Condition";
-import { focusAtCondition, focusCondition } from "../../focusConditions";
+import {
+  focusAtCondition,
+  focusCondition,
+  inputCondition,
+} from "../../focusConditions";
 import { useShortcutRunner } from "../../keyboardShortcutHooks";
 
 const fruits = ["Apple", "Banana", "Cherry", "Date", "Elderberry"] as const;
@@ -119,6 +123,9 @@ export function SimpleActionDemoPage(): JSX.Element {
               </li>
             ))}
           </ul>
+          <div>
+            <NiceInput type="text" placeholder="Ctrl+A for this input" />
+          </div>
           {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
           <ul className="shortcutList ui-ul invisible">
             <li>
@@ -276,12 +283,12 @@ function useDemoPageActions(
           {
             args: [true],
             key: "Ctrl+A",
-            when: "focus:ui1",
+            when: "focus:ui1 && !input",
           },
           {
             args: [false],
             key: "Ctrl+Shift+A",
-            when: "focus:ui1",
+            when: "focus:ui1 && !input",
           },
         ],
         title: "Select all fruits",
@@ -330,6 +337,7 @@ function useDemoPageConditions(state: PageState) {
   const conditions: ConditionFunctionMap = {
     focus: focusCondition,
     focusAt: focusAtCondition,
+    input: inputCondition,
   };
 
   return conditions;

@@ -1,5 +1,38 @@
 import { createConditionFunction } from "./Condition";
 
+export const inputCondition = createConditionFunction("system", "input", () => {
+  const elActive = document.activeElement;
+  if (!(elActive instanceof HTMLElement)) {
+    return false;
+  }
+
+  // not active
+  if (elActive.matches(":disabled")) {
+    return false;
+  }
+
+  // long text
+  if (elActive instanceof HTMLTextAreaElement || elActive.isContentEditable) {
+    return true;
+  }
+
+  // text input
+  if (elActive instanceof HTMLInputElement) {
+    const inputTypes = [
+      "text",
+      "search",
+      "tel",
+      "url",
+      "email",
+      "password",
+      "number",
+    ];
+    return inputTypes.includes(elActive.type);
+  }
+
+  return false;
+});
+
 export const focusCondition = createConditionFunction(
   "system",
   "focus",
