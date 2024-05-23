@@ -14,7 +14,7 @@ import {
   focusAtCondition,
   focusCondition,
   inputCondition,
-} from "../../focusConditions";
+} from "../../domFocusConditions";
 import { useShortcutRunner } from "../../keyboardShortcutHooks";
 
 const fruits = ["Apple", "Banana", "Cherry", "Date", "Elderberry"] as const;
