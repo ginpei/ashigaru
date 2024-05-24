@@ -6,7 +6,7 @@ import { createKeyboardShortcut, KeyboardShortcut } from "./KeyboardShortcut";
  */
 export interface Action<Args extends any[] = any[]>
   extends CommandDefinition<Args> {
-  shortcuts: ActionKeyboardShortcut[];
+  patterns: ActionKeyboardShortcut[];
 }
 
 /**
@@ -41,7 +41,7 @@ export function breakActions<Args extends any[] = any[]>(
 function breakAction<Args extends any[] = any[]>(
   action: Action<Args>,
 ): [CommandDefinition<Args>, KeyboardShortcut[]] {
-  const { shortcuts: actionShortcuts, ...command } = action;
+  const { patterns: actionShortcuts, ...command } = action;
   const shortcuts = actionShortcuts.map((v) =>
     createKeyboardShortcut({
       ...v,

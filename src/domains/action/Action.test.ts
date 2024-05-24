@@ -9,7 +9,7 @@ describe("breakActions()", () => {
           return 1;
         },
         id: "action1",
-        shortcuts: [
+        patterns: [
           {
             key: "Ctrl+A",
           },
@@ -25,7 +25,7 @@ describe("breakActions()", () => {
           return 2;
         },
         id: "action2",
-        shortcuts: [],
+        patterns: [],
         title: "Action 2",
       },
     ];

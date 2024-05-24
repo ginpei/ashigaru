@@ -1,5 +1,10 @@
-import { describe, expect, it } from "vitest";
-import { createKeyboardShortcut, KeyboardShortcut } from "./KeyboardShortcut";
+import { beforeEach, describe, expect, it } from "vitest";
+import { ConditionFunctionMap, createConditionFunction } from "./Condition";
+import {
+  createKeyboardShortcut,
+  findShortcut,
+  KeyboardShortcut,
+} from "./KeyboardShortcut";
 
 describe("createKeyboardShortcut()", () => {
   it("creates an object without initial values", () => {
@@ -25,5 +30,41 @@ describe("createKeyboardShortcut()", () => {
       key: "key",
       when: "when",
     });
+  });
+});
+
+const shortcuts: KeyboardShortcut[] = [
+  {
+    commandId: "withCondition1",
+    key: "Ctrl+X",
+    when: "condition1",
+  },
+  {
+    commandId: "noConditions",
+    key: "Ctrl+X",
+  },
+];
+
+describe("findShortcut", () => {
+  it("skips item that conditions does not match", () => {
+    const conditions: ConditionFunctionMap = {
+      condition1: createConditionFunction("Test", "condition1", () => false),
+    };
+    const result = findShortcut(shortcuts, "Ctrl+X", conditions);
+    expect(result?.commandId).toBe("noConditions");
+  });
+
+  it("finds item that condition matches", () => {
+    const conditions: ConditionFunctionMap = {
+      condition1: createConditionFunction("Test", "condition1", () => true),
+    };
+    const result = findShortcut(shortcuts, "Ctrl+X", conditions);
+    expect(result?.commandId).toBe("withCondition1");
+  });
+
+  it("returns undefined in nothing matched", () => {
+    const conditions: ConditionFunctionMap = {};
+    const result = findShortcut(shortcuts, "Ctrl+Shift+X", conditions);
+    expect(result).toBe(undefined);
   });
 });

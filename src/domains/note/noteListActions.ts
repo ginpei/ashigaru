@@ -16,7 +16,7 @@ export const noteListActions: Action<
       });
     },
     id: "selectAllNotes",
-    shortcuts: [
+    patterns: [
       {
         key: "Ctrl+A",
         when: "noteListFocus",
@@ -38,7 +38,7 @@ export const noteListActions: Action<
       });
     },
     id: "focusPreviousNote",
-    shortcuts: [
+    patterns: [
       {
         key: "ArrowUp",
         when: "noteListFocus",
@@ -65,7 +65,7 @@ export const noteListActions: Action<
       });
     },
     id: "focusNextNote",
-    shortcuts: [
+    patterns: [
       {
         key: "ArrowDown",
         when: "noteListFocus",
@@ -86,7 +86,7 @@ export const noteListActions: Action<
       });
     },
     id: "focusFirstNote",
-    shortcuts: [
+    patterns: [
       {
         key: "Home",
         when: "noteListFocus",
@@ -107,7 +107,7 @@ export const noteListActions: Action<
       });
     },
     id: "focusLastNote",
-    shortcuts: [
+    patterns: [
       {
         key: "End",
         when: "noteListFocus",
@@ -124,7 +124,7 @@ export const noteListActions: Action<
       });
     },
     id: "selectNote",
-    shortcuts: [
+    patterns: [
       {
         key: "Space",
         when: "noteListFocus",
@@ -146,7 +146,7 @@ export const noteListActions: Action<
       setState(createNewNote(state, note));
     },
     id: "createNewNote",
-    shortcuts: [
+    patterns: [
       {
         key: "Alt+N",
       },
@@ -173,7 +173,7 @@ export const noteListActions: Action<
       });
     },
     id: "deleteNote",
-    shortcuts: [
+    patterns: [
       {
         key: "Delete",
         when: "noteListFocus",

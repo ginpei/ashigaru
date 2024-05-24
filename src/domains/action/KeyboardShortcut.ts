@@ -1,3 +1,5 @@
+import { ConditionFunctionMap, doesConditionMatch } from "./Condition";
+
 /**
  * Defines a shortcut bound to a keyboard input and a command.
  */
@@ -32,4 +34,19 @@ export function createKeyboardShortcut(
     key: initial?.key ?? "",
     when: initial?.when ?? "",
   };
+}
+
+export function findShortcut(
+  shortcuts: KeyboardShortcut[],
+  input: string,
+  conditions: ConditionFunctionMap,
+): KeyboardShortcut | undefined {
+  const shortcut = shortcuts.find((shortcut) => {
+    return (
+      shortcut.key === input &&
+      doesConditionMatch(shortcut.when ?? "", conditions)
+    );
+  });
+
+  return shortcut;
 }

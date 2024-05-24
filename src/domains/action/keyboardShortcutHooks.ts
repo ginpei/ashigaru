@@ -1,8 +1,13 @@
-import { useEffect } from "react";
-import { KeyboardShortcut } from "./KeyboardShortcut";
+import { useCallback, useEffect } from "react";
+import { CommandDefinition, execCommand } from "./CommandDefinition";
+import { ConditionFunctionMap } from "./Condition";
+import { KeyboardShortcut, findShortcut } from "./KeyboardShortcut";
 import { useFocusTarget } from "./focusHooks";
 import { keyboardEventToInputCommand } from "./keyboardEventManipulators";
 
+/**
+ * @deprecated TODO replace with 2
+ */
 export function useKeyboardShortcuts(
   defs: KeyboardShortcut[],
   onCommand: (commandId: string, args: any[]) => void,
@@ -21,6 +26,39 @@ export function useKeyboardShortcuts(
 
     event.preventDefault();
     onCommand(def.commandId, def.args ?? []);
+  });
+}
+
+export function useKeyboardShortcuts2(
+  shortcuts: KeyboardShortcut[],
+  conditions: ConditionFunctionMap,
+  onCommand: (commandId: string, args: any[]) => void,
+): void {
+  const onKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      const input = keyboardEventToInputCommand(event);
+
+      const shortcut = findShortcut(shortcuts, input, conditions);
+      if (!shortcut) {
+        return;
+      }
+
+      event.preventDefault();
+      onCommand(shortcut.commandId, shortcut.args ?? []);
+    },
+    [conditions, onCommand, shortcuts],
+  );
+
+  useKeyDown(onKeyDown);
+}
+
+export function useShortcutRunner(
+  commands: CommandDefinition[],
+  shortcuts: KeyboardShortcut[],
+  conditions: ConditionFunctionMap,
+) {
+  useKeyboardShortcuts2(shortcuts, conditions, (commandId, args) => {
+    execCommand(commands, commandId, args);
   });
 }
 
