@@ -55,24 +55,24 @@ export const focusAtCondition = createConditionFunction(
       return false;
     }
 
-    const el = elFocus.closest("[data-focus]");
+    const el = elFocus.closest("[data-focus-target]");
     if (!el) {
       return false;
     }
 
-    const focusId = el.getAttribute("data-focus");
+    const focusId = el.getAttribute("data-focus-target");
 
     return focusId === id;
   },
 );
 
 function isFocusDescendant(el: HTMLElement, id: string): boolean {
-  const elFocus = el.closest("[data-focus]");
+  const elFocus = el.closest("[data-focus-target]");
   if (!(elFocus instanceof HTMLElement)) {
     return false;
   }
 
-  const focusId = elFocus.getAttribute("data-focus");
+  const focusId = elFocus.getAttribute("data-focus-target");
 
   if (focusId === id) {
     return true;

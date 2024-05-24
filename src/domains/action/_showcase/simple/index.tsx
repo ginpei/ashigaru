@@ -97,7 +97,7 @@ export function SimpleActionDemoPage(): JSX.Element {
           focus-within:bg-yellow-100 hover:border-yellow-600
           [&:focus-within_.shortcutList]:visible
           "
-          data-focus="ui1"
+          data-focus-target="ui1"
           tabIndex={-1}
         >
           <NiceH2>UI 1</NiceH2>
@@ -143,7 +143,7 @@ export function SimpleActionDemoPage(): JSX.Element {
           hover:border-yellow-600
           [&:focus-within_.shortcutList]:visible
           "
-          data-focus="ui2"
+          data-focus-target="ui2"
           tabIndex={-1}
         >
           <NiceH2>UI 2</NiceH2>
@@ -162,7 +162,7 @@ export function SimpleActionDemoPage(): JSX.Element {
                 Some number:{" "}
                 <NiceInput
                   className="w-24 px-0 text-center"
-                  data-focus="theNumber"
+                  data-focus-target="theNumber"
                   type="number"
                   value={state.number || 0}
                   onChange={onNumberChange}
