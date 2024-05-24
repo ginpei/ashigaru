@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { CommandProvider } from "../../domains/action/commandContext";
 import { useShortcutRunner } from "../../domains/action/keyboardShortcutHooks";
-import { CommandProvider } from "./action/commandContext";
 import { useShaperPageActions } from "./action/shaperPageActionHooks";
 import { useShaperPageConditions } from "./action/shaperPageConditions";
 import { CanvasPane } from "./canvas/CanvasPane";

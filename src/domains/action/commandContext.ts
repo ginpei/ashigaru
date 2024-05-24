@@ -1,7 +1,5 @@
-// TODO move to domains
-
 import { createContext, useContext } from "react";
-import { CommandDefinition } from "../../../domains/action/CommandDefinition";
+import { CommandDefinition } from "./CommandDefinition";
 
 const CommandContext = createContext<CommandDefinition[]>([]);
 
