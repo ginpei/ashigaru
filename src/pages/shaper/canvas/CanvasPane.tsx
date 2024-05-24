@@ -62,7 +62,7 @@ export function CanvasPane(): JSX.Element {
   };
 
   return (
-    <FocusTarget id="canvasFocus">
+    <FocusTarget id="canvas">
       <div
         className="
           CanvasPane

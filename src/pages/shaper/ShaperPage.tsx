@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useKeyboardShortcuts } from "../../domains/action/keyboardShortcutHooks";
+import { useShortcutRunner } from "../../domains/action/keyboardShortcutHooks";
 import { CommandProvider } from "./action/commandContext";
 import { useShaperPageActions } from "./action/shaperPageActionHooks";
+import { useShaperPageConditions } from "./action/shaperPageConditions";
 import { CanvasPane } from "./canvas/CanvasPane";
 import { ListPane } from "./list/ListPane";
 import { ShaperNavBar } from "./page/ShaperNavBar";
@@ -83,11 +84,9 @@ function Provider({ children }: { children: JSX.Element }) {
   });
 
   const [commands, shortcuts] = useShaperPageActions(state, setState);
+  const conditions = useShaperPageConditions();
 
-  useKeyboardShortcuts(shortcuts, (id, args) => {
-    const command = commands.find((command) => command.id === id);
-    command?.exec(...args);
-  });
+  useShortcutRunner(commands, shortcuts, conditions);
 
   return (
     <ShaperPageStateContextProvider value={[state, setState]}>

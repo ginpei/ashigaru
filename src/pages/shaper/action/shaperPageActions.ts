@@ -35,7 +35,7 @@ function createShaperPagePredefinedActions(
       patterns: [
         {
           key: "Ctrl+A",
-          when: "canvasFocus",
+          when: "focus:canvas",
         },
       ],
       title: "Select all shapes",
@@ -65,62 +65,62 @@ function createMoveActions(
       patterns: [
         {
           key: "ArrowUp",
-          when: "canvasFocus",
+          when: "focus:canvas",
           args: ["y", -1],
         },
         {
           key: "Shift+ArrowUp",
-          when: "canvasFocus",
+          when: "focus:canvas",
           args: ["y", -10],
         },
         {
           key: "Ctrl+ArrowUp",
-          when: "canvasFocus",
+          when: "focus:canvas",
           args: ["y", -100],
         },
         {
           key: "ArrowRight",
-          when: "canvasFocus",
+          when: "focus:canvas",
           args: ["x", 1],
         },
         {
           key: "Shift+ArrowRight",
-          when: "canvasFocus",
+          when: "focus:canvas",
           args: ["x", 10],
         },
         {
           key: "Ctrl+ArrowRight",
-          when: "canvasFocus",
+          when: "focus:canvas",
           args: ["x", 100],
         },
         {
           key: "ArrowDown",
-          when: "canvasFocus",
+          when: "focus:canvas",
           args: ["y", 1],
         },
         {
           key: "Shift+ArrowDown",
-          when: "canvasFocus",
+          when: "focus:canvas",
           args: ["y", 10],
         },
         {
           key: "Ctrl+ArrowDown",
-          when: "canvasFocus",
+          when: "focus:canvas",
           args: ["y", 100],
         },
         {
           key: "ArrowLeft",
-          when: "canvasFocus",
+          when: "focus:canvas",
           args: ["x", -1],
         },
         {
           key: "Shift+ArrowLeft",
-          when: "canvasFocus",
+          when: "focus:canvas",
           args: ["x", -10],
         },
         {
           key: "Ctrl+ArrowLeft",
-          when: "canvasFocus",
+          when: "focus:canvas",
           args: ["x", -100],
         },
       ],
