@@ -17,6 +17,6 @@ export function NiceH2({
 export function NiceH3({
   className,
   ...props
-}: ComponentPropsWithoutRef<"h2">): JSX.Element {
+}: ComponentPropsWithoutRef<"h3">): JSX.Element {
   return <h3 className={`NiceH ${className} text-xl font-bold`} {...props} />;
 }
