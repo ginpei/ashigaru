@@ -51,9 +51,9 @@ export function EditorPage(): JSX.Element {
 function Provider({ children }: { children: ReactNode }) {
   const [state, setState] = useState(
     createEditorPageState({
-      commands: editorCommands,
+      commands: editorCommands, // TODO remove
       notes: dummyNotes,
-      shortcuts: editorShortcuts,
+      shortcuts: editorShortcuts, // TODO remove
     }),
   );
 

@@ -9,8 +9,11 @@ import { EditorPageCommand } from "../actions/editorActions";
 
 export interface EditorPageState extends NoteListState {
   commandPaletteVisible: EditorCommandPaletteOpenType;
-  commands: EditorPageCommand[];
   openNoteIds: string[];
+
+  /** @deprecated */
+  commands: EditorPageCommand[];
+  /** @deprecated */
   shortcuts: KeyboardShortcut[];
 }
 
