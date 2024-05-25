@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { CSSProperties, useMemo, useState } from "react";
+import { CSSProperties, ReactNode, useMemo, useState } from "react";
 import { pickCommandDefinition } from "../../domains/action/CommandDefinition";
 import { giveFocusOn } from "../../domains/action/domFocusManipulators";
 import { useFocusMarkEffect } from "../../domains/action/focusHooks";
@@ -16,7 +16,10 @@ import {
   editorCommands,
   editorShortcuts,
 } from "./actions/editorActions";
-import { EditorPageStateProvider } from "./actions/editorPageContext";
+import {
+  EditorPageStateProvider,
+  useEditorPageStateContext,
+} from "./actions/editorPageContext";
 import { EditorPane } from "./editor/EditorPane";
 import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
@@ -38,8 +41,14 @@ const rootStyle: CSSProperties = {
 };
 
 export function EditorPage(): JSX.Element {
-  useFocusMarkEffect();
+  return (
+    <Provider>
+      <EditorPageContent />
+    </Provider>
+  );
+}
 
+function Provider({ children }: { children: ReactNode }) {
   const [state, setState] = useState(
     createEditorPageState({
       commands: editorCommands,
@@ -47,6 +56,18 @@ export function EditorPage(): JSX.Element {
       shortcuts: editorShortcuts,
     }),
   );
+
+  return (
+    <EditorPageStateProvider value={[state, setState]}>
+      {children}
+    </EditorPageStateProvider>
+  );
+}
+
+function EditorPageContent() {
+  useFocusMarkEffect();
+
+  const [state, setState] = useEditorPageStateContext();
 
   const commands = useMemo<EditorPageCommand[]>(() => {
     // TODO extract
@@ -96,7 +117,7 @@ export function EditorPage(): JSX.Element {
   };
 
   return (
-    <EditorPageStateProvider value={[state, setState]}>
+    <>
       <div
         className="EditorPage grid h-[100vh] [&>*]:overflow-hidden"
         style={rootStyle}
@@ -119,6 +140,6 @@ export function EditorPage(): JSX.Element {
         open={state.commandPaletteVisible}
         onSelect={onCommandSelect}
       />
-    </EditorPageStateProvider>
+    </>
   );
 }
