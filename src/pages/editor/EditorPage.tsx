@@ -8,21 +8,21 @@ import { Note } from "../../domains/note/Note";
 import { tick } from "../../domains/time/timeManipulator";
 import { EditorCommandPalette } from "./actions/EditorCommandPalette";
 import {
-  createEditorPageState,
-  openNoteState,
-} from "./actions/EditorPageState";
-import {
   EditorPageCommand,
   editorCommands,
   editorShortcuts,
 } from "./actions/editorActions";
-import {
-  EditorPageStateProvider,
-  useEditorPageStateContext,
-} from "./actions/editorPageContext";
 import { EditorPane } from "./editor/EditorPane";
 import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
+import {
+  createEditorPageState,
+  openNoteState,
+} from "./pageState/EditorPageState";
+import {
+  EditorPageStateProvider,
+  useEditorPageStateContext,
+} from "./pageState/editorPageStateContext";
 
 export interface EditorPageProps {}
 
@@ -88,7 +88,7 @@ function EditorPageContent() {
         title: "Show command palette",
       },
     ];
-  }, [state.commands]);
+  }, [setState, state.commands]);
 
   useKeyboardShortcuts(editorShortcuts, (commandId) => {
     const def = pickCommandDefinition(commands, commandId);

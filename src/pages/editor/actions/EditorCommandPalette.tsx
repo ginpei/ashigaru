@@ -9,7 +9,7 @@ import {
 import { Note } from "../../../domains/note/Note";
 import { EditorCommandListItem } from "./EditorCommandListItem";
 import { getNoteOptions, Option } from "./editorCommandManipulators";
-import { useEditorPageStateContext } from "./editorPageContext";
+import { useEditorPageStateContext } from "../pageState/editorPageStateContext";
 
 export interface EditorCommandPaletteProps {
   open: EditorCommandPaletteOpenType;

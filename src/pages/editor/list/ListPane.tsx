@@ -4,9 +4,9 @@ import { pickCommandDefinition } from "../../../domains/action/CommandDefinition
 import { FocusTarget } from "../../../domains/action/FocusTarget";
 import { Note } from "../../../domains/note/Note";
 import { focusNotesState } from "../../../domains/note/NoteListState";
-import { openNoteState } from "../actions/EditorPageState";
+import { openNoteState } from "../pageState/EditorPageState";
 import { editorCommands } from "../actions/editorActions";
-import { useEditorPageStateContext } from "../actions/editorPageContext";
+import { useEditorPageStateContext } from "../pageState/editorPageStateContext";
 import { NoteItem } from "./NoteItem";
 import { useListScrollEffect } from "./noteListUiHooks";
 

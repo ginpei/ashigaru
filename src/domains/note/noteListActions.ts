@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { createNewNote } from "../../pages/editor/actions/EditorPageState";
+import { createNewNote } from "../../pages/editor/pageState/EditorPageState";
 import { Action } from "../action/Action";
 import { createNote } from "./Note";
 import { NoteListState } from "./NoteListState";

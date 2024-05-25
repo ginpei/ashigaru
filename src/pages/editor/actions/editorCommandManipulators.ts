@@ -5,7 +5,7 @@ import {
   highlightFilteredCommandTitle,
 } from "../../../domains/commandPalette/commandFilter";
 import { Note } from "../../../domains/note/Note";
-import { EditorPageState } from "./EditorPageState";
+import { EditorPageState } from "../pageState/EditorPageState";
 
 export type Option =
   | Highlighted<Note>

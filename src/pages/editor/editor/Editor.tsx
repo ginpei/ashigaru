@@ -1,8 +1,8 @@
 import { ChangeEventHandler } from "react";
 import { FocusTarget } from "../../../domains/action/FocusTarget";
 import { Note } from "../../../domains/note/Note";
-import { updateEditingNote } from "../actions/EditorPageState";
-import { useEditorPageStateContext } from "../actions/editorPageContext";
+import { updateEditingNote } from "../pageState/EditorPageState";
+import { useEditorPageStateContext } from "../pageState/editorPageStateContext";
 
 export interface EditorProps {
   note: Note | undefined;

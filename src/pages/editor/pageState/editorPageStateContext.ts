@@ -1,15 +1,15 @@
 import { createContext, Dispatch, SetStateAction, useContext } from "react";
 import { createEditorPageState, EditorPageState } from "./EditorPageState";
 
-const EditorPageContext = createContext<
+const EditorPageStateContext = createContext<
   [EditorPageState, Dispatch<SetStateAction<EditorPageState>>]
 >([createEditorPageState(), () => undefined]);
 
-export const EditorPageStateProvider = EditorPageContext.Provider;
+export const EditorPageStateProvider = EditorPageStateContext.Provider;
 
 export function useEditorPageStateContext(): [
   EditorPageState,
   Dispatch<SetStateAction<EditorPageState>>,
 ] {
-  return useContext(EditorPageContext);
+  return useContext(EditorPageStateContext);
 }

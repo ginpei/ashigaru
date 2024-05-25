@@ -3,8 +3,8 @@ import { EditorCommandPalette } from "../../../pages/editor/actions/EditorComman
 import {
   createEditorPageState,
   EditorPageState,
-} from "../../../pages/editor/actions/EditorPageState";
-import { EditorPageStateProvider } from "../../../pages/editor/actions/editorPageContext";
+} from "../../../pages/editor/pageState/EditorPageState";
+import { EditorPageStateProvider } from "../../../pages/editor/pageState/editorPageStateContext";
 import { breakActions } from "../../action/Action";
 import { HStack } from "../../layout/HStask";
 import { NiceButton } from "../../nice/NiceButton";

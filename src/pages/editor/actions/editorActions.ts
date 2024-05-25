@@ -4,7 +4,7 @@ import { CommandDefinition } from "../../../domains/action/CommandDefinition";
 import { KeyboardShortcut } from "../../../domains/action/KeyboardShortcut";
 import { giveFocusOn } from "../../../domains/action/domFocusManipulators";
 import { noteListActions } from "../../../domains/note/noteListActions";
-import { EditorPageState, closeNoteState } from "./EditorPageState";
+import { EditorPageState, closeNoteState } from "../pageState/EditorPageState";
 
 export type EditorPageCommand = CommandDefinition<
   [EditorPageState, Dispatch<SetStateAction<EditorPageState>>]
