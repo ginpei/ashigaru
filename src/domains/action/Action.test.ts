@@ -1,67 +1,79 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { Action, breakActions } from "./Action";
 
 describe("breakActions()", () => {
-  it("builds", () => {
-    const actions: Action[] = [
-      {
-        exec() {
-          return 1;
-        },
-        id: "action1",
-        patterns: [
-          {
-            key: "Ctrl+A",
+  describe("basic build", () => {
+    let actions: Action[];
+    let result: ReturnType<typeof breakActions>;
+
+    beforeEach(() => {
+      actions = [
+        {
+          exec() {
+            return 1;
           },
-          {
-            args: [123],
-            key: "Enter",
-          },
-        ],
-        title: "Action 1",
-      },
-      {
-        exec() {
-          return 2;
+          id: "action1",
+          patterns: [
+            {
+              key: "Ctrl+A",
+            },
+            {
+              args: [123],
+              key: "Enter",
+            },
+          ],
+          title: "Action 1",
         },
-        id: "action2",
-        patterns: [],
-        title: "Action 2",
-      },
-    ];
+        {
+          exec() {
+            return 2;
+          },
+          id: "action2",
+          patterns: [],
+          title: "Action 2",
+        },
+      ];
 
-    const [commands, shortcuts] = breakActions(actions);
+      result = breakActions(actions);
+    });
 
-    expect(commands.length).toBe(2);
-    expect(commands[0].id).toBe("action1");
+    it("breaks actions down to parts", () => {
+      expect(result.length).toBe(2);
+    });
 
-    expect(commands).toEqual([
-      {
-        exec: actions[0].exec,
-        id: "action1",
-        title: "Action 1",
-      },
-      {
-        exec: actions[1].exec,
-        id: "action2",
-        title: "Action 2",
-      },
-    ]);
+    it("builds commands", () => {
+      const commands = result[0];
+      expect(commands).toEqual([
+        {
+          exec: actions[0].exec,
+          id: "action1",
+          title: "Action 1",
+        },
+        {
+          exec: actions[1].exec,
+          id: "action2",
+          title: "Action 2",
+        },
+      ]);
+    });
 
-    expect(shortcuts).toEqual([
-      {
-        args: [],
-        commandId: "action1",
-        key: "Ctrl+A",
-        when: "",
-      },
-      {
-        args: [123],
-        commandId: "action1",
-        key: "Enter",
-        when: "",
-      },
-    ]);
+    it("builds shortcuts", () => {
+      const shortcuts = result[1];
+      expect(shortcuts).toEqual([
+        {
+          args: [],
+          commandId: "action1",
+          key: "Ctrl+A",
+          when: "",
+        },
+        {
+          args: [123],
+          commandId: "action1",
+          key: "Enter",
+          when: "",
+        },
+      ]);
+    });
   });
 
   it("skips patterns without key as shortcuts", () => {
