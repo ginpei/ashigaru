@@ -6,10 +6,9 @@ import { CommandPaletteFrame } from "../CommandPaletteFrame";
 import { HighlightedTitle } from "../HighlightedTitle";
 import { Highlighted, highlightFilteredCommandTitle } from "../commandFilter";
 
-export function CommandPaletteFrameExample() {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const options = ["One", "Two", "Three"] as const;
+const options = ["One", "Two", "Three"] as const;
 
+export function CommandPaletteFrameExample() {
   const [input, setInput] = useState("");
   const [visible, setVisible] = useState(false);
 
@@ -25,7 +24,7 @@ export function CommandPaletteFrameExample() {
       }
     }
     return result;
-  }, [options, input]);
+  }, [input]);
 
   useEffect(() => {
     if (visible) {
