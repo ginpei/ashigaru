@@ -63,4 +63,35 @@ describe("breakActions()", () => {
       },
     ]);
   });
+
+  it("skips patterns without key as shortcuts", () => {
+    const actions: Action[] = [
+      {
+        exec() {
+          return 1;
+        },
+        id: "action1",
+        patterns: [
+          {
+            key: "Enter",
+            title: "Enter",
+          },
+          {
+            title: "No key",
+          },
+        ],
+        title: "Action 1",
+      },
+    ];
+    const [, shortcuts] = breakActions(actions);
+
+    expect(shortcuts).toEqual([
+      {
+        args: [],
+        commandId: "action1",
+        key: "Enter",
+        when: "",
+      },
+    ]);
+  });
 });

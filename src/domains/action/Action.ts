@@ -13,7 +13,7 @@ export interface Action<Args extends any[] = any[]>
  * KeyboardShortcut definition bound to an action that includes a command.
  * Used as a part of `Action`.
  */
-type ActionPattern = Omit<KeyboardShortcut, "commandId">;
+type ActionPattern = Partial<Omit<KeyboardShortcut, "commandId">>;
 
 /**
  * Break down a list of actions into commands and their keyboard shortcuts.
@@ -42,12 +42,18 @@ function breakAction<Args extends any[] = any[]>(
   action: Action<Args>,
 ): [CommandDefinition<Args>, KeyboardShortcut[]] {
   const { patterns, ...command } = action;
-  const shortcuts = patterns.map((v) =>
-    createKeyboardShortcut({
-      ...v,
-      commandId: command.id,
-    }),
-  );
+
+  const shortcuts: KeyboardShortcut[] = [];
+  for (const pattern of patterns) {
+    if (pattern.key) {
+      shortcuts.push(
+        createKeyboardShortcut({
+          ...pattern,
+          commandId: command.id,
+        }),
+      );
+    }
+  }
 
   return [command, shortcuts];
 }
