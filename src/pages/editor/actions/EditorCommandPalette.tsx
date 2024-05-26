@@ -17,7 +17,7 @@ import { Option, getNoteOptions } from "./editorCommandManipulators";
 
 export interface EditorCommandPaletteProps {
   open: EditorCommandPaletteOpenType;
-  onClose: (option: Option | null) => void;
+  onClose: (executed: boolean) => void;
 }
 
 export type EditorCommandPaletteOpenType = "" | "files" | "commands";
@@ -34,6 +34,7 @@ export function EditorCommandPalette({
   const onSelect: CommandPaletteSelectHandler<Option> = useCallback(
     async (command: Note | EditorPageCommand | null) => {
       if (!command) {
+        onClose(false);
         return;
       }
 
@@ -50,8 +51,10 @@ export function EditorCommandPalette({
         await tick();
         giveFocusOn("noteBodyFocus");
       }
+
+      onClose(true);
     },
-    [setState, state],
+    [onClose, setState, state],
   );
 
   useEffect(() => {
