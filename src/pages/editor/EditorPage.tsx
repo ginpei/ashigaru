@@ -7,7 +7,7 @@ import { useFocusMarkEffect } from "../../domains/action/focusHooks";
 import { useShortcutRunner } from "../../domains/action/keyboardShortcutHooks";
 import { Note } from "../../domains/note/Note";
 import { EditorCommandPalette } from "./actions/EditorCommandPalette";
-import { EditorCommandContextProvider } from "./actions/editorActionContext";
+import { EditorActionContextProvider } from "./actions/editorActionContext";
 import { useEditorPageActions } from "./actions/editorActionHooks";
 import { EditorPane } from "./editor/EditorPane";
 import { ListPane } from "./list/ListPane";
@@ -57,9 +57,9 @@ function Provider({ children }: { children: ReactNode }) {
 
   return (
     <EditorPageStateProvider value={[state, setState]}>
-      <EditorCommandContextProvider value={commands}>
+      <EditorActionContextProvider value={[commands, shortcuts]}>
         {children}
-      </EditorCommandContextProvider>
+      </EditorActionContextProvider>
     </EditorPageStateProvider>
   );
 }

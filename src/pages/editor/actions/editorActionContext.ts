@@ -1,10 +1,13 @@
 import { createContext, useContext } from "react";
 import { CommandDefinition } from "../../../domains/action/CommandDefinition";
+import { KeyboardShortcut } from "../../../domains/action/KeyboardShortcut";
 
-const EditorCommandContext = createContext<CommandDefinition[]>([]);
+const EditorActionContext = createContext<
+  [CommandDefinition[], KeyboardShortcut[]]
+>([[], []]);
 
-export const EditorCommandContextProvider = EditorCommandContext.Provider;
+export const EditorActionContextProvider = EditorActionContext.Provider;
 
-export function useEditorCommands(): CommandDefinition[] {
-  return useContext(EditorCommandContext);
+export function useEditorActions(): [CommandDefinition[], KeyboardShortcut[]] {
+  return useContext(EditorActionContext);
 }

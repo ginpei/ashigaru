@@ -11,7 +11,7 @@ import { tick } from "../../../domains/time/timeManipulator";
 import { openNoteState } from "../pageState/EditorPageState";
 import { useEditorPageStateContext } from "../pageState/editorPageStateContext";
 import { EditorCommandListItem } from "./EditorCommandListItem";
-import { useEditorCommands } from "./editorActionContext";
+import { useEditorActions } from "./editorActionContext";
 import { EditorPageCommand } from "./editorActions";
 import { Option, getNoteOptions } from "./editorCommandManipulators";
 
@@ -27,7 +27,7 @@ export function EditorCommandPalette({
   onClose,
 }: EditorCommandPaletteProps): JSX.Element {
   const [state, setState] = useEditorPageStateContext();
-  const [{ shortcuts }] = useEditorPageStateContext();
+  const [, shortcuts] = useEditorActions();
   const [input, setInput] = useState("");
   const options = useOptions(input);
 
@@ -91,7 +91,7 @@ export function EditorCommandPalette({
 
 function useOptions(input: string): Option[] {
   const [{ editingNoteId, notes, openNoteIds }] = useEditorPageStateContext();
-  const commands = useEditorCommands();
+  const [commands] = useEditorActions();
 
   if (input.startsWith(">")) {
     const keyword = input.slice(1).trim();
