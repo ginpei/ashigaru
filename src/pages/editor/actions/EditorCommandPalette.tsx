@@ -51,7 +51,7 @@ export function EditorCommandPalette({
         giveFocusOn("noteBodyFocus");
       }
     },
-    [],
+    [setState, state],
   );
 
   useEffect(() => {
