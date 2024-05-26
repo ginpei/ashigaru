@@ -1,9 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
-import { Action, breakActions } from "../../../domains/action/Action";
+import { Action } from "../../../domains/action/Action";
 import { CommandDefinition } from "../../../domains/action/CommandDefinition";
-import { KeyboardShortcut } from "../../../domains/action/KeyboardShortcut";
 import { giveFocusOn } from "../../../domains/action/domFocusManipulators";
-import { noteListActions } from "../../../domains/note/noteListActions";
 import { EditorPageState, closeNoteState } from "../pageState/EditorPageState";
 
 export type EditorPageCommand = CommandDefinition<
@@ -65,81 +63,3 @@ export function createEditorPageActions(
     },
   ];
 }
-
-const [noteListCommands, noteListShortcuts] = breakActions(noteListActions);
-
-/** @deprecated replace with `createEditorPageActions()` */
-export const editorPageActions: Action<
-  [EditorPageState, Dispatch<SetStateAction<EditorPageState>>]
->[] = [
-  {
-    exec() {
-      giveFocusOn("noteList");
-    },
-    id: "focusOnNoteList",
-    patterns: [
-      {
-        key: "Ctrl+Shift+E",
-      },
-    ],
-    title: "Focus on the note list",
-  },
-  {
-    exec() {
-      giveFocusOn("noteTitleFocus");
-    },
-    id: "focusOnNoteTitle",
-    patterns: [
-      {
-        key: "Ctrl+0",
-      },
-    ],
-    title: "Focus on the note title input",
-  },
-  {
-    exec() {
-      giveFocusOn("noteBodyFocus");
-    },
-    id: "focusOnEditor",
-    patterns: [
-      {
-        key: "Ctrl+1",
-      },
-    ],
-    title: "Focus on the editor",
-  },
-  {
-    exec(state, set) {
-      set(closeNoteState(state, state.editingNoteId));
-    },
-    id: "closeEditingNote",
-    patterns: [
-      {
-        key: "Alt+W",
-      },
-    ],
-    title: "Close editing note",
-  },
-];
-
-const [editorCommands2, editorShortcuts2] = breakActions(editorPageActions);
-
-/** @deprecated */
-export const editorCommands: CommandDefinition[] = [
-  ...noteListCommands,
-  ...editorCommands2,
-];
-
-/** @deprecated */
-export const editorShortcuts: KeyboardShortcut[] = [
-  ...noteListShortcuts,
-  ...editorShortcuts2,
-  {
-    commandId: "selectFileInCommandPalette",
-    key: "Ctrl+P",
-  },
-  {
-    commandId: "showCommandPalette",
-    key: "Ctrl+Shift+P",
-  },
-];

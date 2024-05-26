@@ -4,7 +4,7 @@ import { pickCommandDefinition } from "../../../domains/action/CommandDefinition
 import { FocusTarget } from "../../../domains/action/FocusTarget";
 import { Note } from "../../../domains/note/Note";
 import { focusNotesState } from "../../../domains/note/NoteListState";
-import { editorCommands } from "../actions/editorActions";
+import { useEditorActions } from "../actions/editorActionContext";
 import { openNoteState } from "../pageState/EditorPageState";
 import { useEditorPageStateContext } from "../pageState/editorPageStateContext";
 import { NoteItem } from "./NoteItem";
@@ -14,6 +14,7 @@ export interface ListPaneProps {}
 
 export function ListPane(): JSX.Element {
   const [state, setState] = useEditorPageStateContext();
+  const [commands] = useEditorActions();
   const { focusedNoteId, notes, selectedNoteIds } = state;
   const [elFocusItem, setElFocusItem] = useState<HTMLElement | null>(null);
   const refList = useRef<HTMLDivElement>(null);
@@ -22,9 +23,9 @@ export function ListPane(): JSX.Element {
 
   const onNewNoteClick = useCallback(() => {
     // TODO receive command list over context
-    const command = pickCommandDefinition(editorCommands, "createNewNote");
+    const command = pickCommandDefinition(commands, "createNewNote");
     command.exec(state, setState);
-  }, [setState, state]);
+  }, [commands, setState, state]);
 
   const onNoteSelect = useCallback(
     (note: Note) => {

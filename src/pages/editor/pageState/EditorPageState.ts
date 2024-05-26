@@ -10,11 +10,6 @@ import { EditorPageCommand } from "../actions/editorActions";
 export interface EditorPageState extends NoteListState {
   commandPaletteVisible: EditorCommandPaletteOpenType;
   openNoteIds: string[];
-
-  /** @deprecated */
-  commands: EditorPageCommand[];
-  /** @deprecated */
-  shortcuts: KeyboardShortcut[];
 }
 
 export function createEditorPageState(
@@ -23,9 +18,7 @@ export function createEditorPageState(
   return {
     ...createNoteListState(initial),
     commandPaletteVisible: initial?.commandPaletteVisible ?? "",
-    commands: initial?.commands ?? [],
     openNoteIds: initial?.openNoteIds ?? [],
-    shortcuts: initial?.shortcuts ?? [],
   };
 }
 
