@@ -1,9 +1,9 @@
 import { Combobox, Dialog } from "@headlessui/react";
 import { ChangeEventHandler } from "react";
-import { FocusTarget, FocusTargetId } from "../action/FocusTarget";
+import { FocusTarget } from "../action/FocusTarget";
 
 export interface CommandPaletteFrameProps<Value> {
-  focusTargetId: FocusTargetId;
+  focusTargetId: string;
   getKey: (value: Value) => string;
   input: string;
   onInput: (input: string) => void;
