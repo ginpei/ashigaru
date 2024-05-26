@@ -1,30 +1,58 @@
-import { useEffect, useState } from "react";
-import { CommandPaletteFrame } from "../../../domains/commandPalette/CommandPaletteFrame";
-import { HighlightedTitle } from "../../../domains/commandPalette/HighlightedTitle";
+import { useCallback, useEffect, useState } from "react";
+import { giveFocusOn } from "../../../domains/action/domFocusManipulators";
 import {
-  highlightCommands,
-  Highlighted,
-  highlightFilteredCommandTitle,
-} from "../../../domains/commandPalette/commandFilter";
+  CommandPaletteFrame,
+  CommandPaletteSelectHandler,
+} from "../../../domains/commandPalette/CommandPaletteFrame";
+import { HighlightedTitle } from "../../../domains/commandPalette/HighlightedTitle";
+import { highlightCommands } from "../../../domains/commandPalette/commandFilter";
 import { Note } from "../../../domains/note/Note";
-import { EditorCommandListItem } from "./EditorCommandListItem";
-import { getNoteOptions, Option } from "./editorCommandManipulators";
+import { tick } from "../../../domains/time/timeManipulator";
+import { openNoteState } from "../pageState/EditorPageState";
 import { useEditorPageStateContext } from "../pageState/editorPageStateContext";
+import { EditorCommandListItem } from "./EditorCommandListItem";
+import { useEditorCommands } from "./editorActionContext";
+import { EditorPageCommand } from "./editorActions";
+import { Option, getNoteOptions } from "./editorCommandManipulators";
 
 export interface EditorCommandPaletteProps {
   open: EditorCommandPaletteOpenType;
-  onSelect: (option: Option | null) => void;
+  onClose: (option: Option | null) => void;
 }
 
 export type EditorCommandPaletteOpenType = "" | "files" | "commands";
 
 export function EditorCommandPalette({
   open,
-  onSelect,
+  onClose,
 }: EditorCommandPaletteProps): JSX.Element {
+  const [state, setState] = useEditorPageStateContext();
   const [{ shortcuts }] = useEditorPageStateContext();
   const [input, setInput] = useState("");
   const options = useOptions(input);
+
+  const onSelect: CommandPaletteSelectHandler<Option> = useCallback(
+    async (command: Note | EditorPageCommand | null) => {
+      if (!command) {
+        return;
+      }
+
+      if ("exec" in command) {
+        command.exec(state, setState);
+        setState((v) => ({ ...v, commandPaletteVisible: "" }));
+      } else {
+        setState({
+          ...openNoteState(state, command.id),
+          commandPaletteVisible: "",
+        });
+
+        // TODO find better way
+        await tick();
+        giveFocusOn("noteBodyFocus");
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     if (open === "commands") {
@@ -62,8 +90,8 @@ export function EditorCommandPalette({
 }
 
 function useOptions(input: string): Option[] {
-  const [{ commands, editingNoteId, notes, openNoteIds }] =
-    useEditorPageStateContext();
+  const [{ editingNoteId, notes, openNoteIds }] = useEditorPageStateContext();
+  const commands = useEditorCommands();
 
   if (input.startsWith(">")) {
     const keyword = input.slice(1).trim();

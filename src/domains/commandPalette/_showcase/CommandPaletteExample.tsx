@@ -18,9 +18,9 @@ const [demoCommands, demoShortcuts] = breakActions(demoActions);
 export function CommandPaletteExample() {
   const [state, setState] = useState(
     createEditorPageState({
-      commands: demoCommands,
       notes: demoNotes,
-      shortcuts: demoShortcuts,
+      commands: demoCommands, // TODO remove
+      shortcuts: demoShortcuts, // TODO remove
     }),
   );
 
@@ -58,7 +58,7 @@ export function CommandPaletteExample() {
       </HStack>
       <EditorCommandPalette
         open={state.commandPaletteVisible}
-        onSelect={onCommandSelect}
+        onClose={onCommandSelect}
       />
     </EditorPageStateProvider>
   );

@@ -31,7 +31,7 @@ export function NoteItem({
   };
 
   useEffect(() => {
-    if (!focused || !refNote.current || focusTarget !== "noteListFocus") {
+    if (!focused || !refNote.current || focusTarget !== "noteList") {
       return;
     }
     refNote.current.focus();

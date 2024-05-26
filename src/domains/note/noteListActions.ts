@@ -5,6 +5,190 @@ import { createNote } from "./Note";
 import { NoteListState } from "./NoteListState";
 import { findFocusAfterDeletion } from "./noteListHandlers";
 
+export function createNoteListActions<State extends NoteListState>(
+  state: State,
+  setState: Dispatch<SetStateAction<State>>,
+): Action[] {
+  return [
+    {
+      exec() {
+        setState({
+          ...state,
+          selectedNoteIds: state.notes.map((v) => v.id),
+        });
+      },
+      id: "selectAllNotes",
+      patterns: [
+        {
+          key: "Ctrl+A",
+          when: "focus:noteList",
+        },
+      ],
+      title: "Select all notes",
+    },
+    {
+      exec() {
+        const { focusedNoteId, notes } = state;
+        const index = notes.findIndex((v) => v.id === focusedNoteId);
+        const prevNote = index < 1 ? notes[0] : notes[index - 1];
+        if (!prevNote) {
+          return;
+        }
+        setState({
+          ...state,
+          focusedNoteId: prevNote.id,
+        });
+      },
+      id: "focusPreviousNote",
+      patterns: [
+        {
+          key: "ArrowUp",
+          when: "focus:noteList",
+        },
+      ],
+      title: "Focus on the previous note",
+    },
+    {
+      exec() {
+        const { focusedNoteId, notes } = state;
+        const index = notes.findIndex((v) => v.id === focusedNoteId);
+        const nextNote =
+          index < 0
+            ? notes[0]
+            : index >= notes.length
+              ? notes.at(-1)
+              : notes[index + 1];
+        if (!nextNote) {
+          return;
+        }
+        setState({
+          ...state,
+          focusedNoteId: nextNote.id,
+        });
+      },
+      id: "focusNextNote",
+      patterns: [
+        {
+          key: "ArrowDown",
+          when: "focus:noteList",
+        },
+      ],
+      title: "Focus on the next note",
+    },
+    {
+      exec() {
+        const { notes } = state;
+        const note = notes[0];
+        if (!note) {
+          return;
+        }
+        setState({
+          ...state,
+          focusedNoteId: note.id,
+        });
+      },
+      id: "focusFirstNote",
+      patterns: [
+        {
+          key: "Home",
+          when: "focus:noteList",
+        },
+      ],
+      title: "Focus on the first note",
+    },
+    {
+      exec() {
+        const { notes } = state;
+        const note = notes.at(-1);
+        if (!note) {
+          return;
+        }
+        setState({
+          ...state,
+          focusedNoteId: note.id,
+        });
+      },
+      id: "focusLastNote",
+      patterns: [
+        {
+          key: "End",
+          when: "focus:noteList",
+        },
+      ],
+      title: "Focus on the last note",
+    },
+    {
+      exec() {
+        setState({
+          ...state,
+          editingNoteId: state.focusedNoteId,
+          selectedNoteIds: [state.focusedNoteId],
+        });
+      },
+      id: "selectNote",
+      patterns: [
+        {
+          key: "Space",
+          when: "focus:noteList",
+        },
+        {
+          key: "Enter",
+          when: "focus:noteList",
+        },
+      ],
+      title: "Select the current focus note",
+    },
+    {
+      exec() {
+        // TODO give empty ID and generate once saved
+        const note = createNote({
+          id: crypto.randomUUID(),
+          title: "Untitled",
+        });
+        setState(createNewNote(state, note));
+      },
+      id: "createNewNote",
+      patterns: [
+        {
+          key: "Alt+N",
+        },
+      ],
+      title: "Create a new note",
+    },
+    {
+      exec() {
+        const notes = state.notes.filter(
+          (v) => !state.selectedNoteIds.includes(v.id),
+        );
+
+        const editingNoteId = state.selectedNoteIds.includes(
+          state.editingNoteId,
+        )
+          ? ""
+          : state.editingNoteId;
+        const focusedNoteId = findFocusAfterDeletion(state);
+
+        setState({
+          ...state,
+          editingNoteId,
+          focusedNoteId,
+          notes,
+          selectedNoteIds: [],
+        });
+      },
+      id: "deleteNote",
+      patterns: [
+        {
+          key: "Delete",
+          when: "focus:noteList",
+        },
+      ],
+      title: "Delete the selected notes",
+    },
+  ];
+}
+
+/** @deprecated replace with `createNoteListActions()` */
 export const noteListActions: Action<
   [NoteListState, Dispatch<SetStateAction<NoteListState>>]
 >[] = [
@@ -19,7 +203,7 @@ export const noteListActions: Action<
     patterns: [
       {
         key: "Ctrl+A",
-        when: "noteListFocus",
+        when: "focus:noteList",
       },
     ],
     title: "Select all notes",
@@ -41,7 +225,7 @@ export const noteListActions: Action<
     patterns: [
       {
         key: "ArrowUp",
-        when: "noteListFocus",
+        when: "focus:noteList",
       },
     ],
     title: "Focus on the previous note",
@@ -68,7 +252,7 @@ export const noteListActions: Action<
     patterns: [
       {
         key: "ArrowDown",
-        when: "noteListFocus",
+        when: "focus:noteList",
       },
     ],
     title: "Focus on the next note",
@@ -89,7 +273,7 @@ export const noteListActions: Action<
     patterns: [
       {
         key: "Home",
-        when: "noteListFocus",
+        when: "focus:noteList",
       },
     ],
     title: "Focus on the first note",
@@ -110,7 +294,7 @@ export const noteListActions: Action<
     patterns: [
       {
         key: "End",
-        when: "noteListFocus",
+        when: "focus:noteList",
       },
     ],
     title: "Focus on the last note",
@@ -127,11 +311,11 @@ export const noteListActions: Action<
     patterns: [
       {
         key: "Space",
-        when: "noteListFocus",
+        when: "focus:noteList",
       },
       {
         key: "Enter",
-        when: "noteListFocus",
+        when: "focus:noteList",
       },
     ],
     title: "Select the current focus note",
@@ -176,7 +360,7 @@ export const noteListActions: Action<
     patterns: [
       {
         key: "Delete",
-        when: "noteListFocus",
+        when: "focus:noteList",
       },
     ],
     title: "Delete the selected notes",

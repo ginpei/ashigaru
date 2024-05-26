@@ -4,8 +4,8 @@ import { pickCommandDefinition } from "../../../domains/action/CommandDefinition
 import { FocusTarget } from "../../../domains/action/FocusTarget";
 import { Note } from "../../../domains/note/Note";
 import { focusNotesState } from "../../../domains/note/NoteListState";
-import { openNoteState } from "../pageState/EditorPageState";
 import { editorCommands } from "../actions/editorActions";
+import { openNoteState } from "../pageState/EditorPageState";
 import { useEditorPageStateContext } from "../pageState/editorPageStateContext";
 import { NoteItem } from "./NoteItem";
 import { useListScrollEffect } from "./noteListUiHooks";
@@ -53,7 +53,7 @@ export function ListPane(): JSX.Element {
           </ListHeaderButton>
         </span>
       </div>
-      <FocusTarget id="noteListFocus">
+      <FocusTarget id="noteList">
         <div className="overflow-auto" ref={refList} tabIndex={0}>
           {notes.map((note) => (
             <NoteItem

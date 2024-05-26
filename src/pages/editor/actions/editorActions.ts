@@ -10,14 +10,71 @@ export type EditorPageCommand = CommandDefinition<
   [EditorPageState, Dispatch<SetStateAction<EditorPageState>>]
 >;
 
+export function createEditorPageActions(
+  state: EditorPageState,
+  setState: Dispatch<SetStateAction<EditorPageState>>,
+): Action[] {
+  return [
+    {
+      exec() {
+        giveFocusOn("noteList");
+      },
+      id: "focusOnNoteList",
+      patterns: [
+        {
+          key: "Ctrl+Shift+E",
+        },
+      ],
+      title: "Focus on the note list",
+    },
+    {
+      exec() {
+        giveFocusOn("noteTitleFocus");
+      },
+      id: "focusOnNoteTitle",
+      patterns: [
+        {
+          key: "Ctrl+0",
+        },
+      ],
+      title: "Focus on the note title input",
+    },
+    {
+      exec() {
+        giveFocusOn("noteBodyFocus");
+      },
+      id: "focusOnEditor",
+      patterns: [
+        {
+          key: "Ctrl+1",
+        },
+      ],
+      title: "Focus on the editor",
+    },
+    {
+      exec() {
+        setState(closeNoteState(state, state.editingNoteId));
+      },
+      id: "closeEditingNote",
+      patterns: [
+        {
+          key: "Alt+W",
+        },
+      ],
+      title: "Close editing note",
+    },
+  ];
+}
+
 const [noteListCommands, noteListShortcuts] = breakActions(noteListActions);
 
-const editorPageActions: Action<
+/** @deprecated replace with `createEditorPageActions()` */
+export const editorPageActions: Action<
   [EditorPageState, Dispatch<SetStateAction<EditorPageState>>]
 >[] = [
   {
     exec() {
-      giveFocusOn("noteListFocus");
+      giveFocusOn("noteList");
     },
     id: "focusOnNoteList",
     patterns: [
@@ -67,11 +124,13 @@ const editorPageActions: Action<
 
 const [editorCommands2, editorShortcuts2] = breakActions(editorPageActions);
 
+/** @deprecated */
 export const editorCommands: CommandDefinition[] = [
   ...noteListCommands,
   ...editorCommands2,
 ];
 
+/** @deprecated */
 export const editorShortcuts: KeyboardShortcut[] = [
   ...noteListShortcuts,
   ...editorShortcuts2,

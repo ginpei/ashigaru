@@ -1,24 +1,18 @@
 import Head from "next/head";
-import { CSSProperties, ReactNode, useMemo, useState } from "react";
-import { pickCommandDefinition } from "../../domains/action/CommandDefinition";
-import { giveFocusOn } from "../../domains/action/domFocusManipulators";
+import { CSSProperties, ReactNode, useState } from "react";
+import { breakActions } from "../../domains/action/Action";
+import { ConditionFunctionMap } from "../../domains/action/Condition";
+import { focusCondition } from "../../domains/action/domFocusConditions";
 import { useFocusMarkEffect } from "../../domains/action/focusHooks";
-import { useKeyboardShortcuts } from "../../domains/action/keyboardShortcutHooks";
+import { useShortcutRunner } from "../../domains/action/keyboardShortcutHooks";
 import { Note } from "../../domains/note/Note";
-import { tick } from "../../domains/time/timeManipulator";
 import { EditorCommandPalette } from "./actions/EditorCommandPalette";
-import {
-  EditorPageCommand,
-  editorCommands,
-  editorShortcuts,
-} from "./actions/editorActions";
+import { EditorCommandContextProvider } from "./actions/editorActionContext";
+import { useEditorPageActions } from "./actions/editorActionHooks";
 import { EditorPane } from "./editor/EditorPane";
 import { ListPane } from "./list/ListPane";
 import { NavBar } from "./navBar/NavBar";
-import {
-  createEditorPageState,
-  openNoteState,
-} from "./pageState/EditorPageState";
+import { createEditorPageState } from "./pageState/EditorPageState";
 import {
   EditorPageStateProvider,
   useEditorPageStateContext,
@@ -50,16 +44,22 @@ export function EditorPage(): JSX.Element {
 
 function Provider({ children }: { children: ReactNode }) {
   const [state, setState] = useState(
-    createEditorPageState({
-      commands: editorCommands, // TODO remove
-      notes: dummyNotes,
-      shortcuts: editorShortcuts, // TODO remove
-    }),
+    createEditorPageState({ notes: dummyNotes }),
   );
+
+  const actions = useEditorPageActions(state, setState);
+  const [commands, shortcuts] = breakActions(actions);
+  const conditions: ConditionFunctionMap = {
+    focus: focusCondition,
+  };
+
+  useShortcutRunner(commands, shortcuts, conditions);
 
   return (
     <EditorPageStateProvider value={[state, setState]}>
-      {children}
+      <EditorCommandContextProvider value={commands}>
+        {children}
+      </EditorCommandContextProvider>
     </EditorPageStateProvider>
   );
 }
@@ -69,51 +69,8 @@ function EditorPageContent() {
 
   const [state, setState] = useEditorPageStateContext();
 
-  const commands = useMemo<EditorPageCommand[]>(() => {
-    // TODO extract
-    return [
-      ...state.commands,
-      {
-        exec() {
-          setState((v) => ({ ...v, commandPaletteVisible: "files" }));
-        },
-        id: "selectFileInCommandPalette",
-        title: "Select file in command palette",
-      },
-      {
-        exec() {
-          setState((v) => ({ ...v, commandPaletteVisible: "commands" }));
-        },
-        id: "showCommandPalette",
-        title: "Show command palette",
-      },
-    ];
-  }, [setState, state.commands]);
-
-  useKeyboardShortcuts(editorShortcuts, (commandId) => {
-    const def = pickCommandDefinition(commands, commandId);
-    def.exec(state, setState);
-  });
-
-  const onCommandSelect = async (command: Note | EditorPageCommand | null) => {
-    if (!command) {
-      setState((v) => ({ ...v, commandPaletteVisible: "" }));
-      return;
-    }
-
-    if ("exec" in command) {
-      command.exec(state, setState);
-      setState((v) => ({ ...v, commandPaletteVisible: "" }));
-    } else {
-      setState({
-        ...openNoteState(state, command.id),
-        commandPaletteVisible: "",
-      });
-
-      // TODO find better way
-      await tick();
-      giveFocusOn("noteBodyFocus");
-    }
+  const onCommandPaletteClose = async () => {
+    setState((v) => ({ ...v, commandPaletteVisible: "" }));
   };
 
   return (
@@ -138,7 +95,7 @@ function EditorPageContent() {
       </div>
       <EditorCommandPalette
         open={state.commandPaletteVisible}
-        onSelect={onCommandSelect}
+        onClose={onCommandPaletteClose}
       />
     </>
   );
