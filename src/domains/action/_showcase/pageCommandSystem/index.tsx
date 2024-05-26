@@ -28,13 +28,12 @@ import { Action, breakActions } from "../../Action";
 import {
   CommandDefinition,
   findCommandDefinition,
-  pickCommandDefinition,
 } from "../../CommandDefinition";
 import {
   KeyboardShortcut,
   createKeyboardShortcut,
 } from "../../KeyboardShortcut";
-import { useKeyboardShortcuts } from "../../keyboardShortcutHooks";
+import { useShortcutRunner } from "../../keyboardShortcutHooks";
 
 interface DemoFile extends CommandPaletteOption {}
 
@@ -93,10 +92,7 @@ export function ActionPageCommandSystemDemoPage(): JSX.Element {
   }, [actualInput, options]);
 
   // start observing keyboard shortcut inputs
-  useKeyboardShortcuts(shortcuts, (commandId, args) => {
-    const command = pickCommandDefinition(commands, commandId);
-    command.exec(...args);
-  });
+  useShortcutRunner(commands, shortcuts, {});
 
   // ---------------------------------------------------------------------------
   // callbacks

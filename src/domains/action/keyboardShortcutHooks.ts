@@ -2,32 +2,7 @@ import { useCallback, useEffect } from "react";
 import { CommandDefinition, execCommand } from "./CommandDefinition";
 import { ConditionFunctionMap } from "./Condition";
 import { KeyboardShortcut, findShortcut } from "./KeyboardShortcut";
-import { useFocusTarget } from "./focusHooks";
 import { keyboardEventToInputCommand } from "./keyboardEventManipulators";
-
-/**
- * @deprecated TODO replace with 2
- */
-export function useKeyboardShortcuts(
-  defs: KeyboardShortcut[],
-  onCommand: (commandId: string, args: any[]) => void,
-): void {
-  const focusId = useFocusTarget();
-
-  useKeyDown((event) => {
-    const input = keyboardEventToInputCommand(event);
-
-    const def = defs.find(
-      (v) => v.key === input && (!v.when || v.when === focusId),
-    );
-    if (!def) {
-      return;
-    }
-
-    event.preventDefault();
-    onCommand(def.commandId, def.args ?? []);
-  });
-}
 
 export function useKeyboardShortcuts2(
   shortcuts: KeyboardShortcut[],
