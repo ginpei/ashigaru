@@ -28,7 +28,7 @@ export function breakActions<Args extends any[] = any[]>(
   const options: ActionPattern[] = [];
 
   for (const action of actions) {
-    const [command, shortcutList, newOptions] = breakAction(action);
+    const [command, shortcutList, newOptions] = breakOneAction(action);
     commands.push(command);
     for (const shortcut of shortcutList) {
       shortcuts.push(shortcut);
@@ -44,7 +44,7 @@ export function breakActions<Args extends any[] = any[]>(
 /**
  * Break down aa actions into a command, keyboard shortcuts, and command option patterns.
  */
-function breakAction<Args extends any[] = any[]>(
+function breakOneAction<Args extends any[] = any[]>(
   action: Action<Args>,
 ): [CommandDefinition<Args>, KeyboardShortcut[], ActionPattern[]] {
   const { patterns, ...command } = action;
