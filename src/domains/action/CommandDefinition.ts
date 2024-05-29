@@ -26,9 +26,11 @@ export interface CommandDefinition<Args extends any[] = any[]> {
   id: string;
 
   /**
+   * TODO remove
    * To display in the UI.
+   * @deprecated Do not use / give it to patterns in need
    */
-  title: string;
+  title?: string;
 }
 
 export function createCommandDefinition<Args extends any[] = any[]>(

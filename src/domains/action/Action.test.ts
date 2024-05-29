@@ -16,13 +16,20 @@ describe("breakActions()", () => {
           patterns: [
             {
               key: "Ctrl+A",
+              title: "action 1",
             },
             {
               args: [123],
               key: "Enter",
+              title: "action 1 with args",
+            },
+            {
+              title: "Title only",
+            },
+            {
+              key: "Escape",
             },
           ],
-          title: "Action 1",
         },
         {
           exec() {
@@ -38,7 +45,7 @@ describe("breakActions()", () => {
     });
 
     it("breaks actions down to parts", () => {
-      expect(result.length).toBe(2);
+      expect(result.length).toBe(3);
     });
 
     it("builds commands", () => {
@@ -47,12 +54,10 @@ describe("breakActions()", () => {
         {
           exec: actions[0].exec,
           id: "action1",
-          title: "Action 1",
         },
         {
           exec: actions[1].exec,
           id: "action2",
-          title: "Action 2",
         },
       ]);
     });
@@ -70,6 +75,39 @@ describe("breakActions()", () => {
           args: [123],
           commandId: "action1",
           key: "Enter",
+          when: "",
+        },
+        {
+          args: [],
+          commandId: "action1",
+          key: "Escape",
+          when: "",
+        },
+      ]);
+    });
+
+    it("builds command palette options", () => {
+      const options = result[2];
+      expect(options).toEqual([
+        {
+          args: [],
+          commandId: "action1",
+          key: "Ctrl+A",
+          title: "action 1",
+          when: "",
+        },
+        {
+          args: [123],
+          commandId: "action1",
+          key: "Enter",
+          title: "action 1 with args",
+          when: "",
+        },
+        {
+          args: [],
+          commandId: "action1",
+          key: "",
+          title: "Title only",
           when: "",
         },
       ]);

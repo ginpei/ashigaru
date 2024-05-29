@@ -13,26 +13,32 @@ export interface Action<Args extends any[] = any[]>
  * KeyboardShortcut definition bound to an action that includes a command.
  * Used as a part of `Action`.
  */
-type ActionPattern = Partial<Omit<KeyboardShortcut, "commandId">>;
+type ActionPattern = Partial<
+  Omit<KeyboardShortcut, "commandId"> & { title: string }
+>;
 
 /**
  * Break down a list of actions into commands and their keyboard shortcuts.
  */
 export function breakActions<Args extends any[] = any[]>(
   actions: Action<Args>[],
-): [CommandDefinition<Args>[], KeyboardShortcut[]] {
+): [CommandDefinition<Args>[], KeyboardShortcut[], ActionPattern[]] {
   const commands: CommandDefinition<Args>[] = [];
   const shortcuts: KeyboardShortcut[] = [];
+  const options: ActionPattern[] = [];
 
   for (const action of actions) {
-    const [command, shortcutList] = breakAction(action);
+    const [command, shortcutList, newOptions] = breakAction(action);
     commands.push(command);
     for (const shortcut of shortcutList) {
       shortcuts.push(shortcut);
     }
+    for (const option of newOptions) {
+      options.push(option);
+    }
   }
 
-  return [commands, shortcuts];
+  return [commands, shortcuts, options];
 }
 
 /**
@@ -40,10 +46,11 @@ export function breakActions<Args extends any[] = any[]>(
  */
 function breakAction<Args extends any[] = any[]>(
   action: Action<Args>,
-): [CommandDefinition<Args>, KeyboardShortcut[]] {
+): [CommandDefinition<Args>, KeyboardShortcut[], ActionPattern[]] {
   const { patterns, ...command } = action;
 
   const shortcuts: KeyboardShortcut[] = [];
+  const commandPatterns: ActionPattern[] = [];
   for (const pattern of patterns) {
     if (pattern.key) {
       shortcuts.push(
@@ -53,7 +60,17 @@ function breakAction<Args extends any[] = any[]>(
         }),
       );
     }
+
+    if (pattern.title) {
+      commandPatterns.push({
+        ...createKeyboardShortcut({
+          ...pattern,
+          commandId: command.id,
+        }),
+        title: pattern.title,
+      });
+    }
   }
 
-  return [command, shortcuts];
+  return [command, shortcuts, commandPatterns];
 }
