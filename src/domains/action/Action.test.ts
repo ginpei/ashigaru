@@ -37,7 +37,6 @@ describe("breakActions()", () => {
           },
           id: "action2",
           patterns: [],
-          title: "Action 2",
         },
       ];
 
