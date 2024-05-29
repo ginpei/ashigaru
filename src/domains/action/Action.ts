@@ -18,7 +18,7 @@ type ActionPattern = Partial<
 >;
 
 /**
- * Break down a list of actions into commands and their keyboard shortcuts.
+ * Break down a list of actions into commands, keyboard shortcuts, and command option patterns.
  */
 export function breakActions<Args extends any[] = any[]>(
   actions: Action<Args>[],
@@ -42,7 +42,7 @@ export function breakActions<Args extends any[] = any[]>(
 }
 
 /**
- * Break down an action into a command and its keyboard shortcuts.
+ * Break down aa actions into a command, keyboard shortcuts, and command option patterns.
  */
 function breakAction<Args extends any[] = any[]>(
   action: Action<Args>,
