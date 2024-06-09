@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import { NiceButton } from "../../nice/NiceButton";
 import { NiceCode } from "../../nice/NiceCode";
 import { NiceCodeBlock } from "../../nice/NiceCodeBlock";
-import { NiceH2, NiceH3 } from "../../nice/NiceH";
 import { NiceSection } from "../../nice/NiceSection";
 import { CommandPaletteFrame } from "../CommandPaletteFrame";
 import { HighlightedTitle } from "../HighlightedTitle";
