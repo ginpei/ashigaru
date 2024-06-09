@@ -25,7 +25,3 @@ export function EditorCommandListItem<State>({
     </>
   );
 }
-
-EditorCommandListItem.Empty = function CommandListItem_Empty(): JSX.Element {
-  return <CommandListEmptyItem>No matching results</CommandListEmptyItem>;
-};

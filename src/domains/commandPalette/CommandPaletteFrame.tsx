@@ -1,8 +1,10 @@
 import { Combobox, Dialog } from "@headlessui/react";
 import { ChangeEventHandler } from "react";
 import { FocusTarget } from "../action/FocusTarget";
+import { CommandListEmptyItem } from "./CommandListEmptyItem";
 
 export interface CommandPaletteFrameProps<Value> {
+  emptyMessage: (() => React.ReactNode) | string;
   focusTargetId: string;
   getKey: (value: Value) => string;
   input: string;
@@ -10,7 +12,6 @@ export interface CommandPaletteFrameProps<Value> {
   onSelect: CommandPaletteSelectHandler<Value>;
   open: boolean;
   options: Readonly<Value[]>;
-  renderEmptyItem: () => React.ReactNode;
   renderItem: (value: Value, index: number) => React.ReactNode;
 }
 
@@ -22,6 +23,7 @@ export interface CommandPaletteOption {
 export type CommandPaletteSelectHandler<T> = (command: T | null) => void;
 
 export function CommandPaletteFrame<Value>({
+  emptyMessage,
   focusTargetId,
   getKey,
   input,
@@ -29,7 +31,6 @@ export function CommandPaletteFrame<Value>({
   onSelect,
   open,
   options,
-  renderEmptyItem,
   renderItem,
 }: CommandPaletteFrameProps<Value>): JSX.Element {
   const onDialogClose = () => onSelect(null);
@@ -76,7 +77,12 @@ export function CommandPaletteFrame<Value>({
                     {renderItem(option, index)}
                   </Combobox.Option>
                 ))}
-                {options.length < 1 && renderEmptyItem()}
+                {options.length < 1 &&
+                  (typeof emptyMessage === "string" ? (
+                    <CommandListEmptyItem>{emptyMessage}</CommandListEmptyItem>
+                  ) : (
+                    emptyMessage()
+                  ))}
               </Combobox.Options>
             </Combobox>
           </Dialog.Panel>

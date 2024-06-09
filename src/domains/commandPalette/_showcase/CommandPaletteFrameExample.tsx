@@ -4,7 +4,6 @@ import { NiceCode } from "../../nice/NiceCode";
 import { NiceCodeBlock } from "../../nice/NiceCodeBlock";
 import { NiceH2, NiceH3 } from "../../nice/NiceH";
 import { NiceSection } from "../../nice/NiceSection";
-import { CommandListEmptyItem } from "../CommandListEmptyItem";
 import { CommandPaletteFrame } from "../CommandPaletteFrame";
 import { HighlightedTitle } from "../HighlightedTitle";
 import { Highlighted, highlightFilteredCommandTitle } from "../commandFilter";
@@ -46,6 +45,7 @@ export function CommandPaletteFrameExample() {
       <NiceSection heading="Usage" level="3">
         <NiceCodeBlock>{`
 <CommandPaletteFrame
+  emptyMessage="No match"
   focusTargetId="demoCommandPaletteFrameFocus"
   getKey={(v) => v.title}
   input={input}
@@ -56,9 +56,6 @@ export function CommandPaletteFrameExample() {
   }}
   open={visible}
   options={filteredOptions}
-  renderEmptyItem={() => (
-    <CommandListEmptyItem>No match</CommandListEmptyItem>
-  )}
   renderItem={(v) => <HighlightedTitle chars={v.highlightedCharacters} />}
 />
         `}</NiceCodeBlock>
@@ -149,6 +146,7 @@ const filteredOptions = useMemo(() => {
         </ul>
       </NiceSection>
       <CommandPaletteFrame
+        emptyMessage="No match"
         focusTargetId="demoCommandPaletteFrameFocus"
         getKey={(v) => v.title}
         input={input}
@@ -159,9 +157,6 @@ const filteredOptions = useMemo(() => {
         }}
         open={visible}
         options={filteredOptions}
-        renderEmptyItem={() => (
-          <CommandListEmptyItem>No match</CommandListEmptyItem>
-        )}
         renderItem={(v) => <HighlightedTitle chars={v.highlightedCharacters} />}
       />
     </NiceSection>

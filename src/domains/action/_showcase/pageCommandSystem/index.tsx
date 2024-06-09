@@ -327,6 +327,7 @@ export function ActionPageCommandSystemDemoPage(): JSX.Element {
         </details>
       </VStack>
       <CommandPaletteFrame<Highlighted<CommandPaletteOption>>
+        emptyMessage="No match"
         focusTargetId="demoCommandPaletteFrameFocus"
         getKey={(v) => v.id}
         input={paletteInput}
@@ -334,9 +335,6 @@ export function ActionPageCommandSystemDemoPage(): JSX.Element {
         onSelect={onPaletteSelect}
         open={commandPaletteVisible}
         options={filteredOptions}
-        renderEmptyItem={() => (
-          <CommandListEmptyItem>No match</CommandListEmptyItem>
-        )}
         renderItem={(value) =>
           inputType === "file" ? (
             <HighlightedTitle chars={value.highlightedCharacters} />

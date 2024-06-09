@@ -69,6 +69,7 @@ export function EditorCommandPalette({
   return (
     <CommandPaletteFrame
       // className="CommandPallet"
+      emptyMessage="No matching results"
       focusTargetId="commandPalletFocus"
       getKey={(v) => v.id}
       input={input}
@@ -76,7 +77,6 @@ export function EditorCommandPalette({
       onSelect={onSelect}
       open={open !== ""}
       options={options}
-      renderEmptyItem={() => <EditorCommandListItem.Empty />}
       renderItem={(option) =>
         "exec" in option ? (
           <EditorCommandListItem
