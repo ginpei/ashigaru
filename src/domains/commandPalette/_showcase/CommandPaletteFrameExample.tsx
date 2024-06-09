@@ -68,9 +68,9 @@ const filteredOptions = useMemo(
 );
         `}</NiceCodeBlock>
         <p>
-          <NiceCode>renderEmptyItem</NiceCode> prop receives a function that
-          returns a React node. You can use highlighted values to emphasize the
-          part of option title that matches the input.
+          <NiceCode>renderItem</NiceCode> prop receives a function that returns
+          a React node. You can use highlighted values to emphasize the part of
+          option title that matches the input.
         </p>
         <ul className="ui-ul">
           <li>
@@ -128,20 +128,18 @@ const filteredOptions = useMemo(() => {
       <NiceSection heading="Relating components" level="3">
         <ul className="ui-ul">
           <li>
-            <NiceCode>{`<CommandPaletteFrame>`}</NiceCode> - Outer component
-          </li>
-          <li>
-            <NiceCode>{`<CommandListEmptyItem>`}</NiceCode> - Standard empty
-            message
+            <NiceCode>{`<CommandPaletteFrame>`}</NiceCode> - Outer component.
+            You should create your own wrapper component
           </li>
           <li>
             <NiceCode>{`<HighlightedTitle>`}</NiceCode> - Option title
-            emphasized by filter
+            emphasized by filter. You may want to have your wrapper component
           </li>
           <li>
-            Your own <NiceCode>{`<MyCommandListItem>`}</NiceCode> - Option item
-            specialized for your use case, probably using{" "}
-            <NiceCode>{`<HighlightedTitle>`}</NiceCode>
+            <NiceCode>{`<CommandListEmptyItem>`}</NiceCode> - Used for{" "}
+            <NiceCode>emptyMessage</NiceCode> prop internally to render when no
+            match (empty option list is given). You can give it a function that
+            returns your own component
           </li>
         </ul>
       </NiceSection>
