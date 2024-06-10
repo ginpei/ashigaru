@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { NiceButton } from "../../nice/NiceButton";
 import { NiceCodeBlock } from "../../nice/NiceCodeBlock";
+import { NiceDetails } from "../../nice/NiceDetails";
 import { NiceSection } from "../../nice/NiceSection";
 import { CommandPaletteFrame } from "../CommandPaletteFrame";
 import { HighlightedTitle } from "../HighlightedTitle";
@@ -38,8 +39,13 @@ export function MyCommandPaletteExample(): JSX.Element {
   return (
     <NiceSection heading={`"MyCommandPalette" example`} level="2">
       <NiceSection heading="Example" level="3">
-        <details>
-          <summary>Code</summary>
+        <NiceDetails summary="Code">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
+            eum, quidem distinctio adipisci necessitatibus porro rerum
+            accusantium nobis nostrum quibusdam nulla? Et vitae nulla architecto
+            est laudantium veritatis laboriosam. Veniam.
+          </p>
           <NiceCodeBlock>{`
 function MyCommandPalette({
   onSelect,
@@ -95,7 +101,7 @@ function MyCommandPalette({
   );
 }
           `}</NiceCodeBlock>
-        </details>
+        </NiceDetails>
         <p>
           <NiceButton onClick={() => setPaletteVisible(true)}>
             Open command palette
