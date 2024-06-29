@@ -38,7 +38,7 @@ export function ComboboxDemo() {
 
   return (
     <div className="m-4 w-72">
-      <Combobox value={selected} onChange={setSelected}>
+      <Combobox value={selected} onChange={(v) => v && setSelected(v)}>
         <div className="relative mt-1">
           <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <ComboboxInput
@@ -70,14 +70,14 @@ export function ComboboxDemo() {
                 filteredPeople.map((person) => (
                   <ComboboxOption
                     key={person.id}
-                    className={({ active }) =>
+                    className={({ focus }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                        active ? "bg-teal-600 text-white" : "text-gray-900"
+                        focus ? "bg-teal-600 text-white" : "text-gray-900"
                       }`
                     }
                     value={person}
                   >
-                    {({ selected, active }) => (
+                    {({ selected, focus }) => (
                       <>
                         <span
                           className={`block truncate ${
@@ -89,7 +89,7 @@ export function ComboboxDemo() {
                         {selected ? (
                           <span
                             className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                              active ? "text-white" : "text-teal-600"
+                              focus ? "text-white" : "text-teal-600"
                             }`}
                           >
                             (!)

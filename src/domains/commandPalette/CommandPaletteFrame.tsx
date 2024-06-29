@@ -75,10 +75,10 @@ export function CommandPaletteFrame<Value>({
               >
                 {options.map((option, index) => (
                   <ComboboxOption
-                    className={({ active }) => `
+                    className={({ focus }) => `
                       px-2 py-1 flex place-content-between leading-4 cursor-pointer
                       hover:bg-slate-300
-                      ${active ? "bg-slate-300" : "bg-white"}
+                      ${focus ? "bg-slate-300" : "bg-white"}
                     `}
                     key={getKey(option)}
                     value={option}
