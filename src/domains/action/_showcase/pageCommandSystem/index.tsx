@@ -24,7 +24,7 @@ import { NiceInput } from "../../../nice/NiceInput";
 import { TextField } from "../../../nice/TextField";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { tick } from "../../../time/timeManipulator";
-import { Action, breakActions } from "../../Action";
+import { Action, ActionPattern, breakActions } from "../../Action";
 import {
   CommandDefinition,
   findCommandDefinition,
@@ -80,11 +80,15 @@ export function ActionPageCommandSystemDemoPage(): React.JSX.Element {
   const filteredOptions = useMemo(() => {
     const result: Highlighted<CommandPaletteOption>[] = [];
     for (const option of options) {
-      const chars = highlightFilteredCommandTitle(option.title, actualInput);
+      const chars = highlightFilteredCommandTitle(
+        option.title ?? "",
+        actualInput,
+      );
       if (chars) {
         result.push({
           highlightedCharacters: chars,
           ...option,
+          title: option.title ?? "",
         });
       }
     }
@@ -372,7 +376,11 @@ function CommandOption({
   );
 }
 
-function usePredefinedActions(): [CommandDefinition[], KeyboardShortcut[]] {
+function usePredefinedActions(): [
+  CommandDefinition[],
+  KeyboardShortcut[],
+  ActionPattern[],
+] {
   return useMemo(() => {
     const actions: Action[] = [
       {
@@ -419,7 +427,7 @@ function usePredefinedActions(): [CommandDefinition[], KeyboardShortcut[]] {
 function usePageActions(vars: {
   setCommandPaletteVisible: Dispatch<SetStateAction<boolean>>;
   setPaletteInput: Dispatch<SetStateAction<string>>;
-}): [CommandDefinition[], KeyboardShortcut[]] {
+}): [CommandDefinition[], KeyboardShortcut[], ActionPattern[]] {
   return useMemo(() => {
     const actions: Action[] = [
       {

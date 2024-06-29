@@ -56,7 +56,7 @@ export function highlightCommands<Args extends any[] = any[]>(
   const filtered: HighlightedCommand<Args>[] = [];
   for (const command of commands) {
     const highlightedCharacters = highlightFilteredCommandTitle(
-      command.title,
+      command.title ?? "",
       filter.keyword,
     );
     if (highlightedCharacters) {

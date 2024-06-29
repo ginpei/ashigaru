@@ -13,7 +13,7 @@ export interface Action<Args extends any[] = any[]>
  * KeyboardShortcut definition bound to an action that includes a command.
  * Used as a part of `Action`.
  */
-type ActionPattern = Partial<
+export type ActionPattern = Partial<
   Omit<KeyboardShortcut, "commandId"> & { title: string }
 >;
 
