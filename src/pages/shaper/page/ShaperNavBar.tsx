@@ -4,7 +4,7 @@ import { homePagePath } from "../../home/homePageMeta";
 
 export interface ShaperNavBarProps {}
 
-export function ShaperNavBar(): JSX.Element {
+export function ShaperNavBar(): React.JSX.Element {
   return (
     <div className="ShaperNavBar bg-ginpei px-4" style={{ lineHeight: "2rem" }}>
       <ShaperNavBarLink href={homePagePath()}>Home</ShaperNavBarLink>
@@ -12,7 +12,9 @@ export function ShaperNavBar(): JSX.Element {
   );
 }
 
-function ShaperNavBarLink(props: ComponentProps<typeof Link>): JSX.Element {
+function ShaperNavBarLink(
+  props: ComponentProps<typeof Link>,
+): React.JSX.Element {
   const { className, ...otherProps } = props;
   return (
     <Link

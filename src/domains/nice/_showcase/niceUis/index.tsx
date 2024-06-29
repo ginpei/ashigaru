@@ -10,7 +10,7 @@ import { NiceH1, NiceH2, NiceH3 } from "../../NiceH";
 import { NiceInput } from "../../NiceInput";
 import { NiceLink } from "../../NiceLink";
 
-export function NiceUisShowcase(): JSX.Element {
+export function NiceUisShowcase(): React.JSX.Element {
   return (
     <StraightLayout title="Nice UIs demo">
       <VStack>
@@ -27,7 +27,7 @@ export function NiceUisShowcase(): JSX.Element {
           <NiceCodeBlock>
             {`
 <NiceCodeBlock>{\`
-export function NiceUisShowcase(): JSX.Element {
+export function NiceUisShowcase(): React.JSX.Element {
   return (
     …
   );

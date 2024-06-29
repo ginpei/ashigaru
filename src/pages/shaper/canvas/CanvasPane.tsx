@@ -7,7 +7,7 @@ import { ShapeData } from "../shape/ShapeData";
 import { Marquee, MarqueeProps } from "./Marquee";
 import { ShapeDisplay } from "./ShapeDisplay";
 
-export function CanvasPane(): JSX.Element {
+export function CanvasPane(): React.JSX.Element {
   const [{ selectedShapeIds, shapes }, setState] = useShaperPageStateContext();
   const selectShape = useCommand("selectShape");
   const [dx, setDx] = useState(0);

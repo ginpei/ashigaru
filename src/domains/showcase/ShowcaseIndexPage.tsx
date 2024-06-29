@@ -2,7 +2,7 @@ import { NiceUL } from "../nice/NiceUL";
 import { StraightLayout } from "../pageLayout/straight/StraightLayout";
 import { showcaseList } from "./showcaseList";
 
-export function ShowcaseIndexPage(): JSX.Element {
+export function ShowcaseIndexPage(): React.JSX.Element {
   const showcasePaths = Object.keys(showcaseList).sort((a, b) =>
     a.localeCompare(b),
   );

@@ -7,7 +7,7 @@ import { shaperPagePath } from "../shaper/shaperPageMeta";
 
 export interface HomePageProps {}
 
-export function HomePage(): JSX.Element {
+export function HomePage(): React.JSX.Element {
   return (
     <StraightLayout className="HomePage" title="Home">
       <h1>HomePage</h1>

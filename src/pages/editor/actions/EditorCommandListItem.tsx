@@ -12,7 +12,7 @@ export interface EditorCommandListItemProps<State> {
 export function EditorCommandListItem<State>({
   command,
   shortcut,
-}: EditorCommandListItemProps<State>): JSX.Element {
+}: EditorCommandListItemProps<State>): React.JSX.Element {
   return (
     <>
       <HighlightedTitle chars={command.highlightedCharacters} />

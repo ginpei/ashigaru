@@ -3,7 +3,7 @@ import { NiceH1 } from "../../../nice/NiceH";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { NiceMenuExample } from "./NiceMenuExample";
 
-export function MenuShowcase(): JSX.Element {
+export function MenuShowcase(): React.JSX.Element {
   return (
     <StraightLayout title="<NiceMenu> demo">
       <VStack className="CommandPaletteShowcase">

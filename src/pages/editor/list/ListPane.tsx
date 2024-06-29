@@ -12,7 +12,7 @@ import { useListScrollEffect } from "./noteListUiHooks";
 
 export interface ListPaneProps {}
 
-export function ListPane(): JSX.Element {
+export function ListPane(): React.JSX.Element {
   const [state, setState] = useEditorPageStateContext();
   const [commands] = useEditorActions();
   const { focusedNoteId, notes, selectedNoteIds } = state;

@@ -12,7 +12,7 @@ export function OpenNoteTab({
   note,
   onSelect,
   onClose,
-}: OpenNoteTabProps): JSX.Element {
+}: OpenNoteTabProps): React.JSX.Element {
   return (
     <span
       className="OpenNoteTab flex cursor-pointer border hover:border-black"

@@ -15,7 +15,7 @@ export interface ShortcutListDialogProps {
 export function ShortcutListDialog({
   onClose,
   open,
-}: ShortcutListDialogProps): JSX.Element {
+}: ShortcutListDialogProps): React.JSX.Element {
   const list = useShortcutList();
 
   return (

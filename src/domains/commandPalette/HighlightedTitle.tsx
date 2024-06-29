@@ -6,7 +6,7 @@ export interface HighlightedTitleProps {
 
 export function HighlightedTitle({
   chars,
-}: HighlightedTitleProps): JSX.Element {
+}: HighlightedTitleProps): React.JSX.Element {
   return (
     <span className="HighlightedTitle">
       {chars.map((c, i) =>

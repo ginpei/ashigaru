@@ -11,7 +11,7 @@ export interface GeneralFormProps {
 export function GeneralForm({
   shapes,
   onChange,
-}: GeneralFormProps): JSX.Element {
+}: GeneralFormProps): React.JSX.Element {
   const shape: ShapeData | null = shapes.length === 1 ? shapes[0] : null;
 
   const onInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(

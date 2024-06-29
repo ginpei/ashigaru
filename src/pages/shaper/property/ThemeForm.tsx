@@ -9,7 +9,10 @@ export interface ThemeFormProps {
   onChange: (shape: Partial<ShapeData>) => void;
 }
 
-export function ThemeForm({ shape, onChange }: ThemeFormProps): JSX.Element {
+export function ThemeForm({
+  shape,
+  onChange,
+}: ThemeFormProps): React.JSX.Element {
   const onInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (event) => {
       const { name, value } = event.target;

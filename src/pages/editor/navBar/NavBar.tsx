@@ -4,7 +4,7 @@ import { homePagePath } from "../../home/homePageMeta";
 
 export interface NavBarProps {}
 
-export function NavBar(): JSX.Element {
+export function NavBar(): React.JSX.Element {
   return (
     <div className="NavBar h-8 bg-ginpei px-4" style={{ lineHeight: "2rem" }}>
       <NavBarLink href={homePagePath()}>Home</NavBarLink>
@@ -12,7 +12,7 @@ export function NavBar(): JSX.Element {
   );
 }
 
-function NavBarLink(props: ComponentProps<typeof Link>): JSX.Element {
+function NavBarLink(props: ComponentProps<typeof Link>): React.JSX.Element {
   const { className, ...otherProps } = props;
   return <Link className={`${className} text-white`} {...otherProps} />;
 }

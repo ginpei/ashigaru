@@ -8,7 +8,7 @@ import { OpenNoteList } from "./OpenNoteList";
 
 export interface EditorPaneProps {}
 
-export function EditorPane({}: EditorPaneProps): JSX.Element {
+export function EditorPane({}: EditorPaneProps): React.JSX.Element {
   const [state, setState] = useEditorPageStateContext();
   const { editingNoteId, notes, openNoteIds } = state;
   const openNotes = pickNotesByIds(state.notes, openNoteIds);

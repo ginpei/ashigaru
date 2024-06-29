@@ -27,7 +27,7 @@ const myOptions: MyCommandOption[] = [
   { icon: "🍊", id: "orange", title: "Orange" },
 ];
 
-export function MyCommandPaletteExample(): JSX.Element {
+export function MyCommandPaletteExample(): React.JSX.Element {
   const [paletteVisible, setPaletteVisible] = useState(false);
   const [result, setResult] = useState<MyCommandOption | null>(null);
 
@@ -53,7 +53,7 @@ function MyCommandPalette({
 }: {
   onSelect: (option: MyCommandOption | null) => void;
   options: MyCommandOption[];
-}): JSX.Element {
+}): React.JSX.Element {
   const [input, setInput] = useState("");
 
   const filteredOptions = useMemo(() => {
@@ -131,7 +131,7 @@ function MyCommandPalette({
 }: {
   onSelect: (option: MyCommandOption | null) => void;
   options: MyCommandOption[];
-}): JSX.Element {
+}): React.JSX.Element {
   const [input, setInput] = useState("");
 
   const filteredOptions = useMemo(() => {

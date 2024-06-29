@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, forwardRef } from "react";
 export type NiceButtonProps = ComponentPropsWithoutRef<"button">;
 
 export const NiceButton = forwardRef<HTMLButtonElement, NiceButtonProps>(
-  ({ className, ...props }, ref): JSX.Element => {
+  ({ className, ...props }, ref): React.JSX.Element => {
     return (
       <button
         className={`NiceButton ${className}

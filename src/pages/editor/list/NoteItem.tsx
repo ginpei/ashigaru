@@ -18,7 +18,7 @@ export function NoteItem({
   onClick,
   onFocus,
   onFocusRef,
-}: NoteItemProps): JSX.Element {
+}: NoteItemProps): React.JSX.Element {
   const focusTarget = useFocusTarget();
   const refNote = useRef<HTMLButtonElement>(null);
 

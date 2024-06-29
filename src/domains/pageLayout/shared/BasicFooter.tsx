@@ -2,7 +2,7 @@ import { Container } from "../../layout/Container";
 
 export interface BasicFooterProps {}
 
-export function BasicFooter(): JSX.Element {
+export function BasicFooter(): React.JSX.Element {
   return (
     <div
       className="

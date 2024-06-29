@@ -34,7 +34,7 @@ const rootStyle: CSSProperties = {
   `,
 };
 
-export function EditorPage(): JSX.Element {
+export function EditorPage(): React.JSX.Element {
   return (
     <Provider>
       <EditorPageContent />

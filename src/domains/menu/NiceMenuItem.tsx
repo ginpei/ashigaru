@@ -7,7 +7,7 @@ type ButtonProps = ComponentPropsWithoutRef<"button">;
 
 type LinkProps = ComponentPropsWithoutRef<"a"> & { disabled?: boolean };
 
-export function NiceMenuItem(props: NiceMenuItemProps): JSX.Element {
+export function NiceMenuItem(props: NiceMenuItemProps): React.JSX.Element {
   return (
     <Menu.Item disabled={props.disabled}>
       {({ active, disabled }) =>

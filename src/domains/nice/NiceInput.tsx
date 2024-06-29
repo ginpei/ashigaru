@@ -5,7 +5,7 @@ export type NiceInputProps = ComponentPropsWithoutRef<"input">;
 export function NiceInput({
   className,
   ...props
-}: NiceInputProps): JSX.Element {
+}: NiceInputProps): React.JSX.Element {
   return (
     <input
       className={`NiceInput ${className}

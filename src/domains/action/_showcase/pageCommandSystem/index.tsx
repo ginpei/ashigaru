@@ -37,7 +37,7 @@ import { useShortcutRunner } from "../../keyboardShortcutHooks";
 
 interface DemoFile extends CommandPaletteOption {}
 
-export function ActionPageCommandSystemDemoPage(): JSX.Element {
+export function ActionPageCommandSystemDemoPage(): React.JSX.Element {
   const [commandInput, setCommandInput] = useState("");
   const [paletteInput, setPaletteInput] = useState("");
   const [commandPaletteVisible, setCommandPaletteVisible] = useState(false);
@@ -358,7 +358,7 @@ function CommandOption({
 }: {
   shortcut: KeyboardShortcut | undefined;
   value: Highlighted<CommandPaletteOption>;
-}): JSX.Element {
+}): React.JSX.Element {
   return (
     <>
       <HighlightedTitle chars={value.highlightedCharacters} />

@@ -9,7 +9,7 @@ export function HStack({
   gap = "",
   style = {},
   ...props
-}: HStackProps): JSX.Element {
+}: HStackProps): React.JSX.Element {
   if (gap) {
     style.gap = gap;
   }

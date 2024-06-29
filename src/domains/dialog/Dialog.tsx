@@ -16,7 +16,7 @@ export interface DialogProps {
  * }: {
  *   onClose: () => void;
  *   open: boolean;
- * }): JSX.Element {
+ * }): React.JSX.Element {
  *   return (
  *     <Dialog onClose={onClose} open={open}>
  *       <DialogHeader onClose={onClose}>Hello World!</DialogHeader>
@@ -32,7 +32,11 @@ export interface DialogProps {
  *   );
  * }
  */
-export function Dialog({ children, onClose, open }: DialogProps): JSX.Element {
+export function Dialog({
+  children,
+  onClose,
+  open,
+}: DialogProps): React.JSX.Element {
   const refDialog = createRef<HTMLDialogElement>();
 
   useModalOpen(refDialog, open);

@@ -8,7 +8,10 @@ export interface LayoutFormProps {
   onChange: (shape: Partial<ShapeData>) => void;
 }
 
-export function LayoutForm({ shape, onChange }: LayoutFormProps): JSX.Element {
+export function LayoutForm({
+  shape,
+  onChange,
+}: LayoutFormProps): React.JSX.Element {
   const onInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (event) => {
       const { name, valueAsNumber: value } = event.target;

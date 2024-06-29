@@ -4,7 +4,7 @@ import { NiceCodeBlock } from "../../../nice/NiceCodeBlock";
 import { NiceH1, NiceH2 } from "../../../nice/NiceH";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 
-export function ActionAboutActionDemoPage(): JSX.Element {
+export function ActionAboutActionDemoPage(): React.JSX.Element {
   return (
     <StraightLayout title="About action">
       <VStack>

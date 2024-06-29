@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, forwardRef } from "react";
 export type NiceCodeBlockProps = ComponentPropsWithoutRef<"pre">;
 
 export const NiceCodeBlock = forwardRef<HTMLPreElement, NiceCodeBlockProps>(
-  ({ className, children, ...props }, ref): JSX.Element => {
+  ({ className, children, ...props }, ref): React.JSX.Element => {
     const tailoredChildren =
       typeof children === "string" ? children.trim() : children;
 

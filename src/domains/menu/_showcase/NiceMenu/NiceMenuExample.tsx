@@ -3,7 +3,7 @@ import { NiceMenu } from "../../NiceMenu";
 
 export interface NiceMenuExampleProps {}
 
-export function NiceMenuExample(): JSX.Element {
+export function NiceMenuExample(): React.JSX.Element {
   const [open, setOpen] = useState(false);
 
   const refButton = useRef<HTMLButtonElement>(null);

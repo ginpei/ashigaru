@@ -5,7 +5,7 @@ export type NiceDetailsProps = ComponentPropsWithoutRef<"details"> & {
 };
 
 export const NiceDetails = forwardRef<HTMLDetailsElement, NiceDetailsProps>(
-  ({ children, className, ...props }, ref): JSX.Element => {
+  ({ children, className, ...props }, ref): React.JSX.Element => {
     return (
       <details
         className={`${className} NiceDetails

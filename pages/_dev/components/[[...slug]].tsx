@@ -41,7 +41,7 @@ export const getStaticProps: GetStaticProps<ServerProps> = async (context) => {
   };
 };
 
-function Page({ showcaseId }: ServerProps): JSX.Element {
+function Page({ showcaseId }: ServerProps): React.JSX.Element {
   if (showcaseId === "") {
     return <ShowcaseIndexPage />;
   }

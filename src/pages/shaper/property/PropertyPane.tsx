@@ -8,7 +8,7 @@ import { LayoutForm } from "./LayoutForm";
 import { ShapePropForms } from "./ShapePropForms";
 import { ThemeForm } from "./ThemeForm";
 
-export function PropertyPane(): JSX.Element {
+export function PropertyPane(): React.JSX.Element {
   const [{ selectedShapeIds }] = useShaperPageStateContext();
 
   return (

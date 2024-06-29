@@ -26,7 +26,7 @@ interface PageState {
   shortcutListOpen: boolean;
 }
 
-export function SimpleActionDemoPage(): JSX.Element {
+export function SimpleActionDemoPage(): React.JSX.Element {
   const [state, setState] = useState<PageState>({
     fruits: ["Apple"],
     message: "",

@@ -18,7 +18,7 @@ export function Marquee({
   onDragMove,
   onSelect,
   shape,
-}: MarqueeProps): JSX.Element {
+}: MarqueeProps): React.JSX.Element {
   const [refDragButton] = useDrag<HTMLButtonElement>({
     onClick(event) {
       const type = event.ctrlKey ? "append" : "single";

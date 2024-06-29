@@ -8,7 +8,7 @@ export interface EditorProps {
   note: Note | undefined;
 }
 
-export function Editor({ note }: EditorProps): JSX.Element {
+export function Editor({ note }: EditorProps): React.JSX.Element {
   const [state, setState] = useEditorPageStateContext();
   const onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
     event,

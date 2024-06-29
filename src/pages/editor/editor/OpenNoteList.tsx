@@ -13,7 +13,7 @@ export function OpenNoteList({
   openNotes: notes,
   onSelect,
   onClose,
-}: EditorTabListProps): JSX.Element {
+}: EditorTabListProps): React.JSX.Element {
   const spacerNote =
     notes.length < 1 ? createNote({ title: "(No items)" }) : null;
 

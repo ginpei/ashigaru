@@ -15,7 +15,7 @@ export function ShapeDisplay({
   dy,
   shape,
   onSelect,
-}: ShapeDisplayProps): JSX.Element {
+}: ShapeDisplayProps): React.JSX.Element {
   const onShapeClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     const type = event.ctrlKey ? "append" : "single";
     onSelect(shape.id, type);

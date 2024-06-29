@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { ComponentProps } from "react";
 
-export function NiceLink(props: ComponentProps<typeof Link>): JSX.Element {
+export function NiceLink(
+  props: ComponentProps<typeof Link>,
+): React.JSX.Element {
   const { className = "", ...otherProps } = props;
   return (
     <Link

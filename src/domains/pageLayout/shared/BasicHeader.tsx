@@ -4,7 +4,7 @@ import { NiceLink } from "../../nice/NiceLink";
 
 export interface BasicHeaderProps {}
 
-export function BasicHeader(): JSX.Element {
+export function BasicHeader(): React.JSX.Element {
   return (
     <div
       className={`

@@ -3,7 +3,10 @@ export interface FocusTargetProps {
   id: string;
 }
 
-export function FocusTarget({ children, id }: FocusTargetProps): JSX.Element {
+export function FocusTarget({
+  children,
+  id,
+}: FocusTargetProps): React.JSX.Element {
   return (
     <div className="FocusTarget contents" data-focus-target={id} tabIndex={-1}>
       {children}

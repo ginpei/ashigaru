@@ -25,7 +25,7 @@ export type EditorCommandPaletteOpenType = "" | "files" | "commands";
 export function EditorCommandPalette({
   open,
   onClose,
-}: EditorCommandPaletteProps): JSX.Element {
+}: EditorCommandPaletteProps): React.JSX.Element {
   const [state, setState] = useEditorPageStateContext();
   const [, shortcuts] = useEditorActions();
   const [input, setInput] = useState("");

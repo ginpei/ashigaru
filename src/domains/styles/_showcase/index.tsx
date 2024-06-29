@@ -3,7 +3,7 @@ import { NiceCode } from "../../nice/NiceCode";
 import { NiceH1, NiceH2 } from "../../nice/NiceH";
 import { StraightLayout } from "../../pageLayout/straight/StraightLayout";
 
-export function StylesPage(): JSX.Element {
+export function StylesPage(): React.JSX.Element {
   return (
     <StraightLayout title="Command demos">
       <VStack>

@@ -6,7 +6,7 @@ export interface PropertyLabelRowProps {
 export function PropertyLabelRow({
   ambiguous,
   children,
-}: PropertyLabelRowProps): JSX.Element {
+}: PropertyLabelRowProps): React.JSX.Element {
   return (
     <label
       className={`PropertyLabelRow

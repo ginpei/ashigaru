@@ -6,7 +6,7 @@ import { ShapeData } from "../shape/ShapeData";
 
 export interface ListPaneProps {}
 
-export function ListPane(): JSX.Element {
+export function ListPane(): React.JSX.Element {
   const [{ selectedShapeIds, shapes }, setState] = useShaperPageStateContext();
   const addShape = useCommand("addShape");
   const selectShape = useCommand("selectShape");
@@ -53,7 +53,7 @@ function ShapeListItem({
   data,
   onSelect,
   selected,
-}: ShapeListItemProps): JSX.Element {
+}: ShapeListItemProps): React.JSX.Element {
   const onItemClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     const type = event.ctrlKey ? "append" : "single";
     onSelect(data.id, type);

@@ -14,7 +14,7 @@ export function StraightLayout({
   children,
   className,
   title,
-}: StraightLayoutProps): JSX.Element {
+}: StraightLayoutProps): React.JSX.Element {
   return (
     <div className={`${className} StraightLayout`}>
       <Head>

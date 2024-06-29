@@ -47,7 +47,7 @@ const demoShapeData: ShapeData[] = [
   },
 ];
 
-export function ShaperPage(): JSX.Element {
+export function ShaperPage(): React.JSX.Element {
   return (
     <Provider>
       <>
@@ -76,7 +76,7 @@ export function ShaperPage(): JSX.Element {
   );
 }
 
-function Provider({ children }: { children: JSX.Element }) {
+function Provider({ children }: { children: React.JSX.Element }) {
   const [state, setState] = useState<ShaperPageState>({
     shapes: demoShapeData,
     selectedShapeIds: [],

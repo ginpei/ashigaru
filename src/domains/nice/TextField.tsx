@@ -9,7 +9,7 @@ export function TextField({
   className,
   label,
   ...props
-}: TextFieldProps): JSX.Element {
+}: TextFieldProps): React.JSX.Element {
   return (
     <label className="TextField flex flex-col gap-1">
       <span className="text-sm">{label}</span>

@@ -6,7 +6,7 @@ import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { useNow } from "../../../time/timeHooks";
 import { Dialog, DialogBody, DialogFooter, DialogHeader } from "../../Dialog";
 
-export function DialogDemoPage(): JSX.Element {
+export function DialogDemoPage(): React.JSX.Element {
   const [basicOpen, setBasicOpen] = useState(false);
   const [stubbornOpen, setStubbornOpen] = useState(false);
 
@@ -40,7 +40,7 @@ function DemoDialog({
 }: {
   onClose: () => void;
   open: boolean;
-}): JSX.Element {
+}): React.JSX.Element {
   return (
     <Dialog onClose={onClose} open={open}>
       <DialogHeader onClose={onClose}>Hello World!</DialogHeader>
@@ -64,7 +64,7 @@ function DemoDialog({
 function StubbornDialog(props: {
   onClose: () => void;
   open: boolean;
-}): JSX.Element {
+}): React.JSX.Element {
   const waitTimeSec = 5000;
 
   const now = useNow();

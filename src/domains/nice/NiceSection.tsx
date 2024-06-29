@@ -23,7 +23,7 @@ export const NiceSection = forwardRef<HTMLDivElement, NiceSectionProps>(
   (
     { as: Tag = "section", className, children, level, ...props },
     ref,
-  ): JSX.Element => {
+  ): React.JSX.Element => {
     const H = HeadingMap[level];
     const gapClass = gapMap[level];
     return (

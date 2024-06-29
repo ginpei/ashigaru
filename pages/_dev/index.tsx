@@ -1,6 +1,6 @@
 import { NiceLink } from "../../src/domains/nice/NiceLink";
 
-function Page(): JSX.Element {
+function Page(): React.JSX.Element {
   return (
     <ul className="ml-8 list-disc">
       <li>
