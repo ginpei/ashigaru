@@ -1,4 +1,4 @@
-import { Menu } from "@headlessui/react";
+import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { NiceButton } from "../nice/NiceButton";
 import { NiceMenuItem } from "./NiceMenuItem";
 
@@ -6,7 +6,7 @@ import { NiceMenuItem } from "./NiceMenuItem";
  * @example
  * <NiceMenu>
  *   <NiceMenu.Button>Hi</NiceMenu.Button>
- *   <NiceMenu.Items>
+ *   <NiceMenuItems>
  *     <NiceMenu.Item href="#demo-link">Demo link</NiceMenu.Item>
  *     <NiceMenu.Item onClick={() => console.log(`# click`)}>
  *       Documentation
@@ -14,7 +14,7 @@ import { NiceMenuItem } from "./NiceMenuItem";
  *     <NiceMenu.Item disabled>
  *       Invite a friend (coming soon!)
  *     </NiceMenu.Item>
- *   </NiceMenu.Items>
+ *   </NiceMenuItems>
  * </NiceMenu>
  */
 export function NiceMenu({ ...props }: React.ComponentProps<typeof Menu>) {
@@ -23,16 +23,16 @@ export function NiceMenu({ ...props }: React.ComponentProps<typeof Menu>) {
 
 NiceMenu.Button = function NiceMenuButton({
   ...props
-}: React.ComponentProps<typeof Menu.Button>) {
-  return <Menu.Button as={NiceButton} {...props} />;
+}: React.ComponentProps<typeof MenuButton>) {
+  return <MenuButton as={NiceButton} {...props} />;
 };
 
 NiceMenu.Items = function NiceMenuItems({
   ...props
-}: React.ComponentProps<typeof Menu.Items>) {
+}: React.ComponentProps<typeof MenuItems>) {
   return (
-    <Menu.Items
-      className="NiceMenu.Items absolute flex flex-col border bg-white shadow-lg"
+    <MenuItems
+      className="NiceMenuItems absolute flex flex-col border bg-white shadow-lg"
       {...props}
     />
   );
