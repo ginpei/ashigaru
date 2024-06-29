@@ -1,6 +1,7 @@
 import {
   Combobox,
   ComboboxInput,
+  ComboboxOption,
   ComboboxOptions,
   Dialog,
   DialogPanel,
@@ -73,7 +74,7 @@ export function CommandPaletteFrame<Value>({
                 static
               >
                 {options.map((option, index) => (
-                  <ComboboxOptions
+                  <ComboboxOption
                     className={({ active }) => `
                       px-2 py-1 flex place-content-between leading-4 cursor-pointer
                       hover:bg-slate-300
@@ -83,7 +84,7 @@ export function CommandPaletteFrame<Value>({
                     value={option}
                   >
                     {renderItem(option, index)}
-                  </ComboboxOptions>
+                  </ComboboxOption>
                 ))}
                 {options.length < 1 &&
                   (typeof emptyMessage === "string" ? (

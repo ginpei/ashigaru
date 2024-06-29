@@ -6,6 +6,7 @@ import {
   Combobox,
   ComboboxButton,
   ComboboxInput,
+  ComboboxOption,
   ComboboxOptions,
   Transition,
 } from "@headlessui/react";
@@ -67,7 +68,7 @@ export function ComboboxDemo() {
                 </div>
               ) : (
                 filteredPeople.map((person) => (
-                  <ComboboxOptions
+                  <ComboboxOption
                     key={person.id}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
@@ -97,7 +98,7 @@ export function ComboboxDemo() {
                         ) : null}
                       </>
                     )}
-                  </ComboboxOptions>
+                  </ComboboxOption>
                 ))
               )}
             </ComboboxOptions>
