@@ -54,6 +54,7 @@ export function CommandPaletteFrame<Value>({
             <Combobox<Value> onChange={onComboboxChange}>
               <div className="flex [&>*]:flex-1">
                 <Combobox.Input
+                  autoFocus
                   className="border-[1px] border-ginpei px-4 py-1 text-black"
                   onChange={onInputChange}
                   value={input}
