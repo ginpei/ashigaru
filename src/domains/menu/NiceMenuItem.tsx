@@ -1,5 +1,5 @@
-import { Menu } from "@headlessui/react";
-import { ComponentPropsWithoutRef, ReactNode } from "react";
+import { MenuItem } from "@headlessui/react";
+import { ComponentPropsWithoutRef } from "react";
 
 export type NiceMenuItemProps = ButtonProps | LinkProps;
 
@@ -9,13 +9,13 @@ type LinkProps = ComponentPropsWithoutRef<"a"> & { disabled?: boolean };
 
 export function NiceMenuItem(props: NiceMenuItemProps): React.JSX.Element {
   return (
-    <Menu.Item disabled={props.disabled}>
-      {({ active, disabled }) =>
+    <MenuItem disabled={props.disabled}>
+      {({ disabled, focus }) =>
         isButtonProps(props) ? (
           <button
             className={`border-b p-2 text-start no-underline ${
-              !active && !disabled && "text-inherit"
-            } ${active && "bg-blue-500 text-white"} ${
+              !focus && !disabled && "text-inherit"
+            } ${focus && "bg-blue-500 text-white"} ${
               disabled && "text-gray-400"
             }`}
             disabled={disabled}
@@ -24,15 +24,15 @@ export function NiceMenuItem(props: NiceMenuItemProps): React.JSX.Element {
         ) : (
           <a
             className={`border-b p-2 text-start no-underline ${
-              !active && !disabled && "text-inherit"
-            } ${active && "bg-blue-500 text-white"} ${
+              !focus && !disabled && "text-inherit"
+            } ${focus && "bg-blue-500 text-white"} ${
               disabled && "text-gray-400"
             }`}
             {...props}
           />
         )
       }
-    </Menu.Item>
+    </MenuItem>
   );
 }
 

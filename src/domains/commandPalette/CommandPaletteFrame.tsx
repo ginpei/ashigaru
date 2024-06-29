@@ -1,4 +1,11 @@
-import { Combobox, Dialog } from "@headlessui/react";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxOptions,
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
 import { ChangeEventHandler } from "react";
 import { FocusTarget } from "../action/FocusTarget";
 import { CommandListEmptyItem } from "./CommandListEmptyItem";
@@ -49,24 +56,24 @@ export function CommandPaletteFrame<Value>({
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
       <FocusTarget id={focusTargetId}>
         <div className="fixed top-0 mx-auto flex w-full items-center justify-center p-4">
-          <Dialog.Panel className="w-full max-w-sm rounded bg-white">
-            <Dialog.Title className="hidden">Command pallet</Dialog.Title>
+          <DialogPanel className="w-full max-w-sm rounded bg-white">
+            <DialogTitle className="hidden">Command pallet</DialogTitle>
             <Combobox<Value> onChange={onComboboxChange}>
               <div className="flex [&>*]:flex-1">
-                <Combobox.Input
+                <ComboboxInput
                   autoFocus
                   className="border-[1px] border-ginpei px-4 py-1 text-black"
                   onChange={onInputChange}
                   value={input}
                 />
               </div>
-              <Combobox.Options
+              <ComboboxOptions
                 className="max-h-[50vh] overflow-auto"
                 data-headlessui-state="open"
                 static
               >
                 {options.map((option, index) => (
-                  <Combobox.Option
+                  <ComboboxOptions
                     className={({ active }) => `
                       px-2 py-1 flex place-content-between leading-4 cursor-pointer
                       hover:bg-slate-300
@@ -76,7 +83,7 @@ export function CommandPaletteFrame<Value>({
                     value={option}
                   >
                     {renderItem(option, index)}
-                  </Combobox.Option>
+                  </ComboboxOptions>
                 ))}
                 {options.length < 1 &&
                   (typeof emptyMessage === "string" ? (
@@ -84,9 +91,9 @@ export function CommandPaletteFrame<Value>({
                   ) : (
                     emptyMessage()
                   ))}
-              </Combobox.Options>
+              </ComboboxOptions>
             </Combobox>
-          </Dialog.Panel>
+          </DialogPanel>
         </div>
       </FocusTarget>
     </Dialog>
