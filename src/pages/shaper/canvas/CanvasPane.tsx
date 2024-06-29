@@ -1,7 +1,7 @@
 import { MouseEventHandler, useCallback, useState } from "react";
 import { FocusTarget } from "../../../domains/action/FocusTarget";
-import { DragHandlers } from "../../../domains/pointer/dragHooks";
 import { useCommand } from "../../../domains/action/commandContext";
+import { DragHandlers } from "../../../domains/pointer/dragHooks";
 import { useShaperPageStateContext } from "../page/shaperPageStateContext";
 import { ShapeData } from "../shape/ShapeData";
 import { Marquee, MarqueeProps } from "./Marquee";
