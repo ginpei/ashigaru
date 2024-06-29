@@ -1,6 +1,12 @@
 {
-  "extends": ["next/core-web-vitals", "plugin:tailwindcss/recommended"],
+  "extends": ["next/core-web-vitals", "plugin:tailwindcss/recommended", "plugin:deprecation/recommended"],
   "plugins": ["prettier", "import"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
   "rules": {
     "import/order": ["error", {
       "alphabetize": {
