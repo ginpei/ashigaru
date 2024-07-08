@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { VStack } from "../../layout/VStack";
 import { NiceButton } from "../../nice/NiceButton";
 import { NiceCodeBlock } from "../../nice/NiceCodeBlock";
 import { NiceDetails } from "../../nice/NiceDetails";
@@ -39,14 +40,35 @@ export function MyCommandPaletteExample(): React.JSX.Element {
   return (
     <NiceSection heading={`"MyCommandPalette" example`} level="2">
       <NiceSection heading="Example" level="3">
-        <NiceDetails summary="Code">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
-            eum, quidem distinctio adipisci necessitatibus porro rerum
-            accusantium nobis nostrum quibusdam nulla? Et vitae nulla architecto
-            est laudantium veritatis laboriosam. Veniam.
-          </p>
-          <NiceCodeBlock>{`
+        <NiceCodeBlock>{`
+const options: MyCommandOption[] = [
+  {
+    icon: "🍎",
+    id: "apple",
+    title: "Apple",
+    description: "Apple is an American computer and consumer electronics",
+  },
+  { icon: "🍌", id: "banana", title: "Banana" },
+  // ...
+];
+        `}</NiceCodeBlock>
+        <NiceCodeBlock>{`
+<MyCommandPalette
+  onSelect={onSelect}
+  options={options}
+/>
+        `}</NiceCodeBlock>
+        <NiceDetails summary="Implementation">
+          <VStack>
+            <NiceCodeBlock>{`
+interface MyCommandOption {
+  description?: string;
+  icon: string;
+  id: string;
+  title: string;
+}
+            `}</NiceCodeBlock>
+            <NiceCodeBlock>{`
 function MyCommandPalette({
   onSelect,
   options,
@@ -100,7 +122,8 @@ function MyCommandPalette({
     />
   );
 }
-          `}</NiceCodeBlock>
+            `}</NiceCodeBlock>
+          </VStack>
         </NiceDetails>
         <p>
           <NiceButton onClick={() => setPaletteVisible(true)}>

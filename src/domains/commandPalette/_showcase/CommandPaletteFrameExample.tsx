@@ -7,21 +7,31 @@ import { CommandPaletteFrame } from "../CommandPaletteFrame";
 import { HighlightedTitle } from "../HighlightedTitle";
 import { Highlighted, highlightFilteredCommandTitle } from "../commandFilter";
 
-const options = ["One", "Two", "Three"] as const;
+interface DemoOption {
+  id: string;
+  label: string;
+}
+
+const originalOptions: readonly DemoOption[] = [
+  { id: "1", label: "One" },
+  { id: "2", label: "Two" },
+  { id: "3", label: "Three" },
+];
 
 export function CommandPaletteFrameExample() {
   const [input, setInput] = useState("");
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState<DemoOption | null>(null);
   const [visible, setVisible] = useState(false);
 
   const filteredOptions = useMemo(() => {
-    const result: Highlighted<{ title: string }>[] = [];
-    for (const title of options) {
-      const chars = highlightFilteredCommandTitle(title, input);
+    const result: Highlighted<{ data: DemoOption }>[] = [];
+    for (const option of originalOptions) {
+      // it returns `null` if it doesn't match with input
+      const chars = highlightFilteredCommandTitle(option.label, input);
       if (chars) {
         result.push({
           highlightedCharacters: chars,
-          title,
+          data: option,
         });
       }
     }
@@ -37,9 +47,10 @@ export function CommandPaletteFrameExample() {
     <NiceSection heading="&lt;CommandPaletteFrame&gt;" level="2">
       <NiceSection heading="Example" level="3">
         <p>
-          <NiceButton onClick={() => openPalette()}>Open</NiceButton>
+          <NiceButton onClick={() => openPalette()}>Open</NiceButton> (No hot
+          keys available)
         </p>
-        <p>Result: {result}</p>
+        <p>Result: {result?.label ?? "(N/A)"}</p>
       </NiceSection>
       <NiceSection heading="Usage" level="3">
         <NiceCodeBlock>{`
@@ -58,32 +69,104 @@ export function CommandPaletteFrameExample() {
   renderItem={(v) => <HighlightedTitle chars={v.highlightedCharacters} />}
 />
         `}</NiceCodeBlock>
-      </NiceSection>
-      <NiceSection heading="Manage input and options" level="3">
-        <p>Filtering by input is a responsibility on the caller side.</p>
+        <p>
+          Instead of giving all props like the above, it would be a good idea to
+          create a wrapper component for each actual usage.
+        </p>
         <NiceCodeBlock>{`
-const allOptions = ["One", "Two", "Three"];
+<MyCommandPalette
+  onSelect={onSelect}
+  options={originalOptions}
+/>
+        `}</NiceCodeBlock>
+        <p>
+          See another section for the example of your{" "}
+          <NiceCode>{`<MyCommandPalette>`}</NiceCode>.
+        </p>
+      </NiceSection>
+      <NiceSection heading="Data" level="3">
+        <p>
+          Although any data type is acceptable, it would be a great idea to make
+          it an object that has an unique ID.
+        </p>
+        <p>
+          You have to provide a function to <NiceCode>getKey</NiceCode> prop
+          along with the <NiceCode>options</NiceCode> prop.
+        </p>
+        <NiceCodeBlock>{`
+interface DemoOption {
+  id: string;
+  label: string;
+}
+
+const originalOptions: readonly DemoOption[] = [
+  { id: "1", label: "One" },
+  { id: "2", label: "Two" },
+  { id: "3", label: "Three" },
+];
+        `}</NiceCodeBlock>
+        <NiceCodeBlock>{`
+<CommandPaletteFrame
+  options={originalOptions}
+  getKey={(v) => v.id}
+  ...
+/>
+        `}</NiceCodeBlock>
+      </NiceSection>
+      <NiceSection heading="Input" level="3">
+        <p>
+          User input is managed on the caller side in order to keep the
+          component stateless.
+        </p>
+        <NiceCodeBlock>{`
+const [input, setInput] = useState("");
+        `}</NiceCodeBlock>
+        <NiceCodeBlock>{`
+<CommandPaletteFrame
+  input={input}
+  onInput={setInput}
+  ...
+/>
+        `}</NiceCodeBlock>
+      </NiceSection>
+      <NiceSection heading="Filtering" level="3">
+        <p>Filtering by input is a responsibility on the caller side too.</p>
+        <NiceCodeBlock>{`
 const filteredOptions = useMemo(
-  () => allOptions.filter((v) => v.includes(input)),
+  () => originalOptions.filter((v) => v.includes(input)),
   [input]
 );
         `}</NiceCodeBlock>
+        <NiceCodeBlock>{`
+<CommandPaletteFrame
+  emptyMessage="No match"
+  options={filteredOptions}
+  renderItem={(v) => <div>v</div>}
+  ...
+/>
+        `}</NiceCodeBlock>
         <p>
-          <NiceCode>renderItem</NiceCode> prop receives a function that returns
-          a React node. You can use highlighted values to emphasize the part of
-          option title that matches the input.
+          You can give the <NiceCode>filteredOptions</NiceCode> to the{" "}
+          <NiceCode>options</NiceCode> prop, and render by{" "}
+          <NiceCode>{`renderItem`}</NiceCode> prop. It receives a function that
+          returns a React node.
+        </p>
+        <p>
+          When the filtered options becomes empty, it shows the message you gave
+          to <NiceCode>emptyMessage</NiceCode> prop. You can give a string, or a
+          React component.
+        </p>
+      </NiceSection>
+      <NiceSection heading="Highlight" level="3">
+        <p>
+          You can highlight option labels to emphasize parts that match the
+          input. Here are some tools:
         </p>
         <ul className="ui-ul">
           <li>
-            <NiceCode>{`Highlighted<T>`}</NiceCode> - type to support
-            highlighting
-          </li>
-          <li>
             <NiceCode>highlightFilteredCommandTitle()</NiceCode> - function to
-            highlight characters
-          </li>
-          <li>
-            <NiceCode>{`renderItem={}`}</NiceCode> - prop to render each item
+            highlight characters, that also returns <NiceCode>null</NiceCode> if
+            nothing matches.
           </li>
           <li>
             <NiceCode>{`<HighlightedTitle>`}</NiceCode> - render a highlighted
@@ -95,13 +178,14 @@ type MyValue = { title: string };
 type MyValueHighlighted = Highlighted<MyValue>;
 
 const filteredOptions = useMemo(() => {
-  const result: MyValueHighlighted[] = [];
-  for (const title of allOptions) {
-    const chars = highlightFilteredCommandTitle(title, input);
+  const result: Highlighted<{ data: DemoOption }>[] = [];
+  for (const option of originalOptions) {
+    // it returns \`null\` if it doesn't match with input
+    const chars = highlightFilteredCommandTitle(option.label, input);
     if (chars) {
       result.push({
         highlightedCharacters: chars,
-        title,
+        data: option,
       });
     }
   }
@@ -116,27 +200,50 @@ const filteredOptions = useMemo(() => {
 />
         `}</NiceCodeBlock>
       </NiceSection>
-      <NiceSection heading="Real usage: create your component" level="3">
+      <NiceSection heading="Open/close and result" level="3">
         <p>
-          Instead of giving all props like the above, it would be a good idea to
-          create a wrapper component for each actual usage.
+          Open/close state is managed by <NiceCode>open</NiceCode> prop. When
+          user selected an option, or closed without selecting, the callback
+          given to the <NiceCode>onSelect</NiceCode> prop is called.
         </p>
         <NiceCodeBlock>{`
-<MyCommandPalette
-  onSelect={onSelect}
-  options={filteredOptions}
+const [result, setResult] = useState<DemoOption | null>(null);
+const [visible, setVisible] = useState(false);
+        `}</NiceCodeBlock>
+        <NiceCodeBlock>{`
+<button onClick={() => setVisible(true)}>Open</button>
+
+<CommandPaletteFrame
+  onSelect={(value) => {
+    setResult(value?.data ?? null);
+    setVisible(false);
+  }}
+  open={visible}
+  ...
 />
         `}</NiceCodeBlock>
       </NiceSection>
-      <NiceSection heading="Relating components" level="3">
+      <NiceSection heading="Relating modules" level="3">
+        <p>Recap:</p>
         <ul className="ui-ul">
           <li>
             <NiceCode>{`<CommandPaletteFrame>`}</NiceCode> - Outer component.
             You should create your own wrapper component
           </li>
           <li>
+            <NiceCode>highlightFilteredCommandTitle()</NiceCode> - A function to
+            make your option label highlighted
+          </li>
+          <li>
             <NiceCode>{`<HighlightedTitle>`}</NiceCode> - Option title
             emphasized by filter. You may want to have your wrapper component
+          </li>
+        </ul>
+        <p>And something this section did not refer:</p>
+        <ul className="ui-ul">
+          <li>
+            <NiceCode>{`Highlighted<T>`}</NiceCode> - A type that{" "}
+            <NiceCode>highlightFilteredCommandTitle()</NiceCode> returns
           </li>
           <li>
             <NiceCode>{`<CommandListEmptyItem>`}</NiceCode> - Used for{" "}
@@ -149,11 +256,11 @@ const filteredOptions = useMemo(() => {
       <CommandPaletteFrame
         emptyMessage="No match"
         focusTargetId="demoCommandPaletteFrameFocus"
-        getKey={(v) => v.title}
+        getKey={(v) => v.data.id}
         input={input}
         onInput={setInput}
         onSelect={(value) => {
-          setResult(value?.title ?? "(N/A)");
+          setResult(value?.data ?? null);
           setVisible(false);
         }}
         open={visible}
