@@ -19,38 +19,10 @@ const originalOptions: readonly DemoOption[] = [
 ];
 
 export function CommandPaletteFrameExample() {
-  const [input, setInput] = useState("");
-  const [result, setResult] = useState<DemoOption | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  const filteredOptions = useMemo(() => {
-    const result: Highlighted<{ data: DemoOption }>[] = [];
-    for (const option of originalOptions) {
-      // it returns `null` if it doesn't match with input
-      const chars = highlightFilteredCommandTitle(option.label, input);
-      if (chars) {
-        result.push({
-          highlightedCharacters: chars,
-          data: option,
-        });
-      }
-    }
-    return result;
-  }, [input]);
-
-  const openPalette = () => {
-    setInput("");
-    setVisible(true);
-  };
-
   return (
     <NiceSection heading="&lt;CommandPaletteFrame&gt;" level="2">
       <NiceSection heading="Example" level="3">
-        <p>
-          <NiceButton onClick={() => openPalette()}>Open</NiceButton> (No hot
-          keys available)
-        </p>
-        <p>Result: {result?.label ?? "(N/A)"}</p>
+        <Demo />
       </NiceSection>
       <NiceSection heading="Usage" level="3">
         <NiceCodeBlock>{`
@@ -253,6 +225,42 @@ const [visible, setVisible] = useState(false);
           </li>
         </ul>
       </NiceSection>
+    </NiceSection>
+  );
+}
+
+function Demo() {
+  const [input, setInput] = useState("");
+  const [result, setResult] = useState<DemoOption | null>(null);
+  const [visible, setVisible] = useState(false);
+
+  const filteredOptions = useMemo(() => {
+    const result: Highlighted<{ data: DemoOption }>[] = [];
+    for (const option of originalOptions) {
+      // it returns `null` if it doesn't match with input
+      const chars = highlightFilteredCommandTitle(option.label, input);
+      if (chars) {
+        result.push({
+          highlightedCharacters: chars,
+          data: option,
+        });
+      }
+    }
+    return result;
+  }, [input]);
+
+  const openPalette = () => {
+    setInput("");
+    setVisible(true);
+  };
+
+  return (
+    <>
+      <p>
+        <NiceButton onClick={() => openPalette()}>Open</NiceButton> (No hot keys
+        available)
+      </p>
+      <p>Result: {result?.label ?? "(N/A)"}</p>
       <CommandPaletteFrame
         emptyMessage="No match"
         focusTargetId="demoCommandPaletteFrameFocus"
@@ -267,6 +275,6 @@ const [visible, setVisible] = useState(false);
         options={filteredOptions}
         renderItem={(v) => <HighlightedTitle chars={v.highlightedCharacters} />}
       />
-    </NiceSection>
+    </>
   );
 }
