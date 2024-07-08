@@ -8,7 +8,7 @@ import { MyCommandPaletteExample } from "./MyCommandPaletteExample";
 
 export function CommandPaletteShowcase(): React.JSX.Element {
   return (
-    <StraightLayout title="<CommandPalette> demo">
+    <StraightLayout title="Command palette examples">
       <NiceSection heading="Command palette" level="1">
         <CommandPaletteFrameExample />
         <MyCommandPaletteExample />
