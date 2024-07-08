@@ -58,6 +58,8 @@ export function CommandPaletteFrameExample() {
   renderItem={(v) => <HighlightedTitle chars={v.highlightedCharacters} />}
 />
         `}</NiceCodeBlock>
+      </NiceSection>
+      <NiceSection heading="Manage input and options" level="3">
         <p>Filtering by input is a responsibility on the caller side.</p>
         <NiceCodeBlock>{`
 const allOptions = ["One", "Two", "Three"];
@@ -113,6 +115,8 @@ const filteredOptions = useMemo(() => {
   ...
 />
         `}</NiceCodeBlock>
+      </NiceSection>
+      <NiceSection heading="Real usage: create your component" level="3">
         <p>
           Instead of giving all props like the above, it would be a good idea to
           create a wrapper component for each actual usage.
