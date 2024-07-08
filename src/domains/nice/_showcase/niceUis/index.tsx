@@ -23,9 +23,8 @@ export function NiceUisShowcase(): React.JSX.Element {
         <p>
           <NiceCode>{"<NiceCode>Hi</NiceCode>"}</NiceCode>
         </p>
-        <p>
-          <NiceCodeBlock>
-            {`
+        <NiceCodeBlock>
+          {`
 <NiceCodeBlock>{\`
 export function NiceUisShowcase(): React.JSX.Element {
   return (
@@ -34,8 +33,7 @@ export function NiceUisShowcase(): React.JSX.Element {
 }
 \`.trim()}</NiceCodeBlock>
           `.trim()}
-          </NiceCodeBlock>
-        </p>
+        </NiceCodeBlock>
         <NiceH2>{"<NiceH1>, <NiceH2>, <NiceH3>"}</NiceH2>
         <blockquote className="ml-10">
           <VStack>
