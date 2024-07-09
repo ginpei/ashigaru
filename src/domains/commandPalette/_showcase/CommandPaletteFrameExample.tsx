@@ -28,7 +28,6 @@ export function CommandPaletteFrameExample() {
         <NiceCodeBlock>{`
 <CommandPaletteFrame
   emptyMessage="No match"
-  focusTargetId="demoCommandPaletteFrameFocus"
   getKey={(v) => v.title}
   input={input}
   onInput={setInput}
@@ -263,7 +262,6 @@ function Demo() {
       <p>Result: {result?.label ?? "(N/A)"}</p>
       <CommandPaletteFrame
         emptyMessage="No match"
-        focusTargetId="demoCommandPaletteFrameFocus"
         getKey={(v) => v.data.id}
         input={input}
         onInput={setInput}

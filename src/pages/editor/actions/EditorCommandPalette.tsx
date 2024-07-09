@@ -70,7 +70,6 @@ export function EditorCommandPalette({
     <CommandPaletteFrame
       // className="CommandPallet"
       emptyMessage="No matching results"
-      focusTargetId="commandPalletFocus"
       getKey={(v) => v.id}
       input={input}
       onInput={setInput}

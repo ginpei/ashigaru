@@ -332,7 +332,6 @@ export function ActionPageCommandSystemDemoPage(): React.JSX.Element {
       </VStack>
       <CommandPaletteFrame<Highlighted<CommandPaletteOption>>
         emptyMessage="No match"
-        focusTargetId="demoCommandPaletteFrameFocus"
         getKey={(v) => v.id}
         input={paletteInput}
         onInput={setPaletteInput}

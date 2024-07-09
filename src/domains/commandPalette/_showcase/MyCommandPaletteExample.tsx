@@ -99,7 +99,6 @@ function MyCommandPalette({
   return (
     <CommandPaletteFrame<Highlighted<MyCommandOption>>
       emptyMessage="No item matches"
-      focusTargetId="myCommandPaletteFocus"
       getKey={(v) => v.id}
       input={input}
       onInput={setInput}
@@ -178,7 +177,6 @@ function MyCommandPalette({
   return (
     <CommandPaletteFrame<Highlighted<MyCommandOption>>
       emptyMessage="No item matches"
-      focusTargetId="myCommandPaletteFocus"
       getKey={(v) => v.id}
       input={input}
       onInput={setInput}

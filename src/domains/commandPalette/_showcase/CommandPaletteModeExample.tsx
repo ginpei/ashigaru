@@ -138,7 +138,6 @@ function Demo() {
             "No match"
           )
         }
-        focusTargetId="demoCommandPaletteFrameFocus"
         getKey={(v) => v.data.id}
         input={input}
         onInput={setInput}
