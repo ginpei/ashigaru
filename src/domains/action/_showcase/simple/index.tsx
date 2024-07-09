@@ -205,7 +205,7 @@ export function SimpleActionDemoPage(): React.JSX.Element {
                 {shortcuts.map((shortcut) => (
                   <tr key={`${shortcut.commandId}-${shortcut.args}`}>
                     <td>
-                      <code>{shortcut.key}</code>
+                      <code>{shortcut.keyboard}</code>
                     </td>
                     <td>
                       <code>{shortcut.when}</code>
@@ -245,7 +245,7 @@ function useDemoPageActions(
         id: "toggleShortcutListDialog",
         patterns: [
           {
-            key: "?",
+            keyboard: "?",
             // when: "!input", // TODO
           },
         ],
@@ -259,12 +259,12 @@ function useDemoPageActions(
         patterns: [
           {
             args: ["Hello world from UI 1!"],
-            key: "Ctrl+Shift+M",
+            keyboard: "Ctrl+Shift+M",
             when: "focus:ui1",
           },
           {
             args: ["Hi from UI 2!"],
-            key: "Ctrl+Shift+M",
+            keyboard: "Ctrl+Shift+M",
             when: "focus:ui2",
           },
         ],
@@ -282,12 +282,12 @@ function useDemoPageActions(
         patterns: [
           {
             args: [true],
-            key: "Ctrl+A",
+            keyboard: "Ctrl+A",
             when: "focus:ui1 && !input",
           },
           {
             args: [false],
-            key: "Ctrl+Shift+A",
+            keyboard: "Ctrl+Shift+A",
             when: "focus:ui1 && !input",
           },
         ],
@@ -301,7 +301,7 @@ function useDemoPageActions(
         },
         patterns: [
           {
-            key: "Ctrl+Enter",
+            keyboard: "Ctrl+Enter",
             when: "focus:ui2",
           },
         ],
@@ -317,12 +317,12 @@ function useDemoPageActions(
         patterns: [
           {
             args: [10],
-            key: "Ctrl+ArrowUp",
+            keyboard: "Ctrl+ArrowUp",
             when: "focusAt:theNumber",
           },
           {
             args: [-10],
-            key: "Ctrl+ArrowDown",
+            keyboard: "Ctrl+ArrowDown",
             when: "focusAt:theNumber",
           },
         ],

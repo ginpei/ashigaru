@@ -54,7 +54,7 @@ function prepareActions(): Action[] {
       patterns: [
         {
           args: [1, 2],
-          key: "Ctrl+X",
+          keyboard: "Ctrl+X",
           when: "focus:canvas",
         },
       ],

@@ -15,13 +15,13 @@ export interface KeyboardShortcut {
    * See `keyboardEventToInputCommand()` to generate this string from a keyboard
    * event.
    * @example
-   * v.key = "Enter"
-   * v.key = "Ctrl+Shift+Alt+Enter"
+   * v.keyboard = "Enter"
+   * v.keyboard = "Ctrl+Shift+Alt+Enter"
    *
-   * v.key = "?"
-   * v.key = "Ctrl+Alt+?"
+   * v.keyboard = "?"
+   * v.keyboard = "Ctrl+Alt+?"
    */
-  key: string;
+  keyboard: string;
   when?: string;
 }
 
@@ -31,7 +31,7 @@ export function createKeyboardShortcut(
   return {
     args: initial?.args ?? [],
     commandId: initial?.commandId ?? "",
-    key: initial?.key ?? "",
+    keyboard: initial?.keyboard ?? "",
     when: initial?.when ?? "",
   };
 }
@@ -43,7 +43,7 @@ export function findShortcut(
 ): KeyboardShortcut | undefined {
   const shortcut = shortcuts.find((shortcut) => {
     return (
-      shortcut.key === input &&
+      shortcut.keyboard === input &&
       doesConditionMatch(shortcut.when ?? "", conditions)
     );
   });

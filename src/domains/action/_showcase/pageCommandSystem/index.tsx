@@ -114,7 +114,7 @@ export function ActionPageCommandSystemDemoPage(): React.JSX.Element {
   const onUserShortcutSubmit: FormEventHandler = (event) => {
     event.preventDefault();
 
-    const index = userShortcuts.findIndex((v) => userShortcut.key === v.key);
+    const index = userShortcuts.findIndex((v) => userShortcut.keyboard === v.keyboard);
     if (index < 0) {
       setUserShortcuts([...userShortcuts, userShortcut]);
     } else {
@@ -241,7 +241,7 @@ export function ActionPageCommandSystemDemoPage(): React.JSX.Element {
               </thead>
               <tbody>
                 {defaultShortcuts.map((shortcut) => (
-                  <tr key={shortcut.key}>
+                  <tr key={shortcut.keyboard}>
                     <td>
                       <NiceCode>{shortcut.commandId}</NiceCode>
                     </td>
@@ -253,7 +253,7 @@ export function ActionPageCommandSystemDemoPage(): React.JSX.Element {
                       )}
                     </td>
                     <td>
-                      <NiceCode>{shortcut.key}</NiceCode>
+                      <NiceCode>{shortcut.keyboard}</NiceCode>
                     </td>
                     <td>
                       {(shortcut.when && <NiceCode>shortcut.when</NiceCode>) ||
@@ -282,10 +282,10 @@ export function ActionPageCommandSystemDemoPage(): React.JSX.Element {
                   label="Keybinding"
                   placeholder="Ctrl+Alt+Shift+A"
                   onChange={(v) =>
-                    setUserShortcut({ ...userShortcut, key: v.target.value })
+                    setUserShortcut({ ...userShortcut, keyboard: v.target.value })
                   }
                   pattern="(Ctrl\+)?(Alt\+)?(Shift\+)?\w*"
-                  value={userShortcut.key}
+                  value={userShortcut.keyboard}
                 />
                 <NiceButton>Add</NiceButton>
                 <datalist id="userShortcutDataList">
@@ -305,12 +305,12 @@ export function ActionPageCommandSystemDemoPage(): React.JSX.Element {
               </thead>
               <tbody>
                 {userShortcuts.map((shortcut) => (
-                  <tr key={`${shortcut.key}-${shortcut.when ?? ""}`}>
+                  <tr key={`${shortcut.keyboard}-${shortcut.when ?? ""}`}>
                     <td>
                       <NiceCode>{shortcut.commandId}</NiceCode>
                     </td>
                     <td>
-                      <NiceCode>{shortcut.key}</NiceCode>
+                      <NiceCode>{shortcut.keyboard}</NiceCode>
                     </td>
                     <td>
                       {(shortcut.when && <NiceCode>shortcut.when</NiceCode>) ||
@@ -368,7 +368,7 @@ function CommandOption({
       {shortcut && (
         <>
           {" "}
-          <code className="bg-gray-100 text-xs">{shortcut.key}</code>
+          <code className="bg-gray-100 text-xs">{shortcut.keyboard}</code>
         </>
       )}
     </>
@@ -387,7 +387,7 @@ function usePredefinedActions(): [
           window.alert("One");
         },
         id: "command1",
-        patterns: [{ key: "Ctrl+Alt+1" }],
+        patterns: [{ keyboard: "Ctrl+Alt+1" }],
         title: "One",
       },
       {
@@ -412,8 +412,8 @@ function usePredefinedActions(): [
         },
         id: "say",
         patterns: [
-          { args: ["Hello World!"], key: "Ctrl+S" },
-          { args: ["Yo!"], key: "Ctrl+Shift+S" },
+          { args: ["Hello World!"], keyboard: "Ctrl+S" },
+          { args: ["Yo!"], keyboard: "Ctrl+Shift+S" },
         ],
         title: "Say",
       },
@@ -435,7 +435,7 @@ function usePageActions(vars: {
           vars.setCommandPaletteVisible(true);
         },
         id: "showCommandPalette",
-        patterns: [{ key: "Ctrl+P" }],
+        patterns: [{ keyboard: "Ctrl+P" }],
         title: "Show command palette",
       },
       {
@@ -444,7 +444,7 @@ function usePageActions(vars: {
           vars.setCommandPaletteVisible(true);
         },
         id: "showCommandPaletteForCommand",
-        patterns: [{ key: "Ctrl+Shift+P" }],
+        patterns: [{ keyboard: "Ctrl+Shift+P" }],
         title: "Show command palette for Command",
       },
     ];

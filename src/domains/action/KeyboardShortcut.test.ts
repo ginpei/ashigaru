@@ -12,7 +12,7 @@ describe("createKeyboardShortcut()", () => {
     expect(result).toEqual({
       args: [],
       commandId: "",
-      key: "",
+      keyboard: "",
       when: "",
     });
   });
@@ -21,13 +21,13 @@ describe("createKeyboardShortcut()", () => {
     const result = createKeyboardShortcut({
       args: ["args", 1],
       commandId: "commandId",
-      key: "key",
+      keyboard: "keyboard",
       when: "when",
     });
     expect(result).toEqual({
       args: ["args", 1],
       commandId: "commandId",
-      key: "key",
+      keyboard: "keyboard",
       when: "when",
     });
   });
@@ -36,12 +36,12 @@ describe("createKeyboardShortcut()", () => {
 const shortcuts: KeyboardShortcut[] = [
   {
     commandId: "withCondition1",
-    key: "Ctrl+X",
+    keyboard: "Ctrl+X",
     when: "condition1",
   },
   {
     commandId: "noConditions",
-    key: "Ctrl+X",
+    keyboard: "Ctrl+X",
   },
 ];
 

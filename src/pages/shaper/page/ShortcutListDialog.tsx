@@ -57,7 +57,7 @@ function useShortcutList() {
         const item = {
           commandId: commandId,
           title: command.title,
-          key: shortcut.key,
+          key: shortcut.keyboard,
           when: shortcut.when,
         };
         return item;

@@ -34,7 +34,7 @@ function createShaperPagePredefinedActions(
       id: "selectAllShapes",
       patterns: [
         {
-          key: "Ctrl+A",
+          keyboard: "Ctrl+A",
           when: "focus:canvas",
         },
       ],
@@ -64,62 +64,62 @@ function createMoveActions(
       id: "moveShape",
       patterns: [
         {
-          key: "ArrowUp",
+          keyboard: "ArrowUp",
           when: "focus:canvas",
           args: ["y", -1],
         },
         {
-          key: "Shift+ArrowUp",
+          keyboard: "Shift+ArrowUp",
           when: "focus:canvas",
           args: ["y", -10],
         },
         {
-          key: "Ctrl+ArrowUp",
+          keyboard: "Ctrl+ArrowUp",
           when: "focus:canvas",
           args: ["y", -100],
         },
         {
-          key: "ArrowRight",
+          keyboard: "ArrowRight",
           when: "focus:canvas",
           args: ["x", 1],
         },
         {
-          key: "Shift+ArrowRight",
+          keyboard: "Shift+ArrowRight",
           when: "focus:canvas",
           args: ["x", 10],
         },
         {
-          key: "Ctrl+ArrowRight",
+          keyboard: "Ctrl+ArrowRight",
           when: "focus:canvas",
           args: ["x", 100],
         },
         {
-          key: "ArrowDown",
+          keyboard: "ArrowDown",
           when: "focus:canvas",
           args: ["y", 1],
         },
         {
-          key: "Shift+ArrowDown",
+          keyboard: "Shift+ArrowDown",
           when: "focus:canvas",
           args: ["y", 10],
         },
         {
-          key: "Ctrl+ArrowDown",
+          keyboard: "Ctrl+ArrowDown",
           when: "focus:canvas",
           args: ["y", 100],
         },
         {
-          key: "ArrowLeft",
+          keyboard: "ArrowLeft",
           when: "focus:canvas",
           args: ["x", -1],
         },
         {
-          key: "Shift+ArrowLeft",
+          keyboard: "Shift+ArrowLeft",
           when: "focus:canvas",
           args: ["x", -10],
         },
         {
-          key: "Ctrl+ArrowLeft",
+          keyboard: "Ctrl+ArrowLeft",
           when: "focus:canvas",
           args: ["x", -100],
         },
@@ -133,7 +133,7 @@ function createMoveActions(
       id: "showShortcutList",
       patterns: [
         {
-          key: "?",
+          keyboard: "?",
         },
       ],
       title: "Show shortcut list",
@@ -154,7 +154,7 @@ function createMoveActions(
       id: "addShape",
       patterns: [
         {
-          key: "Alt+N",
+          keyboard: "Alt+N",
         },
       ],
       title: "Add new shape",
@@ -166,11 +166,11 @@ function createMoveActions(
       id: "removeShape",
       patterns: [
         {
-          key: "Delete",
+          keyboard: "Delete",
           // when: "selectionNotEmpty",
         },
         {
-          key: "Backspace",
+          keyboard: "Backspace",
         },
       ],
       title: "Remove new shape",

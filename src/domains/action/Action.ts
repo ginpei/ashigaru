@@ -52,7 +52,7 @@ function breakOneAction<Args extends any[] = any[]>(
   const shortcuts: KeyboardShortcut[] = [];
   const commandPatterns: ActionPattern[] = [];
   for (const pattern of patterns) {
-    if (pattern.key) {
+    if (pattern.keyboard) {
       shortcuts.push(
         createKeyboardShortcut({
           ...pattern,

@@ -20,7 +20,7 @@ export function createEditorPageActions(
       id: "focusOnNoteList",
       patterns: [
         {
-          key: "Ctrl+Shift+E",
+          keyboard: "Ctrl+Shift+E",
         },
       ],
       title: "Focus on the note list",
@@ -32,7 +32,7 @@ export function createEditorPageActions(
       id: "focusOnNoteTitle",
       patterns: [
         {
-          key: "Ctrl+0",
+          keyboard: "Ctrl+0",
         },
       ],
       title: "Focus on the note title input",
@@ -44,7 +44,7 @@ export function createEditorPageActions(
       id: "focusOnEditor",
       patterns: [
         {
-          key: "Ctrl+1",
+          keyboard: "Ctrl+1",
         },
       ],
       title: "Focus on the editor",
@@ -56,7 +56,7 @@ export function createEditorPageActions(
       id: "closeEditingNote",
       patterns: [
         {
-          key: "Alt+W",
+          keyboard: "Alt+W",
         },
       ],
       title: "Close editing note",

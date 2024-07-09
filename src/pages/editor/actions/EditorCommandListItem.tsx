@@ -19,7 +19,7 @@ export function EditorCommandListItem<State>({
       {shortcut && (
         <>
           {" "}
-          <code className="bg-gray-100 text-xs">{shortcut.key}</code>
+          <code className="bg-gray-100 text-xs">{shortcut.keyboard}</code>
         </>
       )}
     </>

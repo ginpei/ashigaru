@@ -15,19 +15,19 @@ describe("breakActions()", () => {
           id: "action1",
           patterns: [
             {
-              key: "Ctrl+A",
+              keyboard: "Ctrl+A",
               title: "action 1",
             },
             {
               args: [123],
-              key: "Enter",
+              keyboard: "Enter",
               title: "action 1 with args",
             },
             {
               title: "Title only",
             },
             {
-              key: "Escape",
+              keyboard: "Escape",
             },
           ],
         },
@@ -67,19 +67,19 @@ describe("breakActions()", () => {
         {
           args: [],
           commandId: "action1",
-          key: "Ctrl+A",
+          keyboard: "Ctrl+A",
           when: "",
         },
         {
           args: [123],
           commandId: "action1",
-          key: "Enter",
+          keyboard: "Enter",
           when: "",
         },
         {
           args: [],
           commandId: "action1",
-          key: "Escape",
+          keyboard: "Escape",
           when: "",
         },
       ]);
@@ -91,21 +91,21 @@ describe("breakActions()", () => {
         {
           args: [],
           commandId: "action1",
-          key: "Ctrl+A",
+          keyboard: "Ctrl+A",
           title: "action 1",
           when: "",
         },
         {
           args: [123],
           commandId: "action1",
-          key: "Enter",
+          keyboard: "Enter",
           title: "action 1 with args",
           when: "",
         },
         {
           args: [],
           commandId: "action1",
-          key: "",
+          keyboard: "",
           title: "Title only",
           when: "",
         },
@@ -113,7 +113,7 @@ describe("breakActions()", () => {
     });
   });
 
-  it("skips patterns without key as shortcuts", () => {
+  it("skips patterns without keyboard shortcuts", () => {
     const actions: Action[] = [
       {
         exec() {
@@ -122,11 +122,11 @@ describe("breakActions()", () => {
         id: "action1",
         patterns: [
           {
-            key: "Enter",
+            keyboard: "Enter",
             title: "Enter",
           },
           {
-            title: "No key",
+            title: "No keyboard shortcuts",
           },
         ],
         title: "Action 1",
@@ -138,7 +138,7 @@ describe("breakActions()", () => {
       {
         args: [],
         commandId: "action1",
-        key: "Enter",
+        keyboard: "Enter",
         when: "",
       },
     ]);

@@ -17,7 +17,7 @@ export const demoActions: Action[] = [
     id: "command2",
     patterns: [
       {
-        key: "Ctrl+Example",
+        keyboard: "Ctrl+Example",
       },
     ],
     title: "Demo command 2",

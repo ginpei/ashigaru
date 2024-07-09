@@ -30,7 +30,7 @@ function createEditorGlobalActions(
       id: "selectFileInCommandPalette",
       patterns: [
         {
-          key: "Ctrl+P",
+          keyboard: "Ctrl+P",
         },
       ],
       title: "Select file in command palette",
@@ -42,7 +42,7 @@ function createEditorGlobalActions(
       id: "showCommandPalette",
       patterns: [
         {
-          key: "Ctrl+Shift+P",
+          keyboard: "Ctrl+Shift+P",
         },
       ],
       title: "Show command palette",

@@ -20,7 +20,7 @@ export function createNoteListActions<State extends NoteListState>(
       id: "selectAllNotes",
       patterns: [
         {
-          key: "Ctrl+A",
+          keyboard: "Ctrl+A",
           when: "focus:noteList",
         },
       ],
@@ -42,7 +42,7 @@ export function createNoteListActions<State extends NoteListState>(
       id: "focusPreviousNote",
       patterns: [
         {
-          key: "ArrowUp",
+          keyboard: "ArrowUp",
           when: "focus:noteList",
         },
       ],
@@ -69,7 +69,7 @@ export function createNoteListActions<State extends NoteListState>(
       id: "focusNextNote",
       patterns: [
         {
-          key: "ArrowDown",
+          keyboard: "ArrowDown",
           when: "focus:noteList",
         },
       ],
@@ -90,7 +90,7 @@ export function createNoteListActions<State extends NoteListState>(
       id: "focusFirstNote",
       patterns: [
         {
-          key: "Home",
+          keyboard: "Home",
           when: "focus:noteList",
         },
       ],
@@ -111,7 +111,7 @@ export function createNoteListActions<State extends NoteListState>(
       id: "focusLastNote",
       patterns: [
         {
-          key: "End",
+          keyboard: "End",
           when: "focus:noteList",
         },
       ],
@@ -128,11 +128,11 @@ export function createNoteListActions<State extends NoteListState>(
       id: "selectNote",
       patterns: [
         {
-          key: "Space",
+          keyboard: "Space",
           when: "focus:noteList",
         },
         {
-          key: "Enter",
+          keyboard: "Enter",
           when: "focus:noteList",
         },
       ],
@@ -150,7 +150,7 @@ export function createNoteListActions<State extends NoteListState>(
       id: "createNewNote",
       patterns: [
         {
-          key: "Alt+N",
+          keyboard: "Alt+N",
         },
       ],
       title: "Create a new note",
@@ -179,7 +179,7 @@ export function createNoteListActions<State extends NoteListState>(
       id: "deleteNote",
       patterns: [
         {
-          key: "Delete",
+          keyboard: "Delete",
           when: "focus:noteList",
         },
       ],
