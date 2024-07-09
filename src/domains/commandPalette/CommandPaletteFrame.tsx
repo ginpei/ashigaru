@@ -43,7 +43,12 @@ export function CommandPaletteFrame<Value>({
 }: CommandPaletteFrameProps<Value>): React.JSX.Element {
   const onDialogClose = () => onSelect(null);
 
-  const onComboboxChange = (option: Value) => {
+  const onComboboxChange = (option: Value | null) => {
+    // emptied the input
+    if (!option) {
+      return;
+    }
+
     onSelect(option);
   };
 
