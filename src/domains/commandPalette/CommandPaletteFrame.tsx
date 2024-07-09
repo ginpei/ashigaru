@@ -12,7 +12,7 @@ import { FocusTarget } from "../action/FocusTarget";
 import { CommandListEmptyItem } from "./CommandListEmptyItem";
 
 export interface CommandPaletteFrameProps<Value> {
-  emptyMessage: (() => React.ReactNode) | string;
+  emptyMessage: React.JSX.Element | string;
   focusTargetId: string;
   getKey: (value: Value) => string;
   input: string;
@@ -90,7 +90,7 @@ export function CommandPaletteFrame<Value>({
                   (typeof emptyMessage === "string" ? (
                     <CommandListEmptyItem>{emptyMessage}</CommandListEmptyItem>
                   ) : (
-                    emptyMessage()
+                    emptyMessage
                   ))}
               </ComboboxOptions>
             </Combobox>
