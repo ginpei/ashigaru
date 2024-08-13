@@ -89,7 +89,7 @@ describe("tokenizeConditionString()", () => {
     });
   });
 
-  it("throws invalid condition function", () => {
+  it("throws invalid condition function name using '-'", () => {
     expect(() => {
       const expression = "foo-bar";
       const result = tokenizeConditionString(expression);
