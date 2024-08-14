@@ -5,7 +5,6 @@ import {
   useMemo,
   useState,
 } from "react";
-import { CommandListEmptyItem } from "../../../commandPalette/CommandListEmptyItem";
 import {
   CommandPaletteFrame,
   CommandPaletteOption,
@@ -34,8 +33,8 @@ import {
   createKeyboardShortcut,
 } from "../../KeyboardShortcut";
 import { useShortcutRunner } from "../../keyboardShortcutHooks";
-
-interface DemoFile extends CommandPaletteOption {}
+import { getDemoActions1, getDemoActions2 } from "./demoActions";
+import { getDemoFiles } from "./demoFiles";
 
 export function ActionPageCommandSystemDemoPage(): React.JSX.Element {
   const [commandInput, setCommandInput] = useState("");
@@ -67,7 +66,8 @@ export function ActionPageCommandSystemDemoPage(): React.JSX.Element {
 
   // command palette input management
   const [inputType, actualInput, options] = useMemo<
-    ["command", string, CommandDefinition[]] | ["file", string, DemoFile[]]
+    | ["command", string, CommandDefinition[]]
+    | ["file", string, typeof demoFiles]
   >(() => {
     if (paletteInput.startsWith(">")) {
       return ["command", paletteInput.slice(1).trim(), commands];
@@ -114,7 +114,9 @@ export function ActionPageCommandSystemDemoPage(): React.JSX.Element {
   const onUserShortcutSubmit: FormEventHandler = (event) => {
     event.preventDefault();
 
-    const index = userShortcuts.findIndex((v) => userShortcut.keyboard === v.keyboard);
+    const index = userShortcuts.findIndex(
+      (v) => userShortcut.keyboard === v.keyboard,
+    );
     if (index < 0) {
       setUserShortcuts([...userShortcuts, userShortcut]);
     } else {
@@ -282,7 +284,10 @@ export function ActionPageCommandSystemDemoPage(): React.JSX.Element {
                   label="Keybinding"
                   placeholder="Ctrl+Alt+Shift+A"
                   onChange={(v) =>
-                    setUserShortcut({ ...userShortcut, keyboard: v.target.value })
+                    setUserShortcut({
+                      ...userShortcut,
+                      keyboard: v.target.value,
+                    })
                   }
                   pattern="(Ctrl\+)?(Alt\+)?(Shift\+)?\w*"
                   value={userShortcut.keyboard}
@@ -381,93 +386,22 @@ function usePredefinedActions(): [
   ActionPattern[],
 ] {
   return useMemo(() => {
-    const actions: Action[] = [
-      {
-        exec() {
-          window.alert("One");
-        },
-        id: "command1",
-        patterns: [{ keyboard: "Ctrl+Alt+1" }],
-        title: "One",
-      },
-      {
-        exec() {
-          window.alert("Two");
-        },
-        id: "command2",
-        patterns: [],
-        title: "Two",
-      },
-      {
-        exec() {
-          window.alert("Three");
-        },
-        id: "command3",
-        patterns: [],
-        title: "Three",
-      },
-      {
-        exec(message = "(No message)") {
-          window.alert(message);
-        },
-        id: "say",
-        patterns: [
-          { args: ["Hello World!"], keyboard: "Ctrl+S" },
-          { args: ["Yo!"], keyboard: "Ctrl+Shift+S" },
-        ],
-        title: "Say",
-      },
-    ];
-
+    const actions = getDemoActions1();
     return breakActions(actions);
   }, []);
 }
 
-function usePageActions(vars: {
-  setCommandPaletteVisible: Dispatch<SetStateAction<boolean>>;
-  setPaletteInput: Dispatch<SetStateAction<string>>;
-}): [CommandDefinition[], KeyboardShortcut[], ActionPattern[]] {
+function usePageActions(
+  vars: Parameters<typeof getDemoActions2>[0],
+): [CommandDefinition[], KeyboardShortcut[], ActionPattern[]] {
   return useMemo(() => {
-    const actions: Action[] = [
-      {
-        exec() {
-          vars.setPaletteInput("");
-          vars.setCommandPaletteVisible(true);
-        },
-        id: "showCommandPalette",
-        patterns: [{ keyboard: "Ctrl+P" }],
-        title: "Show command palette",
-      },
-      {
-        exec() {
-          vars.setPaletteInput(">");
-          vars.setCommandPaletteVisible(true);
-        },
-        id: "showCommandPaletteForCommand",
-        patterns: [{ keyboard: "Ctrl+Shift+P" }],
-        title: "Show command palette for Command",
-      },
-    ];
-
+    const actions = getDemoActions2(vars);
     return breakActions(actions);
   }, [vars]);
 }
 
-function useFiles(): DemoFile[] {
+function useFiles() {
   return useMemo(() => {
-    return [
-      {
-        id: "file1",
-        title: "hello.txt",
-      },
-      {
-        id: "file2",
-        title: "world.js",
-      },
-      {
-        id: "file3",
-        title: "index.html",
-      },
-    ];
+    return getDemoFiles();
   }, []);
 }
