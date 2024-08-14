@@ -44,6 +44,35 @@ const conditionMap = convertConditionArrayToMap(conditionDefs);
         `
           }
         </NiceCodeBlock>
+        <NiceH2>Use condition</NiceH2>
+        <p>
+          You can give condition expression to <NiceCode>when</NiceCode> on an
+          action pattern.
+        </p>
+        <NiceCodeBlock>
+          {
+            /* ts */ `
+const actions: Action[] = [
+  {
+    exec(args) { … },
+    id: "list:selectAll",
+    patterns: [
+      { keyboard: "Ctrl+A", when: "focus:list", },
+    ],
+  },
+  {
+    exec(args) { … },
+    id: "canvas:selectAll",
+    patterns: [
+      { keyboard: "Ctrl+A", when: "canvas:hasFocus && !canvas:readOnly", },
+    ],
+  },
+];
+
+const [commands, shortcuts] = breakActions(actions);
+            `
+          }
+        </NiceCodeBlock>
         <NiceH2>Condition key</NiceH2>
         <p>
           Condition key is an expression that represents a situation. Here are
@@ -55,7 +84,8 @@ const conditionMap = convertConditionArrayToMap(conditionDefs);
             returns boolean
           </li>
           <li>
-            <NiceCode>is_ok</NiceCode> - function name can contain underscore
+            <NiceCode>is_ok</NiceCode>, <NiceCode>is:ok</NiceCode> - function
+            name can contain underscore or colon
           </li>
           <li>
             <NiceCode>foo:11,22</NiceCode> - a function named &quot;foo&quot;
