@@ -7,9 +7,10 @@ import { NiceCode } from "../../../nice/NiceCode";
 import { NiceH1, NiceH2 } from "../../../nice/NiceH";
 import { NiceInput } from "../../../nice/NiceInput";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
-import { Action, breakActions } from "../../Action";
+import { Action } from "../../Action";
 import { execCommand } from "../../CommandDefinition";
 import { ConditionFunctionMap } from "../../Condition";
+import { breakActions } from "../../breakActionFunctions";
 import {
   focusAtCondition,
   focusCondition,

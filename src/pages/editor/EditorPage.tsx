@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { CSSProperties, ReactNode, useState } from "react";
-import { breakActions } from "../../domains/action/Action";
 import { ConditionFunctionMap } from "../../domains/action/Condition";
+import { breakActions } from "../../domains/action/breakActionFunctions";
 import { focusCondition } from "../../domains/action/domFocusConditions";
 import { useFocusMarkEffect } from "../../domains/action/focusHooks";
 import { useShortcutRunner } from "../../domains/action/keyboardShortcutHooks";

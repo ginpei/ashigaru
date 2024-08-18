@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { Action, breakActions } from "./Action";
+import { Action } from "./Action";
 import {
   CommandDefinition,
   execCommand,
@@ -7,6 +7,7 @@ import {
 } from "./CommandDefinition";
 import { ConditionFunctionMap, createConditionFunction } from "./Condition";
 import { KeyboardShortcut, findShortcut } from "./KeyboardShortcut";
+import { breakActions } from "./breakActionFunctions";
 
 describe("action", () => {
   let actions: Action[];

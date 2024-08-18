@@ -17,7 +17,7 @@ import { NiceInput } from "../../../nice/NiceInput";
 import { TextField } from "../../../nice/TextField";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { tick } from "../../../time/timeManipulator";
-import { Action, ActionPattern, breakActions } from "../../Action";
+import { Action, ActionPattern } from "../../Action";
 import {
   CommandDefinition,
   findCommandDefinition,
@@ -26,6 +26,7 @@ import {
   KeyboardShortcut,
   createKeyboardShortcut,
 } from "../../KeyboardShortcut";
+import { breakActions } from "../../breakActionFunctions";
 import { useShortcutRunner } from "../../keyboardShortcutHooks";
 import { useCommandPaletteStates } from "./commandPaletteHooks";
 import { useDemoActions } from "./demoActions";

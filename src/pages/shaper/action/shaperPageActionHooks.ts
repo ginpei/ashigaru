@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction, useMemo } from "react";
-import { ActionPattern, breakActions } from "../../../domains/action/Action";
+import { ActionPattern } from "../../../domains/action/Action";
 import { CommandDefinition } from "../../../domains/action/CommandDefinition";
 import { KeyboardShortcut } from "../../../domains/action/KeyboardShortcut";
+import { breakActions } from "../../../domains/action/breakActionFunctions";
 import { ShaperPageState } from "../page/ShaperPageState";
 import { createShaperPageActions } from "./shaperPageActions";
 
