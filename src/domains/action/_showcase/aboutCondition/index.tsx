@@ -73,10 +73,10 @@ const [commands, shortcuts] = breakActions(actions);
             `
           }
         </NiceCodeBlock>
-        <NiceH2>Condition key</NiceH2>
+        <NiceH2>Condition expression</NiceH2>
         <p>
-          Condition key is an expression that represents a situation. Here are
-          some examples:
+          Condition expression is to represent a situation. Here are some
+          examples:
         </p>
         <ul className="ui-ul">
           <li>
@@ -85,11 +85,12 @@ const [commands, shortcuts] = breakActions(actions);
           </li>
           <li>
             <NiceCode>is_ok</NiceCode>, <NiceCode>is:ok</NiceCode> - function
-            name can contain underscore or colon
+            name can contain underscores and colons
           </li>
           <li>
-            <NiceCode>foo:11,22</NiceCode> - a function named &quot;foo&quot;
-            with arguments &quot;11&quot; and &quot;22&quot;
+            <NiceCode>foo:abc,123</NiceCode> - a function named &quot;foo&quot;
+            with arguments &quot;abc&quot; and &quot;123&quot;. Note they are
+            strings.
           </li>
           <li>
             <NiceCode>!bar</NiceCode> - a function but boolean negated
