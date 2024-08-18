@@ -87,8 +87,8 @@ function Demo() {
 
   const [filteredOptions, mode] = useFilteredOptions(input);
 
-  const onOpenClick = () => {
-    setInput("");
+  const onOpenClick = (initialInput: string) => {
+    setInput(initialInput);
     setVisible(true);
   };
 
@@ -127,7 +127,9 @@ function Demo() {
         </li>
       </ul>
       <p>
-        <NiceButton onClick={() => onOpenClick()}>Open</NiceButton>
+        <NiceButton onClick={() => onOpenClick("")}>File...</NiceButton>{" "}
+        <NiceButton onClick={() => onOpenClick(">")}>Command...</NiceButton>{" "}
+        <NiceButton onClick={() => onOpenClick(":")}>Jump...</NiceButton>
       </p>
       <p>Result: {result ?? "(N/A)"}</p>
       <CommandPaletteFrame
