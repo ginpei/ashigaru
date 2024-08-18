@@ -1,10 +1,4 @@
-import {
-  Dispatch,
-  FormEventHandler,
-  SetStateAction,
-  useMemo,
-  useState,
-} from "react";
+import { FormEventHandler, useMemo, useState } from "react";
 import {
   CommandPaletteFrame,
   CommandPaletteOption,
@@ -23,7 +17,7 @@ import { NiceInput } from "../../../nice/NiceInput";
 import { TextField } from "../../../nice/TextField";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { tick } from "../../../time/timeManipulator";
-import { Action, ActionPattern, breakActions } from "../../Action";
+import { ActionPattern, breakActions } from "../../Action";
 import {
   CommandDefinition,
   findCommandDefinition,
@@ -36,7 +30,7 @@ import { useShortcutRunner } from "../../keyboardShortcutHooks";
 import { getDemoActions1, getDemoActions2 } from "./demoActions";
 import { getDemoFiles } from "./demoFiles";
 
-export function ActionPageCommandSystemDemoPage(): React.JSX.Element {
+export function ActionPageActionSystemDemoPage(): React.JSX.Element {
   const [commandInput, setCommandInput] = useState("");
   const [paletteInput, setPaletteInput] = useState("");
   const [commandPaletteVisible, setCommandPaletteVisible] = useState(false);
@@ -358,7 +352,7 @@ export function ActionPageCommandSystemDemoPage(): React.JSX.Element {
   );
 }
 
-ActionPageCommandSystemDemoPage.path = "action/pageCommandSystem" as const;
+ActionPageActionSystemDemoPage.path = "action/pageActionSystem" as const;
 
 function CommandOption({
   shortcut,

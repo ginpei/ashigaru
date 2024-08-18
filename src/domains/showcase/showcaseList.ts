@@ -1,6 +1,6 @@
 import { ActionAboutActionDemoPage } from "../action/_showcase/aboutAction";
 import { ActionAboutConditionDemoPage } from "../action/_showcase/aboutCondition";
-import { ActionPageCommandSystemDemoPage } from "../action/_showcase/pageCommandSystem";
+import { ActionPageActionSystemDemoPage } from "../action/_showcase/pageActionSystem";
 import { SimpleActionDemoPage } from "../action/_showcase/simple";
 import { CommandPaletteShowcase } from "../commandPalette/_showcase";
 import { DialogDemoPage } from "../dialog/_showcase/Dialog";
@@ -11,7 +11,7 @@ import { StylesPage } from "../styles/_showcase";
 export const showcaseList = {
   [ActionAboutActionDemoPage.path]: ActionAboutActionDemoPage,
   [ActionAboutConditionDemoPage.path]: ActionAboutConditionDemoPage,
-  [ActionPageCommandSystemDemoPage.path]: ActionPageCommandSystemDemoPage,
+  [ActionPageActionSystemDemoPage.path]: ActionPageActionSystemDemoPage,
   [CommandPaletteShowcase.path]: CommandPaletteShowcase,
   [DialogDemoPage.path]: DialogDemoPage,
   [MenuShowcase.path]: MenuShowcase,
