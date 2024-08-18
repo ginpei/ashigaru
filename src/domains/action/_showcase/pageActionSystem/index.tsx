@@ -28,7 +28,7 @@ import {
 } from "../../KeyboardShortcut";
 import { useShortcutRunner } from "../../keyboardShortcutHooks";
 import { useCommandPalette } from "./commandPaletteHooks";
-import { getDemoActions1 } from "./demoActions";
+import { useDemoActions } from "./demoActions";
 import { getDemoFiles } from "./demoFiles";
 
 export function ActionPageActionSystemDemoPage(): React.JSX.Element {
@@ -383,10 +383,11 @@ function usePredefinedActions(): [
   KeyboardShortcut[],
   ActionPattern[],
 ] {
+  const actions = useDemoActions();
+
   return useMemo(() => {
-    const actions = getDemoActions1();
     return breakActions(actions);
-  }, []);
+  }, [actions]);
 }
 
 function usePageActions(
