@@ -11,7 +11,7 @@ import { Action } from "../../Action";
  *   commandPaletteActions,
  * ] = useCommandPalette();
  */
-export function useCommandPalette(): readonly [
+export function useCommandPaletteStates(): readonly [
   boolean,
   Dispatch<SetStateAction<boolean>>,
   string,

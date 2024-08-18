@@ -27,7 +27,7 @@ import {
   createKeyboardShortcut,
 } from "../../KeyboardShortcut";
 import { useShortcutRunner } from "../../keyboardShortcutHooks";
-import { useCommandPalette } from "./commandPaletteHooks";
+import { useCommandPaletteStates } from "./commandPaletteHooks";
 import { useDemoActions } from "./demoActions";
 import { DemoFile, getDemoFiles } from "./demoFiles";
 
@@ -46,7 +46,7 @@ export function ActionPageActionSystemDemoPage(): React.JSX.Element {
     paletteInput,
     setPaletteInput,
     commandPaletteActions,
-  ] = useCommandPalette();
+  ] = useCommandPaletteStates();
   const [commands, shortcuts, commandOptions] = useActiveActions(
     commandPaletteActions,
     userShortcuts,
