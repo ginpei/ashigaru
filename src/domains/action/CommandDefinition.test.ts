@@ -12,25 +12,21 @@ describe("createCommandDefinition()", () => {
     const result = createCommandDefinition();
     expect(typeof result.exec).toBe("function");
     expect(result).toHaveProperty("id", "");
-    expect(result).toHaveProperty("title", "");
   });
 
   it("creates an object with specified values", () => {
     const result = createCommandDefinition({
       exec: () => "exec",
       id: "id",
-      title: "title",
     });
     expect(result.exec()).toBe("exec");
     expect(result).toHaveProperty("id", "id");
-    expect(result).toHaveProperty("title", "title");
   });
 
   it("creates an object with partial initial values", () => {
-    const result = createCommandDefinition({ title: "title" });
+    const result = createCommandDefinition({});
     expect(result.exec()).toBe(undefined);
     expect(result).toHaveProperty("id", "");
-    expect(result).toHaveProperty("title", "title");
   });
 });
 
