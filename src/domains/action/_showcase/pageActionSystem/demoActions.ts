@@ -16,14 +16,14 @@ export function useDemoActions(): Action[] {
           window.alert("Two");
         },
         id: "command2",
-        patterns: [],
+        patterns: [{ title: "Two" }],
       },
       {
         exec() {
           window.alert("Three");
         },
         id: "command3",
-        patterns: [],
+        patterns: [{ title: "Three" }],
       },
       {
         exec(message = "(No message)") {

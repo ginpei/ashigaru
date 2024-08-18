@@ -90,25 +90,28 @@ describe("breakActions()", () => {
       const options = result[2];
       expect(options).toEqual([
         {
-          args: [],
+          args: undefined,
           commandId: "action1",
+          id: "action1-action 1",
           keyboard: "Ctrl+A",
           title: "action 1",
-          when: "",
+          when: undefined,
         },
         {
           args: [123],
           commandId: "action1",
+          id: "action1-action 1 with args",
           keyboard: "Enter",
           title: "action 1 with args",
-          when: "",
+          when: undefined,
         },
         {
-          args: [],
+          args: undefined,
           commandId: "action1",
-          keyboard: "",
+          id: "action1-Title only",
+          keyboard: undefined,
           title: "Title only",
-          when: "",
+          when: undefined,
         },
       ]);
     });

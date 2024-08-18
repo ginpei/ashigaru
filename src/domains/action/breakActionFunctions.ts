@@ -1,16 +1,24 @@
+import { CommandPaletteOption } from "../commandPalette/CommandPaletteFrame";
 import { Action, ActionPattern } from "./Action";
 import { CommandDefinition } from "./CommandDefinition";
 import { createKeyboardShortcut, KeyboardShortcut } from "./KeyboardShortcut";
+
+export type CommandPaletteCommandOption = CommandPaletteOption &
+  ActionPattern & { commandId: string };
 
 /**
  * Break down a list of actions into commands, keyboard shortcuts, and command option patterns.
  */
 export function breakActions<Args extends any[] = any[]>(
   actions: Action<Args>[],
-): [CommandDefinition<Args>[], KeyboardShortcut[], ActionPattern[]] {
+): [
+  CommandDefinition<Args>[],
+  KeyboardShortcut[],
+  CommandPaletteCommandOption[],
+] {
   const commands: CommandDefinition<Args>[] = [];
   const shortcuts: KeyboardShortcut[] = [];
-  const options: ActionPattern[] = [];
+  const options: CommandPaletteCommandOption[] = [];
 
   for (const action of actions) {
     const [command, shortcutList, newOptions] = breakOneAction(action);
@@ -31,11 +39,15 @@ export function breakActions<Args extends any[] = any[]>(
  */
 function breakOneAction<Args extends any[] = any[]>(
   action: Action<Args>,
-): [CommandDefinition<Args>, KeyboardShortcut[], ActionPattern[]] {
+): [
+  CommandDefinition<Args>,
+  KeyboardShortcut[],
+  CommandPaletteCommandOption[],
+] {
   const { patterns, ...command } = action;
 
   const shortcuts: KeyboardShortcut[] = [];
-  const commandPatterns: ActionPattern[] = [];
+  const commandPatterns: CommandPaletteCommandOption[] = [];
   for (const pattern of patterns) {
     if (pattern.keyboard) {
       shortcuts.push(
@@ -48,11 +60,12 @@ function breakOneAction<Args extends any[] = any[]>(
 
     if (pattern.title) {
       commandPatterns.push({
-        ...createKeyboardShortcut({
-          ...pattern,
-          commandId: command.id,
-        }),
+        args: pattern.args,
+        commandId: command.id,
+        id: `${command.id}-${pattern.title}`,
+        keyboard: pattern.keyboard,
         title: pattern.title,
+        when: pattern.when,
       });
     }
   }

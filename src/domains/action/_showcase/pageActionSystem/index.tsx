@@ -17,16 +17,19 @@ import { NiceInput } from "../../../nice/NiceInput";
 import { TextField } from "../../../nice/TextField";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { tick } from "../../../time/timeManipulator";
-import { Action, ActionPattern } from "../../Action";
+import { Action } from "../../Action";
 import {
   CommandDefinition,
   findCommandDefinition,
 } from "../../CommandDefinition";
 import {
-  KeyboardShortcut,
   createKeyboardShortcut,
+  KeyboardShortcut,
 } from "../../KeyboardShortcut";
-import { breakActions } from "../../breakActionFunctions";
+import {
+  breakActions,
+  CommandPaletteCommandOption,
+} from "../../breakActionFunctions";
 import { useShortcutRunner } from "../../keyboardShortcutHooks";
 import { useCommandPaletteStates } from "./commandPaletteHooks";
 import { useDemoActions } from "./demoActions";
@@ -57,7 +60,7 @@ export function ActionPageActionSystemDemoPage(): React.JSX.Element {
   const [paletteMode, options] = usePaletteOptions(
     demoFiles,
     paletteInput,
-    commands, // TODO replace with commandOptions
+    commandOptions,
   );
 
   // start observing keyboard shortcut inputs
@@ -178,14 +181,12 @@ export function ActionPageActionSystemDemoPage(): React.JSX.Element {
             <table className="ui-table">
               <thead>
                 <tr>
-                  <th>Title</th>
                   <th>ID</th>
                 </tr>
               </thead>
               <tbody>
                 {commands.map((command) => (
                   <tr key={command.id}>
-                    <td>{command.title}</td>
                     <td>
                       <NiceCode>{command.id}</NiceCode>
                     </td>
@@ -314,7 +315,9 @@ export function ActionPageActionSystemDemoPage(): React.JSX.Element {
             <HighlightedTitle chars={value.highlightedCharacters} />
           ) : (
             <CommandOption
-              shortcut={shortcuts.find((v) => v.commandId === value.id)}
+              shortcut={
+                (value as Highlighted<CommandPaletteCommandOption>).keyboard
+              }
               value={value}
             />
           )
@@ -330,7 +333,7 @@ function CommandOption({
   shortcut,
   value,
 }: {
-  shortcut: KeyboardShortcut | undefined;
+  shortcut: string | undefined;
   value: Highlighted<CommandPaletteOption>;
 }): React.JSX.Element {
   return (
@@ -339,7 +342,7 @@ function CommandOption({
       {shortcut && (
         <>
           {" "}
-          <code className="bg-gray-100 text-xs">{shortcut.keyboard}</code>
+          <code className="bg-gray-100 text-xs">{shortcut}</code>
         </>
       )}
     </>
@@ -355,7 +358,7 @@ function useFiles() {
 function useActiveActions(
   generalActions: Action[],
   userShortcuts: KeyboardShortcut[],
-): [CommandDefinition[], KeyboardShortcut[], ActionPattern[]] {
+): [CommandDefinition[], KeyboardShortcut[], CommandPaletteCommandOption[]] {
   const specificActions = useDemoActions();
 
   return useMemo(() => {
@@ -372,10 +375,10 @@ function useActiveActions(
 function usePaletteOptions(
   demoFiles: DemoFile[],
   paletteInput: string,
-  commands: CommandDefinition<any[]>[],
+  commands: CommandPaletteCommandOption[],
 ): ["command" | "file", Highlighted<CommandPaletteOption>[]] {
   const [paletteMode, allOptions] = useMemo<
-    ["command", CommandDefinition[]] | ["file", typeof demoFiles]
+    ["command", CommandPaletteCommandOption[]] | ["file", typeof demoFiles]
   >(() => {
     if (paletteInput.startsWith(">")) {
       return ["command", commands];
