@@ -1,3 +1,5 @@
+import { Action } from "./Action";
+
 /**
  * An executable command.
  * @example
@@ -20,26 +22,22 @@
  *  </button>
  * )}
  */
-export interface CommandDefinition<Args extends any[] = any[]> {
-  exec: (...args: Args) => void;
-
-  id: string;
-
+export type CommandDefinition<Args extends unknown[] = unknown[]> = Pick<
+  Action<Args>,
+  "exec" | "id"
+> & {
   /**
-   * TODO remove
-   * To display in the UI.
-   * @deprecated Do not use / give it to patterns in need
+   * @deprecated Use `title` in `ActionPattern` instead.
    */
   title?: string;
-}
+};
 
-export function createCommandDefinition<Args extends any[] = any[]>(
+export function createCommandDefinition<Args extends unknown[] = unknown[]>(
   initial?: Partial<CommandDefinition<Args>>,
 ): CommandDefinition<Args> {
   return {
     exec: initial?.exec ?? (() => {}),
     id: initial?.id ?? "",
-    title: initial?.title ?? "",
   };
 }
 
