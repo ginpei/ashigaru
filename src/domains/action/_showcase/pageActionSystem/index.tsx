@@ -17,7 +17,7 @@ import { NiceInput } from "../../../nice/NiceInput";
 import { TextField } from "../../../nice/TextField";
 import { StraightLayout } from "../../../pageLayout/straight/StraightLayout";
 import { tick } from "../../../time/timeManipulator";
-import { ActionPattern, breakActions } from "../../Action";
+import { Action, ActionPattern, breakActions } from "../../Action";
 import {
   CommandDefinition,
   findCommandDefinition,
@@ -27,22 +27,26 @@ import {
   createKeyboardShortcut,
 } from "../../KeyboardShortcut";
 import { useShortcutRunner } from "../../keyboardShortcutHooks";
-import { getDemoActions1, getDemoActions2 } from "./demoActions";
+import { useCommandPalette } from "./commandPaletteHooks";
+import { getDemoActions1 } from "./demoActions";
 import { getDemoFiles } from "./demoFiles";
 
 export function ActionPageActionSystemDemoPage(): React.JSX.Element {
+  const [
+    commandPaletteVisible,
+    setCommandPaletteVisible,
+    paletteInput,
+    setPaletteInput,
+    commandPaletteActions,
+  ] = useCommandPalette();
+
   const [commandInput, setCommandInput] = useState("");
-  const [paletteInput, setPaletteInput] = useState("");
-  const [commandPaletteVisible, setCommandPaletteVisible] = useState(false);
 
   const [userShortcut, setUserShortcut] = useState(createKeyboardShortcut());
   const [userShortcuts, setUserShortcuts] = useState<KeyboardShortcut[]>([]);
 
   const [predefinedCommands, predefinedShortcuts] = usePredefinedActions();
-  const [pageCommands, pageShortcuts] = usePageActions({
-    setCommandPaletteVisible,
-    setPaletteInput,
-  });
+  const [pageCommands, pageShortcuts] = usePageActions(commandPaletteActions);
   const demoFiles = useFiles();
 
   // combine available commands
@@ -386,12 +390,11 @@ function usePredefinedActions(): [
 }
 
 function usePageActions(
-  vars: Parameters<typeof getDemoActions2>[0],
+  commandPaletteActions: Action[],
 ): [CommandDefinition[], KeyboardShortcut[], ActionPattern[]] {
   return useMemo(() => {
-    const actions = getDemoActions2(vars);
-    return breakActions(actions);
-  }, [vars]);
+    return breakActions(commandPaletteActions);
+  }, [commandPaletteActions]);
 }
 
 function useFiles() {

@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import { Action } from "../../Action";
 
 export function getDemoActions1(): Action[] {
@@ -8,8 +7,7 @@ export function getDemoActions1(): Action[] {
         window.alert("One");
       },
       id: "command1",
-      patterns: [{ keyboard: "Ctrl+Alt+1" }],
-      title: "One",
+      patterns: [{ keyboard: "Ctrl+Alt+1", title: "One" }],
     },
     {
       exec() {
@@ -17,7 +15,6 @@ export function getDemoActions1(): Action[] {
       },
       id: "command2",
       patterns: [],
-      title: "Two",
     },
     {
       exec() {
@@ -25,7 +22,6 @@ export function getDemoActions1(): Action[] {
       },
       id: "command3",
       patterns: [],
-      title: "Three",
     },
     {
       exec(message = "(No message)") {
@@ -33,36 +29,9 @@ export function getDemoActions1(): Action[] {
       },
       id: "say",
       patterns: [
-        { args: ["Hello World!"], keyboard: "Ctrl+S" },
-        { args: ["Yo!"], keyboard: "Ctrl+Shift+S" },
+        { args: ["Hello World!"], keyboard: "Ctrl+S", title: "Say Hello" },
+        { args: ["Yo!"], keyboard: "Ctrl+Shift+S", title: "Say Yo" },
       ],
-      title: "Say",
-    },
-  ];
-}
-
-export function getDemoActions2(vars: {
-  setCommandPaletteVisible: Dispatch<SetStateAction<boolean>>;
-  setPaletteInput: Dispatch<SetStateAction<string>>;
-}): Action[] {
-  return [
-    {
-      exec() {
-        vars.setPaletteInput("");
-        vars.setCommandPaletteVisible(true);
-      },
-      id: "showCommandPalette",
-      patterns: [{ keyboard: "Ctrl+P" }],
-      title: "Show command palette",
-    },
-    {
-      exec() {
-        vars.setPaletteInput(">");
-        vars.setCommandPaletteVisible(true);
-      },
-      id: "showCommandPaletteForCommand",
-      patterns: [{ keyboard: "Ctrl+Shift+P" }],
-      title: "Show command palette for Command",
     },
   ];
 }
