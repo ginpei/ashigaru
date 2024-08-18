@@ -29,9 +29,17 @@ import {
 import { useShortcutRunner } from "../../keyboardShortcutHooks";
 import { useCommandPalette } from "./commandPaletteHooks";
 import { useDemoActions } from "./demoActions";
-import { getDemoFiles } from "./demoFiles";
+import { DemoFile, getDemoFiles } from "./demoFiles";
 
 export function ActionPageActionSystemDemoPage(): React.JSX.Element {
+  const demoFiles = useFiles();
+  const [userShortcuts, setUserShortcuts] = useState<KeyboardShortcut[]>([]);
+
+  // form inputs
+  const [commandInput, setCommandInput] = useState("");
+  const [shortcutInput, setShortcutInput] = useState(createKeyboardShortcut());
+
+  // command palette
   const [
     commandPaletteVisible,
     setCommandPaletteVisible,
@@ -39,62 +47,21 @@ export function ActionPageActionSystemDemoPage(): React.JSX.Element {
     setPaletteInput,
     commandPaletteActions,
   ] = useCommandPalette();
-
-  const [commandInput, setCommandInput] = useState("");
-
-  const [userShortcut, setUserShortcut] = useState(createKeyboardShortcut());
-  const [userShortcuts, setUserShortcuts] = useState<KeyboardShortcut[]>([]);
-
-  const [predefinedCommands, predefinedShortcuts] = usePredefinedActions();
-  const [pageCommands, pageShortcuts] = usePageActions(commandPaletteActions);
-  const demoFiles = useFiles();
-
-  // combine available commands
-  const commands = useMemo(() => {
-    return [...pageCommands, ...predefinedCommands];
-  }, [pageCommands, predefinedCommands]);
-
-  // combine available shortcuts
-  const shortcuts = useMemo(() => {
-    return [...userShortcuts, ...pageShortcuts, ...predefinedShortcuts];
-  }, [pageShortcuts, predefinedShortcuts, userShortcuts]);
-  const defaultShortcuts = useMemo(() => {
-    return [...pageShortcuts, ...predefinedShortcuts];
-  }, [pageShortcuts, predefinedShortcuts]);
+  const [commands, shortcuts, commandOptions] = useActiveActions(
+    commandPaletteActions,
+    userShortcuts,
+  );
 
   // command palette input management
-  const [inputType, actualInput, options] = useMemo<
-    | ["command", string, CommandDefinition[]]
-    | ["file", string, typeof demoFiles]
-  >(() => {
-    if (paletteInput.startsWith(">")) {
-      return ["command", paletteInput.slice(1).trim(), commands];
-    }
-
-    return ["file", paletteInput, demoFiles];
-  }, [commands, demoFiles, paletteInput]);
-
-  // filter command palette options
-  const filteredOptions = useMemo(() => {
-    const result: Highlighted<CommandPaletteOption>[] = [];
-    for (const option of options) {
-      const chars = highlightFilteredCommandTitle(
-        option.title ?? "",
-        actualInput,
-      );
-      if (chars) {
-        result.push({
-          highlightedCharacters: chars,
-          ...option,
-          title: option.title ?? "",
-        });
-      }
-    }
-    return result;
-  }, [actualInput, options]);
+  const [paletteMode, options] = usePaletteOptions(
+    demoFiles,
+    paletteInput,
+    commands, // TODO replace with commandOptions
+  );
 
   // start observing keyboard shortcut inputs
-  useShortcutRunner(commands, shortcuts, {});
+  const conditions = {};
+  useShortcutRunner(commands, shortcuts, conditions);
 
   // ---------------------------------------------------------------------------
   // callbacks
@@ -113,16 +80,16 @@ export function ActionPageActionSystemDemoPage(): React.JSX.Element {
     event.preventDefault();
 
     const index = userShortcuts.findIndex(
-      (v) => userShortcut.keyboard === v.keyboard,
+      (v) => shortcutInput.keyboard === v.keyboard,
     );
     if (index < 0) {
-      setUserShortcuts([...userShortcuts, userShortcut]);
+      setUserShortcuts([...userShortcuts, shortcutInput]);
     } else {
       const copy = [...userShortcuts];
-      copy.splice(index, 1, userShortcut);
+      copy.splice(index, 1, shortcutInput);
       setUserShortcuts(copy);
     }
-    setUserShortcut(createKeyboardShortcut());
+    setShortcutInput(createKeyboardShortcut());
   };
 
   const onPaletteSelect: CommandPaletteSelectHandler<
@@ -240,7 +207,7 @@ export function ActionPageActionSystemDemoPage(): React.JSX.Element {
                 </tr>
               </thead>
               <tbody>
-                {defaultShortcuts.map((shortcut) => (
+                {shortcuts.map((shortcut) => (
                   <tr key={shortcut.keyboard}>
                     <td>
                       <NiceCode>{shortcut.commandId}</NiceCode>
@@ -270,25 +237,25 @@ export function ActionPageActionSystemDemoPage(): React.JSX.Element {
                   label="Command ID"
                   list="userShortcutDataList"
                   onChange={(v) =>
-                    setUserShortcut({
-                      ...userShortcut,
+                    setShortcutInput({
+                      ...shortcutInput,
                       commandId: v.target.value,
                     })
                   }
                   pattern={commands.map((v) => v.id).join("|")}
-                  value={userShortcut.commandId}
+                  value={shortcutInput.commandId}
                 />
                 <TextField
                   label="Keybinding"
                   placeholder="Ctrl+Alt+Shift+A"
                   onChange={(v) =>
-                    setUserShortcut({
-                      ...userShortcut,
+                    setShortcutInput({
+                      ...shortcutInput,
                       keyboard: v.target.value,
                     })
                   }
                   pattern="(Ctrl\+)?(Alt\+)?(Shift\+)?\w*"
-                  value={userShortcut.keyboard}
+                  value={shortcutInput.keyboard}
                 />
                 <NiceButton>Add</NiceButton>
                 <datalist id="userShortcutDataList">
@@ -340,9 +307,9 @@ export function ActionPageActionSystemDemoPage(): React.JSX.Element {
         onInput={setPaletteInput}
         onSelect={onPaletteSelect}
         open={commandPaletteVisible}
-        options={filteredOptions}
+        options={options}
         renderItem={(value) =>
-          inputType === "file" ? (
+          paletteMode === "file" ? (
             <HighlightedTitle chars={value.highlightedCharacters} />
           ) : (
             <CommandOption
@@ -378,28 +345,61 @@ function CommandOption({
   );
 }
 
-function usePredefinedActions(): [
-  CommandDefinition[],
-  KeyboardShortcut[],
-  ActionPattern[],
-] {
-  const actions = useDemoActions();
-
-  return useMemo(() => {
-    return breakActions(actions);
-  }, [actions]);
-}
-
-function usePageActions(
-  commandPaletteActions: Action[],
-): [CommandDefinition[], KeyboardShortcut[], ActionPattern[]] {
-  return useMemo(() => {
-    return breakActions(commandPaletteActions);
-  }, [commandPaletteActions]);
-}
-
 function useFiles() {
   return useMemo(() => {
     return getDemoFiles();
   }, []);
+}
+
+function useActiveActions(
+  generalActions: Action[],
+  userShortcuts: KeyboardShortcut[],
+): [CommandDefinition[], KeyboardShortcut[], ActionPattern[]] {
+  const specificActions = useDemoActions();
+
+  return useMemo(() => {
+    const [commands, shortcuts, options] = breakActions([
+      ...specificActions,
+      ...generalActions,
+    ]);
+    const combinedShortcuts = [...shortcuts, ...userShortcuts];
+
+    return [commands, combinedShortcuts, options];
+  }, [generalActions, specificActions, userShortcuts]);
+}
+
+function usePaletteOptions(
+  demoFiles: DemoFile[],
+  paletteInput: string,
+  commands: CommandDefinition<any[]>[],
+): ["command" | "file", Highlighted<CommandPaletteOption>[]] {
+  const [paletteMode, allOptions] = useMemo<
+    ["command", CommandDefinition[]] | ["file", typeof demoFiles]
+  >(() => {
+    if (paletteInput.startsWith(">")) {
+      return ["command", commands];
+    }
+
+    return ["file", demoFiles];
+  }, [commands, demoFiles, paletteInput]);
+
+  const filteredHighlightedOptions = useMemo(() => {
+    const result: Highlighted<CommandPaletteOption>[] = [];
+    for (const option of allOptions) {
+      const chars = highlightFilteredCommandTitle(
+        option.title ?? "",
+        paletteInput.slice(1).trim(),
+      );
+      if (chars) {
+        result.push({
+          highlightedCharacters: chars,
+          ...option,
+          title: option.title ?? "",
+        });
+      }
+    }
+    return result;
+  }, [allOptions, paletteInput]);
+
+  return [paletteMode, filteredHighlightedOptions];
 }

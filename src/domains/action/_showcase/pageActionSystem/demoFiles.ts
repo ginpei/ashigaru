@@ -1,6 +1,6 @@
 import { CommandPaletteOption } from "../../../commandPalette/CommandPaletteFrame";
 
-interface DemoFile extends CommandPaletteOption {}
+export interface DemoFile extends CommandPaletteOption {}
 
 export function getDemoFiles(): DemoFile[] {
   return [
